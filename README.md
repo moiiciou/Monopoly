@@ -12,5 +12,9 @@ Chaque joueur possède le même montant d'argent, du moins au début. L'objectif
 
 Le plateau de jeu est composé de 40 cases. Chacune de ces cases possède un "effet" :
 
-|Type de case|Possibilité d'achat ? |Effet |
-|------------|----------------------|------|
+|Type de case             |Possibilité d'achat ? |Nombre de cases concernées|Effet |
+|-------------------------|----------------------|--------------------------|------|
+|Propriétés investissable |          Oui         | 22  | Si il appartient à un joueur on est obligé de payer un loyer au propriétaire|
+|Gare ou aéroport|Oui|4|Le prix augmente plus on a de propriétés de ce type (avec un maximum de 4 propriétés)|
+|Prison|Non|1|Pour s'en échapper il faut payer une certaine somme ou bien avoir une carte "Libéré de prison" ou encore faire un double (3 chances). Le prisonnier ne perçoit aucun revenu le temps de son incarcération.|
+|Parc gratuit|Non| 1 |Comme on est tous radin et bien on en profite à fond et on passe un tour|
