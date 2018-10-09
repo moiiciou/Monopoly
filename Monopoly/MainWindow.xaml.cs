@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Monopoly.Model;
+using Monopoly;
 
 namespace Monopoly
 {
@@ -28,8 +29,7 @@ namespace Monopoly
 
         private void lbl_test_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Drawable test = new Drawable(0, "tertr", "dfgdgsgfsdgffdsg");
-            Console.Write(test.ToString());
+            Tests.test();
         }
     }
 }
