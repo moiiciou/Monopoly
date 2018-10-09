@@ -18,3 +18,8 @@ Le plateau de jeu est composé de 40 cases. Chacune de ces cases possède un "ef
 |Gare ou aéroport|Oui|4|Le prix augmente plus on a de propriétés de ce type (avec un maximum de 4 propriétés)|
 |Prison|Non|1|Pour s'en échapper il faut payer une certaine somme ou bien avoir une carte "Libéré de prison" ou encore faire un double (3 chances). Le prisonnier ne perçoit aucun revenu le temps de son incarcération.|
 |Parc gratuit|Non| 1 |Comme on est tous radin et bien on en profite à fond et on passe un tour|
+
+
+### Lien pour le drive du projet 
+
+https://drive.google.com/drive/folders/1_7gD0-ItpbNGI8NN9eIbT86-1N43MB6v?usp=sharing
