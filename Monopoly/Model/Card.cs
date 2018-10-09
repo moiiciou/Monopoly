@@ -20,7 +20,7 @@ namespace Monopoly.Model
         }
         public override string ToString()
         {
-            return this._id + " " + this._name + " " + this._description;
+            return " Id : "+this._id + " Nom : " + this._name + " Description : " + this._description;
         }
     }
    
