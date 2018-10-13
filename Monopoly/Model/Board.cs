@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Monopoly.Properties;
-using Monopoly.Model.Case;
+﻿using Monopoly.Properties;
 using System.Windows.Controls;
 
 namespace Monopoly.Model
@@ -20,12 +14,8 @@ namespace Monopoly.Model
             {
                 this.RowDefinitions.Add(new RowDefinition());
                 this.ColumnDefinitions.Add(new ColumnDefinition());
-                BoardCase test = new BoardCase("test", new int[] { i, i }, "C:\\Users\\me\\Pictures\\test.png");
 
 
-                Grid.SetRow(test, i);
-                Grid.SetColumn(test, i);
-                this.Children.Add(test);
 
             }
 
