@@ -12,8 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Monopoly.Model;
-using Monopoly;
+using System.Configuration;
 
 namespace Monopoly
 {
@@ -27,9 +26,17 @@ namespace Monopoly
             InitializeComponent();
         }
 
-        private void lbl_test_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void optionButton_Click(object sender, RoutedEventArgs e)
         {
-            Tests.test();
+            var optionsForm = new optionsForm();
+            optionsForm.Show();
+        }
+
+        private void startButton_Click(object sender, RoutedEventArgs e)
+        {
+            var GameWindow = new GameWindow();
+            GameWindow.Show();
+            this.WindowState = WindowState.Minimized;
         }
     }
 }
