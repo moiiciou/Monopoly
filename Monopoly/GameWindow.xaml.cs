@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Monopoly.Properties;
 using Monopoly.Model;
-
+using System.ComponentModel;
+using Monopoly.Model.Case;
 
 namespace Monopoly
 {
@@ -27,13 +28,12 @@ namespace Monopoly
             InitializeComponent();
             this.Width = Settings.Default.Width;
             this.Height = Settings.Default.Height;
-
-            Board board = new Board("default");
-            root.Children.Add(board);
+            //Board board = new Board("default");
+            StartCase test = new StartCase("GO !",100, "C:\\Users\\me\\Pictures\\test.png");
+            root.Children.Add(test);
         
 
         }
-
 
     }
 }

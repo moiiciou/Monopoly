@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Monopoly.PropertyCase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Monopoly"
+             mc:Ignorable="d" Width="202" Height="236">
+    <StackPanel HorizontalAlignment="Right" Margin="0,0,0,0" Width="202" Height="236" VerticalAlignment="Bottom">
+        <TextBlock TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" RenderTransformOrigin="0.506,1.153" Height="79" TextAlignment="Center" Margin="0" Background="#FFEE0D0D" FontWeight="Bold" FontSize="36"/>
+        <Button Height="158" TextOptions.TextFormattingMode="Display">
+            <Button.Background>
+                <ImageBrush ImageSource="{Binding ImageTemplate}"/>
+            </Button.Background>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Price}" VerticalAlignment="Bottom" RenderTransformOrigin="0.506,1.153" Width="192" Height="69" TextAlignment="Center" Margin="0" FontSize="18" FontWeight="Bold">
+            </TextBlock>
+        </Button>
+    </StackPanel>
+
+</UserControl>
