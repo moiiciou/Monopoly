@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Model
 {
-     abstract class Card
+    public abstract class Card
     {
-        int _id { get; set; }
-        string _name { get; set; }
+        public int _id { get; set; }
+        public string _name { get; set; }
         string _description { get; set; }
 
         public Card(int id, string name, string description)

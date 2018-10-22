@@ -27,9 +27,19 @@ namespace Monopoly
             InitializeComponent();
         }
 
-        private void lbl_test_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
+            Dictionary<string, Drawable> test = new Dictionary<string, Drawable>();
+            //test.Add(((Button)sender).Name,new Drawable(10,"fdsgfd","sdfsf"));
+            string nameButton=((Button)sender).Name;
+            //Drawable testD;
+            //test.TryGetValue(nameButton, out testD);
+            ((Button)sender).Content = "coucou";
+            
             Tests.test();
+
         }
+
+      
     }
 }

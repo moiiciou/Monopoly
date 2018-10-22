@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Model
 {
-    class Drawable : Card
+    public class Drawable : Card
     {
         
         public Drawable(int id, string name, string description) : base(id,name,description)    
