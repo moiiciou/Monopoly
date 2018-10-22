@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\PlayerManager.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Tests.cs" />
     <Page Include="MainWindow.xaml">
@@ -100,6 +101,9 @@
   <ItemGroup>
     <Resource Include="Ressources\board_sprite.png" />
     <Resource Include="Ressources\card_sprite_sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
