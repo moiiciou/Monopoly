@@ -61,7 +61,7 @@ Les cartes possèdent un nombre d'information nécessaire au bon déroulement du
   * La manière de calculer le loyer de la case
 * Cartes chance et caisse de communauté
   * La description de l'action à effectuer
-  * Le libélé "Chance" ou "Caisse de communauté"
+  * Le libellé "Chance" ou "Caisse de communauté"
 
 ### Déroulement d'un tour-type
 
@@ -76,6 +76,10 @@ Le joueur peut à tout moment de son tour choisir de construire ou détruire ses
 ### Défaite ou victoire
 
 Dès qu'un joueur, malgré toutes ses ressources financiaires (bâtiments, argent, propriétés...), se retrouve dans l'incapacité de payer un montant à un joueur ou à la banque, il se retrouve en faillite.
+
+Si le joueur est en faillite parce qu'il doit quelque chose à la banque, toutes ses propriétés sont revendues aux enchères entre les autres joueurs et l'argent revient à la banque.
+Si le joueur est en faillite à cause d'un autre joueur, il donne toutes ses ressources financiaires au joueur qui doit percevoir l'argent.
+
 
 
 
