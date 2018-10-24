@@ -10,33 +10,60 @@ namespace Monopoly.Model
     {
         #region Attributs
 
-      //  private int _balance;
-      //  private int _idPlayer;
-       // private object _image;
-       // private string _name;
+        private int _balance;
+        private int _idPlayer;
+        private object _image;
+        private string _name;
         private int _position;
+        private List<Card> _cards;
 
+        #endregion
 
+        #region Accesseurs
+        
         public int Balance
         {
-            get;set;
+            get {
+                return _balance;
+            }
+            set
+            {
+                _balance = value;
+
+            }
         }
 
         public int IdPlayer
         {
-            get;           
+            get
+            {
+                return _idPlayer;
+            }           
         }
 
         public object Image
         {
-            get; set;
+            get {
+                return _image;
+            }
+            set
+            {
+                _image = value;
+            }
+
            
         }
 
         public string Name
         {
-            get;
-            set;
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
         }
 
         public int Position 
@@ -61,27 +88,47 @@ namespace Monopoly.Model
 
         public List<Card> Cards
         {
-            get; set;
+            get
+            {
+                return _cards;
+            }
+            
         }
 
         #endregion
 
         #region Constructeurs
-
+        /// <summary>
+        /// Instancie un joueur avec tous les attributs.
+        /// </summary>
+        /// <param name="idPlayer">Id du Player</param>
+        /// <param name="name">Nom du Player</param>
+        /// <param name="balance">Argent du Player</param>
+        /// <param name="position">Position du Player sur le plateau</param>
+        /// <param name="cards">Liste de cartes que le Player possède</param>
+        /// <param name="image">Skin du Player</param>
         public Player(int idPlayer, string name, int balance, int position, List<Card> cards, object image)
         {
-            Balance = balance;
-            IdPlayer = idPlayer;
-            Image = image;
-            Name = name;
-            Position = position;
-            Cards = cards;
+            _balance = balance;
+            _idPlayer = idPlayer;
+            _image = image;
+            _name = name;
+            _position = position;
+            _cards = cards;
         }
-
-        public Player(int idJoueur,string name)
+        /// <summary>
+        /// Instancie un Player avec le nom et l'id, avec tous les autres paramètres ( Balance, Position, Cartes) vide ou nul.
+        /// </summary>
+        /// <param name="idPlayer"> Id du Player </param>
+        /// <param name="name"> Nom du Player </param>
+        public Player(int idPlayer,string name)
         {
-           
-            new Player(idJoueur,name , 0, 0, new List<Card>(), null);
+            _idPlayer = idPlayer;
+            _name = name;
+            _balance = 0;
+            _position = 0;
+            _cards = new List<Card>();
+            _image = null;
         }
         #endregion
 
@@ -104,7 +151,7 @@ namespace Monopoly.Model
         ///  Le montant ne peut pas être négatif.
         /// </summary>
         /// <param name="amount"> Montant à retirer au joueur courant. </param>
-        public void RemoveAmount(int amount)
+        public void SoustractAmount(int amount)
         {
          
             if (amount > 0 && Balance > amount)
@@ -148,15 +195,22 @@ namespace Monopoly.Model
             }
            
         }
-
+        /// <summary>
+        ///  Calcule le string de description d'un joueur. 
+        /// </summary>
+        /// <returns> Renvoie le string de description de l'objet player. </returns>
         public override string ToString()
         {
-            string res = "Id du joueur : " + IdPlayer + "; Nom du joueur : " + Name + "; Argent : " + Balance + "; Position sur le plateau : " + Position + "; Liste de cartes : {";
-            foreach (Card c in Cards)
+            string res = "Id du joueur : " + IdPlayer + "; Nom du joueur : " + Name + "; Argent : " + Balance + "; Position sur le plateau : " + Position + "; Liste de cartes : { ";
+            Console.WriteLine(this._idPlayer);
+            for (int i=0;i<Cards.Count-1;i++)
             {
-                res += c.ToString()+ " , ";
+               res += Cards[i].ToString()+ " , ";
             }
-            res += "}";
+            if (Cards.Count > 0)
+            {
+                res += Cards[Cards.Count - 1].ToString() + " }";
+            }
             return res;
         }
         #endregion
