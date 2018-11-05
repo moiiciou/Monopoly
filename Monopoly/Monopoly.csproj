@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\CaseManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Tests.cs" />

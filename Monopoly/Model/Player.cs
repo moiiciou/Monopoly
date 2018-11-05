@@ -15,6 +15,8 @@ namespace Monopoly.Model
         private object _image;
         private string _name;
         private int _position;
+        private bool _canMoove;
+        private int _numberDoubleDice;
         private List<Card> _cards;
 
         #endregion
@@ -33,6 +35,17 @@ namespace Monopoly.Model
             }
         }
 
+        public bool CanMoove
+        {
+            get {
+                bool value = true;
+                if(_numberDoubleDice > 3)
+                {
+                     value = false;
+                }
+                return value;
+            } 
+        }
         public int IdPlayer
         {
             get
@@ -43,7 +56,8 @@ namespace Monopoly.Model
 
         public object Image
         {
-            get {
+            get
+            {
                 return _image;
             }
             set
@@ -84,6 +98,18 @@ namespace Monopoly.Model
                     throw new ArgumentException("La valeur de la position ne peut pas être négative");
                 }
              }
+        }
+
+        public int NumberDoubleDice
+        {
+            get
+            {
+               return _numberDoubleDice;
+            }
+            set
+            {
+                _numberDoubleDice = value;
+            }
         }
 
         public List<Card> Cards
@@ -195,6 +221,25 @@ namespace Monopoly.Model
             }
            
         }
+        /// <summary>
+        ///  On déplace le joueur de dice1 + dice2 cases, si le joueur dépasse la case départ, on remet sa position à 0.
+        /// </summary>
+        /// <param name="dice1">Valeur comprise entre 1 et 6. Valeur du premier dé</param>
+        /// <param name="dice2">Valeur comprise entre 1 et 6. Valeur du deuxième dé</param>
+        public void Moove(int dice1, int dice2)
+        {
+            
+            if (CanMoove && dice1<7 && dice1>0 && dice2>0 && dice2<7)
+            {
+                Position += dice1 + dice2;
+            }
+            else
+            {
+                throw new ArgumentException("Le joueur ne peut pas se déplacer ! ");
+            }
+
+        }
+
         /// <summary>
         ///  Calcule le string de description d'un joueur. 
         /// </summary>

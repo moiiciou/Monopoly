@@ -105,12 +105,69 @@ namespace Monopoly.Controller
         ///  Renvoie la liste de tous les Players existant.
         /// </summary>
         /// <returns> La liste des Players existants</returns>
-        public static List<Player> listAllPlayer()
+        public static List<Player> ListAllPlayer()
         {
             return _players;
         }
 
-        
+        /// <summary>
+        ///  Génère deux nombres aléatoire compris entre 1 et 6, simulant un lancé de dés.
+        /// </summary>
+        /// <returns> la valeur des deux dés sous forme de liste </returns>
+        public static List<int> RollDice()
+        {
+            Random r = new Random((int)DateTime.Now.Ticks);
+            List<int> dices = new List<int>();
+            int dice1 = r.Next(1, 7);
+            int dice2 = r.Next(1, 7);
+
+            dices.Add(dice1);
+            dices.Add(dice2);
+
+            return dices;
+        }
+
+        /// <summary>
+        /// Lance les dés et déplace le joueur de la valeur des dés.
+        /// </summary>
+        /// <param name="idPlayer"> Id du joueur qui va être déplacé</param>
+        public static void MoovePlayer(int idPlayer)
+        {
+            Player p = SearchPlayer(idPlayer);
+            Random r = new Random((int)DateTime.Now.Ticks);
+
+            List<int> dices = RollDice();
+            int dice1 = dices[0];
+            int dice2 = dices[1];    
+      
+            if (dice1 == dice2)
+            {
+                p.NumberDoubleDice++; 
+            }
+            if (p.CanMoove)
+            {
+                p.Moove(dice1, dice2);
+            }
+            else
+            {
+                int positionPrison = 2;
+                MoovePlayer(p.IdPlayer, positionPrison);
+                Console.WriteLine("Le joueur est déplacé en prison");
+            }
+         }
+
+        /// <summary>
+        ///  Déplace le joueur à la case indiquée. 
+        /// </summary>
+        /// <param name="idPlayer"> Id du joueur qui doit être déplacé.</param>
+        /// <param name="position"> Position de la case où le joueur doit être déplacé.</param>
+        public static void MoovePlayer(int idPlayer, int position)
+        {
+            Player p = SearchPlayer(idPlayer);
+            p.Position = position;
+        }
+
+
         #endregion
 
 
