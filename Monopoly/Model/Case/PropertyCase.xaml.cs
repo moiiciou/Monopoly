@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Monopoly
 {
@@ -24,17 +12,17 @@ namespace Monopoly
     {
         private string ImageTemplate { get; set; }
 
-        public PropertyCase(string location, int price, string skinPath)
+        public PropertyCase(string location, int price, string skinPath, string color, int angle)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location= location, Price = price.ToString()+"€" };
+                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location= location, Price = price.ToString()+"€", Color = color, Rotation = angle };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString()+"€" };
+                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString()+"€", Color = color, Rotation = angle };
 
             }
 
@@ -52,6 +40,9 @@ namespace Monopoly
             public string ImageTemplate { get; set; }
             public string Location { get; set; }
             public string Price { get; set; }
+            public string Color { get; set; }
+            public int Rotation { get; set; }
+
 
         }
 
