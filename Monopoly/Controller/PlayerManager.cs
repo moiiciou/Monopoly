@@ -61,7 +61,6 @@ namespace Monopoly.Controller
         /// <param name="idReciever">Id du joueur Reciever</param>
         /// <param name="idPayer">Id du joueur Payer</param>
         /// <param name="amount">Montant de la transaction entre les deux joueurs</param>
-        /// <return>Renvoie vrai ou faux en fonction du statut du paiement.</return> 
         public static void Pay(int idReciever, int idPayer, int amount)
         {
             
@@ -110,6 +109,8 @@ namespace Monopoly.Controller
         {
             return _players;
         }
+
+        
         #endregion
 
 
