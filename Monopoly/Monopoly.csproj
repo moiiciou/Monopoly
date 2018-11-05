@@ -63,6 +63,12 @@
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Card\BaseCard.xaml.cs">
+      <DependentUpon>BaseCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Card\PropertyCard.xaml.cs">
+      <DependentUpon>PropertyCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Case\PropertyCase.xaml.cs">
       <DependentUpon>PropertyCase.xaml</DependentUpon>
     </Compile>
@@ -75,7 +81,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Board.cs" />
-    <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Case\StartCase.xaml.cs">
       <DependentUpon>StartCase.xaml</DependentUpon>
     </Compile>
@@ -92,6 +97,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="GameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Card\BaseCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Card\PropertyCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

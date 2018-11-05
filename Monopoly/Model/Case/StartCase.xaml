@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.Model.Case"
              mc:Ignorable="d" 
-             d:DesignHeight="236" d:DesignWidth="202">
-    <Grid Width="202" Height="236">
+             >
+    <Grid Width="Auto" Height="Auto">
         <Button  TextOptions.TextFormattingMode="Display">
             <Button.Background>
                 <ImageBrush ImageSource="{Binding ImageTemplate}"/>

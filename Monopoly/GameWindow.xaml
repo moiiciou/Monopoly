@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Monopoly"
         mc:Ignorable="d"
         Title="Monopoly +" Height="300" Width="300">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
     <Grid x:Name="root">
         
     </Grid>
+    </ScrollViewer>
 </Window>
