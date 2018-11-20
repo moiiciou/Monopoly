@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using Monopoly.Properties;
 using Monopoly.Model;
+using System.Windows.Controls;
 
 namespace Monopoly
 {
@@ -16,8 +17,6 @@ namespace Monopoly
         public GameWindow()
         {
             InitializeComponent();
-            this.Width = Settings.Default.Width;
-            this.Height = Settings.Default.Height;
             Board board = new Board();
             root.Children.Add(board);
 

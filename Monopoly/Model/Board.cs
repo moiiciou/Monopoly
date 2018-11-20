@@ -15,9 +15,6 @@ namespace Monopoly.Model
         public Board()
         {
             LoadBoardInfo();
-            Console.Write("TAILLE GRID : {0}", this.Children.Count);
-
-
         }
 
         public void LoadBoardInfo()
@@ -26,6 +23,7 @@ namespace Monopoly.Model
             {
                 string json = r.ReadToEnd();
                 List<BoardItem> items = JsonConvert.DeserializeObject<List<BoardItem>>(json);
+
                 foreach (var item in items)
                 {
                     this.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto });
