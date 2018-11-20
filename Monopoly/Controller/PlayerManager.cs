@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Monopoly.Model;
+
 
 namespace Monopoly.Controller
 {
@@ -25,7 +27,7 @@ namespace Monopoly.Controller
         public static int CreateBank()
         {
             int bankId = SearchNextId();
-            List<Card> properties = new List<Card>();
+            List<UserControl> properties = new List<UserControl>();
             _bank = new Player(bankId, "Bank", int.MaxValue, 0, properties, null);
             _players.Add(_bank);
 
@@ -41,7 +43,7 @@ namespace Monopoly.Controller
         /// <return> Renvoie l'id du joueur créé. </return>
         public static int CreatePlayer(string name, int balance,int position)
         {
-            _players.Add(new Player(SearchNextId(), name, balance, position, new List<Card>(), null));
+            _players.Add(new Player(SearchNextId(), name, balance, position, new List<UserControl>(), null));
 
             return _players.Last().IdPlayer;
         }

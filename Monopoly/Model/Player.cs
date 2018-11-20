@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Monopoly.Model
 {
@@ -17,7 +18,7 @@ namespace Monopoly.Model
         private int _position;
         private bool _canMoove;
         private int _numberDoubleDice;
-        private List<Card> _cards;
+        private List<UserControl> _cards;
 
         #endregion
 
@@ -112,7 +113,7 @@ namespace Monopoly.Model
             }
         }
 
-        public List<Card> Cards
+        public List<UserControl> Cards
         {
             get
             {
@@ -133,7 +134,7 @@ namespace Monopoly.Model
         /// <param name="position">Position du Player sur le plateau</param>
         /// <param name="cards">Liste de cartes que le Player possède</param>
         /// <param name="image">Skin du Player</param>
-        public Player(int idPlayer, string name, int balance, int position, List<Card> cards, object image)
+        public Player(int idPlayer, string name, int balance, int position, List<UserControl> cards, object image)
         {
             _balance = balance;
             _idPlayer = idPlayer;
@@ -153,7 +154,7 @@ namespace Monopoly.Model
             _name = name;
             _balance = 0;
             _position = 0;
-            _cards = new List<Card>();
+            _cards = new List<UserControl>();
             _image = null;
         }
         #endregion
@@ -213,7 +214,7 @@ namespace Monopoly.Model
         ///  On rajoute une carte au joueur courant.
         /// </summary>
         /// <param name="c"> La carte que l'on veut ajouter. </param>
-        public void AddCard(Card c)
+        public void AddCard(UserControl c)
         {
             if(c != null)
             {
