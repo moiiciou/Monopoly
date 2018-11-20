@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
+
 namespace Monopoly.Model
 {
     class Board : Grid
@@ -21,7 +22,7 @@ namespace Monopoly.Model
 
         public void LoadBoardInfo()
         {
-            using (StreamReader r = File.OpenText("C:\\Users\\040-TPHILIPPS\\Pictures\\level.json"))
+            using (StreamReader r = File.OpenText(".\\ressources\\level.json"))
             {
                 string json = r.ReadToEnd();
                 List<BoardItem> items = JsonConvert.DeserializeObject<List<BoardItem>>(json);

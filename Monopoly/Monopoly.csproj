@@ -152,7 +152,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ressources\templates\default\monopoly-screen.jpg" />
+    <None Include="ressources\level.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ressources\templates\default\monopoly-screen.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\error.png">

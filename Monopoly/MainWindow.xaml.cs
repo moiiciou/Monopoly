@@ -27,19 +27,19 @@ namespace Monopoly
             InitializeComponent();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void optionButton_Click(object sender, RoutedEventArgs e)
         {
-           /* Dictionary<string, Drawable> test = new Dictionary<string, Drawable>();
-            //test.Add(((Button)sender).Name,new Drawable(10,"fdsgfd","sdfsf"));
-            string nameButton=((Button)sender).Name;
-            //Drawable testD;
-            //test.TryGetValue(nameButton, out testD);
-            ((Button)sender).Content = "coucou";
-            
-            Tests.test();
-            */
+            var optionsForm = new optionsForm();
+            optionsForm.Show();
         }
 
-      
+        private void startButton_Click(object sender, RoutedEventArgs e)
+        {
+            var GameWindow = new GameWindow();
+            GameWindow.Show();
+            this.WindowState = WindowState.Minimized;
+        }
+
+
     }
 }
