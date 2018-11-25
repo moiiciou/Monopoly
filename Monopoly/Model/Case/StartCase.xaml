@@ -11,7 +11,7 @@
             <Button.Background>
                 <ImageBrush ImageSource="{Binding ImageTemplate}"/>
             </Button.Background>
-            <TextBlock TextWrapping="Wrap" Text="{Binding TextLabel}" VerticalAlignment="Bottom" RenderTransformOrigin="0.506,1.153" Width="192" Height="69" TextAlignment="Center" Margin="0" FontSize="18" FontWeight="Bold">
+            <TextBlock TextWrapping="Wrap" Text="{Binding TextLabel}" VerticalAlignment="Bottom" RenderTransformOrigin="0.506,1.153" Width="auto" Height="auto" TextAlignment="Center" Margin="0" FontSize="18" FontWeight="Bold">
             </TextBlock>
         </Button>
     </Grid>

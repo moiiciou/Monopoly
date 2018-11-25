@@ -8,13 +8,14 @@ using System.Windows.Controls;
 using System.Windows.Media;
 
 
-namespace Monopoly.Model
+namespace Monopoly.Model.Board
 {
-    class Board : Grid
+    class Board : BoardLayout
     {
         public Board()
         {
             LoadBoardInfo();
+
         }
 
         public void LoadBoardInfo()
@@ -26,8 +27,7 @@ namespace Monopoly.Model
 
                 foreach (var item in items)
                 {
-                    this.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto });
-                    this.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
                     int angle = 0;
                     switch (item.type)
                     {
@@ -61,25 +61,6 @@ namespace Monopoly.Model
                 }
 
             }
-            Button Test = new Button();
-            Grid.SetRow(Test, 3);
-            Grid.SetColumn(Test, 2);
-            Test.SetValue(ColumnSpanProperty, 2);
-            Test.Content = "Chance";
-            RotateTransform rotateTransform1 = new RotateTransform(-45, 0, 0);
-            Test.RenderTransform = rotateTransform1;
-
-            this.Children.Add(Test);
-
-            Button Test2 = new Button();
-            Grid.SetRow(Test2, 8);
-            Grid.SetColumn(Test2, 7);
-            Test2.SetValue(ColumnSpanProperty, 2);
-            Test2.Content = "Caisse de communauté";
-            RotateTransform rotateTransform2 = new RotateTransform(-45, 0, 0);
-            Test2.RenderTransform = rotateTransform2;
-
-            this.Children.Add(Test2);
 
         }
 
