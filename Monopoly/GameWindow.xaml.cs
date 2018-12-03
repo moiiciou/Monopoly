@@ -8,6 +8,8 @@ using Monopoly.Model;
 using System.Windows.Controls;
 using Monopoly.Model.Board;
 using Monopoly.Controller;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Monopoly
 {
@@ -34,11 +36,43 @@ namespace Monopoly
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Player p = PlayerManager.SearchPlayer(players[0]);
-            PlayerManager.MoovePlayer(p.IdPlayer,p.Position+1);
-            //PlayerManager.MoovePlayer(players[0], 1);
-            PlayerManager.DrawPlayer(board, players[0]);
+           // PlayerManager.MoovePlayer(board, p.IdPlayer);
+            int nbcase = (p.Position+ 5) %40;
+            
+            Task.Factory.StartNew(() => mooveto(board,p.Position, p.IdPlayer,nbcase));
+            
+            
+
+
+        }
+        private void mooveto(Board b, int posPlayer,int id, int posFinal)
+        {
+            Console.WriteLine(posFinal);
+            Console.WriteLine(posPlayer);
+           int nbCaseMoove = posFinal - posPlayer;
+            if(nbCaseMoove < 0) {
+                nbCaseMoove = posPlayer - posFinal; }
+           
+                for (int i =0; i <=nbCaseMoove; i++)
+                {
+
+
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        
+
+                        PlayerManager.DrawPlayer(b, id, posPlayer);
+                        posPlayer++;
+                        posPlayer = posPlayer % 40;
+                        
+
+                    }), System.Windows.Threading.DispatcherPriority.Background);
+                Thread.Sleep(500);
+            }
+            (PlayerManager.SearchPlayer(id)).Position = posFinal;
             
         }
+
     }
 }
 

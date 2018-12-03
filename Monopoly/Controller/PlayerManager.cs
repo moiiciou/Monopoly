@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Monopoly.Model;
 using Monopoly.Model.Board;
+using System.Threading;
 
 namespace Monopoly.Controller
 {
@@ -139,7 +140,7 @@ namespace Monopoly.Controller
         /// Lance les dés et déplace le joueur de la valeur des dés.
         /// </summary>
         /// <param name="idPlayer"> Id du joueur qui va être déplacé</param>
-        public static void MoovePlayer(int idPlayer)
+        public static void MoovePlayer(Board b,int idPlayer)
         {
             Player p = SearchPlayer(idPlayer);
             Random r = new Random((int)DateTime.Now.Ticks);
@@ -154,25 +155,32 @@ namespace Monopoly.Controller
             }
             if (p.CanMoove)
             {
-                p.Moove(dice1, dice2);
+              
             }
             else
             {
                 int positionPrison = 2;
-                MoovePlayer(p.IdPlayer, positionPrison);
+                MoovePlayer(b,p.IdPlayer, positionPrison);
                 Console.WriteLine("Le joueur est déplacé en prison");
             }
-         }
+           
+        }
 
         /// <summary>
         ///  Déplace le joueur à la case indiquée. 
         /// </summary>
         /// <param name="idPlayer"> Id du joueur qui doit être déplacé.</param>
         /// <param name="position"> Position de la case où le joueur doit être déplacé.</param>
-        public static void MoovePlayer(int idPlayer, int position)
+        public static void MoovePlayer(Board b,int idPlayer, int position)
         {
             Player p = SearchPlayer(idPlayer);
-            p.Position = position%40;
+            while (p.Position != position)
+            {
+                p.Position++;
+                DrawPlayer(b, p.IdPlayer);
+                Thread.Sleep(500);
+            }
+            
             
         }
         
@@ -191,6 +199,20 @@ namespace Monopoly.Controller
 
         }
 
+        public static void DrawPlayer(Board b, int idPlayer, int pos)
+        {
+
+            Player p = SearchPlayer(idPlayer);
+            b.Children.Remove(p);
+
+
+            int x = b.BoardItems[pos].position[1];
+            int y = b.BoardItems[pos].position[0];
+            Grid.SetColumn(p, x);
+            Grid.SetRow(p, y);
+            b.Children.Add(p);
+
+        }
 
         #endregion
 

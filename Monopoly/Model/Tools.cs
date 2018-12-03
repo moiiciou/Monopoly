@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Monopoly.Model
 {
-    class Tools
+    static class  Tools
     {
 
         public static List<string> ConvertCollectionToList(System.Collections.Specialized.StringCollection collection)
@@ -18,6 +19,12 @@ namespace Monopoly.Model
             }
             return list;
         }
+        private static readonly Action EmptyDelegate = delegate { };
+        public static void Refresh(this UIElement uiElement)
+        {
+            uiElement.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Render, EmptyDelegate);
+        }
+
 
 
 
