@@ -86,7 +86,9 @@
     <Compile Include="Model\Case\StartCase.xaml.cs">
       <DependentUpon>StartCase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\Player.xaml.cs">
+      <DependentUpon>Player.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\PopUp.cs" />
     <Compile Include="Model\Tools.cs" />
     <Compile Include="optionForm.cs">
@@ -120,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\Case\StartCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Player.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
