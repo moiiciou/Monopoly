@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Monopoly.Model"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Grid>
+    
         <Ellipse Fill="#FF0000" HorizontalAlignment="Left" Height="100" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
 
-    </Grid>
+    
 </UserControl>

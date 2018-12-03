@@ -10,13 +10,14 @@ using System.Windows.Media;
 
 namespace Monopoly.Model.Board
 {
-    class Board : BoardLayout
+    public class Board : BoardLayout
     {
+        public List<BoardItem> BoardItems;
         public Board()
         {
             LoadBoardInfo();
-
         }
+
 
         public void LoadBoardInfo()
         {
@@ -24,6 +25,7 @@ namespace Monopoly.Model.Board
             {
                 string json = r.ReadToEnd();
                 List<BoardItem> items = JsonConvert.DeserializeObject<List<BoardItem>>(json);
+                BoardItems = items;
 
                 foreach (var item in items)
                 {
@@ -61,7 +63,7 @@ namespace Monopoly.Model.Board
                 }
 
             }
-
+             
         }
 
         public class BoardItem
@@ -71,6 +73,7 @@ namespace Monopoly.Model.Board
             public Dictionary<string, object> caseAttributes = new Dictionary<string, object>();
 
         }
+
 
     }
 

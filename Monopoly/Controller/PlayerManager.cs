@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Monopoly.Model;
-
+using Monopoly.Model.Board;
 
 namespace Monopoly.Controller
 {
@@ -41,9 +41,15 @@ namespace Monopoly.Controller
         /// <param name="balance"> Argent du joueur </param>
         /// <param name="position"> Position sur le plateau du joueur </param>
         /// <return> Renvoie l'id du joueur créé. </return>
-        public static int CreatePlayer(string name, int balance,int position)
+        public static int CreatePlayer(Board board,string name, int balance,int position)
         {
-            _players.Add(new Player(SearchNextId(), name, balance, position, new List<UserControl>(), null));
+            Player p = new Player(SearchNextId(), name, balance, position, new List<UserControl>(), null);
+            _players.Add(p);
+            if (position >= 0)
+            {
+                DrawPlayer(board, p.IdPlayer);
+
+            }
 
             return _players.Last().IdPlayer;
         }
@@ -166,7 +172,23 @@ namespace Monopoly.Controller
         public static void MoovePlayer(int idPlayer, int position)
         {
             Player p = SearchPlayer(idPlayer);
-            p.Position = position;
+            p.Position = position%40;
+            
+        }
+        
+        public static void DrawPlayer(Board b, int idPlayer)
+        {
+           
+            Player p = SearchPlayer(idPlayer);
+            b.Children.Remove(p);
+            
+           
+            int x = b.BoardItems[p.Position].position[1];
+            int y = b.BoardItems[p.Position].position[0];
+            Grid.SetColumn(p, x);
+            Grid.SetRow(p, y);
+            b.Children.Add(p);
+
         }
 
 

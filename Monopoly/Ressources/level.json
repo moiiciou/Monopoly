@@ -400,85 +400,7 @@
   },
   {
     "position": [
-      1,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      2,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      3,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      4,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      5,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      6,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      7,
+      9,
       0
     ],
     "type": "Property",
@@ -504,7 +426,85 @@
   },
   {
     "position": [
-      9,
+      7,
+      0
+    ],
+    "type": "Property",
+    "caseAttributes": {
+      "name": "BRUXELLE",
+      "price": 120,
+      "skin": "",
+      "color": "#4286f4"
+    }
+  },
+  {
+    "position": [
+      6,
+      0
+    ],
+    "type": "Property",
+    "caseAttributes": {
+      "name": "BRUXELLE",
+      "price": 120,
+      "skin": "",
+      "color": "#4286f4"
+    }
+  },
+  {
+    "position": [
+      5,
+      0
+    ],
+    "type": "Property",
+    "caseAttributes": {
+      "name": "BRUXELLE",
+      "price": 120,
+      "skin": "",
+      "color": "#4286f4"
+    }
+  },
+  {
+    "position": [
+      4,
+      0
+    ],
+    "type": "Property",
+    "caseAttributes": {
+      "name": "BRUXELLE",
+      "price": 120,
+      "skin": "",
+      "color": "#4286f4"
+    }
+  },
+  {
+    "position": [
+      3,
+      0
+    ],
+    "type": "Property",
+    "caseAttributes": {
+      "name": "BRUXELLE",
+      "price": 120,
+      "skin": "",
+      "color": "#4286f4"
+    }
+  },
+  {
+    "position": [
+      2,
+      0
+    ],
+    "type": "Property",
+    "caseAttributes": {
+      "name": "BRUXELLE",
+      "price": 120,
+      "skin": "",
+      "color": "#4286f4"
+    }
+  },
+  {
+    "position": [
+      1,
       0
     ],
     "type": "Property",

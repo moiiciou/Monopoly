@@ -105,7 +105,7 @@ namespace Monopoly.Model
                 {
                     if (value >= 0)
                     {
-                        _position = value;
+                        _position = value%40;
                     }
                     else
                     {
@@ -149,6 +149,7 @@ namespace Monopoly.Model
             /// <param name="image">Skin du Player</param>
             public Player(int idPlayer, string name, int balance, int position, List<UserControl> cards, object image)
             {
+            InitializeComponent();
                 _balance = balance;
                 _idPlayer = idPlayer;
                 _image = image;
@@ -163,7 +164,8 @@ namespace Monopoly.Model
             /// <param name="name"> Nom du Player </param>
             public Player(int idPlayer, string name)
             {
-                _idPlayer = idPlayer;
+            InitializeComponent();
+            _idPlayer = idPlayer;
                 _name = name;
                 _balance = 0;
                 _position = 0;
@@ -275,6 +277,7 @@ namespace Monopoly.Model
                 return res;
             }
             #endregion
+        
         
     }
 }
