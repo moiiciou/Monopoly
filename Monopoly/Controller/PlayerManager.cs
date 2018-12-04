@@ -16,7 +16,10 @@ namespace Monopoly.Controller
         private static List<Player> _players = new List<Player>();
         private static int _nextId = 0;
         private static Player _bank;
-            
+        public static Func<string> test = () =>
+        {
+            return "good job";
+        };   
         #endregion
 
         #region Méthodes de gestion des joueurs
@@ -31,6 +34,7 @@ namespace Monopoly.Controller
             List<UserControl> properties = new List<UserControl>();
             _bank = new Player(bankId, "Bank", int.MaxValue, 0, properties, null);
             _players.Add(_bank);
+            
 
             return bankId;
 
@@ -174,12 +178,7 @@ namespace Monopoly.Controller
         public static void MoovePlayer(Board b,int idPlayer, int position)
         {
             Player p = SearchPlayer(idPlayer);
-            while (p.Position != position)
-            {
-                p.Position++;
-                DrawPlayer(b, p.IdPlayer);
-                Thread.Sleep(500);
-            }
+           
             
             
         }
