@@ -24,17 +24,17 @@ namespace Monopoly.Model.Case
     {
         private string ImageTemplate { get; set; }
 
-        public ChanceCase(string chanceName, string text, string skinPath)
+        public ChanceCase(string text, string skinPath, int angle)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, TextLabel = text, ChanceName=chanceName };
+                this.DataContext = new CaseInfo { ImageTemplate = skinPath, TextLabel = text, Rotation = angle };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", TextLabel = text };
+                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", TextLabel = text, Rotation = angle };
 
             }
 
@@ -53,7 +53,7 @@ namespace Monopoly.Model.Case
             public string ImageTemplate { get; set; }
             public string TextLabel { get; set; }
             public string ChanceName { get; set; }
-
+            public int Rotation { get; set; }
         }
     }
 }

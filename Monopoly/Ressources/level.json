@@ -94,7 +94,7 @@
       0,
       7
     ],
-    "type": "Property",
+    "type": "Chance",
     "caseAttributes": {
       "name": "MEULIN",
       "price": 20,
@@ -455,7 +455,7 @@
       5,
       0
     ],
-    "type": "Property",
+    "type": "Community",
     "caseAttributes": {
       "name": "BRUXELLE",
       "price": 120,

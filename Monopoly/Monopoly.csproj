@@ -75,6 +75,12 @@
     <Compile Include="Model\Card\PropertyCard.xaml.cs">
       <DependentUpon>PropertyCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Case\ChanceCase.xaml.cs">
+      <DependentUpon>ChanceCase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Case\CommunityCase.xaml.cs">
+      <DependentUpon>CommunityCase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Case\PropertyCase.xaml.cs">
       <DependentUpon>PropertyCase.xaml</DependentUpon>
     </Compile>
@@ -117,6 +123,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\Card\PropertyCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Case\ChanceCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Case\CommunityCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

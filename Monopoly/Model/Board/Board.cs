@@ -36,17 +36,17 @@ namespace Monopoly.Model.Board
                 {
 
                     int angle = 0;
+                    if (item.position[0] > 0 && item.position[1] == 0 && item.position[0] < 10)
+                    {
+                        angle = 90;
+                    }
+                    if (item.position[1] == 10 && item.position[0] > 0 && item.position[0] < 10)
+                    {
+                        angle = -90;
+                    }
                     switch (item.type)
                     {
                         case "Property":
-                            if (item.position[0] > 0 && item.position[1] == 0 && item.position[0] < 10 )
-                            {
-                                angle = 90;
-                            }
-                            if (item.position[1] == 10 && item.position[0] > 0 && item.position[0] < 10)
-                            {
-                                angle = -90;
-                            }
                             PropertyCase Property = new PropertyCase(item.caseAttributes["name"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.caseAttributes["color"].ToString(), angle);
                             Grid.SetRow(Property, item.position[0]);
                             Grid.SetColumn(Property, item.position[1]);
@@ -60,6 +60,22 @@ namespace Monopoly.Model.Board
                             Grid.SetColumn(Start, item.position[1]);
                             this.Children.Add(Start);
                             CasesList.Add(Start);
+                            break;
+
+                        case "Chance":
+                            ChanceCase chance = new ChanceCase("Chance", "", angle);
+                            Grid.SetRow(chance, item.position[0]);
+                            Grid.SetColumn(chance, item.position[1]);
+                            this.Children.Add(chance);
+                            CasesList.Add(chance);
+                            break;
+
+                        case "Community":
+                            CommunityCase com = new CommunityCase("Caisse de Communauté", "", angle);
+                            Grid.SetRow(com, item.position[0]);
+                            Grid.SetColumn(com, item.position[1]);
+                            this.Children.Add(com);
+                            CasesList.Add(com);
                             break;
 
                         default:

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Monopoly.Model.Card;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Controls;
 
@@ -17,14 +18,15 @@ namespace Monopoly
             InitializeComponent();
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location= location, Price = price.ToString()+"€", Color = color, Rotation = angle };
+                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString()+"€", Color = color, Rotation = angle };
+                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
 
             }
+
 
         }
 
@@ -47,5 +49,11 @@ namespace Monopoly
 
         }
 
+        private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            PropertyCard p = new PropertyCard("test", 50, 50, 50, 75, 100, 125, 150, 25, 100, "blue", 0);
+     
+
+        }
     }
 }
