@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Monopoly.Model.UI.DialogueBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Monopoly.Model.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" Width="399.319" >
+
+    <Canvas Width="396" HorizontalAlignment="Right" Margin="0,34,3,-1" Background="#FFFFFEFE">
+        <Button Content="OK !" Canvas.Left="322" Canvas.Top="132" Width="67" Height="25" Click="Button_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/blue_button05.png"/>
+            </Button.Background>
+        </Button>
+        <Image Height="34" Width="399" Source="/Monopoly;component/ressources/templates/default/blue_button05.png" Canvas.Left="-1" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Canvas.Top="-33">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.233"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.848"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image Height="100" Canvas.Left="10" Canvas.Top="25" Width="100" Source="/Monopoly;component/ressources/templates/default/monopoly-man.jpg"/>
+        <TextBlock Canvas.Left="127" TextWrapping="Wrap" Canvas.Top="36" Height="89" Width="263"><Run Text="{Binding Text}"/></TextBlock>
+        <Border BorderBrush="Black" BorderThickness="1" Height="167" Width="396">
+            <Border  BorderBrush="Black" BorderThickness="1"/>
+        </Border>
+    </Canvas>
+
+</UserControl>
