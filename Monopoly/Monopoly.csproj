@@ -86,10 +86,12 @@
     <Compile Include="Model\Case\StartCase.xaml.cs">
       <DependentUpon>StartCase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Player.xaml.cs">
+      <DependentUpon>Player.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\DialogueBox.xaml.cs">
       <DependentUpon>DialogueBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Player.cs" />
     <Compile Include="Model\Tools.cs" />
     <Compile Include="Model\UI\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
@@ -128,15 +130,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Model\Player.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\UI\DialogueBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\UI\PlayerInterface.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Model\Player.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

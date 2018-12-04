@@ -23,7 +23,7 @@ namespace Monopoly.Model.Board
             Grid.SetRow(testdial, 3);
             Grid.SetColumn(testdial, 3);
             this.Children.Add(testdial);
-
+        }
 
         public void LoadBoardInfo()
         {

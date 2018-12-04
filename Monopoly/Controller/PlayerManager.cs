@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Monopoly.Model;
+
 using Monopoly.Model.Board;
 using System.Threading;
 
@@ -31,7 +32,7 @@ namespace Monopoly.Controller
         public static int CreateBank()
         {
             int bankId = SearchNextId();
-            List<UserControl> properties = new List<UserControl>();
+            List<UserControl> properties = new List<UserControl>(); 
             _bank = new Player(bankId, "Bank", int.MaxValue, 0, properties, null);
             _players.Add(_bank);
             

@@ -85,11 +85,11 @@ namespace Monopoly
                     Thread.Sleep(500);
                     Console.WriteLine("Fin thread " + i);
                 }
-            PlayerInterface playerHud = new PlayerInterface();
+            /*PlayerInterface playerHud = new PlayerInterface();
             Grid.SetRow(playerHud, 0);
             Grid.SetColumn(playerHud, 1);
             root.Children.Add(playerHud);
-
+            */
                 if ( i == nbCaseMoove-1)
                 {
                     Console.WriteLine( "  Pos joueur = " + posPlayer);
