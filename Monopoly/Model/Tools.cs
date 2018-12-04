@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Monopoly.Model
 {
@@ -20,6 +21,16 @@ namespace Monopoly.Model
         }
 
 
-
+        public static int GetFontSize()
+        {
+            if(((System.Windows.Controls.Panel)Application.Current.MainWindow.Content).ActualWidth < 1600)
+            {
+                return 12;
+            }
+            else
+            {
+                return 24;
+            }
+        }
     }
 }
