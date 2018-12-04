@@ -7,6 +7,7 @@ using Monopoly.Properties;
 using Monopoly.Model;
 using System.Windows.Controls;
 using Monopoly.Model.Board;
+using Monopoly.Model.UI;
 
 namespace Monopoly
 {
@@ -22,7 +23,10 @@ namespace Monopoly
             Grid.SetRow(board, 0);
             Grid.SetColumn(board, 0);
             root.Children.Add(board);
-
+            PlayerInterface playerHud = new PlayerInterface();
+            Grid.SetRow(playerHud, 0);
+            Grid.SetColumn(playerHud, 1);
+            root.Children.Add(playerHud);
 
 
         }
