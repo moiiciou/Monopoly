@@ -19,5 +19,18 @@ namespace Monopoly.Model
             }
             return list;
         }
+
+
+        public static int GetFontSize()
+        {
+            if(((System.Windows.Controls.Panel)Application.Current.MainWindow.Content).ActualWidth < 1600)
+            {
+                return 12;
+            }
+            else
+            {
+                return 24;
+            }
+        }
     }
 }
