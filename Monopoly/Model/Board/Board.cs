@@ -23,11 +23,7 @@ namespace Monopoly.Model.Board
             Grid.SetRow(testdial, 3);
             Grid.SetColumn(testdial, 3);
             this.Children.Add(testdial);
-            var testdial = new UI.DialogueBox("Ceci est une box de text ! Elle est très belle ! Gloire à Satan et à bientôt !");
-            testdial.SetValue(Grid.ColumnSpanProperty, 4);
-            Grid.SetRow(testdial, 3);
-            Grid.SetColumn(testdial, 3);
-            this.Children.Add(testdial);
+           
 
         }
 
