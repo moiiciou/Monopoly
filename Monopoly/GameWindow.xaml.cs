@@ -11,6 +11,7 @@ using Monopoly.Model.UI;
 using Monopoly.Controller;
 using System.Threading;
 using System.Threading.Tasks;
+using Monopoly.Model.UI;
 
 namespace Monopoly
 {
