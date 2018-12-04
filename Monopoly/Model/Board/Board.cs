@@ -12,11 +12,17 @@ namespace Monopoly.Model.Board
 {
     public class Board : BoardLayout
     {
+        readonly List<UserControl> CasesList = new List<UserControl>();
+
         public List<BoardItem> BoardItems;
         public Board()
         {
             LoadBoardInfo();
-        }
+            var testdial = new UI.DialogueBox("Ceci est une box de text ! Elle est très belle ! Gloire à Satan et à bientôt !");
+            testdial.SetValue(Grid.ColumnSpanProperty, 4);
+            Grid.SetRow(testdial, 3);
+            Grid.SetColumn(testdial, 3);
+            this.Children.Add(testdial);
 
 
         public void LoadBoardInfo()
@@ -46,6 +52,7 @@ namespace Monopoly.Model.Board
                             Grid.SetRow(Property, item.position[0]);
                             Grid.SetColumn(Property, item.position[1]);
                             this.Children.Add(Property);
+                            CasesList.Add(Property);
                             break;
 
                         case "Start":
@@ -53,6 +60,7 @@ namespace Monopoly.Model.Board
                             Grid.SetRow(Start, item.position[0]);
                             Grid.SetColumn(Start, item.position[1]);
                             this.Children.Add(Start);
+                            CasesList.Add(Start);
                             break;
 
                         default:
@@ -73,6 +81,22 @@ namespace Monopoly.Model.Board
             public Dictionary<string, object> caseAttributes = new Dictionary<string, object>();
 
         }
+
+
+        /// <summary>
+        /// return the cases in the board
+        /// </summary>
+        /// <returns> cases in board </returns>
+         List<UserControl> GetCasesList()
+        {
+            return CasesList;
+        }
+
+
+        //static getCaseInfo(idCase) : retourn le type de la case et ses info
+
+        // static isPropertyAvailable(idCase) : return true or false si la proprieté peux etre acheter
+
 
 
     }

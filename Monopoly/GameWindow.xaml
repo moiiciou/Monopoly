@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Monopoly +" Height="200" Width="600">
     <Grid x:Name="root">
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />

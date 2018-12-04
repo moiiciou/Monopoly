@@ -7,6 +7,7 @@ using Monopoly.Properties;
 using Monopoly.Model;
 using System.Windows.Controls;
 using Monopoly.Model.Board;
+using Monopoly.Model.UI;
 using Monopoly.Controller;
 using System.Threading;
 using System.Threading.Tasks;
@@ -84,6 +85,10 @@ namespace Monopoly
                     Thread.Sleep(500);
                     Console.WriteLine("Fin thread " + i);
                 }
+            PlayerInterface playerHud = new PlayerInterface();
+            Grid.SetRow(playerHud, 0);
+            Grid.SetColumn(playerHud, 1);
+            root.Children.Add(playerHud);
 
                 if ( i == nbCaseMoove-1)
                 {

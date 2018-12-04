@@ -42,6 +42,7 @@ namespace Monopoly
             public string Price { get; set; }
             public string Color { get; set; }
             public int Rotation { get; set; }
+            public int IdOwner { get; set; } = 0; //By default, owner is bank(IdOwner : 0)
 
 
         }
