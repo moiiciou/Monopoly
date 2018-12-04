@@ -36,41 +36,45 @@ namespace Monopoly
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Player p = PlayerManager.SearchPlayer(players[0]);
-           // PlayerManager.MoovePlayer(board, p.IdPlayer);
-            int nbcase = (p.Position+ 5) %40;
-            
-            Task.Factory.StartNew(() => mooveto(board,p.Position, p.IdPlayer,nbcase));
-            
-            
+            // PlayerManager.MoovePlayer(board, p.IdPlayer);
+            List<int> dices = PlayerManager.RollDice();
+            int nbcase = (dices[0]+dices[1]);
+            this.lbl_jetde.Content = "Jet de dés : " + dices[0] + dices[1];
+
+            Task.Factory.StartNew(() => MooveTo(board, p.Position, p.IdPlayer, nbcase));
+
+
 
 
         }
-        private void mooveto(Board b, int posPlayer,int id, int posFinal)
+        private void MooveTo(Board b, int posPlayer, int id, int nbCaseMoove)
         {
-            Console.WriteLine(posFinal);
+            Console.WriteLine(nbCaseMoove);
             Console.WriteLine(posPlayer);
-           int nbCaseMoove = posFinal - posPlayer;
-            if(nbCaseMoove < 0) {
-                nbCaseMoove = posPlayer - posFinal; }
-           
-                for (int i =0; i <=nbCaseMoove; i++)
+          
+
+            for (int i = 0; i < nbCaseMoove; i++)
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
                 {
+                    posPlayer++;
+
+                    PlayerManager.DrawPlayer(b, id, posPlayer);
+              
+                    posPlayer = posPlayer % 40;
 
 
-                    Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        
-
-                        PlayerManager.DrawPlayer(b, id, posPlayer);
-                        posPlayer++;
-                        posPlayer = posPlayer % 40;
-                        
-
-                    }), System.Windows.Threading.DispatcherPriority.Background);
+                }), System.Windows.Threading.DispatcherPriority.Background);
                 Thread.Sleep(500);
             }
-            (PlayerManager.SearchPlayer(id)).Position = posFinal;
-            
+            (PlayerManager.SearchPlayer(id)).Position = (posPlayer)%40;
+
+        }
+
+        private void GoToJail(int player, int posPrison)
+        {
+            (PlayerManager.SearchPlayer(player)).Position = posPrison;
+            PlayerManager.DrawPlayer(board, player);
         }
 
     }

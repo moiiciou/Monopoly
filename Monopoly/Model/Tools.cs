@@ -19,14 +19,5 @@ namespace Monopoly.Model
             }
             return list;
         }
-        private static readonly Action EmptyDelegate = delegate { };
-        public static void Refresh(this UIElement uiElement)
-        {
-            uiElement.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Render, EmptyDelegate);
-        }
-
-
-
-
     }
 }

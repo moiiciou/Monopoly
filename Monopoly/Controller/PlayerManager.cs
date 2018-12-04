@@ -204,7 +204,7 @@ namespace Monopoly.Controller
 
             Player p = SearchPlayer(idPlayer);
             b.Children.Remove(p);
-
+            pos = pos % 40; 
 
             int x = b.BoardItems[pos].position[1];
             int y = b.BoardItems[pos].position[0];
