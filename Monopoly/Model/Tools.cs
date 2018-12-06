@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Monopoly.Model
 {
@@ -32,5 +33,8 @@ namespace Monopoly.Model
                 return 24;
             }
         }
+
+
+
     }
 }

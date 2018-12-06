@@ -20,10 +20,10 @@ namespace Monopoly.Model.Case
     /// <summary>
     /// Logique d'interaction pour CommunityCase.xaml
     /// </summary>
-    public partial class CommunityCase : UserControl
+    public partial class CommunityCase : BaseCase
     {
 
-        public CommunityCase( string text, string skinPath, int angle)
+        public CommunityCase( string text, string skinPath, int angle, int[] position)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
@@ -37,7 +37,7 @@ namespace Monopoly.Model.Case
 
             }
 
-
+            Position = position;
         }
 
         public class CaseInfo : INotifyPropertyChanged

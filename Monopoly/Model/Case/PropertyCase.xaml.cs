@@ -4,16 +4,16 @@ using System.IO;
 using System.Windows.Controls;
 
 
-namespace Monopoly
+namespace Monopoly.Model.Case
 {
     /// <summary>
-    /// Logique d'interaction pour UserControl1.xaml
+    /// Logique d'interaction pour PropertyCase.xaml
     /// </summary>
-    public partial class PropertyCase : UserControl
+    public partial class PropertyCase : BaseCase
     {
-        private string ImageTemplate { get; set; }
 
-        public PropertyCase(string location, int price, string skinPath, string color, int angle)
+
+        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
@@ -26,7 +26,7 @@ namespace Monopoly
                 this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
 
             }
-
+            this.Position = position;
 
         }
 

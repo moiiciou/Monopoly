@@ -20,11 +20,11 @@ namespace Monopoly.Model.Case
     /// <summary>
     /// Logique d'interaction pour ChanceCase.xaml
     /// </summary>
-    public partial class ChanceCase : UserControl
+    public partial class ChanceCase : BaseCase
     {
         private string ImageTemplate { get; set; }
 
-        public ChanceCase(string text, string skinPath, int angle)
+        public ChanceCase(string text, string skinPath, int angle, int[] position)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
@@ -38,7 +38,7 @@ namespace Monopoly.Model.Case
 
             }
 
-
+            Position = position;
         }
 
         public class CaseInfo : INotifyPropertyChanged

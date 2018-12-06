@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using Monopoly.Core;
 
 namespace Monopoly
 {
@@ -24,6 +25,8 @@ namespace Monopoly
         public MainWindow()
         {
             InitializeComponent();
+
+            ThemeParser test = new ThemeParser(".\\ressources\\level.json");
         }
 
         private void optionButton_Click(object sender, RoutedEventArgs e)

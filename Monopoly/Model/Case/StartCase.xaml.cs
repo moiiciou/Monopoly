@@ -8,12 +8,12 @@ namespace Monopoly.Model.Case
     /// <summary>
     /// Logique d'interaction pour StartCase.xaml
     /// </summary>
-    public partial class StartCase : UserControl
+    public partial class StartCase : BaseCase
     {
         private string ImageTemplate { get; set; }
         public int Amount;
 
-        public StartCase(string text, int amount, string skinPath)
+        public StartCase(string text, int amount, string skinPath, int[] position)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
@@ -28,7 +28,7 @@ namespace Monopoly.Model.Case
             }
 
             Amount = amount;
-
+            this.Position = position;
         }
 
         public class CaseInfo : INotifyPropertyChanged

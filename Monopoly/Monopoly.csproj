@@ -60,8 +60,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\CardManager.cs" />
     <Compile Include="Controller\CaseManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
+    <Compile Include="Core\ThemeParser.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
@@ -69,12 +71,11 @@
     <Compile Include="Model\Board\BoardLayout.xaml.cs">
       <DependentUpon>BoardLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Card\BaseCard.xaml.cs">
-      <DependentUpon>BaseCard.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Model\Card\BaseCard.cs" />
     <Compile Include="Model\Card\PropertyCard.xaml.cs">
       <DependentUpon>PropertyCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Case\BaseCase.cs" />
     <Compile Include="Model\Case\ChanceCase.xaml.cs">
       <DependentUpon>ChanceCase.xaml</DependentUpon>
     </Compile>
@@ -115,10 +116,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Model\Board\BoardLayout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Model\Card\BaseCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Monopoly.Model.Case.ChanceCase"
+﻿<local:BaseCase x:Class="Monopoly.Model.Case.ChanceCase"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,4 +18,4 @@
             </Button>
         </Grid>
     </Border>
-</UserControl>
+</local:BaseCase>

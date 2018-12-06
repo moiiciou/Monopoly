@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Monopoly.Model.Card;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using static Monopoly.Model.Board.Board;
 
 namespace Monopoly.Controller
 {
@@ -21,7 +25,7 @@ namespace Monopoly.Controller
         /// <returns></returns>
         public List<UserControl> GetCardList(string cardType = "all")
         {
-
+            return null;
         }
 
         /// <summary>
@@ -31,7 +35,7 @@ namespace Monopoly.Controller
         /// <returns></returns>
         public List<UserControl> GetDeckList(string deckType = "all")
         {
-
+            return null;
         }
 
         /// <summary>
@@ -39,6 +43,15 @@ namespace Monopoly.Controller
         /// </summary>
         /// <returns></returns>
         public UserControl DrawCard(List<UserControl> deck)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// replace card in specified deck
+        /// </summary>
+        /// <returns></returns>
+        public void ReplaceToDeck(UserControl card, List<UserControl> deck)
         {
 
         }
