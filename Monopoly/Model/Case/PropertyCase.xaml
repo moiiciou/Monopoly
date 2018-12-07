@@ -17,9 +17,9 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{Binding Location}" RenderTransformOrigin="0.506,1.153" Height="auto" TextAlignment="Center" Margin="0" Background="{Binding Color}" FontWeight="Bold" FontSize="{Binding FontSizeTitle}"/>
             <Button Grid.Row="1" Height="auto" Width="auto" TextOptions.TextFormattingMode="Display" Background="{x:Null}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                <TextBlock TextWrapping="Wrap" Text="{Binding Price}" RenderTransformOrigin="0.506,1.153" Width="auto" Height="auto" TextAlignment="Center" Margin="0" FontSize="{Binding FontSizeContent}" FontWeight="Bold" />
+                <TextBlock TextWrapping="Wrap" Text="{Binding Price}" RenderTransformOrigin="0.506,1.153" Width="auto" Height="auto" TextAlignment="Center" Margin="0,30,0,0" FontSize="{Binding FontSizeContent}" FontWeight="Bold" VerticalAlignment="Bottom" />
                 <ToolTipService.ToolTip >
-                    <ToolTip HorizontalOffset="0" VerticalOffset="0">
+                    <ToolTip Name="toolTip" HorizontalOffset="0" VerticalOffset="0">
                         <!-- Add a StackPanel to the tooltip content -->
                         <StackPanel Width="250" Height="150">
                             <!-- Add an image -->
@@ -29,8 +29,7 @@
                             </StackPanel.Background>
                             <!-- Add a text block -->
                             <TextBlock >    
-                    <Run Text="This is a tooltip with an image and text"    
-                        FontFamily="Georgia" FontSize="14" Foreground="Blue"/>
+                    <Run />
                             </TextBlock>
                         </StackPanel>
                     </ToolTip>

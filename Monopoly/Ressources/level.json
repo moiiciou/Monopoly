@@ -37,11 +37,28 @@
       }
     },
     {
-      "position": [0,0],
+      "position": [ 0, 0 ],
       "type": "start",
       "caseAttributes": {
         "label": "GO !",
         "income": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 0, 3 ],
+      "type": "station",
+      "caseAttributes": {
+        "label": "Gare du Nord",
+        "price": 100,
+        "skin": ""
+      }
+    },
+            {
+      "position": [0,4],
+      "type": "jail",
+      "caseAttributes": {
+        "label": "Prison",
         "skin": ""
       }
     }

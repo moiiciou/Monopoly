@@ -10,7 +10,6 @@ namespace Monopoly.Model.Case
     /// </summary>
     public partial class StartCase : BaseCase
     {
-        private string ImageTemplate { get; set; }
         public int Amount;
 
         public StartCase(string text, int amount, string skinPath, int[] position)

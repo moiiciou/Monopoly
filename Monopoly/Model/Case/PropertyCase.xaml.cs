@@ -1,8 +1,6 @@
 ﻿using Monopoly.Model.Card;
 using System.ComponentModel;
 using System.IO;
-using System.Windows.Controls;
-
 
 namespace Monopoly.Model.Case
 {
@@ -12,8 +10,9 @@ namespace Monopoly.Model.Case
     public partial class PropertyCase : BaseCase
     {
 
+        public PropertyCard Card { get; set; }
 
-        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position)
+        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
@@ -26,8 +25,8 @@ namespace Monopoly.Model.Case
                 this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
 
             }
-            this.Position = position;
-
+            Position = position;
+            Card = card;
         }
 
         public class CaseInfo : INotifyPropertyChanged
@@ -51,9 +50,7 @@ namespace Monopoly.Model.Case
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            PropertyCard p = new PropertyCard("test", 50, 50, 50, 75, 100, 125, 150, 25, 100, "blue", 0);
-     
-
+            toolTip.Content = Card;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Monopoly.Core
 
         public List<BaseCase> CasesList = new List<BaseCase>();
         public List<UserControl> CommunityList = new List<UserControl>();
-        public List<UserControl> ChanceList = new List<UserControl>();
+        public List<ChanceCard> ChanceList = new List<ChanceCard>();
         public List<UserControl> PropertyCardList = new List<UserControl>();
 
         public ThemeParser(string file)
@@ -25,7 +25,8 @@ namespace Monopoly.Core
 
                 foreach (var item in items.Chance)
                 {
-
+                    ChanceCard Card = new ChanceCard(item.title, item.text, item.effect);
+                    ChanceList.Add(Card);
                 }
 
                 foreach (var item in items.Case)
@@ -42,9 +43,9 @@ namespace Monopoly.Core
                     switch (item.type)
                     {
                         case "property":
-                            PropertyCase Property = new PropertyCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.caseAttributes["color"].ToString(), angle, item.position);
-                            CasesList.Add(Property);
                             PropertyCard CardProperty = new PropertyCard(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["houseCost"]), Convert.ToInt16(item.caseAttributes["houseCost"]), Convert.ToInt16(item.caseAttributes["rentWith1House"]), Convert.ToInt16(item.caseAttributes["rentWith2House"]), Convert.ToInt16(item.caseAttributes["rentWith3House"]), Convert.ToInt16(item.caseAttributes["rentWith4House"]), Convert.ToInt16(item.caseAttributes["rentWithHostel"]), Convert.ToInt16(item.caseAttributes["rent"]), Convert.ToInt16(item.caseAttributes["mortgageValue"]), item.caseAttributes["color"].ToString(), angle);
+                            PropertyCase Property = new PropertyCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.caseAttributes["color"].ToString(), angle, item.position, CardProperty);
+                            CasesList.Add(Property);
                             PropertyCardList.Add(CardProperty);
                             break;
 
@@ -65,6 +66,16 @@ namespace Monopoly.Core
 
                             break;
 
+                        case "station":
+                            StationCase Station = new StationCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.position, angle);
+                            CasesList.Add(Station);
+
+                            break;
+
+                        case "jail":
+                            JailCase Jail = new JailCase(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), item.position);
+                            CasesList.Add(Jail);
+                            break;
                         default:
                             Console.WriteLine("Error parsing case");
                             break;
@@ -73,7 +84,7 @@ namespace Monopoly.Core
 
                 foreach (var item in items.Community)
                 {
-
+                  
                 }
             }
 

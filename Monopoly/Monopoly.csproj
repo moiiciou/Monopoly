@@ -72,6 +72,9 @@
       <DependentUpon>BoardLayout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Card\BaseCard.cs" />
+    <Compile Include="Model\Card\ChanceCard.xaml.cs">
+      <DependentUpon>ChanceCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Card\PropertyCard.xaml.cs">
       <DependentUpon>PropertyCard.xaml</DependentUpon>
     </Compile>
@@ -81,6 +84,9 @@
     </Compile>
     <Compile Include="Model\Case\CommunityCase.xaml.cs">
       <DependentUpon>CommunityCase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Case\JailCase.xaml.cs">
+      <DependentUpon>JailCase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Case\PropertyCase.xaml.cs">
       <DependentUpon>PropertyCase.xaml</DependentUpon>
@@ -92,6 +98,9 @@
     <Compile Include="Model\Board\Board.cs" />
     <Compile Include="Model\Case\StartCase.xaml.cs">
       <DependentUpon>StartCase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Case\StationCase.xaml.cs">
+      <DependentUpon>StationCase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\UI\DialogueBox.xaml.cs">
       <DependentUpon>DialogueBox.xaml</DependentUpon>
@@ -119,6 +128,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Model\Card\ChanceCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\Card\PropertyCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,11 +144,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Model\Case\JailCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\Case\PropertyCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\Case\StartCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Case\StationCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

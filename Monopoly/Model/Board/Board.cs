@@ -1,12 +1,8 @@
 ﻿using Monopoly.Core;
 using Monopoly.Model.Case;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+
 
 
 namespace Monopoly.Model.Board
@@ -64,6 +60,24 @@ namespace Monopoly.Model.Board
                 if (BaseCase is ChanceCase)
                 {
                     ChanceCase Case = (ChanceCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
+                if (BaseCase is StationCase)
+                {
+                    StationCase Case = (StationCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
+                if (BaseCase is JailCase)
+                {
+                    JailCase Case = (JailCase)BaseCase;
 
                     Grid.SetRow(Case, Case.Position[0]);
                     Grid.SetColumn(Case, Case.Position[1]);
