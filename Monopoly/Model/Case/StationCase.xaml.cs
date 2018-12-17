@@ -20,27 +20,24 @@ namespace Monopoly.Model.Case
     /// <summary>
     /// Logique d'interaction pour StationCase.xaml
     /// </summary>
-    public partial class StationCase : UserControl
+    public partial class StationCase : BaseCase
     {
-        private string ImageTemplate { get; set; }
-        public int Amount;
-
-        public StationCase(string text, int amount, string skinPath)
+        public StationCase(string text, int price, string skinPath, int[] position, int angle)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, TextLabel = text };
+                this.DataContext = new CaseInfo { ImageTemplate = skinPath, TextLabel = text, Price = price.ToString() + "€", Rotation = angle };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", TextLabel = text };
+                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", TextLabel = text, Price = price.ToString() + "€", Rotation = angle };
 
             }
 
-            Amount = amount;
 
+            this.Position = position;
         }
 
         public class CaseInfo : INotifyPropertyChanged
@@ -54,7 +51,8 @@ namespace Monopoly.Model.Case
 
             public string ImageTemplate { get; set; }
             public string TextLabel { get; set; }
-
+            public string Price { get; set; }
+            public int Rotation { get; set; }
 
         }
     }

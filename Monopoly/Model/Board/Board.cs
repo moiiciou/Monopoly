@@ -1,20 +1,16 @@
-﻿using Monopoly.Model.Case;
-using Newtonsoft.Json;
-using System;
+﻿using Monopoly.Core;
+using Monopoly.Model.Case;
 using System.Collections.Generic;
-using System.IO;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+
 
 
 namespace Monopoly.Model.Board
 {
-    public class Board : BoardLayout
+    class Board : BoardLayout
     {
-        readonly List<UserControl> CasesList = new List<UserControl>();
+        readonly List<BaseCase> CasesList = new List<BaseCase>();
 
-        public List<BoardItem> BoardItems;
         public Board()
         {
             LoadBoardInfo();
@@ -23,84 +19,85 @@ namespace Monopoly.Model.Board
             Grid.SetRow(testdial, 3);
             Grid.SetColumn(testdial, 3);
             this.Children.Add(testdial);
-           
 
         }
 
         public void LoadBoardInfo()
         {
-            using (StreamReader r = File.OpenText(".\\ressources\\level.json"))
+            ThemeParser template = new ThemeParser(".\\ressources\\level.json");
+
+            List<BaseCase> CaseList = template.CasesList;
+
+            foreach (BaseCase BaseCase in CaseList)
             {
-                string json = r.ReadToEnd();
-                List<BoardItem> items = JsonConvert.DeserializeObject<List<BoardItem>>(json);
-                BoardItems = items;
-
-                foreach (var item in items)
+                if (BaseCase is PropertyCase)
                 {
+                    PropertyCase Case = (PropertyCase)BaseCase;
 
-                    int angle = 0;
-                    switch (item.type)
-                    {
-                        case "Property":
-                            if (item.position[0] > 0 && item.position[1] == 0 && item.position[0] < 10 )
-                            {
-                                angle = 90;
-                            }
-                            if (item.position[1] == 10 && item.position[0] > 0 && item.position[0] < 10)
-                            {
-                                angle = -90;
-                            }
-                            PropertyCase Property = new PropertyCase(item.caseAttributes["name"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.caseAttributes["color"].ToString(), angle);
-                            Grid.SetRow(Property, item.position[0]);
-                            Grid.SetColumn(Property, item.position[1]);
-                            this.Children.Add(Property);
-                            CasesList.Add(Property);
-                            break;
-
-                        case "Start":
-                            StartCase Start = new StartCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString());
-                            Grid.SetRow(Start, item.position[0]);
-                            Grid.SetColumn(Start, item.position[1]);
-                            this.Children.Add(Start);
-                            CasesList.Add(Start);
-                            break;
-
-                        default:
-                            Console.WriteLine("Default case");
-                            break;
-                    }
-
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
                 }
 
+                if (BaseCase is StartCase)
+                {
+                    StartCase Case = (StartCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
+                if (BaseCase is CustomCase)
+                {
+                    CustomCase Case = (CustomCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
+                if (BaseCase is CommunityCase)
+                {
+                    CommunityCase Case = (CommunityCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
+                if (BaseCase is ChanceCase)
+                {
+                    ChanceCase Case = (ChanceCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
+                if (BaseCase is StationCase)
+                {
+                    StationCase Case = (StationCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
+                if (BaseCase is JailCase)
+                {
+                    JailCase Case = (JailCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
             }
-             
-        }
 
-        public class BoardItem
-        {
-            public int[] position;
-            public string type;
-            public Dictionary<string, object> caseAttributes = new Dictionary<string, object>();
+
 
         }
-
-
-        /// <summary>
-        /// return the cases in the board
-        /// </summary>
-        /// <returns> cases in board </returns>
-         List<UserControl> GetCasesList()
-        {
-            return CasesList;
-        }
-
-
-        //static getCaseInfo(idCase) : retourn le type de la case et ses info
-
-        // static isPropertyAvailable(idCase) : return true or false si la proprieté peux etre acheter
-
-
-
     }
+
 
 }

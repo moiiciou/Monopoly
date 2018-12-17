@@ -20,24 +20,24 @@ namespace Monopoly.Model.Case
     /// <summary>
     /// Logique d'interaction pour CommunityCase.xaml
     /// </summary>
-    public partial class CommunityCase : UserControl
+    public partial class CommunityCase : BaseCase
     {
 
-        public CommunityCase(string communityName, string text, string skinPath)
+        public CommunityCase(string text, string skinPath, int angle, int[] position)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, TextLabel = text, CommunityName = communityName};
+                this.DataContext = new CaseInfo { ImageTemplate = skinPath, TextLabel = text, Rotation = angle };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", TextLabel = text };
+                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", TextLabel = text, Rotation = angle };
 
             }
 
-
+            Position = position;
         }
 
         public class CaseInfo : INotifyPropertyChanged
@@ -51,8 +51,7 @@ namespace Monopoly.Model.Case
 
             public string ImageTemplate { get; set; }
             public string TextLabel { get; set; }
-            public string CommunityName { get; set; }
-
+            public int Rotation { get; set; }
 
         }
     }

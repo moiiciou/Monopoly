@@ -60,8 +60,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\CardManager.cs" />
     <Compile Include="Controller\CaseManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
+    <Compile Include="Core\ThemeParser.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
@@ -69,11 +71,25 @@
     <Compile Include="Model\Board\BoardLayout.xaml.cs">
       <DependentUpon>BoardLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Card\BaseCard.xaml.cs">
-      <DependentUpon>BaseCard.xaml</DependentUpon>
+    <Compile Include="Model\Card\BaseCard.cs" />
+    <Compile Include="Model\Card\ChanceCard.xaml.cs">
+      <DependentUpon>ChanceCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Card\PropertyCard.xaml.cs">
       <DependentUpon>PropertyCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Case\BaseCase.cs" />
+    <Compile Include="Model\Case\ChanceCase.xaml.cs">
+      <DependentUpon>ChanceCase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Case\CommunityCase.xaml.cs">
+      <DependentUpon>CommunityCase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Case\CustomCase.xaml.cs">
+      <DependentUpon>CustomCase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Case\JailCase.xaml.cs">
+      <DependentUpon>JailCase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Case\PropertyCase.xaml.cs">
       <DependentUpon>PropertyCase.xaml</DependentUpon>
@@ -86,13 +102,22 @@
     <Compile Include="Model\Case\StartCase.xaml.cs">
       <DependentUpon>StartCase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Case\StationCase.xaml.cs">
+      <DependentUpon>StationCase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Player.xaml.cs">
       <DependentUpon>Player.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UI\ChatBox.xaml.cs">
+      <DependentUpon>ChatBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\UI\DialogueBox.xaml.cs">
       <DependentUpon>DialogueBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Tools.cs" />
+    <Compile Include="Model\UI\PlayerInfo.xaml.cs">
+      <DependentUpon>PlayerInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
     </Compile>
@@ -114,11 +139,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Model\Card\BaseCard.xaml">
+    <Page Include="Model\Card\ChanceCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\Card\PropertyCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Case\ChanceCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Case\CommunityCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Case\CustomCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\Case\JailCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,11 +171,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Model\Case\StationCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\Player.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Model\UI\ChatBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\UI\DialogueBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\UI\PlayerInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,7 +255,10 @@
     <Resource Include="ressources\templates\default\monopoly-man.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\money_icon.png" />
+    <Resource Include="ressources\templates\default\money.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\player_avatar_test.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

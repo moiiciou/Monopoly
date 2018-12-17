@@ -20,9 +20,12 @@ namespace Monopoly.Model.Card
     /// </summary>
     public partial class BaseCard : UserControl
     {
+
+
         public BaseCard()
         {
-            InitializeComponent();
         }
+
+
     }
 }
