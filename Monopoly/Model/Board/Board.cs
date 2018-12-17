@@ -7,9 +7,9 @@ using System.Windows.Controls;
 
 namespace Monopoly.Model.Board
 {
-    class Board : BoardLayout
+    public class Board : BoardLayout
     {
-        readonly List<BaseCase> CasesList = new List<BaseCase>();
+        public readonly List<BaseCase> CasesList = new List<BaseCase>();
 
         public Board()
         {
