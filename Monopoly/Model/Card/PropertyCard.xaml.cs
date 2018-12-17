@@ -19,14 +19,15 @@ namespace Monopoly.Model.Card
     /// <summary>
     /// Logique d'interaction pour PropertyCard.xaml
     /// </summary>
-    public partial class PropertyCard : UserControl
+    public partial class PropertyCard : BaseCard
     {
-        public PropertyCard(string propertyName, int houseCost, int hotelCost, int rentWith1house, int rentWith2house, int rentWith3house, int rentWith4house,int rentWithHotel, int rentValue, int mortgageValue, string color, int angle)
+        public PropertyCard(string propertyName, int houseCost, int hotelCost, int rentWith1house, int rentWith2house, int rentWith3house, int rentWith4house, int rentWithHotel, int rentValue, int mortgageValue, string color, int angle)
         {
-            InitializeComponent();
-            this.DataContext = new CardInfo { TextPropertyName = propertyName, TextHouseCost = houseCost.ToString() +"€ each", TextHotelCost = hotelCost.ToString() + "€ plus 4 houses", TextRentWith1House = rentWith1house.ToString() + "€", TextRentWith2House = rentWith2house.ToString() + "€", TextRentWith3House = rentWith3house.ToString() + "€", TextRentWith4House = rentWith4house.ToString() + "€", TextRentWithHotel = rentWithHotel.ToString() + "€", TextRentValue = "Rent :"+ rentValue.ToString() + "€", TextMortgageValue = mortgageValue.ToString() + "€",  Color = color };
 
+            InitializeComponent();
+            this.DataContext = new CardInfo { TextPropertyName = propertyName, TextHouseCost = houseCost.ToString() + "€ each", TextHotelCost = hotelCost.ToString() + "€ plus 4 houses", TextRentWith1House = rentWith1house.ToString() + "€", TextRentWith2House = rentWith2house.ToString() + "€", TextRentWith3House = rentWith3house.ToString() + "€", TextRentWith4House = rentWith4house.ToString() + "€", TextRentWithHotel = rentWithHotel.ToString() + "€", TextRentValue = "Rent :" + rentValue.ToString() + "€", TextMortgageValue = mortgageValue.ToString() + "€", Color = color };
         }
+
     }
 
     public class CardInfo : INotifyPropertyChanged
@@ -51,7 +52,7 @@ namespace Monopoly.Model.Card
         public string TextRentValue { get; set; }
         public string TextMortgageValue { get; set; }
 
-        
+
         public string Color { get; set; }
 
 

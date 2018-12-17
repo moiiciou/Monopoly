@@ -1,30 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Monopoly.Model.Case
 {
     /// <summary>
-    /// Logique d'interaction pour ChanceCase.xaml
+    /// Logique d'interaction pour CustomCase.xaml
     /// </summary>
-    public partial class ChanceCase : BaseCase
+    public partial class CustomCase : BaseCase
     {
-        private string ImageTemplate { get; set; }
+        public int Amount;
 
-        public ChanceCase(string text, string skinPath, int angle, int[] position)
+        public CustomCase(string text, int amount, string skinPath, int[] position, int angle)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
@@ -38,7 +26,8 @@ namespace Monopoly.Model.Case
 
             }
 
-            Position = position;
+            Amount = amount;
+            this.Position = position;
         }
 
         public class CaseInfo : INotifyPropertyChanged
@@ -52,8 +41,9 @@ namespace Monopoly.Model.Case
 
             public string ImageTemplate { get; set; }
             public string TextLabel { get; set; }
-            public string ChanceName { get; set; }
             public int Rotation { get; set; }
+
+
         }
     }
 }

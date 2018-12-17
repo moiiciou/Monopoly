@@ -1,518 +1,576 @@
-[
-  {
-    "position": [
-      0,
-      0
-    ],
-    "type": "Start",
-    "caseAttributes": {
-      "label": "GO !",
-      "income": 100,
-      "skin": ""
+{
+  "Case": [
+    {
+      "position": [ 0, 0 ],
+      "type": "start",
+      "caseAttributes": {
+        "label": "GO !",
+        "income": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 0, 1 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Bd de Belleville",
+        "price": 200,
+        "skin": "",
+        "color": "#c542f4",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 0, 2 ],
+      "type": "community",
+      "caseAttributes": {
+        "label": "",
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 0, 3 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Rue Lecourbe",
+        "price": 200,
+        "skin": "",
+        "color": "#c542f4",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 0, 4 ],
+      "type": "custom",
+      "caseAttributes": {
+        "label": "Impots sur le revenu !",
+        "income": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 0, 5 ],
+      "type": "station",
+      "caseAttributes": {
+        "label": "Gare Montparnasse",
+        "price": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 0, 6 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Rue de Vaurigard",
+        "price": 200,
+        "skin": "",
+        "color": "#20dbd8",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 0, 7 ],
+      "type": "chance",
+      "caseAttributes": {
+        "label": "",
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 0, 8 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Rue de Courcelles",
+        "price": 200,
+        "skin": "",
+        "color": "#20dbd8",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 0, 9 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Av. de la republique",
+        "price": 200,
+        "skin": "",
+        "color": "#20dbd8",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 0, 10 ],
+      "type": "jail",
+      "caseAttributes": {
+        "label": "PRISON",
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 1, 10 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Bd de la Vilette",
+        "price": 200,
+        "skin": "",
+        "color": "#db8d1f",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 2, 10 ],
+      "type": "custom",
+      "caseAttributes": {
+        "label": "Compagnie General d'electricite !",
+        "income": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 3, 10 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Av. de Neuilly",
+        "price": 200,
+        "skin": "",
+        "color": "#db8d1f",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 4, 10 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Rue de Paradis",
+        "price": 200,
+        "skin": "",
+        "color": "#db8d1f",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 5, 10 ],
+      "type": "station",
+      "caseAttributes": {
+        "label": "Gare de Lyon",
+        "price": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 6, 10 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Av Mozart",
+        "price": 200,
+        "skin": "",
+        "color": "#ed2e15",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 7, 10 ],
+      "type": "community",
+      "caseAttributes": {
+        "label": "",
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 8, 10 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Bd Saint-Michel",
+        "price": 200,
+        "skin": "",
+        "color": "#ed2e15",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 9, 10 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Place Pigalle",
+        "price": 200,
+        "skin": "",
+        "color": "#ed2e15",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 10, 10 ],
+      "type": "custom",
+      "caseAttributes": {
+        "label": "FREE PARKING !",
+        "income": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 10, 9 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Av Matignon",
+        "price": 200,
+        "skin": "",
+        "color": "#ede215",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 10, 8 ],
+      "type": "chance",
+      "caseAttributes": {
+        "label": "",
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 10, 7 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Bd Male-Sherbes",
+        "price": 200,
+        "skin": "",
+        "color": "#ede215",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 10, 6 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Av Henri-Martin",
+        "price": 200,
+        "skin": "",
+        "color": "#ede215",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 10, 5 ],
+      "type": "station",
+      "caseAttributes": {
+        "label": "Gare du Nord",
+        "price": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 10, 4 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Fb Saint-Honore",
+        "price": 200,
+        "skin": "",
+        "color": "#0e0aff",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 10, 3 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Place de la bourse",
+        "price": 200,
+        "skin": "",
+        "color": "#0e0aff",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 10, 2 ],
+      "type": "custom",
+      "caseAttributes": {
+        "label": "Compagnie  de distribution d'eau !",
+        "income": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 10, 1 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Rue Lafayette",
+        "price": 200,
+        "skin": "",
+        "color": "#0e0aff",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 10, 0 ],
+      "type": "custom",
+      "caseAttributes": {
+        "label": "ALLEZ EN PRISON !",
+        "income": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 9, 0 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Av de Breteuil",
+        "price": 200,
+        "skin": "",
+        "color": "#46b51b",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 8, 0 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Av Foch",
+        "price": 200,
+        "skin": "",
+        "color": "#46b51b",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 7, 0 ],
+      "type": "community",
+      "caseAttributes": {
+        "label": "",
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 6, 0 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Bd Capucines",
+        "price": 200,
+        "skin": "",
+        "color": "#46b51b",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 5, 0 ],
+      "type": "station",
+      "caseAttributes": {
+        "label": "Gare Saint-Lazard",
+        "price": 100,
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 4, 0 ],
+      "type": "chance",
+      "caseAttributes": {
+        "label": "",
+        "skin": ""
+      }
+    },
+    {
+      "position": [ 3, 0 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Champs Elysees",
+        "price": 200,
+        "skin": "",
+        "color": "#ed4972",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
+    },
+    {
+      "position": [ 2, 0 ],
+      "type": "community",
+      "caseAttributes": {
+        "label": "",
+        "skin": ""
+      }
+    },
+        {
+      "position": [ 1, 0 ],
+      "type": "property",
+      "caseAttributes": {
+        "label": "Rue de la paix",
+        "price": 200,
+        "skin": "",
+        "color": "#ed4972",
+        "houseCost": 50,
+        "mortgageValue": 250,
+        "rent": 20,
+        "rentWith1House": 10,
+        "rentWith2House": 20,
+        "rentWith3House": 30,
+        "rentWith4House": 40,
+        "rentWithHostel": 60
+      }
     }
-  },
-  {
-    "position": [
-      0,
-      1
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "PARIS",
-      "price": 100,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      0,
-      2
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLES",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      0,
-      3
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "LUXEMBOURG",
-      "price": 110,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      0,
-      4
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "LONDRES",
-      "price": 145,
-      "skin": "",
-      "color": "#30e839"
-    }
-  },
-  {
-    "position": [
-      0,
-      5
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "MANCHERSTER",
-      "price": 90,
-      "skin": "",
-      "color": "#30e839"
-    }
-  },
-  {
-    "position": [
-      0,
-      6
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "STRASBOURG",
-      "price": 80,
-      "skin": "",
-      "color": "#30e839"
-    }
-  },
-  {
-    "position": [
-      0,
-      7
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "MEULIN",
-      "price": 20,
-      "skin": "",
-      "color": "#f707f3"
-    }
-  },
-  {
-    "position": [
-      0,
-      8
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "METZ",
-      "price": 30,
-      "skin": "",
-      "color": "#f707f3"
-    }
-  },
-  {
-    "position": [
-      0,
-      9
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "MOULINEUX",
-      "price": 10,
-      "skin": "",
-      "color": "#f707f3"
-    }
-  },
-  {
-    "position": [
-      0,
-      10
-    ],
-    "type": "Start",
-    "caseAttributes": {
-      "label": "PRISON !",
-      "income": 0,
-      "skin": ""
-    }
-  },
-  {
-    "position": [
-      1,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "STOCKHOLM",
-      "price": 180,
-      "skin": "",
-      "color": "#fcfc05"
-    }
-  },
-  {
-    "position": [
-      2,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "MONTREAL",
-      "price": 120,
-      "skin": "",
-      "color": "#fcfc05"
-    }
-  },
-  {
-    "position": [
-      3,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "NEW YORK",
-      "price": 210,
-      "skin": "",
-      "color": "#e23404"
-    }
-  },
-  {
-    "position": [
-      4,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "SAN FRANCISCO",
-      "price": 230,
-      "skin": "",
-      "color": "#e23404"
-    }
-  },
-  {
-    "position": [
-      5,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "SEATTLE",
-      "price": 180,
-      "skin": "",
-      "color": "#e23404"
-    }
-  },
-  {
-    "position": [
-      6,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "MARSEILLE",
-      "price": 145,
-      "skin": "",
-      "color": "#ff6207"
-    }
-  },
-  {
-    "position": [
-      7,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "TOULOUSE",
-      "price": 120,
-      "skin": "",
-      "color": "#ff6207"
-    }
-  },
-  {
-    "position": [
-      8,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BORDEAUX",
-      "price": 115,
-      "skin": "",
-      "color": "#ff6207"
-    }
-  },
-  {
-    "position": [
-      9,
-      10
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "RIO",
-      "price": 80,
-      "skin": "",
-      "color": "#0519fc"
-    }
-  },
-  {
-    "position": [
-      10,
-      10
-    ],
-    "type": "Start",
-    "caseAttributes": {
-      "label": "FREE PARKING !",
-      "income": 0,
-      "skin": ""
-    }
-  },
-  {
-    "position": [
-      10,
-      9
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      8
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      7
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      6
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      5
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      4
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      3
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      2
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      1
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      10,
-      0
-    ],
-    "type": "Start",
-    "caseAttributes": {
-      "label": "GO TO JAIL !",
-      "income": 0,
-      "skin": ""
-    }
-  },
-  {
-    "position": [
-      9,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      8,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      7,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      6,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      5,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      4,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      3,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      2,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  },
-  {
-    "position": [
-      1,
-      0
-    ],
-    "type": "Property",
-    "caseAttributes": {
-      "name": "BRUXELLE",
-      "price": 120,
-      "skin": "",
-      "color": "#4286f4"
-    }
-  }
+  ],
+
+
+"Chance":[
+{
+        "title": "un titre",
+        "text": "un texte",
+        "effect": "ma_function"
+}
+      
+],
+"Community":[
+{
+        "title":"un titre",
+        "text" : "un texte",
+        "effect": "ma_function"
+}
 ]
+  
+
+
+      
+
+}

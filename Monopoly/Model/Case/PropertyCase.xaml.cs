@@ -1,34 +1,32 @@
-﻿using Monopoly.Model;
+﻿using Monopoly.Model.Card;
 using System.ComponentModel;
 using System.IO;
-using System.Windows.Controls;
 
-
-namespace Monopoly
+namespace Monopoly.Model.Case
 {
     /// <summary>
-    /// Logique d'interaction pour UserControl1.xaml
+    /// Logique d'interaction pour PropertyCase.xaml
     /// </summary>
-    public partial class PropertyCase : UserControl
+    public partial class PropertyCase : BaseCase
     {
-        private string ImageTemplate { get; set; }
 
-        public PropertyCase(string location, int price, string skinPath, string color, int angle)
+        public PropertyCard Card { get; set; }
+
+        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card)
         {
             InitializeComponent();
-
-
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location= location, Price = price.ToString()+"€", Color = color, Rotation = angle, FontSizeTitle= Tools.GetFontSize(), FontSizeContent = Tools.GetFontSize() };
+                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString()+"€", Color = color, Rotation = angle, FontSizeTitle = Tools.GetFontSize(), FontSizeContent = Tools.GetFontSize() };
+                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
 
             }
-
+            Position = position;
+            Card = card;
         }
 
         public class CaseInfo : INotifyPropertyChanged
@@ -45,12 +43,14 @@ namespace Monopoly
             public string Price { get; set; }
             public string Color { get; set; }
             public int Rotation { get; set; }
-            public int FontSizeTitle { get; set; }
-            public int FontSizeContent { get; set; }
             public int IdOwner { get; set; } = 0; //By default, owner is bank(IdOwner : 0)
 
 
         }
 
+        private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            toolTip.Content = Card;
+        }
     }
 }
