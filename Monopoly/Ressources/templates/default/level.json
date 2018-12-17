@@ -1,0 +1,14 @@
+{
+  "position": [
+    1,
+    2
+  ],
+  "type": "Property",
+  "objectProperty": {
+    "color": "#82b92c",
+    "Name": "Paris",
+    "Price": 200,
+    "img": "C:\\Users\\me\\Pictures\\error.png"
+  }
+
+}
