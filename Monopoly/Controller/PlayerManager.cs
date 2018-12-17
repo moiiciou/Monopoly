@@ -17,6 +17,7 @@ namespace Monopoly.Controller
         private static List<Player> _players = new List<Player>();
         private static int _nextId = 0;
         private static Player _bank;
+        public static volatile List<Grid> playerGrid = new List<Grid>();
         public static Func<string> test = () =>
         {
             return "good job";
@@ -40,6 +41,11 @@ namespace Monopoly.Controller
             return bankId;
 
         }
+        public static void InitGrid(Player p)
+        {
+            playerGrid.Add(new BoardLayout());
+            p.grid = 0;
+        }
         /// <summary>
         /// Créé un nouveau joueur avec les paramètres nom, argent et position.
         /// </summary>
@@ -51,11 +57,14 @@ namespace Monopoly.Controller
         {
             Player p = new Player(SearchNextId(), name, balance, position, new List<UserControl>(), null);
             _players.Add(p);
+            InitGrid(p);
             if (position >= 0)
             {
-                DrawPlayer(board, p.IdPlayer);
+                DrawPlayer(board, playerGrid[0], p.IdPlayer);
 
             }
+           
+           
 
             return _players.Last().IdPlayer;
         }
@@ -184,33 +193,33 @@ namespace Monopoly.Controller
             
         }
         
-        public static void DrawPlayer(Board b, int idPlayer)
+        public  static void DrawPlayer(Board b, Grid g, int idPlayer)
         {
            
             Player p = SearchPlayer(idPlayer);
-            b.Children.Remove(p);
+            g.Children.Remove(p);
             
            
             int x = b.BoardItems[p.Position].position[1];
             int y = b.BoardItems[p.Position].position[0];
             Grid.SetColumn(p, x);
             Grid.SetRow(p, y);
-            b.Children.Add(p);
+            g.Children.Add(p);
 
         }
 
-        public static void DrawPlayer(Board b, int idPlayer, int pos)
+        public  static void DrawPlayer(Board b, Grid g, int idPlayer, int pos)
         {
 
             Player p = SearchPlayer(idPlayer);
-            b.Children.Remove(p);
+            g.Children.Remove(p);
             pos = pos % 40; 
 
             int x = b.BoardItems[pos].position[1];
             int y = b.BoardItems[pos].position[0];
             Grid.SetColumn(p, x);
             Grid.SetRow(p, y);
-            b.Children.Add(p);
+            g.Children.Add(p);
 
         }
 
