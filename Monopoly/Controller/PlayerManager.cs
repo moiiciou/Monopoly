@@ -169,7 +169,8 @@ namespace Monopoly.Controller
             }
             if (p.CanMoove)
             {
-
+                p.Moove(dice1, dice2);
+                DrawPlayer(b, playerGrid[0], p.IdPlayer);
             }
             else
             {
@@ -188,17 +189,18 @@ namespace Monopoly.Controller
         public static void MoovePlayer(Board b, int idPlayer, int position)
         {
             Player p = SearchPlayer(idPlayer);
-
+            
+            DrawPlayer(b, playerGrid[0], idPlayer, position);
 
 
         }
 
         public static void DrawPlayer(Board b, Grid g, int idPlayer)
         {
-
+            Console.WriteLine(SearchPlayer(idPlayer).Position);
             Player p = SearchPlayer(idPlayer);
             g.Children.Remove(p);
-
+            Console.WriteLine(b.CasesList[p.Position]);
 
             int x = b.CasesList[p.Position].Position[1];
             int y = b.CasesList[p.Position].Position[0];
