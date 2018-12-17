@@ -92,6 +92,7 @@ namespace Monopoly.Model.Board
                     Grid.SetColumn(Case, Case.Position[1]);
                     this.Children.Add(Case);
                 }
+                CasesList.Add(BaseCase);
             }
 
 

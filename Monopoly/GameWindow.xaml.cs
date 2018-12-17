@@ -31,6 +31,11 @@ namespace Monopoly
             Grid.SetRow(board, 0);
             Grid.SetColumn(board, 0);
             root.Children.Add(board);
+
+            players.Add(PlayerManager.CreatePlayer(board, "test", 10000, 0));
+            List<int> dices = PlayerManager.RollDice();
+            root.Children.Add(PlayerManager.playerGrid[0]);
+   
            // Console.WriteLine(PlayerManager.test());
 
           //  this.players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
