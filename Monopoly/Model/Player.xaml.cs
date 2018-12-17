@@ -30,6 +30,7 @@ namespace Monopoly.Model
         private bool _canMoove;
         private int _numberDoubleDice;
         private List<UserControl> _cards;
+        public int grid;
 
         #endregion
 
@@ -156,6 +157,7 @@ namespace Monopoly.Model
             _name = name;
             _position = position;
             _cards = cards;
+
         }
         /// <summary>
         /// Instancie un Player avec le nom et l'id, avec tous les autres paramètres ( Balance, Position, Cartes) vide ou nul.
@@ -171,10 +173,13 @@ namespace Monopoly.Model
             _position = 0;
             _cards = new List<UserControl>();
             _image = null;
+
         }
         #endregion
 
         #region Méthodes
+
+
         /// <summary>
         /// TODO : Vérifie si le joueur est en faillite ou non (actuellement vérifie que son solde n'est pas négatif).
         /// </summary>

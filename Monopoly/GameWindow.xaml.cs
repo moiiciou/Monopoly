@@ -24,18 +24,28 @@ namespace Monopoly
         List<int> players = new List<int>();
         Board board = new Board();
         object lockBoard = new object();
+        List<Task> tasks = new List<Task>();
 
         public GameWindow()
         {
             InitializeComponent();
             Grid.SetRow(board, 0);
             Grid.SetColumn(board, 0);
+            
             root.Children.Add(board);
             Console.WriteLine(PlayerManager.test());
 
-            players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
-            
+        
 
+            players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
+
+            foreach (int p in players)
+            {
+                Player pl = PlayerManager.SearchPlayer(p);
+                
+                root.Children.Add(PlayerManager.playerGrid[pl.grid]);
+                //PlayerManager.playerGrid[pl.grid].Children.Add(pl);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,65 +57,69 @@ namespace Monopoly
             int nbcase = (dices[0]+dices[1]);
           //  this.lbl_jetde.Content = "Jet de dés : " + dices[0] + dices[1];
 
-            Task.Factory.StartNew(() => MooveTo(board, p.Position, p.IdPlayer, 42));
+           MooveTo(p.Position, p.IdPlayer, 42);
 
-           
+           foreach (Task t in tasks)
+            {
+               // TaskScheduler.FromCurrentSynchronizationContext();
+               
+                t.Start();
+                t.Wait();
+
+                
+            }
             
     
 
 
 
         }
-        private void MooveTo(Board b, int posPlayer, int id, int nbCaseMoove)
+        private void MooveTo(int posPlayer, int id, int nbCaseMoove)
         {
             
             Console.WriteLine(nbCaseMoove);
             Console.WriteLine(posPlayer);
             int posDepart = posPlayer;
+           
 
             for (int i = 0; i < nbCaseMoove; i++)
             {
-                lock (lockBoard)
+                Task a = new Task(  () =>
                 {
-                    Dispatcher.BeginInvoke(new Action(() =>
+
+                    
+                    posPlayer++;
+
+                    PlayerManager.DrawPlayer(board, PlayerManager.playerGrid[0], id, posPlayer);
+
+                    posPlayer = posPlayer % 40;
+                    if (posPlayer == 0)
                     {
-                        Console.WriteLine("je suis dans le thread " + i);
+                        PlayerManager.SearchPlayer(id).AddAmount(200);
+                        Console.WriteLine(PlayerManager.SearchPlayer(id).ToString());
+                    }
+                    if (i == nbCaseMoove - 1)
+                    {
+                        Console.WriteLine("  Pos joueur = " + posPlayer);
+                        GoToJail(board, id, 10);
+                    }
+                    Console.WriteLine("fin task " + i);
+                    
 
-                        posPlayer++;
 
-                        PlayerManager.DrawPlayer(b, id, posPlayer);
-
-                        posPlayer = posPlayer % 40;
-                        if (posPlayer == 0)
-                        {
-                            PlayerManager.SearchPlayer(id).AddAmount(200);
-                            Console.WriteLine(PlayerManager.SearchPlayer(id).ToString());
-                        }
-
-                    }), System.Windows.Threading.DispatcherPriority.Background);
-                    Thread.Sleep(500);
-                    Console.WriteLine("Fin thread " + i);
-                }
+                });
+                tasks.Add(a);
+         
+                    
+                
             /*PlayerInterface playerHud = new PlayerInterface();
             Grid.SetRow(playerHud, 0);
             Grid.SetColumn(playerHud, 1);
             root.Children.Add(playerHud);
             */
-                if ( i == nbCaseMoove-1)
-                {
-                    Console.WriteLine( "  Pos joueur = " + posPlayer);
-                    GoToJail(board,id, 10);
-                }
-
             }
-           /* lock (lockBoard)
-            {
-                (PlayerManager.SearchPlayer(id)).Position = (posPlayer) % 40;
-                if ((PlayerManager.SearchPlayer(id)).Position == posDepart + nbCaseMoove && (PlayerManager.SearchPlayer(id)).Position == 30)
-                {
-                    GoToJail((PlayerManager.SearchPlayer(id)).IdPlayer, 10);
-                }
-            }*/
+
+
 
         }
 
@@ -113,7 +127,7 @@ namespace Monopoly
         {
             (PlayerManager.SearchPlayer(player)).Position = posPrison;
           
-            PlayerManager.DrawPlayer(b, player);
+            PlayerManager.DrawPlayer(b, PlayerManager.playerGrid[0], player);
             
         }
 
