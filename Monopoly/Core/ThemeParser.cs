@@ -54,6 +54,11 @@ namespace Monopoly.Core
                             CasesList.Add(Start);
                             break;
 
+                        case "custom":
+                            CustomCase Custom = new CustomCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), item.position, angle);
+                            CasesList.Add(Custom);
+                            break;
+
                         case "chance":
                             ChanceCase Chance = new ChanceCase("Chance", "", angle, item.position);
                             CasesList.Add(Chance);

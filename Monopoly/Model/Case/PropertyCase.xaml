@@ -22,12 +22,6 @@
                     <ToolTip Name="toolTip" HorizontalOffset="0" VerticalOffset="0">
                         <!-- Add a StackPanel to the tooltip content -->
                         <StackPanel Width="250" Height="150">
-                            <!-- Add an image -->
-                            <StackPanel.Background>
-                                <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/money_icon.png"    
-                                Opacity="0.4"/>
-                            </StackPanel.Background>
-                            <!-- Add a text block -->
                             <TextBlock >    
                     <Run />
                             </TextBlock>

@@ -48,6 +48,15 @@ namespace Monopoly.Model.Board
                     this.Children.Add(Case);
                 }
 
+                if (BaseCase is CustomCase)
+                {
+                    CustomCase Case = (CustomCase)BaseCase;
+
+                    Grid.SetRow(Case, Case.Position[0]);
+                    Grid.SetColumn(Case, Case.Position[1]);
+                    this.Children.Add(Case);
+                }
+
                 if (BaseCase is CommunityCase)
                 {
                     CommunityCase Case = (CommunityCase)BaseCase;

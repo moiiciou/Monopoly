@@ -85,6 +85,9 @@
     <Compile Include="Model\Case\CommunityCase.xaml.cs">
       <DependentUpon>CommunityCase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Case\CustomCase.xaml.cs">
+      <DependentUpon>CustomCase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Case\JailCase.xaml.cs">
       <DependentUpon>JailCase.xaml</DependentUpon>
     </Compile>
@@ -102,11 +105,17 @@
     <Compile Include="Model\Case\StationCase.xaml.cs">
       <DependentUpon>StationCase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\UI\ChatBox.xaml.cs">
+      <DependentUpon>ChatBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\DialogueBox.xaml.cs">
       <DependentUpon>DialogueBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\Tools.cs" />
+    <Compile Include="Model\UI\PlayerInfo.xaml.cs">
+      <DependentUpon>PlayerInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
     </Compile>
@@ -144,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Model\Case\CustomCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\Case\JailCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,7 +173,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Model\UI\ChatBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\UI\DialogueBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\UI\PlayerInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -228,7 +249,10 @@
     <Resource Include="ressources\templates\default\monopoly-man.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\money_icon.png" />
+    <Resource Include="ressources\templates\default\money.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\player_avatar_test.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,10 +13,10 @@
       "position": [ 0, 1 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Bd de Belleville",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#c542f4",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -39,10 +39,10 @@
       "position": [ 0, 3 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Rue Lecourbe",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#c542f4",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -55,9 +55,10 @@
     },
     {
       "position": [ 0, 4 ],
-      "type": "community",
+      "type": "custom",
       "caseAttributes": {
-        "label": "",
+        "label": "Impots sur le revenu !",
+        "income": 100,
         "skin": ""
       }
     },
@@ -65,7 +66,7 @@
       "position": [ 0, 5 ],
       "type": "station",
       "caseAttributes": {
-        "label": "Gare du Nord",
+        "label": "Gare Montparnasse",
         "price": 100,
         "skin": ""
       }
@@ -74,10 +75,10 @@
       "position": [ 0, 6 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Rue de Vaurigard",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#20dbd8",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -100,10 +101,10 @@
       "position": [ 0, 8 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Rue de Courcelles",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#20dbd8",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -118,10 +119,10 @@
       "position": [ 0, 9 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Av. de la republique",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#20dbd8",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -144,10 +145,10 @@
       "position": [ 1, 10 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Bd de la Vilette",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#db8d1f",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -160,9 +161,10 @@
     },
     {
       "position": [ 2, 10 ],
-      "type": "community",
+      "type": "custom",
       "caseAttributes": {
-        "label": "",
+        "label": "Compagnie General d'electricite !",
+        "income": 100,
         "skin": ""
       }
     },
@@ -170,10 +172,10 @@
       "position": [ 3, 10 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Av. de Neuilly",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#db8d1f",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -188,10 +190,10 @@
       "position": [ 4, 10 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Rue de Paradis",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#db8d1f",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -206,7 +208,7 @@
       "position": [ 5, 10 ],
       "type": "station",
       "caseAttributes": {
-        "label": "Gare du Nord",
+        "label": "Gare de Lyon",
         "price": 100,
         "skin": ""
       }
@@ -215,10 +217,10 @@
       "position": [ 6, 10 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Av Mozart",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ed2e15",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -241,10 +243,10 @@
       "position": [ 8, 10 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Bd Saint-Michel",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ed2e15",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -259,10 +261,10 @@
       "position": [ 9, 10 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Place Pigalle",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ed2e15",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -275,7 +277,7 @@
     },
     {
       "position": [ 10, 10 ],
-      "type": "start",
+      "type": "custom",
       "caseAttributes": {
         "label": "FREE PARKING !",
         "income": 100,
@@ -286,10 +288,10 @@
       "position": [ 10, 9 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Av Matignon",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ede215",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -312,10 +314,10 @@
       "position": [ 10, 7 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Bd Male-Sherbes",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ede215",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -330,10 +332,10 @@
       "position": [ 10, 6 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Av Henri-Martin",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ede215",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -357,10 +359,10 @@
       "position": [ 10, 4 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Fb Saint-Honore",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#0e0aff",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -375,10 +377,10 @@
       "position": [ 10, 3 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Place de la bourse",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#0e0aff",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -391,9 +393,10 @@
     },
     {
       "position": [ 10, 2 ],
-      "type": "chance",
+      "type": "custom",
       "caseAttributes": {
-        "label": "",
+        "label": "Compagnie  de distribution d'eau !",
+        "income": 100,
         "skin": ""
       }
     },
@@ -401,10 +404,10 @@
       "position": [ 10, 1 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Rue Lafayette",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#0e0aff",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -417,7 +420,7 @@
     },
     {
       "position": [ 10, 0 ],
-      "type": "start",
+      "type": "custom",
       "caseAttributes": {
         "label": "ALLEZ EN PRISON !",
         "income": 100,
@@ -428,10 +431,10 @@
       "position": [ 9, 0 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Av de Breteuil",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#46b51b",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -446,10 +449,10 @@
       "position": [ 8, 0 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Av Foch",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#46b51b",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -472,10 +475,10 @@
       "position": [ 6, 0 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Bd Capucines",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#46b51b",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -490,7 +493,7 @@
       "position": [ 5, 0 ],
       "type": "station",
       "caseAttributes": {
-        "label": "Gare du Nord",
+        "label": "Gare Saint-Lazard",
         "price": 100,
         "skin": ""
       }
@@ -507,10 +510,10 @@
       "position": [ 3, 0 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Champs Elysees",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ed4972",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
@@ -533,10 +536,10 @@
       "position": [ 1, 0 ],
       "type": "property",
       "caseAttributes": {
-        "label": "Paris",
+        "label": "Rue de la paix",
         "price": 200,
         "skin": "",
-        "color": "",
+        "color": "#ed4972",
         "houseCost": 50,
         "mortgageValue": 250,
         "rent": 20,
