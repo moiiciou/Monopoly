@@ -31,19 +31,17 @@ namespace Monopoly
             Grid.SetRow(board, 0);
             Grid.SetColumn(board, 0);
             root.Children.Add(board);
-            Console.WriteLine(PlayerManager.test());
+           // Console.WriteLine(PlayerManager.test());
 
-            this.
+          //  this.players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
 
-                players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
-
-            foreach (int p in players)
+          /*  foreach (int p in players)
             {
                 Player pl = PlayerManager.SearchPlayer(p);
 
                 root.Children.Add(PlayerManager.playerGrid[pl.grid]);
                 //PlayerManager.playerGrid[pl.grid].Children.Add(pl);
-            }
+            }*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
