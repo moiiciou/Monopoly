@@ -62,6 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="Controller\CardManager.cs" />
     <Compile Include="Controller\CaseManager.cs" />
+    <Compile Include="Controller\GameManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
     <Compile Include="Core\ThemeParser.cs" />
     <Compile Include="GameWindow.xaml.cs">

@@ -13,6 +13,11 @@ namespace Monopoly.Controller
     {
         public GameManager(Grid root)
         {
+
+            List<int> players = new List<int>();
+            object lockBoard = new object();
+            List<Task> tasks = new List<Task>();
+
             Board board = Board.GetBoard;
             Grid.SetRow(board, 0);
             Grid.SetColumn(board, 0);
@@ -22,6 +27,9 @@ namespace Monopoly.Controller
             Grid.SetRow(playerHud, 0);
             Grid.SetColumn(playerHud, 1);
             root.Children.Add(playerHud);
+
+
+
 
         }
     }
