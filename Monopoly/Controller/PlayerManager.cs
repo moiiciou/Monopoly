@@ -198,7 +198,7 @@ namespace Monopoly.Controller
         public static void DrawPlayer(Board b, Grid g, int idPlayer)
         {
             Console.WriteLine(SearchPlayer(idPlayer).Position);
-            Player p = SearchPlayer(idPlayer);
+            Player p = SearchPlayer(idPlayer); // test 
             b.Children.Remove(p);
             Console.WriteLine(b.CasesList[p.Position]);
 
