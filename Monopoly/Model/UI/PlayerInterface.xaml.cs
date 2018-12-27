@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,30 @@ namespace Monopoly.Model.UI
     /// </summary>
     public partial class PlayerInterface : UserControl
     {
-        public PlayerInterface()
+        public PlayerInterface(string pseudoPlayer, int moneyPlayer)
         {
             InitializeComponent();
+            this.DataContext = new PlayerInfo { PseudoPlayer = pseudoPlayer, MoneyPlayer = moneyPlayer.ToString() + "€" };
+
         }
 
         private void ChatBox_Loaded(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        public class PlayerInfo : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected void NotifyPropertyChanged(string info)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+
+            public string MoneyPlayer { get; set; }
+            public string PseudoPlayer { get; set; }
+
 
         }
     }
