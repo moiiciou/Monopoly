@@ -34,19 +34,21 @@ namespace Monopoly
 
             players.Add(PlayerManager.CreatePlayer(board, "test", 10000, 0));
             List<int> dices = PlayerManager.RollDice();
-            root.Children.Add(PlayerManager.playerGrid[0]);
-   
-           // Console.WriteLine(PlayerManager.test());
+            
+            PlayerManager.MoovePlayer(board, players[0]);
+      
 
-          //  this.players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
+            // Console.WriteLine(PlayerManager.test());
 
-          /*  foreach (int p in players)
-            {
-                Player pl = PlayerManager.SearchPlayer(p);
+            //  this.players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
 
-                root.Children.Add(PlayerManager.playerGrid[pl.grid]);
-                //PlayerManager.playerGrid[pl.grid].Children.Add(pl);
-            }*/
+            /*  foreach (int p in players)
+              {
+                  Player pl = PlayerManager.SearchPlayer(p);
+
+                  root.Children.Add(PlayerManager.playerGrid[pl.grid]);
+                  //PlayerManager.playerGrid[pl.grid].Children.Add(pl);
+              }*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -91,7 +93,7 @@ namespace Monopoly
 
                   posPlayer++;
 
-                  PlayerManager.DrawPlayer(board, PlayerManager.playerGrid[0], id, posPlayer);
+                  PlayerManager.DrawPlayer(board,  id, posPlayer);
 
                   posPlayer = posPlayer % 40;
                   if (posPlayer == 0)
