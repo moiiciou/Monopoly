@@ -189,8 +189,8 @@ namespace Monopoly.Controller
         public static void MoovePlayer(Board b, int idPlayer, int position)
         {
             Player p = SearchPlayer(idPlayer);
-            
-            DrawPlayer(b, playerGrid[0], idPlayer, position);
+            position = position % 40;
+            DrawPlayer(b,  idPlayer, position);
 
 
         }
@@ -199,29 +199,29 @@ namespace Monopoly.Controller
         {
             Console.WriteLine(SearchPlayer(idPlayer).Position);
             Player p = SearchPlayer(idPlayer);
-            g.Children.Remove(p);
+            b.Children.Remove(p);
             Console.WriteLine(b.CasesList[p.Position]);
 
             int x = b.CasesList[p.Position].Position[1];
             int y = b.CasesList[p.Position].Position[0];
             Grid.SetColumn(p, x);
             Grid.SetRow(p, y);
-            g.Children.Add(p);
+            b.Children.Add(p);
 
         }
 
-        public static void DrawPlayer(Board b, Grid g, int idPlayer, int pos)
+        public static void DrawPlayer(Board b, int idPlayer, int pos)
         {
 
             Player p = SearchPlayer(idPlayer);
-            g.Children.Remove(p);
+            b.Children.Remove(p);
             pos = pos % 40;
 
             int x = b.CasesList[pos].Position[1];
             int y = b.CasesList[pos].Position[0];
             Grid.SetColumn(p, x);
             Grid.SetRow(p, y);
-            g.Children.Add(p);
+            b.Children.Add(p);
 
         }
 

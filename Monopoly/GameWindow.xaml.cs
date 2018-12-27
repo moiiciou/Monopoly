@@ -34,7 +34,7 @@ namespace Monopoly
 
             players.Add(PlayerManager.CreatePlayer(board, "test", 10000, 0));
             List<int> dices = PlayerManager.RollDice();
-            root.Children.Add(PlayerManager.playerGrid[0]);
+            PlayerManager.MoovePlayer(board, players[0],0);
    
            // Console.WriteLine(PlayerManager.test());
 
@@ -91,7 +91,7 @@ namespace Monopoly
 
                   posPlayer++;
 
-                  PlayerManager.DrawPlayer(board, PlayerManager.playerGrid[0], id, posPlayer);
+                  PlayerManager.DrawPlayer(board, id, posPlayer);
 
                   posPlayer = posPlayer % 40;
                   if (posPlayer == 0)
