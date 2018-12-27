@@ -39,6 +39,9 @@ namespace Monopoly
             this.WindowState = WindowState.Minimized;
         }
 
+        private void Multi_button_click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
