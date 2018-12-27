@@ -32,5 +32,6 @@ namespace Monopoly.Model
                 return 24;
             }
         }
+
     }
 }

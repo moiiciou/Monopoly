@@ -1,5 +1,6 @@
 ﻿using Monopoly.Core;
 using Monopoly.Model.Case;
+using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -10,8 +11,12 @@ namespace Monopoly.Model.Board
     public class Board : BoardLayout
     {
         public readonly List<BaseCase> CasesList = new List<BaseCase>();
+        private static readonly Lazy<Board> lazy = new Lazy<Board>(() => new Board());
 
-        public Board()
+        public static Board GetBoard { get { return lazy.Value; } }
+
+
+        protected Board()
         {
             LoadBoardInfo();
             var testdial = new UI.DialogueBox("Ceci est une box de text ! Elle est très belle ! Gloire à Satan et à bientôt !");
@@ -21,6 +26,7 @@ namespace Monopoly.Model.Board
             this.Children.Add(testdial);
 
         }
+
 
         public void LoadBoardInfo()
         {

@@ -23,7 +23,7 @@
         <local:PlayerInfo HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
         <local:PlayerInfo HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
         <local:PlayerInfo HorizontalAlignment="Left" Margin="12,300,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
-        <local:ChatBox HorizontalAlignment="Left" Margin="0,148,0,-73" Grid.Row="1" VerticalAlignment="Top" Height="379" Width="446" Grid.RowSpan="3"/>
+        <local:ChatBox HorizontalAlignment="Left" Margin="0,148,0,-73" Grid.Row="1" VerticalAlignment="Top" Height="379" Width="446" Grid.RowSpan="3" Loaded="ChatBox_Loaded"/>
 
     </Grid>
 </UserControl>

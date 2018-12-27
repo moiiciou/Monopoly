@@ -216,7 +216,6 @@ namespace Monopoly.Controller
             Player p = SearchPlayer(idPlayer);
             b.Children.Remove(p);
             pos = pos % 40;
-
             int x = b.CasesList[pos].Position[1];
             int y = b.CasesList[pos].Position[0];
             Grid.SetColumn(p, x);

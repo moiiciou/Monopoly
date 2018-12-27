@@ -24,5 +24,10 @@ namespace Monopoly.Model.UI
         {
             InitializeComponent();
         }
+
+        private void ChatBox_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

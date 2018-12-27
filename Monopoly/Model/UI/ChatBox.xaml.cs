@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Monopoly.Controller;
+using Monopoly.Model.Board;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Monopoly.Model.UI
 {
@@ -23,6 +14,30 @@ namespace Monopoly.Model.UI
         public ChatBox()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+           if (textBox.Text.StartsWith("/"))
+            {
+                launchCommand(textBox.Text);
+            }
+        }
+
+        private void launchCommand(string command)
+        {
+            command = command.TrimStart('/');
+            switch (command)
+            {
+                case "moove":
+                    textBlock.Text += "\n fonction moove lancé !";
+                    PlayerManager.MoovePlayer(Board.Board.GetBoard, 0);
+                    break;
+                default:
+                    textBlock.Text += "\n commande non trouvé !";
+                    break;
+            }
         }
     }
 }
