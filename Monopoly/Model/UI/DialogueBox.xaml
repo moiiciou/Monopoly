@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.Model.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="200" Width="399.319" >
+             Height="Auto" Width="Auto" >
 
     <Canvas Width="396" HorizontalAlignment="Right" Margin="0,34,3,-1" Background="#FFFFFEFE">
         <Button Content="OK !" Canvas.Left="322" Canvas.Top="132" Width="67" Height="25" Click="Button_Click">

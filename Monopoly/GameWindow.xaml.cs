@@ -38,17 +38,18 @@ namespace Monopoly
             PlayerManager.MoovePlayer(board, players[0]);
       
 
-            // Console.WriteLine(PlayerManager.test());
+            PlayerInterface playerHud = new PlayerInterface();
+            Grid.SetRow(playerHud, 0);
+            Grid.SetColumn(playerHud, 1);
+            root.Children.Add(playerHud);
 
-            //  this.players.Add(PlayerManager.CreatePlayer(board, "test", 1500, 0));
+          /*  foreach (int p in players)
+            {
+                Player pl = PlayerManager.SearchPlayer(p);
 
-            /*  foreach (int p in players)
-              {
-                  Player pl = PlayerManager.SearchPlayer(p);
-
-                  root.Children.Add(PlayerManager.playerGrid[pl.grid]);
-                  //PlayerManager.playerGrid[pl.grid].Children.Add(pl);
-              }*/
+                root.Children.Add(PlayerManager.playerGrid[pl.grid]);
+                //PlayerManager.playerGrid[pl.grid].Children.Add(pl);
+            }*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -115,15 +116,13 @@ namespace Monopoly
 
 
 
-                /*PlayerInterface playerHud = new PlayerInterface();
-                Grid.SetRow(playerHud, 0);
-                Grid.SetColumn(playerHud, 1);
-                root.Children.Add(playerHud);
-                */
+
+
 
             }
 
         }
+
     }
 }
 

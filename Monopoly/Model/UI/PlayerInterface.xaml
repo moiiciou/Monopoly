@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Monopoly.Model.UI"
              mc:Ignorable="d" 
             >
-    <Grid Height="963" Width="448">
+    <Grid Height="Auto" Width="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="385*"/>
             <RowDefinition Height="299*"/>
