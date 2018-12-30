@@ -26,7 +26,7 @@ namespace Monopoly
             InitializeComponent();
 
             GameManager newGame = new GameManager(root);
-
+            
 
         }
 

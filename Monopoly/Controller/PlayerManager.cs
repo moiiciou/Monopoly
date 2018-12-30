@@ -205,7 +205,6 @@ namespace Monopoly.Controller
             Player p = SearchPlayer(idPlayer);
             b.Children.Remove(p);
             Console.WriteLine(b.CasesList[p.Position]);
-            Console.WriteLine(p.playerInfo.MoneyPlayer.ToString());
             
             int x = b.CasesList[p.Position].Position[1];
             int y = b.CasesList[p.Position].Position[0];

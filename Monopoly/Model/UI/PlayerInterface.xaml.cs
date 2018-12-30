@@ -55,7 +55,7 @@ namespace Monopoly.Model.UI
                 _name = value;
                 OnPropertyChanged("PseudoPlayer");
             }
-        }
+        } 
         public string MoneyPlayer
         {
             get { return _balance; }
