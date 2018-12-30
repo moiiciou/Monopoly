@@ -8,6 +8,7 @@ using Monopoly.Model;
 
 using Monopoly.Model.Board;
 using System.Threading;
+using Monopoly.Model.Card;
 
 namespace Monopoly.Controller
 {
@@ -33,7 +34,7 @@ namespace Monopoly.Controller
         public static int CreateBank()
         {
             int bankId = SearchNextId();
-            List<UserControl> properties = new List<UserControl>();
+            List<BaseCard> properties = new List<BaseCard>();
             _bank = new Player(bankId, "Bank", int.MaxValue, 0, properties, null);
             _players.Add(_bank);
 
@@ -55,7 +56,7 @@ namespace Monopoly.Controller
         /// <return> Renvoie l'id du joueur créé. </return>
         public static int CreatePlayer(Board board, string name, int balance, int position)
         {
-            Player p = new Player(SearchNextId(), name, balance, position, new List<UserControl>(), null);
+            Player p = new Player(SearchNextId(), name, balance, position, new List<BaseCard>(), null);
             _players.Add(p);
             InitGrid(p);
             if (position >= 0)
@@ -189,9 +190,12 @@ namespace Monopoly.Controller
         public static void MoovePlayer(Board b, int idPlayer, int position)
         {
             Player p = SearchPlayer(idPlayer);
+            if(position != position % 40)
+            {
+                p.AddAmount(500);
+            }
             position = position % 40;
             DrawPlayer(b, idPlayer, position);
-
 
         }
 
@@ -201,7 +205,8 @@ namespace Monopoly.Controller
             Player p = SearchPlayer(idPlayer);
             b.Children.Remove(p);
             Console.WriteLine(b.CasesList[p.Position]);
-
+            Console.WriteLine(p.playerInfo.MoneyPlayer.ToString());
+            
             int x = b.CasesList[p.Position].Position[1];
             int y = b.CasesList[p.Position].Position[0];
             Grid.SetColumn(p, x);

@@ -20,9 +20,17 @@ namespace Monopoly.Model.UI
     /// </summary>
     public partial class PlayerInfo : UserControl
     {
+        private int balance;
+
         public PlayerInfo()
         {
             InitializeComponent();
+        }
+
+        public PlayerInfo(string name, int balance)
+        {
+            Name = name;
+            this.balance = balance;
         }
     }
 }

@@ -21,10 +21,10 @@ namespace Monopoly.Model.UI
     /// </summary>
     public partial class PlayerInterface : UserControl
     {
-        public PlayerInterface(string pseudoPlayer, int moneyPlayer)
+        public PlayerInterface(Player player)
         {
             InitializeComponent();
-            this.DataContext = new PlayerInfo { PseudoPlayer = pseudoPlayer, MoneyPlayer = moneyPlayer.ToString() + "€" };
+            this.DataContext = player.playerInfo;
 
         }
 
@@ -33,19 +33,47 @@ namespace Monopoly.Model.UI
 
         }
 
-        public class PlayerInfo : INotifyPropertyChanged
+
+    }
+
+    public partial class PlayerInfo : INotifyPropertyChanged
+    {
+        private string _name = "ERROR";
+        private string _balance = "ERROR";
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public PlayerInfo(string name, string balance)
         {
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void NotifyPropertyChanged(string info)
+            PseudoPlayer = name;
+            MoneyPlayer = balance;
+        }
+        public string PseudoPlayer
+        {
+            get { return _name; }
+            set
             {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(info));
+                _name = value;
+                OnPropertyChanged("PseudoPlayer");
             }
+        }
+        public string MoneyPlayer
+        {
+            get { return _balance; }
+            set
+            {
+                _balance = value;
+                OnPropertyChanged("MoneyPlayer");
+            }
+        }
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+                handler(this, new PropertyChangedEventArgs(_balance));
 
-            public string MoneyPlayer { get; set; }
-            public string PseudoPlayer { get; set; }
-
-
+            }
         }
     }
 }

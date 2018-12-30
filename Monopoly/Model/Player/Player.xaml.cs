@@ -1,17 +1,9 @@
-﻿using System;
+﻿using Monopoly.Model.Card;
+using Monopoly.Model.UI;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Monopoly.Model
 {
@@ -19,7 +11,7 @@ namespace Monopoly.Model
     /// Logique d'interaction pour Player.xaml
     /// </summary>
     public partial class Player : UserControl
-    {
+    {        
         #region Attributs
 
         private int _balance;
@@ -29,9 +21,9 @@ namespace Monopoly.Model
         private int _position;
         private bool _canMoove;
         private int _numberDoubleDice;
-        private List<UserControl> _cards;
+        private List<BaseCard> _cards;
         public int grid;
-
+        public PlayerInfo playerInfo;
         #endregion
 
         #region Accesseurs
@@ -127,7 +119,7 @@ namespace Monopoly.Model
             }
         }
 
-        public List<UserControl> Cards
+        public List<BaseCard> Cards
         {
             get
             {
@@ -148,7 +140,7 @@ namespace Monopoly.Model
         /// <param name="position">Position du Player sur le plateau</param>
         /// <param name="cards">Liste de cartes que le Player possède</param>
         /// <param name="image">Skin du Player</param>
-        public Player(int idPlayer, string name, int balance, int position, List<UserControl> cards, object image)
+        public Player(int idPlayer, string name, int balance, int position, List<BaseCard> cards, object image)
         {
             InitializeComponent();
             _balance = balance;
@@ -157,6 +149,8 @@ namespace Monopoly.Model
             _name = name;
             _position = position;
             _cards = cards;
+            playerInfo = new PlayerInfo(name,balance.ToString());
+            
 
         }
         /// <summary>
@@ -171,7 +165,7 @@ namespace Monopoly.Model
             _name = name;
             _balance = 0;
             _position = 0;
-            _cards = new List<UserControl>();
+            _cards = new List<BaseCard>();
             _image = null;
 
         }
@@ -205,6 +199,7 @@ namespace Monopoly.Model
             if (amount > 0 && Balance > amount)
             {
                 Balance -= amount;
+                playerInfo.MoneyPlayer = Balance.ToString();
 
             }
             else
@@ -224,6 +219,8 @@ namespace Monopoly.Model
             if (amount > 0)
             {
                 Balance += amount;
+                playerInfo.MoneyPlayer = Balance.ToString();
+
             }
             else
             {
@@ -236,7 +233,7 @@ namespace Monopoly.Model
         ///  On rajoute une carte au joueur courant.
         /// </summary>
         /// <param name="c"> La carte que l'on veut ajouter. </param>
-        public void AddCard(UserControl c)
+        public void AddCard(BaseCard c)
         {
             if (c != null)
             {

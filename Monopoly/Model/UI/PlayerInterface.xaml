@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.Model.UI"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
             >
+    <UserControl.DataContext>
+        <local:PlayerInfo/>
+    </UserControl.DataContext>
     <Grid Height="Auto" Width="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="385*"/>
@@ -14,16 +17,17 @@
             <RowDefinition Height="38*"/>
         </Grid.RowDefinitions>
         <Image HorizontalAlignment="Left" Height="90" Margin="10,60,0,0" VerticalAlignment="Top" Width="90" Source="/Monopoly;component/ressources/templates/default/money.png"/>
-        <Label Content="{Binding MoneyPlayer}" HorizontalAlignment="Left" Margin="100,60,0,0" VerticalAlignment="Top" Height="57" Width="212" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
+        <Label x:Name="money_label" Content="{Binding MoneyPlayer}" HorizontalAlignment="Left" Margin="100,60,0,0" VerticalAlignment="Top" Height="57" Width="108" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
         <Label Content="{Binding PseudoPlayer}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="45" Width="226" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
         <ListBox HorizontalAlignment="Left" Height="272" Margin="10,385,0,0" VerticalAlignment="Top" Width="325" Grid.RowSpan="2"/>
         <Label Content="Property owned :" HorizontalAlignment="Left" Margin="10,348,0,0" VerticalAlignment="Top" Width="161" FontSize="20" Height="37"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="225,10,0,0" VerticalAlignment="Top" Width="100" Source="/Monopoly;component/ressources/templates/default/player_avatar_test.png"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="314,10,0,0" VerticalAlignment="Top" Width="100" Source="/Monopoly;component/ressources/templates/default/player_avatar_test.png"/>
         <Label x:Name="label" Content="Autres Joueurs :" HorizontalAlignment="Left" Margin="10,167,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.719,0.705" Width="178" Height="38" FontSize="16" FontWeight="Bold"/>
         <local:PlayerInfo HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
         <local:PlayerInfo HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
         <local:PlayerInfo HorizontalAlignment="Left" Margin="12,300,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
         <local:ChatBox HorizontalAlignment="Left" Margin="0,148,0,-73" Grid.Row="1" VerticalAlignment="Top" Height="379" Width="446" Grid.RowSpan="3" Loaded="ChatBox_Loaded"/>
+        <Label x:Name="currency_label" Content="€" HorizontalAlignment="Left" Margin="208,60,0,0" VerticalAlignment="Top" Height="57" Width="108" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
 
     </Grid>
 </UserControl>

@@ -33,6 +33,8 @@ namespace Monopoly.Model.UI
                 case "moove":
                     textBlock.Text += "\n fonction moove lancé !";
                     PlayerManager.MoovePlayer(Board.Board.GetBoard, 0);
+                    PlayerManager.SearchPlayer(0).AddAmount(999);
+
                     break;
                 default:
                     textBlock.Text += "\n commande non trouvé !";

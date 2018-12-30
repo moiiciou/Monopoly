@@ -25,12 +25,13 @@ namespace Monopoly.Controller
             players.Add(PlayerManager.CreatePlayer(board, "test", 10000, 0));
            
 
-            PlayerInterface playerHud = new PlayerInterface(PlayerManager.SearchPlayer(0).NamePlayer, PlayerManager.SearchPlayer(0).Balance);
+            PlayerInterface playerHud = new PlayerInterface(PlayerManager.SearchPlayer(0));
             Grid.SetRow(playerHud, 0);
             Grid.SetColumn(playerHud, 1);
             root.Children.Add(playerHud);
 
             List<int> dices = PlayerManager.RollDice();
+
 
 
         }
