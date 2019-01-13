@@ -5,16 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Monopoly.Controller
 {
     class GameManager
     {
-        private bool _gameOver = false;
+        public static Dictionary<string, FrameworkElement> controls = new Dictionary<string, FrameworkElement>();
 
         public GameManager(Grid root)
         {
+
             List<int> players = new List<int>();
             object lockBoard = new object();
             List<Task> tasks = new List<Task>();
@@ -23,35 +25,16 @@ namespace Monopoly.Controller
             Grid.SetRow(board, 0);
             Grid.SetColumn(board, 0);
             root.Children.Add(board);
-            players.Add(PlayerManager.CreatePlayer(board, "test", 10000, 0));
-
+            players.Add(PlayerManager.CreatePlayer(board, "Thibaut".PadRight("Thibaut".Length + (15 - "Thibaut".Length), '0'), 10000, 0));
 
             PlayerInterface playerHud = new PlayerInterface(PlayerManager.SearchPlayer(0));
+            controls.Add("playerHud", playerHud);
+
             Grid.SetRow(playerHud, 0);
             Grid.SetColumn(playerHud, 1);
             root.Children.Add(playerHud);
-
             List<int> dices = PlayerManager.RollDice();
 
-            PlayTurn(players);
-
-        }
-
-        private static  void PlayTurn(List<int> players)
-        {
-            bool _gameOver = false;
-  
-                foreach (int player in players)
-                {
-                    PlayerManager.MoovePlayer(Board.GetBoard, player);
-                    var testdial = new Model.UI.DialogueBox("C'est ton tour connard !");
-                    testdial.SetValue(Grid.ColumnSpanProperty, 4);
-                    Grid.SetRow(testdial, 3);
-                    Grid.SetColumn(testdial, 3);
-                    Board.GetBoard.Children.Add(testdial);
-                }
-
-     
 
         }
 

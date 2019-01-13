@@ -11,6 +11,9 @@ namespace Monopoly.Model.Case
     {
 
         public PropertyCard Card { get; set; }
+        public string Location { get; set; }
+        public int IdOwner { get; set; } = 0;
+
 
         public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card)
         {
@@ -27,6 +30,7 @@ namespace Monopoly.Model.Case
             }
             Position = position;
             Card = card;
+            Location = location;
         }
 
         public class CaseInfo : INotifyPropertyChanged

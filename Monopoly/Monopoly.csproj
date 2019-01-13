@@ -63,10 +63,15 @@
     <Compile Include="Controller\CardManager.cs" />
     <Compile Include="Controller\CaseManager.cs" />
     <Compile Include="Controller\GameManager.cs" />
+    <Compile Include="Controller\NetworkManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
+    <Compile Include="Controller\RuleManager.cs" />
     <Compile Include="Core\ThemeParser.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LobbyWindow.xaml.cs">
+      <DependentUpon>LobbyWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs" />
     <Compile Include="Model\Board\BoardLayout.xaml.cs">
@@ -129,6 +134,10 @@
       <DependentUpon>optionForm.cs</DependentUpon>
     </Compile>
     <Page Include="GameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LobbyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,6 +269,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\player_avatar_test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\server\server.csproj">
+      <Project>{69521b30-e40e-444d-b2b5-970c8c31f508}</Project>
+      <Name>server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

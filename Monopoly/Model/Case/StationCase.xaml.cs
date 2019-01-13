@@ -22,6 +22,10 @@ namespace Monopoly.Model.Case
     /// </summary>
     public partial class StationCase : BaseCase
     {
+        public int IdOwner { get; set; } = 0;
+        public string TextLabel { get; set; }
+
+
         public StationCase(string text, int price, string skinPath, int[] position, int angle)
         {
             InitializeComponent();
@@ -36,8 +40,8 @@ namespace Monopoly.Model.Case
 
             }
 
-
-            this.Position = position;
+            TextLabel = text;
+            Position = position;
         }
 
         public class CaseInfo : INotifyPropertyChanged

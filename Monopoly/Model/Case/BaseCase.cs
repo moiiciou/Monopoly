@@ -21,7 +21,6 @@ namespace Monopoly.Model.Case
     public partial class BaseCase : UserControl
     {
         public int[] Position { get; set; }
-
         public BaseCase()
         {
 

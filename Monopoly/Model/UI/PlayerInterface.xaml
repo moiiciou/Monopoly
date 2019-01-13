@@ -26,7 +26,7 @@
         <local:PlayerInfo HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
         <local:PlayerInfo HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
         <local:PlayerInfo HorizontalAlignment="Left" Margin="12,300,0,0" VerticalAlignment="Top" Height="48" Width="300"/>
-        <local:ChatBox HorizontalAlignment="Left" Margin="0,148,0,-73" Grid.Row="1" VerticalAlignment="Top" Height="379" Width="446" Grid.RowSpan="3" Loaded="ChatBox_Loaded"/>
+        <local:ChatBox x:Name="chatBox" HorizontalAlignment="Left" Margin="0,148,0,-73" Grid.Row="1" VerticalAlignment="Top" Height="379" Width="446" Grid.RowSpan="3"  Loaded="ChatBox_Loaded"/>
         <Label x:Name="currency_label" Content="€" HorizontalAlignment="Left" Margin="208,60,0,0" VerticalAlignment="Top" Height="57" Width="108" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
 
     </Grid>
