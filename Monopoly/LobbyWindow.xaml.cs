@@ -35,7 +35,9 @@ namespace Monopoly
             players.Add(PlayerManager.CreatePlayer(board, pseudoTxtBox.Text.PadRight(pseudoTxtBox.Text.Length+(15- pseudoTxtBox.Text.Length),'0'), 10000, 0));
 
             Connection conn = Connection.GetConnection;
-          
+            var GameWindow = new GameWindow();
+            GameWindow.Show();
+            this.WindowState = WindowState.Minimized;
 
         }
     }

@@ -27,7 +27,7 @@
         <RichTextBox x:Name="chatBody" HorizontalAlignment="Left" Height="220" VerticalAlignment="Top" Width="450" Grid.ColumnSpan="2">
             <FlowDocument>
                 <Paragraph>
-                    <Run Text="RichTextBox"/>
+                    <Run Text=""/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>

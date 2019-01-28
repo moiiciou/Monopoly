@@ -33,7 +33,7 @@ namespace Monopoly
             psi.RedirectStandardOutput = true;
             psi.CreateNoWindow = true;
             Process proc = Process.Start(psi);
-            */
+         */
         }
 
         private void optionButton_Click(object sender, RoutedEventArgs e)

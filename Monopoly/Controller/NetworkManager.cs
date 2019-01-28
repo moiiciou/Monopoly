@@ -1,5 +1,6 @@
 ﻿using Monopoly.Model.Board;
 using Monopoly.Model.UI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace Monopoly.Controller
 {
@@ -49,7 +51,7 @@ namespace Monopoly.Controller
                 ClientSocket.Connect(ipEnd);
                 if (ClientSocket.Connected)
                 {
-                    byte[] msg = System.Text.Encoding.UTF8.GetBytes(GetSequence() + PlayerManager.SearchPlayer(0).NamePlayer);
+                    byte[] msg = System.Text.Encoding.UTF8.GetBytes(GetSequence() + PlayerManager.CurrentPlayerName);
                     int DtSent = ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
 
@@ -75,7 +77,7 @@ namespace Monopoly.Controller
 
         public static void SendMsg(string message)
         {
-
+            
             byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
             int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
@@ -135,14 +137,23 @@ namespace Monopoly.Controller
                                     byte[] msg = new Byte[ClientSocket.Available];
                                     ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
-                                    /* Analyser le message recu avec un function de type parseMessage()
-                                     * Appeler la fonction adéquate en fonction du type de message recu;
+                                    Console.WriteLine(messageReceived);
+                                    string json = messageReceived;
+                                    Packet p = JsonConvert.DeserializeObject<Packet>(json);
 
-                                     */
+                                    if (p.Type == "newPlayer")
+                                    {
+                                        Console.WriteLine("Un nouveau joueur est arrivé");
+                                        server.PlayerInfo playerInfo = JsonConvert.DeserializeObject<server.PlayerInfo>(p.Content);
 
-                                    System.Windows.MessageBox.Show(messageReceived);
+                                        GameManager.playersList.Add(playerInfo.Pseudo, playerInfo);
+
+
+                                    }
+
                                     PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
-                                    playerHud.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerHud.chatBox.UpdateText),messageReceived);
+                                    playerHud.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerHud.chatBox.UpdateText), p.ChatMessage); // <- SUIVRE LA MEME LOGIQUE POUR FAIRE APPARAITRE UN NOUVEAU SUR LE BOARD
+
 
 
 
@@ -162,7 +173,7 @@ namespace Monopoly.Controller
             }
             catch
             {
-             // Thread.ResetAbort();
+             Thread.ResetAbort();
             }
         }
     }

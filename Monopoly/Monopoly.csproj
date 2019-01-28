@@ -60,12 +60,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controller\CardManager.cs" />
-    <Compile Include="Controller\CaseManager.cs" />
     <Compile Include="Controller\GameManager.cs" />
     <Compile Include="Controller\NetworkManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
-    <Compile Include="Controller\RuleManager.cs" />
+    <Compile Include="Core\Packet.cs" />
     <Compile Include="Core\ThemeParser.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
@@ -111,6 +109,7 @@
     <Compile Include="Model\Case\StationCase.xaml.cs">
       <DependentUpon>StationCase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Packet.cs" />
     <Compile Include="Model\Player\Player.xaml.cs">
       <DependentUpon>Player.xaml</DependentUpon>
     </Compile>

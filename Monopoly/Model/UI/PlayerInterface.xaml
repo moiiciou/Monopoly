@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <Image HorizontalAlignment="Left" Height="90" Margin="10,60,0,0" VerticalAlignment="Top" Width="90" Source="/Monopoly;component/ressources/templates/default/money.png"/>
         <Label x:Name="money_label" Content="{Binding MoneyPlayer}" HorizontalAlignment="Left" Margin="100,60,0,0" VerticalAlignment="Top" Height="57" Width="108" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
-        <Label Content="{Binding PseudoPlayer}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="45" Width="226" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
+        <Label x:Name="pseudo_label" Content="{Binding PseudoPlayer}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="45" Width="226" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
         <ListBox HorizontalAlignment="Left" Height="272" Margin="10,385,0,0" VerticalAlignment="Top" Width="325" Grid.RowSpan="2"/>
         <Label Content="Property owned :" HorizontalAlignment="Left" Margin="10,348,0,0" VerticalAlignment="Top" Width="161" FontSize="20" Height="37"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="314,10,0,0" VerticalAlignment="Top" Width="100" Source="/Monopoly;component/ressources/templates/default/player_avatar_test.png"/>

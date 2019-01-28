@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monopoly.Model.Card;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,10 +22,9 @@ namespace Monopoly.Model.UI
     /// </summary>
     public partial class PlayerInterface : UserControl
     {
-        public PlayerInterface(Player player)
+        public PlayerInterface(string pseudoPlayer)
         {
             InitializeComponent();
-            this.DataContext = player.playerInfo;
 
         }
 
@@ -36,44 +36,4 @@ namespace Monopoly.Model.UI
 
     }
 
-    public partial class PlayerInfo : INotifyPropertyChanged
-    {
-        private string _name = "ERROR";
-        private string _balance = "ERROR";
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public PlayerInfo(string name, string balance)
-        {
-            PseudoPlayer = name;
-            MoneyPlayer = balance;
-        }
-        public string PseudoPlayer
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged("PseudoPlayer");
-            }
-        } 
-        public string MoneyPlayer
-        {
-            get { return _balance; }
-            set
-            {
-                _balance = value;
-                OnPropertyChanged("MoneyPlayer");
-            }
-        }
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-                handler(this, new PropertyChangedEventArgs(_balance));
-
-            }
-        }
-    }
 }

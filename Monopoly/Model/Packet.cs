@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace server
 {
-    class ClientManager
+    class Packet
     {
+        public string Type { get; set; }
+        public string Content { get; set; }
+        public string ChatMessage { get; set; }
+
+
     }
 }

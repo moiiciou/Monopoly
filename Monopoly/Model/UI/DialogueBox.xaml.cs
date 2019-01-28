@@ -21,6 +21,7 @@ namespace Monopoly.Model.UI
     /// </summary>
     public partial class DialogueBox : UserControl
     {
+
         public DialogueBox(string message)
         {
             InitializeComponent();

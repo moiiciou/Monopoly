@@ -149,7 +149,6 @@ namespace Monopoly.Model
             _name = name;
             _position = position;
             _cards = cards;
-            playerInfo = new PlayerInfo(name,balance.ToString());
             
 
         }
@@ -199,7 +198,6 @@ namespace Monopoly.Model
             if (amount > 0 && Balance > amount)
             {
                 Balance -= amount;
-                playerInfo.MoneyPlayer = Balance.ToString();
 
             }
             else
@@ -219,7 +217,6 @@ namespace Monopoly.Model
             if (amount > 0)
             {
                 Balance += amount;
-                playerInfo.MoneyPlayer = Balance.ToString();
 
             }
             else

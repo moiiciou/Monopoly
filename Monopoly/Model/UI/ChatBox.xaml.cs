@@ -2,6 +2,7 @@
 using Monopoly.Core;
 using Monopoly.Model.Board;
 using Monopoly.Model.Case;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
@@ -42,9 +43,30 @@ namespace Monopoly.Model.UI
 
             try
             {
-                if (textBox.Text != "")
+                if (textBox.Text != "" && textBox.Text.StartsWith("/"))
                 {
-                    byte[] msg = System.Text.Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.SearchPlayer(0).NamePlayer + textBox.Text + "\r\n");
+                    server.Packet p = new server.Packet();
+                    p.Type = "command";
+                    p.Content = textBox.Text.TrimStart('/') + "\r\n";
+                    string message = JsonConvert.SerializeObject(p, Formatting.Indented);
+                    Console.WriteLine(message);
+                    byte[] msg = System.Text.Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                    int DtSent = conn.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+
+                    if (DtSent == 0)
+                    {
+                        MessageBox.Show("Aucune donnée n'a été envoyée");
+                    }
+                    textBox.Clear();
+                }
+                else
+                {
+                    server.Packet p = new server.Packet();
+                    p.Type = "message";
+                    p.ChatMessage = textBox.Text;
+                    string message = JsonConvert.SerializeObject(p, Formatting.Indented);
+                    Console.WriteLine(message);
+                    byte[] msg = System.Text.Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);
                     int DtSent = conn.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
                     if (DtSent == 0)
@@ -82,24 +104,12 @@ namespace Monopoly.Model.UI
             }
         }
 
-        private void launchCommand(string command)
-        {
-            command = command.TrimStart('/');
-            switch (command)
-            {
-                case "moove":
-                    PlayerManager.MoovePlayer(Board.Board.GetBoard, 0);
-                    PlayerManager.SearchPlayer(0).AddAmount(999);
-                    BaseCase disCase = Board.Board.GetBoard.CasesList[PlayerManager.SearchPlayer(0).Position];
-                    UpdateText("vous bougez");
-                    break;
-                default:
-                    break;
-            }
-        }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+
+            PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
+
         }
     }
 }

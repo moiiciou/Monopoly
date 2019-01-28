@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace server
 {
@@ -19,6 +20,10 @@ namespace server
         byte[] msg;//Message sous forme de bytes pour socket.send et socket.receive
         public bool useLogging = false; //booleen permettant de logger le processing dans un fichier log
         public bool readLock = false;//Flag aidant à la synchronisation
+        private int _initPosition = 0;
+        private int _initBalance = 10000;
+
+
         public void Start()
         {
             IPHostEntry ipHostEntry = Dns.Resolve(Dns.GetHostName());
@@ -45,6 +50,9 @@ namespace server
                     CurrentClient = ServerSocket.Accept();
                     Console.WriteLine("Nouveau client:" + CurrentClient.GetHashCode());
                     acceptList.Add(CurrentClient);
+
+
+
                 }
             }
             catch (SocketException E)
@@ -61,6 +69,14 @@ namespace server
             {
                 sw.WriteLine(DateTime.Now + ": " + message);
             }
+        }
+
+
+        public void SendToAll(string msg)
+        {
+            Thread forwardingThread = new Thread(new ThreadStart(writeToAll));
+            forwardingThread.Start();
+            forwardingThread.Join();
         }
 
         //Méthode démarrant l'écriture du message reu par un client
@@ -155,7 +171,9 @@ namespace server
                             int paquetsReceived = 0;
                             long sequence = 0;
                             string Nick = null;
-                            string formattedMsg = null;
+                            string formattedMsg = "";
+                            Packet response = new Packet();
+
                             while (((Socket)readList[i]).Available > 0)
                             {
                                 msg = new byte[((Socket)readList[i]).Available];
@@ -165,21 +183,45 @@ namespace server
                                 {
 
                                     string seq = msgString.Substring(0, 6);
-   
-
 
                                     try
                                     {
                                         sequence = Convert.ToInt64(seq);
-                                        Console.WriteLine(msgString.Length);
-                                        Console.WriteLine(msgString);
 
                                         Nick = msgString.Substring(6,14);
-                                        formattedMsg = Nick.Trim('0') + " a écrit: " + msgString.Substring(21, (msgString.Length - 21));
-                                        if(msgString.Substring(21, (msgString.Length - 21)).StartsWith("{") && msgString.Substring(21, (msgString.Length - 21)).EndsWith("}"))
+                                        try
+                                        {
+                                            string json = msgString.Substring(21, (msgString.Length - 21));
+                                            Packet p = JsonConvert.DeserializeObject<Packet>(json);
+
+
+                                            if (p.Type == "message")
+                                            {
+                                                response.Type = "message";
+                                                response.ChatMessage = Nick.Trim('0') + " a écrit: " + p.ChatMessage;
+
+
+                                            }
+
+                                            if (p.Type == "command")
+                                            {
+                                                Console.WriteLine("command detected");
+
+                                                if (p.Content.Trim() == "moove")
+                                                {
+                                                    Random rnd = new Random();
+                                                    int dice = rnd.Next(1, 13);
+
+                                                    response.Type = "updatePlayerPosition";
+                                                    response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
+
+                                                }
+
+                                            }
+                                        }
+                                        catch
                                         {
 
-                                            formattedMsg = "JSON DETECTED !";
                                         }
 
                                     }
@@ -192,7 +234,6 @@ namespace server
                                     }
                                 }
 
-                                msg = System.Text.Encoding.UTF8.GetBytes(formattedMsg);
                                 if (sequence == 1)
                                 {
                                     if (!checkNick(Nick, ((Socket)readList[i])))
@@ -201,16 +242,28 @@ namespace server
                                     }
                                     else
                                     {
-                                        string rtfMessage = Nick.Trim('0') + " vient de se connecter \r\n";
-                                        msg = System.Text.Encoding.UTF8.GetBytes(rtfMessage);
+
+                                        msg = System.Text.Encoding.UTF8.GetBytes(formattedMsg);
+                                        PlayerInfo playerInfo = new PlayerInfo();
+                                        playerInfo.Pseudo = Nick.Trim('0');
+                                        playerInfo.Balance = _initPosition;
+                                        playerInfo.Position = _initPosition;
+
+                                        response.Type = "newPlayer";
+                                        response.ChatMessage = Nick.Trim('0') + " vient de se connecter";
+                                        response.Content = JsonConvert.SerializeObject(playerInfo, Formatting.None);
+
                                     }
                                 }
                                 if (useLogging)
                                 {
                                     Logging(formattedMsg);
                                 }
+                               string  packetToSend = JsonConvert.SerializeObject(response, Formatting.Indented);
+                                msg = System.Text.Encoding.UTF8.GetBytes(packetToSend);
 
-                                Console.WriteLine(formattedMsg);
+
+                                Console.WriteLine(packetToSend);
                                 Thread forwardingThread = new Thread(new ThreadStart(writeToAll));
                                 forwardingThread.Start();
                                 forwardingThread.Join();

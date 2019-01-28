@@ -12,6 +12,7 @@ using Monopoly.Model.Card;
 
 namespace Monopoly.Controller
 {
+
     public static class PlayerManager
     {
         #region Attributs
@@ -24,6 +25,9 @@ namespace Monopoly.Controller
             return "good job";
         };
         #endregion
+
+  
+        public static string CurrentPlayerName = "JOUEUR" + new Random().Next(10, 99)+"0000000";
 
         #region Méthodes de gestion des joueurs
         /// <summary>
