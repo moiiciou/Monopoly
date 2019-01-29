@@ -144,9 +144,28 @@ namespace Monopoly.Controller
                                     if (p.Type == "newPlayer")
                                     {
                                         Console.WriteLine("Un nouveau joueur est arrivé");
-                                        server.PlayerInfo playerInfo = JsonConvert.DeserializeObject<server.PlayerInfo>(p.Content);
+                                        /*TO DO :
+                                         * 
+                                         * Coté serveur : quand un client se connect l'ajouter a la list des joueurs et la transmettre dans le response.Content
+                                         * 
+                                         * Coté client : quand un message de type newPlayer arrive : updater la list des joueur coté client avec la nouvelle
+                                                         puis instancier les joueurs sur le board et dans l'interface
 
-                                        GameManager.playersList.Add(playerInfo.Pseudo, playerInfo);
+                                         * 
+                                         * */
+                                        Dictionary<string, server.PlayerInfo> playerList = JsonConvert.DeserializeObject<Dictionary<string, server.PlayerInfo>>(p.Content);
+
+                                        foreach (var player in playerList)
+                                        {
+                                            if (!GameManager.playersList.ContainsKey(player.Value.Pseudo))
+                                            {
+                                                System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
+                                                GameManager.playersList.Add(player.Value.Pseudo, player.Value);
+
+                                            }
+
+                                        }
+
 
 
                                     }
@@ -173,7 +192,7 @@ namespace Monopoly.Controller
             }
             catch
             {
-             Thread.ResetAbort();
+            // Thread.ResetAbort();
             }
         }
     }

@@ -13,7 +13,7 @@ namespace Monopoly.Controller
     class GameManager
     {
         public static Dictionary<string, FrameworkElement> controls = new Dictionary<string, FrameworkElement>();
-        public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>();
+        public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>(); // string = PseudoPlayer
 
         public GameManager(Grid root)
         {

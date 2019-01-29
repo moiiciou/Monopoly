@@ -28,12 +28,6 @@ namespace Monopoly
 
         private void join_button_Click(object sender, RoutedEventArgs e)
         {
-            Board board = Board.GetBoard;
-            List<int> players = new List<int>();
-            object lockBoard = new object();
-            List<Task> tasks = new List<Task>();
-            players.Add(PlayerManager.CreatePlayer(board, pseudoTxtBox.Text.PadRight(pseudoTxtBox.Text.Length+(15- pseudoTxtBox.Text.Length),'0'), 10000, 0));
-
             Connection conn = Connection.GetConnection;
             var GameWindow = new GameWindow();
             GameWindow.Show();

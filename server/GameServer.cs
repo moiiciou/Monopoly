@@ -22,6 +22,7 @@ namespace server
         public bool readLock = false;//Flag aidant à la synchronisation
         private int _initPosition = 0;
         private int _initBalance = 10000;
+        public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>(); // string = PseudoPlayer
 
 
         public void Start()
@@ -251,7 +252,11 @@ namespace server
 
                                         response.Type = "newPlayer";
                                         response.ChatMessage = Nick.Trim('0') + " vient de se connecter";
-                                        response.Content = JsonConvert.SerializeObject(playerInfo, Formatting.None);
+                                        if (!playersList.ContainsKey(playerInfo.Pseudo))
+                                        {
+                                            playersList.Add(playerInfo.Pseudo, playerInfo);
+                                        }
+                                        response.Content = JsonConvert.SerializeObject(playersList, Formatting.None);
 
                                     }
                                 }

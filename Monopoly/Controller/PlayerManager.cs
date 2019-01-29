@@ -232,6 +232,16 @@ namespace Monopoly.Controller
 
         }
 
+
+        public static void DrawNewPlayer( string pseudoPlayer)
+        {
+            if (!GameManager.playersList.ContainsKey(pseudoPlayer))
+            {
+
+            }
+
+        }
+
         #endregion
 
 

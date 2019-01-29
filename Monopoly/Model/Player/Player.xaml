@@ -7,4 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
     <Ellipse Fill="#FF0000" HorizontalAlignment="Left" Height="100" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+    <ToolTipService.ToolTip >
+        <ToolTip Name="toolTip" HorizontalOffset="0" VerticalOffset="0">
+            <StackPanel Width="250" Height="150">
+                <TextBlock >    
+                    <Run />
+                </TextBlock>
+            </StackPanel>
+        </ToolTip>
+    </ToolTipService.ToolTip>
 </UserControl>
