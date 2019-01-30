@@ -121,8 +121,8 @@
       <DependentUpon>DialogueBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Tools.cs" />
-    <Compile Include="Model\UI\PlayerInfo.xaml.cs">
-      <DependentUpon>PlayerInfo.xaml</DependentUpon>
+    <Compile Include="Model\UI\PlayerInfoDisplay.xaml.cs">
+      <DependentUpon>PlayerInfoDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\UI\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
@@ -197,7 +197,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Model\UI\PlayerInfo.xaml">
+    <Page Include="Model\UI\PlayerInfoDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

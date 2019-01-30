@@ -57,7 +57,6 @@ namespace Monopoly.Controller
                     byte[] msg = System.Text.Encoding.UTF8.GetBytes(GetSequence() + PlayerManager.CurrentPlayerName);
                     int DtSent = ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
-
                 }
 
 
@@ -150,6 +149,10 @@ namespace Monopoly.Controller
                                             if (!GameManager.playersList.ContainsKey(player.Value.Pseudo))
                                             {
                                                 System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
+                                                PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+                                                playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player.Value);
+
+
                                                 GameManager.playersList.Add(player.Value.Pseudo, player.Value);
 
                                             }
@@ -162,7 +165,7 @@ namespace Monopoly.Controller
 
                                     PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
                                     playerHud.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerHud.chatBox.UpdateText), p.ChatMessage); // <- SUIVRE LA MEME LOGIQUE POUR FAIRE APPARAITRE UN NOUVEAU SUR LE BOARD
-
+                                    playerHud.pseudo_label.Dispatcher.Invoke(new PlayerInterface.UpdatePseudoCallback(playerHud.UpdatePseudo), PlayerManager.CurrentPlayerName);
 
 
 

@@ -189,7 +189,7 @@ namespace server
                                     {
                                         sequence = Convert.ToInt64(seq);
 
-                                        Nick = msgString.Substring(6,14);
+                                        Nick = msgString.Substring(6,15);
                                         try
                                         {
                                             string json = msgString.Substring(21, (msgString.Length - 21));

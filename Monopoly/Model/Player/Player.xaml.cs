@@ -23,7 +23,7 @@ namespace Monopoly.Model
         private int _numberDoubleDice;
         private List<BaseCard> _cards;
         public int grid;
-        public PlayerInfo playerInfo;
+        public PlayerInfoDisplay playerInfo;
         #endregion
 
         #region Accesseurs

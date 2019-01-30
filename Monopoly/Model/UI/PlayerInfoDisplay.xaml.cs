@@ -18,19 +18,17 @@ namespace Monopoly.Model.UI
     /// <summary>
     /// Logique d'interaction pour PlayerInfo.xaml
     /// </summary>
-    public partial class PlayerInfo : UserControl
+    public partial class PlayerInfoDisplay : UserControl
     {
-        private int balance;
+        public int Balance;
+        public string Pseudo;
 
-        public PlayerInfo()
+        public PlayerInfoDisplay(string pseudo, int balance)
         {
             InitializeComponent();
+            labelPseudo.Content = pseudo;
+            labelBalance.Content = balance.ToString() + " €";
         }
 
-        public PlayerInfo(string name, int balance)
-        {
-            Name = name;
-            this.balance = balance;
-        }
     }
 }

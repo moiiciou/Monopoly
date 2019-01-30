@@ -21,7 +21,13 @@ namespace Monopoly.Model.UI
     /// Logique d'interaction pour PlayerInterface.xaml
     /// </summary>
     public partial class PlayerInterface : UserControl
+
     {
+        public delegate void UpdatePseudoCallback(string pseudo);
+        public delegate void AddNewPlayerCallback(server.PlayerInfo player);
+
+
+
         public PlayerInterface(string pseudoPlayer)
         {
             InitializeComponent();
@@ -33,7 +39,16 @@ namespace Monopoly.Model.UI
 
         }
 
+        public void UpdatePseudo(string pseudo)
+        {
+            pseudo_label.Content = pseudo.Trim('0');
+        }
 
+        public void AddNewPlayer(server.PlayerInfo player)
+        {
+            PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance);
+            PlayerPanel.Children.Add(infoHud);
+        }
     }
 
 }

@@ -30,7 +30,7 @@ namespace Monopoly.Controller
             controls.Add("playerHud", playerHud);
             controls.Add("board", board);
             controls.Add("grid", root);
-
+            controls.Add("playerPanel", playerHud.PlayerPanel);
 
 
             Grid.SetRow(playerHud, 0);
