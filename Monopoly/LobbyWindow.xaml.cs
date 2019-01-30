@@ -1,4 +1,5 @@
 ﻿using Monopoly.Controller;
+using Monopoly.Core;
 using Monopoly.Model.Board;
 using System;
 using System.Collections.Generic;
@@ -24,14 +25,25 @@ namespace Monopoly
         public LobbyWindow()
         {
             InitializeComponent();
+
+            ip_server_input.Text = Tools.GetLocalIPAddress();
         }
 
         private void join_button_Click(object sender, RoutedEventArgs e)
         {
-            Connection conn = Connection.GetConnection;
-            var GameWindow = new GameWindow();
-            GameWindow.Show();
-            this.WindowState = WindowState.Minimized;
+            if(pseudoTxtBox.Text.Length < 15)
+            {
+                PlayerManager.CurrentPlayerName = pseudoTxtBox.Text.PadLeft(14, '0');
+                Connection conn = Connection.GetConnection;
+                var GameWindow = new GameWindow();
+                GameWindow.Show();
+                this.WindowState = WindowState.Minimized;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Votre pseudo doit être inférieur à 15 charactères !");
+
+            }
 
         }
     }

@@ -215,6 +215,8 @@ namespace server
 
                                                     response.Type = "updatePlayerPosition";
                                                     response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
+                                                    playersList[Nick.Trim('0')].Position += dice;
+                                                    response.Content = JsonConvert.SerializeObject(playersList[Nick.Trim('0')], Formatting.None);
 
                                                 }
 
@@ -247,7 +249,7 @@ namespace server
                                         msg = System.Text.Encoding.UTF8.GetBytes(formattedMsg);
                                         PlayerInfo playerInfo = new PlayerInfo();
                                         playerInfo.Pseudo = Nick.Trim('0');
-                                        playerInfo.Balance = _initPosition;
+                                        playerInfo.Balance = _initBalance;
                                         playerInfo.Position = _initPosition;
 
                                         response.Type = "newPlayer";

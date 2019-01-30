@@ -65,6 +65,7 @@
     <Compile Include="Controller\PlayerManager.cs" />
     <Compile Include="Core\Packet.cs" />
     <Compile Include="Core\ThemeParser.cs" />
+    <Compile Include="Core\Tools.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>

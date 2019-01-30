@@ -27,7 +27,7 @@ namespace Monopoly.Controller
         #endregion
 
   
-        public static string CurrentPlayerName = "JOUEUR" + new Random().Next(10, 99)+"0000000";
+        public static string CurrentPlayerName;
 
         #region Méthodes de gestion des joueurs
         /// <summary>

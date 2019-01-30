@@ -13,7 +13,7 @@
         <Label Content="Serveur LAN découvert :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="27" Width="144"/>
         <TextBox x:Name="ip_server_input" HorizontalAlignment="Left" Height="23" Margin="387,14,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="159"/>
         <Label Content="IP du serveur :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,10,0,0" Width="88"/>
-        <TextBox x:Name="pseudoTxtBox" HorizontalAlignment="Left" Height="23" Margin="387,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="pseudoTxtBox" HorizontalAlignment="Left" Height="23" Margin="387,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Pseudo:" HorizontalAlignment="Left" Margin="335,42,0,0" VerticalAlignment="Top"/>
 
     </Grid>
