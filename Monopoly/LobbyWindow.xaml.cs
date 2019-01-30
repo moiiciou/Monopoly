@@ -34,6 +34,7 @@ namespace Monopoly
             if(pseudoTxtBox.Text.Length < 15)
             {
                 PlayerManager.CurrentPlayerName = pseudoTxtBox.Text.PadLeft(15, '0');
+
                 Connection.IpServeur = ip_server_input.Text;
                 Connection conn = Connection.GetConnection;
                 var GameWindow = new GameWindow();

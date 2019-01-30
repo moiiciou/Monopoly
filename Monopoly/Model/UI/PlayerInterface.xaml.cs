@@ -1,4 +1,5 @@
-﻿using Monopoly.Model.Card;
+﻿using Monopoly.Controller;
+using Monopoly.Model.Card;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,8 +47,12 @@ namespace Monopoly.Model.UI
 
         public void AddNewPlayer(server.PlayerInfo player)
         {
-            PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance);
-            PlayerPanel.Children.Add(infoHud);
+            if(player.Pseudo != PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance);
+                PlayerPanel.Children.Add(infoHud);
+            }
+
         }
     }
 

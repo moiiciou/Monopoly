@@ -132,39 +132,36 @@ namespace Monopoly.Controller
 
                                     if (p.Type == "newPlayer")
                                     {
-                                        Console.WriteLine("Un nouveau joueur est arrivé");
-                                        /*TO DO :
-                                         * 
-                                         * Coté serveur : quand un client se connect l'ajouter a la list des joueurs et la transmettre dans le response.Content
-                                         * 
-                                         * Coté client : quand un message de type newPlayer arrive : updater la list des joueur coté client avec la nouvelle
-                                                         puis instancier les joueurs sur le board et dans l'interface
 
-                                         * 
-                                         * */
                                         Dictionary<string, server.PlayerInfo> playerList = JsonConvert.DeserializeObject<Dictionary<string, server.PlayerInfo>>(p.Content);
 
-                                        foreach (var player in playerList)
-                                        {
-                                            if (!GameManager.playersList.ContainsKey(player.Value.Pseudo))
+                                            foreach (var player in playerList)
                                             {
-                                                System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
-                                                PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
-                                                playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player.Value);
+                                                if (!GameManager.playersList.ContainsKey(player.Key))
+                                                {
+                                                    Console.WriteLine("Player Current Name :" + PlayerManager.CurrentPlayerName);
+                                                    Console.WriteLine("Player Pseudo  :" + player.Value.Pseudo);
+
+                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
+                                                    PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+                                                    playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player.Value);
 
 
-                                                GameManager.playersList.Add(player.Value.Pseudo, player.Value);
+                                                    GameManager.playersList.Add(player.Value.Pseudo, player.Value);
+
+                                                }
 
                                             }
 
-                                        }
+
+
 
 
 
                                     }
 
                                     PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
-                                    playerHud.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerHud.chatBox.UpdateText), p.ChatMessage); // <- SUIVRE LA MEME LOGIQUE POUR FAIRE APPARAITRE UN NOUVEAU SUR LE BOARD
+                                    playerHud.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerHud.chatBox.UpdateText), p.ChatMessage);
                                     playerHud.pseudo_label.Dispatcher.Invoke(new PlayerInterface.UpdatePseudoCallback(playerHud.UpdatePseudo), PlayerManager.CurrentPlayerName);
 
 
@@ -185,7 +182,7 @@ namespace Monopoly.Controller
             }
             catch
             {
-            // Thread.ResetAbort();
+               // Thread.ResetAbort();
             }
         }
     }

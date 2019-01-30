@@ -25,15 +25,6 @@ namespace Monopoly
         public MainWindow()
         {
             InitializeComponent();
-
-         /*   ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = "server.exe";
-            psi.UseShellExecute = false;
-            psi.RedirectStandardError = true;
-            psi.RedirectStandardOutput = true;
-            psi.CreateNoWindow = true;
-            Process proc = Process.Start(psi);
-         */
         }
 
         private void optionButton_Click(object sender, RoutedEventArgs e)
