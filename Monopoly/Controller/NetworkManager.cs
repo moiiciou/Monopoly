@@ -1,4 +1,5 @@
-﻿using Monopoly.Model.Board;
+﻿using Monopoly.Core;
+using Monopoly.Model.Board;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using System;
@@ -31,6 +32,8 @@ namespace Monopoly.Controller
         private long sequence;
         public Socket ClientSocket { get; private set; }
 
+        public static string IpServeur { get; set; } = Tools.GetLocalIPAddress();
+
         private static readonly Lazy<Connection> lazy = new Lazy<Connection>(() => new Connection());
 
         public static Connection GetConnection { get { return lazy.Value; } }
@@ -43,7 +46,7 @@ namespace Monopoly.Controller
         {
             sequence = 0;
 
-            IPAddress ip = IPAddress.Parse(GetAdr());
+            IPAddress ip = IPAddress.Parse(IpServeur);
             IPEndPoint ipEnd = new IPEndPoint(ip, 8000);
             ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
@@ -96,20 +99,7 @@ namespace Monopoly.Controller
             return msgSeq;
         }
 
-        private String GetAdr()
-        {
 
-
-            IPHostEntry iphostentry = Dns.GetHostByName("192.168.1.5");
-
-            String IPStr = "";
-            foreach (IPAddress ipaddress in iphostentry.AddressList)
-            {
-                IPStr = ipaddress.ToString();
-                return IPStr;
-            }
-            return IPStr;
-        }
 
         public void CheckData()
         {

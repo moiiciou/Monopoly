@@ -27,7 +27,7 @@ namespace Monopoly.Controller
         #endregion
 
   
-        public static string CurrentPlayerName;
+        public static string CurrentPlayerName = "##JOUEUR00000##";
 
         #region Méthodes de gestion des joueurs
         /// <summary>
