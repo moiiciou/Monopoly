@@ -20,8 +20,8 @@ namespace server
         byte[] msg;//Message sous forme de bytes pour socket.send et socket.receive
         public bool useLogging = false; //booleen permettant de logger le processing dans un fichier log
         public bool readLock = false;//Flag aidant à la synchronisation
-        private int _initPosition = 0;
-        private int _initBalance = 10000;
+        private int initPosition = 0;
+        public static int initBalance = 10000;
         public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>(); // string = PseudoPlayer
 
 
@@ -249,9 +249,9 @@ namespace server
                                         msg = System.Text.Encoding.UTF8.GetBytes(formattedMsg);
                                         PlayerInfo playerInfo = new PlayerInfo();
                                         playerInfo.Pseudo = Nick.Trim('0');
-                                        playerInfo.Balance = _initBalance;
-                                        playerInfo.Position = _initPosition;
-
+                                        playerInfo.Balance = initBalance;
+                                        playerInfo.Position = initPosition;
+                                        Console.WriteLine(initBalance);
                                         response.Type = "newPlayer";
                                         response.ChatMessage = Nick.Trim('0') + " vient de se connecter";
                                         if (!playersList.ContainsKey(playerInfo.Pseudo))

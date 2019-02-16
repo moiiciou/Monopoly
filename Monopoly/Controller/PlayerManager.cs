@@ -20,10 +20,7 @@ namespace Monopoly.Controller
         private static int _nextId = 0;
         private static Player _bank;
         public static volatile List<Grid> playerGrid = new List<Grid>();
-        public static Func<string> test = () =>
-        {
-            return "good job";
-        };
+
         #endregion
 
   
@@ -130,6 +127,20 @@ namespace Monopoly.Controller
             }
             return player;
         }
+        public static Player SearchPlayer(string pseudo)
+        {
+            Player player = null;
+
+            for (int i = 0; i < _players.Count && player == null; i++)
+            {
+                if (_players[i].NamePlayer == pseudo)
+                {
+                    player = _players[i];
+                }
+            }
+            return player;
+        }
+
 
         /// <summary>
         ///  Renvoie la liste de tous les Players existant.
@@ -157,51 +168,22 @@ namespace Monopoly.Controller
             return dices;
         }
 
-        /// <summary>
-        /// Lance les dés et déplace le joueur de la valeur des dés.
-        /// </summary>
-        /// <param name="idPlayer"> Id du joueur qui va être déplacé</param>
-        public static void MoovePlayer(Board b, int idPlayer)
-        {
-            Player p = SearchPlayer(idPlayer);
-            Random r = new Random((int)DateTime.Now.Ticks);
 
-            List<int> dices = RollDice();
-            int dice1 = dices[0];
-            int dice2 = dices[1];
-
-            if (dice1 == dice2)
-            {
-                p.NumberDoubleDice++;
-            }
-            if (p.CanMoove)
-            {
-                p.Moove(dice1, dice2);
-                DrawPlayer(b,  p.IdPlayer);
-            }
-            else
-            {
-                int positionPrison = 2;
-                MoovePlayer(b, p.IdPlayer, positionPrison);
-                Console.WriteLine("Le joueur est déplacé en prison");
-            }
-
-        }
 
         /// <summary>
         ///  Déplace le joueur à la case indiquée. 
         /// </summary>
         /// <param name="idPlayer"> Id du joueur qui doit être déplacé.</param>
         /// <param name="position"> Position de la case où le joueur doit être déplacé.</param>
-        public static void MoovePlayer(Board b, int idPlayer, int position)
+        public static void MoovePlayer(Board b, string pseudo, int position)
         {
-            Player p = SearchPlayer(idPlayer);
+            Player p = SearchPlayer(pseudo);
             if(position != position % 40)
             {
                 p.AddAmount(500);
             }
             position = position % 40;
-            DrawPlayer(b, idPlayer, position);
+            DrawPlayer(b, pseudo, position);
 
         }
 
@@ -220,10 +202,10 @@ namespace Monopoly.Controller
 
         }
 
-        public static void DrawPlayer(Board b, int idPlayer, int pos)
+        public static void DrawPlayer(Board b, string pseudo, int pos)
         {
 
-            Player p = SearchPlayer(idPlayer);
+            Player p = SearchPlayer(pseudo);
             b.Children.Remove(p);
             pos = pos % 40;
             int x = b.CasesList[pos].Position[1];

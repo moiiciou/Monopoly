@@ -26,7 +26,7 @@ namespace Monopoly.Controller
             Grid.SetColumn(board, 0);
             root.Children.Add(board);
 
-            PlayerInterface playerHud = new PlayerInterface(PlayerManager.CurrentPlayerName);
+            PlayerInterface playerHud = new PlayerInterface(PlayerManager.CurrentPlayerName, server.GameServer.initBalance);
             controls.Add("playerHud", playerHud);
             controls.Add("board", board);
             controls.Add("grid", root);

@@ -26,13 +26,14 @@ namespace Monopoly.Model.UI
     {
         public delegate void UpdatePseudoCallback(string pseudo);
         public delegate void AddNewPlayerCallback(server.PlayerInfo player);
+        public delegate void UpdateBalanceCallback(int balance);
 
 
 
-        public PlayerInterface(string pseudoPlayer)
+        public PlayerInterface(string pseudoPlayer, int balance)
         {
             InitializeComponent();
-
+            UpdateBalance(balance);
         }
 
         private void ChatBox_Loaded(object sender, RoutedEventArgs e)
@@ -43,6 +44,11 @@ namespace Monopoly.Model.UI
         public void UpdatePseudo(string pseudo)
         {
             pseudo_label.Content = pseudo.Trim('0');
+        }
+
+        public void UpdateBalance(int balance)
+        {
+            money_label.Content = balance.ToString()+"€";
         }
 
         public void AddNewPlayer(server.PlayerInfo player)

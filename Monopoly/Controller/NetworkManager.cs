@@ -1,7 +1,9 @@
 ﻿using Monopoly.Core;
+using Monopoly.Model;
 using Monopoly.Model.Board;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
+using server;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +34,7 @@ namespace Monopoly.Controller
         private long sequence;
         public Socket ClientSocket { get; private set; }
 
-        public static string IpServeur { get; set; } = Tools.GetLocalIPAddress();
+        public static string IpServeur { get; set; } = Core.Tools.GetLocalIPAddress();
 
         private static readonly Lazy<Connection> lazy = new Lazy<Connection>(() => new Connection());
 
@@ -155,6 +157,15 @@ namespace Monopoly.Controller
 
 
 
+
+
+
+                                    }
+
+                                    if (p.Type == "updatePlayerPosition")
+                                    {
+                                        PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
+                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
 
 
 

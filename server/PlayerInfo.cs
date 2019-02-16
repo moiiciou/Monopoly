@@ -37,7 +37,7 @@ namespace server
 
         public int Balance
         {
-            get { return position; }
+            get { return balance; }
             set
             {
                 balance = value;

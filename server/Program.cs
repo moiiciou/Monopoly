@@ -19,7 +19,6 @@ namespace server
                 }
             }
             startIt.Start();
-            startIt.sendMsg("TEST");
         }
     }
 }
