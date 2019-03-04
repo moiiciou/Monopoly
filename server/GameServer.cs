@@ -23,30 +23,40 @@ namespace server
         private int initPosition = 0;
         public static int initBalance = 10000;
         public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>(); // string = PseudoPlayer
+        public static List<string> message = new List<string>();
 
 
         public void Start()
         {
-            IPHostEntry ipHostEntry = Dns.Resolve(Dns.GetHostName());
-            IPAddress ipAddress = ipHostEntry.AddressList[0];
-            Console.WriteLine("IP=" + ipAddress.ToString());
-            Socket CurrentClient = null;
-            Socket ServerSocket = new Socket(AddressFamily.InterNetwork,
-              SocketType.Stream,
-              ProtocolType.Tcp);
+            Thread jeu = new Thread(new ThreadStart(GameManager.TourManagement));
             try
             {
-                ServerSocket.Bind(new IPEndPoint(ipAddress, 8000));
-                ServerSocket.Listen(10);
+                
                 //Démarrage du thread avant la première connexion client
                 Thread getReadClients = new Thread(new ThreadStart(getRead));
                 getReadClients.Start();
                 //Démarrage du thread vérifiant l'état des connexions clientes
                 Thread CheckConnectionThread = new Thread(new ThreadStart(CheckIfStillConnected));
                 CheckConnectionThread.Start();
-                //Boucle infinie
-                while (true)
+
+                Thread connexion = new Thread(new ThreadStart(test));
+                connexion.Start();
+
+                IPHostEntry ipHostEntry = Dns.Resolve(Dns.GetHostName());
+                IPAddress ipAddress = ipHostEntry.AddressList[0];
+                Socket CurrentClient = null;
+                Socket ServerSocket = new Socket(AddressFamily.InterNetwork,
+                  SocketType.Stream,
+                  ProtocolType.Tcp);
+
+                Console.WriteLine("IP=" + ipAddress.ToString());
+                ServerSocket.Bind(new IPEndPoint(ipAddress, 8000));
+                ServerSocket.Listen(10);
+                while (playersList.Count<1 )
                 {
+
+
+
                     Console.WriteLine("Attente d'une nouvelle connexion...");
                     CurrentClient = ServerSocket.Accept();
                     Console.WriteLine("Nouveau client:" + CurrentClient.GetHashCode());
@@ -55,12 +65,57 @@ namespace server
 
 
                 }
+
+                do
+                {
+
+                    Console.WriteLine("check Client ");
+                   
+                    string commande = Console.ReadLine();
+                    if (commande == "/start")
+                    {
+                        jeu.Start();
+                       // GameManager.TourManagement(); // lancement du jeu.
+                    }else if (commande == "/a")
+                    {
+                        GameManager.action = true;
+                        Thread.Sleep(50);
+                        print_message();
+                    }
+                    else if(commande == "/p")
+                    {
+                        Console.Write("check message");
+                        print_message();
+                    }
+
+                } while (true);
+                  
+                //Boucle infinie
+               
+             
             }
             catch (SocketException E)
             {
                 Console.WriteLine(E.Message);
             }
 
+        }
+
+        public void print_message()
+        {
+            
+                foreach (string s in message)
+                {
+                    Console.WriteLine(s);
+                }
+            message.Clear();
+            
+        } 
+        
+
+        private void test()
+        {
+         
         }
 
         //Méthode permettant de générer du logging

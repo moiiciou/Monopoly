@@ -13,6 +13,7 @@ namespace server
         private int position;
         private int balance;
         public string ColorCode;
+         
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Pseudo
@@ -55,6 +56,21 @@ namespace server
         protected void OnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            string res = " Nom du joueur : " + pseudo + "; Argent : " + Balance + "; Position sur le plateau : " + Position + "; Liste de cartes : { ";
+           /* Console.WriteLine(this._idPlayer);
+            for (int i = 0; i < Cards.Count - 1; i++)
+            {
+                res += Cards[i].ToString() + " , ";
+            }
+            if (Cards.Count > 0)
+            {
+                res += Cards[Cards.Count - 1].ToString() + " }";
+            }*/
+            return res;
         }
     }
     
