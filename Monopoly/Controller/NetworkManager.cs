@@ -139,7 +139,7 @@ namespace Monopoly.Controller
 
                                             foreach (var player in playerList)
                                             {
-                                                if (!GameManager.playersList.ContainsKey(player.Key))
+                                                if (!GameManager.playersList.Any( x => x.Pseudo == player.Key))
                                                 {
                                                     Console.WriteLine("Player Current Name :" + PlayerManager.CurrentPlayerName);
                                                     Console.WriteLine("Player Pseudo  :" + player.Value.Pseudo);
@@ -149,7 +149,7 @@ namespace Monopoly.Controller
                                                     playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player.Value);
 
 
-                                                    GameManager.playersList.Add(player.Value.Pseudo, player.Value);
+                                                    GameManager.playersList.Add(player.Value);
 
                                                 }
 

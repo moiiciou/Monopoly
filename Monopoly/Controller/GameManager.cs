@@ -2,6 +2,7 @@
 using Monopoly.Model.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Monopoly.Controller
     class GameManager
     {
         public static Dictionary<string, FrameworkElement> controls = new Dictionary<string, FrameworkElement>();
-        public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>(); // string = PseudoPlayer
+        public static ObservableCollection<server.PlayerInfo> playersList = new ObservableCollection<server.PlayerInfo>(); // string = PseudoPlayer
 
         public GameManager(Grid root)
         {
