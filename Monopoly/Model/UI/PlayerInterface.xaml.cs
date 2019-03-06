@@ -1,5 +1,6 @@
 ﻿using Monopoly.Controller;
 using Monopoly.Model.Card;
+using server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,8 +26,9 @@ namespace Monopoly.Model.UI
 
     {
         public delegate void UpdatePseudoCallback(string pseudo);
-        public delegate void AddNewPlayerCallback(server.PlayerInfo player);
+        public delegate void AddNewPlayerCallback( PlayerInfo player);
         public delegate void UpdateBalanceCallback(int balance);
+        public delegate void UpdateBalanceByPlayerInfoCallback(PlayerInfo player);
 
 
 
@@ -48,7 +50,26 @@ namespace Monopoly.Model.UI
 
         public void UpdateBalance(int balance)
         {
-            money_label.Content = balance.ToString()+"€";
+            money_label.Content = balance.ToString();
+        }
+
+        public void UpdateBalanceByPlayerInfo(PlayerInfo player)
+        {
+            if(player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                UpdateBalance(player.Balance);
+            }
+            else
+            {
+            foreach(PlayerInfoDisplay infoDisplay in PlayerPanel.Children)
+            {
+                if(infoDisplay.Pseudo == player.Pseudo)
+                {
+                    infoDisplay.Balance = player.Balance;
+                }
+            }
+            }
+
         }
 
         public void AddNewPlayer(server.PlayerInfo player)

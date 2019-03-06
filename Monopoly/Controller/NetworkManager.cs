@@ -1,6 +1,7 @@
 ﻿using Monopoly.Core;
 using Monopoly.Model;
 using Monopoly.Model.Board;
+using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using server;
@@ -141,8 +142,6 @@ namespace Monopoly.Controller
                                             {
                                                 if (!GameManager.playersList.Any( x => x.Pseudo == player.Key))
                                                 {
-                                                    Console.WriteLine("Player Current Name :" + PlayerManager.CurrentPlayerName);
-                                                    Console.WriteLine("Player Pseudo  :" + player.Value.Pseudo);
 
                                                     System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
                                                     PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
@@ -162,10 +161,32 @@ namespace Monopoly.Controller
 
                                     }
 
-                                    if (p.Type == "updatePlayerPosition")
+                                    if (p.Type == "updatePlayer")
                                     {
-                                        PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
-                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
+                                           PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
+                                          System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, playerInfo.Pseudo, playerInfo.Position); }));
+
+                                          PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+                                          playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
+                                         
+                                    }
+
+                                    if (p.Type == "updatePlayerProperty")
+                                    {
+                                        PropertyCase.CaseInfo caseInfo = JsonConvert.DeserializeObject<PropertyCase.CaseInfo>(p.Content);
+
+                                        foreach (BaseCase caseBoard in Board.GetBoard.CasesList)
+                                        {
+                                            if (caseBoard.GetType().ToString() == "Monopoly.Model.Case.PropertyCase")
+                                            {
+                                                PropertyCase caseToUpdate = (PropertyCase)caseBoard;
+                                                if (caseToUpdate.CaseInformation.Location == caseInfo.Location)
+                                                    caseToUpdate.CaseInformation = caseInfo;
+                                                Console.WriteLine(caseToUpdate.CaseInformation.Owner);
+                                            }
+                                        }
+
+
 
                                     }
 

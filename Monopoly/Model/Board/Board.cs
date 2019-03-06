@@ -10,7 +10,7 @@ namespace Monopoly.Model.Board
 {
     public class Board : BoardLayout
     {
-        public readonly List<BaseCase> CasesList = new List<BaseCase>();
+        public  List<BaseCase> CasesList = new List<BaseCase>();
         private static readonly Lazy<Board> lazy = new Lazy<Board>(() => new Board());
 
         public static Board GetBoard { get { return lazy.Value; } }

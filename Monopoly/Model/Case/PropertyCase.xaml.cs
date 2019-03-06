@@ -1,4 +1,5 @@
 ﻿using Monopoly.Model.Card;
+using System;
 using System.ComponentModel;
 using System.IO;
 
@@ -11,50 +12,49 @@ namespace Monopoly.Model.Case
     {
 
         public PropertyCard Card { get; set; }
-        public string Location { get; set; }
-        public int IdOwner { get; set; } = 0;
+        public CaseInfo CaseInformation { get; set; }
 
 
-        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card)
+
+        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card , string owner = null)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
+                CaseInformation = new CaseInfo { ImageTemplate = skinPath, Location = location, Price = price, Color = color, Rotation = angle, Owner = owner };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
+                CaseInformation = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price, Color = color, Rotation = angle, Owner = owner };
 
             }
-            Position = position;
             Card = card;
-            Location = location;
+            DataContext = CaseInformation;
+            Position = position;
+
         }
 
-        public class CaseInfo : INotifyPropertyChanged
+        public class CaseInfo
         {
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void NotifyPropertyChanged(string info)
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+
 
             public string ImageTemplate { get; set; }
             public string Location { get; set; }
-            public string Price { get; set; }
+            public int Price { get; set; }
             public string Color { get; set; }
             public int Rotation { get; set; }
-            public int IdOwner { get; set; } = 0; //By default, owner is bank(IdOwner : 0)
-
-
+            public string Owner { get; set; } 
         }
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             toolTip.Content = Card;
+        }
+
+        private void BaseCase_IsHitTestVisibleChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            Console.WriteLine("ok");
         }
     }
 }

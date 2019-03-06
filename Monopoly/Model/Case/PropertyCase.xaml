@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.Model.Case"
-             mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" Height="auto" MouseEnter="UserControl_MouseEnter">
+             mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" Height="auto" MouseEnter="UserControl_MouseEnter" IsHitTestVisibleChanged="BaseCase_IsHitTestVisibleChanged">
     <UserControl.LayoutTransform>
         <RotateTransform Angle="{Binding Rotation}" />
     </UserControl.LayoutTransform>

@@ -45,7 +45,7 @@ namespace Monopoly.Model.UI
             {
                 if (textBox.Text != "" && textBox.Text.StartsWith("/"))
                 {
-                    server.Packet p = new server.Packet();
+                    Packet p = new Packet();
                     p.Type = "command";
                     p.Content = textBox.Text.TrimStart('/') + "\r\n";
                     string message = JsonConvert.SerializeObject(p, Formatting.Indented);
@@ -61,7 +61,7 @@ namespace Monopoly.Model.UI
                 }
                 else
                 {
-                    server.Packet p = new server.Packet();
+                    Packet p = new Packet();
                     p.Type = "message";
                     p.ChatMessage = textBox.Text;
                     string message = JsonConvert.SerializeObject(p, Formatting.Indented);

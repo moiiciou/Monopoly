@@ -2,6 +2,8 @@
 using Monopoly.Model.UI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
 
@@ -10,82 +12,27 @@ namespace Monopoly.Model
     /// <summary>
     /// Logique d'interaction pour Player.xaml
     /// </summary>
-    public partial class Player : UserControl
-    {        
-        #region Attributs
+    public partial class Player : UserControl , INotifyPropertyChanged
+    {
 
-        private int _balance;
-        private int _idPlayer;
-        private object _image;
-        private string _name;
+        #region Attributs
         private int _position;
         private bool _canMoove;
-        private int _numberDoubleDice;
-        private List<BaseCard> _cards;
         public int grid;
         public PlayerInfoDisplay playerInfo;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         #endregion
 
         #region Accesseurs
 
-        public int Balance
-        {
-            get
-            {
-                return _balance;
-            }
-            set
-            {
-                _balance = value;
+        public int Balance { get; set; }
 
-            }
-        }
+        public int IdPlayer { get; }
 
-        public bool CanMoove
-        {
-            get
-            {
-                bool value = true;
-                if (_numberDoubleDice > 3)
-                {
-                    value = false;
-                }
-                return value;
-            }
-        }
-        public int IdPlayer
-        {
-            get
-            {
-                return _idPlayer;
-            }
-        }
+        public object Image { get; set; }
 
-        public object Image
-        {
-            get
-            {
-                return _image;
-            }
-            set
-            {
-                _image = value;
-            }
-
-
-        }
-
-        public string NamePlayer
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+        public string NamePlayer { get; set; }
 
         public int Position
         {
@@ -99,6 +46,7 @@ namespace Monopoly.Model
                 if (value >= 0)
                 {
                     _position = value % 40;
+                    NotifyPropertyChanged();
                 }
                 else
                 {
@@ -107,26 +55,8 @@ namespace Monopoly.Model
             }
         }
 
-        public int NumberDoubleDice
-        {
-            get
-            {
-                return _numberDoubleDice;
-            }
-            set
-            {
-                _numberDoubleDice = value;
-            }
-        }
 
-        public List<BaseCard> Cards
-        {
-            get
-            {
-                return _cards;
-            }
-
-        }
+        public List<BaseCard> Cards { get; }
 
         #endregion
 
@@ -143,12 +73,12 @@ namespace Monopoly.Model
         public Player(int idPlayer, string name, int balance, int position, List<BaseCard> cards, object image)
         {
             InitializeComponent();
-            _balance = balance;
-            _idPlayer = idPlayer;
-            _image = image;
-            _name = name;
+            Balance = balance;
+            IdPlayer = idPlayer;
+            Image = image;
+            NamePlayer = name;
             _position = position;
-            _cards = cards;
+            Cards = cards;
             
 
         }
@@ -160,12 +90,12 @@ namespace Monopoly.Model
         public Player(int idPlayer, string name)
         {
             InitializeComponent();
-            _idPlayer = idPlayer;
-            _name = name;
-            _balance = 0;
+            IdPlayer = idPlayer;
+            NamePlayer = name;
+            Balance = 0;
             _position = 0;
-            _cards = new List<BaseCard>();
-            _image = null;
+            Cards = new List<BaseCard>();
+            Image = null;
 
         }
         #endregion
@@ -199,6 +129,7 @@ namespace Monopoly.Model
             {
                 Balance -= amount;
 
+
             }
             else
             {
@@ -226,36 +157,14 @@ namespace Monopoly.Model
 
         }
 
-        /// <summary>
-        ///  On rajoute une carte au joueur courant.
-        /// </summary>
-        /// <param name="c"> La carte que l'on veut ajouter. </param>
-        public void AddCard(BaseCard c)
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if (c != null)
+            if (this.PropertyChanged != null)
             {
-                Cards.Add(c);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
-
         }
-        /// <summary>
-        ///  On déplace le joueur de dice1 + dice2 cases, si le joueur dépasse la case départ, on remet sa position à 0.
-        /// </summary>
-        /// <param name="dice1">Valeur comprise entre 1 et 6. Valeur du premier dé</param>
-        /// <param name="dice2">Valeur comprise entre 1 et 6. Valeur du deuxième dé</param>
-        public void Moove(int dice1, int dice2)
-        {
 
-            if (CanMoove && dice1 < 7 && dice1 > 0 && dice2 > 0 && dice2 < 7)
-            {
-                Position += dice1 + dice2;
-            }
-            else
-            {
-                throw new ArgumentException("Le joueur ne peut pas se déplacer ! ");
-            }
-
-        }
 
         /// <summary>
         ///  Calcule le string de description d'un joueur. 
@@ -264,7 +173,7 @@ namespace Monopoly.Model
         public override string ToString()
         {
             string res = "Id du joueur : " + IdPlayer + "; Nom du joueur : " + Name + "; Argent : " + Balance + "; Position sur le plateau : " + Position + "; Liste de cartes : { ";
-            Console.WriteLine(this._idPlayer);
+            Console.WriteLine(this.IdPlayer);
             for (int i = 0; i < Cards.Count - 1; i++)
             {
                 res += Cards[i].ToString() + " , ";

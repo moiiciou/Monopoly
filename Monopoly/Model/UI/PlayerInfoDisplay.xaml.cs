@@ -20,14 +20,27 @@ namespace Monopoly.Model.UI
     /// </summary>
     public partial class PlayerInfoDisplay : UserControl
     {
-        public int Balance;
-        public string Pseudo;
+        private int balance;
+        public int Balance
+        {
+
+            get { return balance; }
+            set
+            {
+                labelBalance.Content = Balance.ToString() + " €";
+                balance = value;
+            }
+         
+        }
+        public string Pseudo { get; set; }
 
         public PlayerInfoDisplay(string pseudo, int balance)
         {
             InitializeComponent();
-            labelPseudo.Content = pseudo;
-            labelBalance.Content = balance.ToString() + " €";
+            Pseudo = pseudo;
+            Balance = balance;
+            labelPseudo.Content = Pseudo;
+            labelBalance.Content = Balance.ToString() + " €";
         }
 
     }

@@ -119,6 +119,8 @@ namespace Monopoly.Controller
             position = position % 40;
             DrawPlayer(b, pseudo, position);
 
+            Console.WriteLine(BuyAndSellManager.CheckIfBuyable(b.CasesList[position]));
+            BuyAndSellManager.BuyProperty(b.CasesList[position], p);
         }
 
         public static void DrawPlayer(Board b, int idPlayer)
@@ -134,6 +136,7 @@ namespace Monopoly.Controller
             Grid.SetRow(p, y);
             b.Children.Add(p);
 
+
         }
 
         public static void DrawPlayer(Board b, string pseudo, int pos)
@@ -148,7 +151,9 @@ namespace Monopoly.Controller
             Grid.SetRow(p, y);
             b.Children.Add(p);
 
+
         }
+
 
     }
 }

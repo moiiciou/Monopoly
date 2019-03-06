@@ -21,23 +21,19 @@ namespace Monopoly.Model.Card
     /// </summary>
     public partial class PropertyCard : BaseCard
     {
+        public CardInfo CardInformation { get; set; }
         public PropertyCard(string propertyName, int houseCost, int hotelCost, int rentWith1house, int rentWith2house, int rentWith3house, int rentWith4house, int rentWithHotel, int rentValue, int mortgageValue, string color, int angle)
         {
 
             InitializeComponent();
-            this.DataContext = new CardInfo { TextPropertyName = propertyName, TextHouseCost = houseCost.ToString() + "€ each", TextHotelCost = hotelCost.ToString() + "€ plus 4 houses", TextRentWith1House = rentWith1house.ToString() + "€", TextRentWith2House = rentWith2house.ToString() + "€", TextRentWith3House = rentWith3house.ToString() + "€", TextRentWith4House = rentWith4house.ToString() + "€", TextRentWithHotel = rentWithHotel.ToString() + "€", TextRentValue = "Rent :" + rentValue.ToString() + "€", TextMortgageValue = mortgageValue.ToString() + "€", Color = color };
+            CardInformation = new CardInfo { TextPropertyName = propertyName, TextHouseCost = houseCost.ToString() + "€ each", TextHotelCost = hotelCost.ToString() + "€ plus 4 houses", TextRentWith1House = rentWith1house.ToString() + "€", TextRentWith2House = rentWith2house.ToString() + "€", TextRentWith3House = rentWith3house.ToString() + "€", TextRentWith4House = rentWith4house.ToString() + "€", TextRentWithHotel = rentWithHotel.ToString() + "€", TextRentValue = "Rent :" + rentValue.ToString() + "€", TextMortgageValue = mortgageValue.ToString() + "€", Color = color };
+            DataContext = CardInformation;
         }
 
     }
 
-    public class CardInfo : INotifyPropertyChanged
+    public class CardInfo
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged(string info)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-        }
 
         public string TextPropertyName { get; set; }
         public string TextHouseCost { get; set; }

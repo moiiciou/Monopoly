@@ -213,7 +213,7 @@ namespace server
                                                     Random rnd = new Random();
                                                     int dice = rnd.Next(1, 13);
 
-                                                    response.Type = "updatePlayerPosition";
+                                                    response.Type = "updatePlayer";
                                                     response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
                                                     playersList[Nick.Trim('0')].Position += dice;
                                                     response.Content = JsonConvert.SerializeObject(playersList[Nick.Trim('0')], Formatting.None);
@@ -221,6 +221,21 @@ namespace server
                                                 }
 
                                             }
+
+                                            if (p.Type == "buyProperty")
+                                            {
+                                                response.Type = "updatePlayer";
+                                                CaseInfo prop = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
+                                                Console.WriteLine(prop.Price);
+                                                playersList[Nick.Trim('0')].Balance -= prop.Price ;
+
+                                                response.Content = JsonConvert.SerializeObject(playersList[Nick.Trim('0')], Formatting.None);
+                                                response.ChatMessage = Nick.Trim('0') +" achete une propriete";
+
+
+                                            }
+
+
                                         }
                                         catch
                                         {

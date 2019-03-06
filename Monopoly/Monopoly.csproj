@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\BuyAndSellManager.cs" />
     <Compile Include="Controller\GameManager.cs" />
     <Compile Include="Controller\NetworkManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
@@ -110,15 +111,11 @@
     <Compile Include="Model\Case\StationCase.xaml.cs">
       <DependentUpon>StationCase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Packet.cs" />
     <Compile Include="Model\Player\Player.xaml.cs">
       <DependentUpon>Player.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\UI\ChatBox.xaml.cs">
       <DependentUpon>ChatBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\UI\DialogueBox.xaml.cs">
-      <DependentUpon>DialogueBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Tools.cs" />
     <Compile Include="Model\UI\PlayerInfoDisplay.xaml.cs">
@@ -190,10 +187,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Model\UI\ChatBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Model\UI\DialogueBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

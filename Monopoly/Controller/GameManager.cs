@@ -14,7 +14,7 @@ namespace Monopoly.Controller
     class GameManager
     {
         public static Dictionary<string, FrameworkElement> controls = new Dictionary<string, FrameworkElement>();
-        public static ObservableCollection<server.PlayerInfo> playersList = new ObservableCollection<server.PlayerInfo>(); // string = PseudoPlayer
+        public static ObservableCollection<server.PlayerInfo> playersList = new ObservableCollection<server.PlayerInfo>(); 
 
         public GameManager(Grid root)
         {
@@ -37,6 +37,8 @@ namespace Monopoly.Controller
             Grid.SetRow(playerHud, 0);
             Grid.SetColumn(playerHud, 1);
             root.Children.Add(playerHud);
+
+
 
 
         }
