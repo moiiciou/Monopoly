@@ -167,8 +167,6 @@ namespace Monopoly.Controller
                                         PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
                                         System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
 
-
-
                                     }
 
                                     PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
