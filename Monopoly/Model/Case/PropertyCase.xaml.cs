@@ -1,6 +1,6 @@
 ﻿using Monopoly.Model.Card;
 using System;
-using System.ComponentModel;
+using server;
 using System.IO;
 
 namespace Monopoly.Model.Case
@@ -35,17 +35,7 @@ namespace Monopoly.Model.Case
 
         }
 
-        public class CaseInfo
-        {
 
-
-            public string ImageTemplate { get; set; }
-            public string Location { get; set; }
-            public int Price { get; set; }
-            public string Color { get; set; }
-            public int Rotation { get; set; }
-            public string Owner { get; set; } 
-        }
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {

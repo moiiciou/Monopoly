@@ -46,8 +46,9 @@ namespace Monopoly.Model.UI
                 if (textBox.Text != "" && textBox.Text.StartsWith("/"))
                 {
                     Packet p = new Packet();
-                    p.Type = "command";
-                    p.Content = textBox.Text.TrimStart('/') + "\r\n";
+                    p.Type = textBox.Text.TrimStart('/');
+                    p.Content = JsonConvert.SerializeObject(GameManager.playersList[PlayerManager.CurrentPlayerName.Trim('0')], Formatting.Indented);
+
                     string message = JsonConvert.SerializeObject(p, Formatting.Indented);
                     Console.WriteLine(message);
                     byte[] msg = System.Text.Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);

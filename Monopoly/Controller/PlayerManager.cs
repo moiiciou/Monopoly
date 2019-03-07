@@ -8,7 +8,7 @@ using Monopoly.Model;
 
 using Monopoly.Model.Board;
 using System.Threading;
-using Monopoly.Model.Card;
+using server;
 
 namespace Monopoly.Controller
 {
@@ -41,58 +41,30 @@ namespace Monopoly.Controller
         /// <param name="balance"> Argent du joueur </param>
         /// <param name="position"> Position sur le plateau du joueur </param>
         /// <return> Renvoie l'id du joueur créé. </return>
-        public static int CreatePlayer(Board board, string name, int balance, int position)
+        public static bool CreatePlayer(Board board, string name, int balance, int position)
         {
-            Player p = new Player(SearchNextId(), name, balance, position, new List<BaseCard>(), null);
+            Player p = new Player( name, balance, position, new List<CaseInfo>(), null, null);
             _players.Add(p);
             InitGrid(p);
             if (position >= 0)
             {
-                DrawPlayer(board, p.IdPlayer);
+                DrawPlayer(board, p.playerInfo.Pseudo, 0);
 
             }
 
 
 
-            return _players.Last().IdPlayer;
-        }
-
-        /// <summary>
-        /// Calcule et fourni le nouvel ID d'un joueur.
-        /// </summary>
-        /// <returns> Renvoie le nouvel ID du joueur </returns>
-        public static int SearchNextId()
-        {
-            return _nextId++;
+            return true;
         }
 
 
-
-        /// <summary>
-        ///  Cherche un joueur avec son id dans la liste des joueurs créés.
-        /// </summary>
-        /// <param name="idPlayer"> Id du joueur que l'on recherche </param>
-        /// <returns> Le Player dont l'id correspond </returns>
-        public static Player SearchPlayer(int idPlayer)
-        {
-            Player player = null;
-
-            for (int i = 0; i < _players.Count && player == null; i++)
-            {
-                if (_players[i].IdPlayer == idPlayer)
-                {
-                    player = _players[i];
-                }
-            }
-            return player;
-        }
         public static Player SearchPlayer(string pseudo)
         {
             Player player = null;
 
             for (int i = 0; i < _players.Count && player == null; i++)
             {
-                if (_players[i].NamePlayer == pseudo)
+                if (_players[i].playerInfo.Pseudo == pseudo)
                 {
                     player = _players[i];
                 }
@@ -112,32 +84,17 @@ namespace Monopoly.Controller
         public static void MoovePlayer(Board b, string pseudo, int position)
         {
             Player p = SearchPlayer(pseudo);
-            if(position != position % 40)
-            {
-                p.AddAmount(500);
-            }
+
             position = position % 40;
             DrawPlayer(b, pseudo, position);
-
-            Console.WriteLine(BuyAndSellManager.CheckIfBuyable(b.CasesList[position]));
-            BuyAndSellManager.BuyProperty(b.CasesList[position], p);
+            p.playerInfo.Position = position;
+            if(BuyAndSellManager.CheckIfBuyable(b.CasesList[position]))
+            {
+                BuyAndSellManager.BuyProperty(b.CasesList[position], p);
+            }
         }
 
-        public static void DrawPlayer(Board b, int idPlayer)
-        {
-            Console.WriteLine(SearchPlayer(idPlayer).Position);
-            Player p = SearchPlayer(idPlayer);
-            b.Children.Remove(p);
-            Console.WriteLine(b.CasesList[p.Position]);
-            
-            int x = b.CasesList[p.Position].Position[1];
-            int y = b.CasesList[p.Position].Position[0];
-            Grid.SetColumn(p, x);
-            Grid.SetRow(p, y);
-            b.Children.Add(p);
 
-
-        }
 
         public static void DrawPlayer(Board b, string pseudo, int pos)
         {

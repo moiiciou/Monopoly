@@ -27,10 +27,11 @@ namespace Monopoly.Model.UI
             get { return balance; }
             set
             {
-                labelBalance.Content = Balance.ToString() + " €";
                 balance = value;
+                labelBalance.Content = balance.ToString() + " €";
+
             }
-         
+
         }
         public string Pseudo { get; set; }
 

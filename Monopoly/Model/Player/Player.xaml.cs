@@ -1,5 +1,6 @@
 ﻿using Monopoly.Model.Card;
 using Monopoly.Model.UI;
+using server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,44 +20,14 @@ namespace Monopoly.Model
         private int _position;
         private bool _canMoove;
         public int grid;
-        public PlayerInfoDisplay playerInfo;
+        public PlayerInfoDisplay playerInfoDisplay;
         public event PropertyChangedEventHandler PropertyChanged;
+        public PlayerInfo playerInfo;
 
         #endregion
 
         #region Accesseurs
-
-        public int Balance { get; set; }
-
-        public int IdPlayer { get; }
-
-        public object Image { get; set; }
-
-        public string NamePlayer { get; set; }
-
-        public int Position
-        {
-            get
-            {
-                return _position;
-            }
-
-            set
-            {
-                if (value >= 0)
-                {
-                    _position = value % 40;
-                    NotifyPropertyChanged();
-                }
-                else
-                {
-                    throw new ArgumentException("La valeur de la position ne peut pas être négative");
-                }
-            }
-        }
-
-
-        public List<BaseCard> Cards { get; }
+        
 
         #endregion
 
@@ -64,22 +35,21 @@ namespace Monopoly.Model
         /// <summary>
         /// Instancie un joueur avec tous les attributs.
         /// </summary>
-        /// <param name="idPlayer">Id du Player</param>
         /// <param name="name">Nom du Player</param>
         /// <param name="balance">Argent du Player</param>
         /// <param name="position">Position du Player sur le plateau</param>
         /// <param name="cards">Liste de cartes que le Player possède</param>
         /// <param name="image">Skin du Player</param>
-        public Player(int idPlayer, string name, int balance, int position, List<BaseCard> cards, object image)
+        public Player( string name, int balance, int position, List<CaseInfo> estates, object image, string colorCode )
         {
             InitializeComponent();
-            Balance = balance;
-            IdPlayer = idPlayer;
-            Image = image;
-            NamePlayer = name;
-            _position = position;
-            Cards = cards;
-            
+            playerInfo = new PlayerInfo();
+            playerInfo.Balance = balance;
+            playerInfo.Image = image;
+            playerInfo.Pseudo = name;
+            playerInfo.Position = position;
+            playerInfo.Estates = estates;    
+            playerInfo.ColorCode = colorCode;
 
         }
         /// <summary>
@@ -87,15 +57,14 @@ namespace Monopoly.Model
         /// </summary>
         /// <param name="idPlayer"> Id du Player </param>
         /// <param name="name"> Nom du Player </param>
-        public Player(int idPlayer, string name)
+        public Player(string name)
         {
             InitializeComponent();
-            IdPlayer = idPlayer;
-            NamePlayer = name;
-            Balance = 0;
-            _position = 0;
-            Cards = new List<BaseCard>();
-            Image = null;
+            playerInfo.Pseudo = name;
+            playerInfo.Balance = 0;
+            playerInfo.Position = 0;
+            playerInfo.Estates = new List<CaseInfo>();
+            playerInfo.Image = null;
 
         }
         #endregion
@@ -110,7 +79,7 @@ namespace Monopoly.Model
         public bool IsBankruptcy()
         {
             bool result = false;
-            if (Balance < 0)
+            if (playerInfo.Balance < 0)
             {
                 result = true;
             }
@@ -125,9 +94,9 @@ namespace Monopoly.Model
         public void SoustractAmount(int amount)
         {
 
-            if (amount > 0 && Balance > amount)
+            if (amount > 0 && playerInfo.Balance > amount)
             {
-                Balance -= amount;
+                playerInfo.Balance -= amount;
 
 
             }
@@ -147,7 +116,7 @@ namespace Monopoly.Model
         {
             if (amount > 0)
             {
-                Balance += amount;
+                playerInfo.Balance += amount;
 
             }
             else
@@ -172,16 +141,7 @@ namespace Monopoly.Model
         /// <returns> Renvoie le string de description de l'objet player. </returns>
         public override string ToString()
         {
-            string res = "Id du joueur : " + IdPlayer + "; Nom du joueur : " + Name + "; Argent : " + Balance + "; Position sur le plateau : " + Position + "; Liste de cartes : { ";
-            Console.WriteLine(this.IdPlayer);
-            for (int i = 0; i < Cards.Count - 1; i++)
-            {
-                res += Cards[i].ToString() + " , ";
-            }
-            if (Cards.Count > 0)
-            {
-                res += Cards[Cards.Count - 1].ToString() + " }";
-            }
+            string res = "; Nom du joueur : " + playerInfo.Pseudo + "; Argent : " + playerInfo.Balance + "; Position sur le plateau : " + playerInfo.Position;
             return res;
         }
         #endregion

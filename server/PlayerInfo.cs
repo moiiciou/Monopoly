@@ -13,6 +13,8 @@ namespace server
         private int position;
         private int balance;
         public string ColorCode;
+        public List<CaseInfo> Estates { get; set; }
+        public object Image { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Pseudo

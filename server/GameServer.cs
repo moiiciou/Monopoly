@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace server
 {
@@ -22,7 +23,7 @@ namespace server
         public bool readLock = false;//Flag aidant à la synchronisation
         private int initPosition = 0;
         public static int initBalance = 10000;
-        public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>(); // string = PseudoPlayer
+        public static Dictionary<string, PlayerInfo> playersList = new Dictionary<string, PlayerInfo>(); // string = PseudoPlayer
 
 
         public void Start()
@@ -204,34 +205,41 @@ namespace server
 
                                             }
 
-                                            if (p.Type == "command")
+                                            if (p.Type == "moove")
                                             {
-                                                Console.WriteLine("command detected");
 
-                                                if (p.Content.Trim() == "moove")
-                                                {
                                                     Random rnd = new Random();
                                                     int dice = rnd.Next(1, 13);
 
                                                     response.Type = "updatePlayer";
                                                     response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
-                                                    playersList[Nick.Trim('0')].Position += dice;
-                                                    response.Content = JsonConvert.SerializeObject(playersList[Nick.Trim('0')], Formatting.None);
+                                                    PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
 
-                                                }
+                                                    player.Position += dice;
+                                                    response.Content = JsonConvert.SerializeObject(player);
+
 
                                             }
 
                                             if (p.Type == "buyProperty")
                                             {
-                                                response.Type = "updatePlayer";
-                                                CaseInfo prop = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
-                                                Console.WriteLine(prop.Price);
-                                                playersList[Nick.Trim('0')].Balance -= prop.Price ;
+                                                Console.WriteLine("updatePlayer:");
 
-                                                response.Content = JsonConvert.SerializeObject(playersList[Nick.Trim('0')], Formatting.None);
+                                                response.Type = "updatePlayer";
+
+                                                Console.WriteLine(p.Content);
+                                                response.Content = p.Content;
                                                 response.ChatMessage = Nick.Trim('0') +" achete une propriete";
 
+
+                                            }
+
+
+                                            if (p.Type == "payRent")
+                                            {
+
+                                                response.Type = "updatePlayers";                                              
+                                                response.Content = p.Content;
 
                                             }
 
@@ -261,7 +269,7 @@ namespace server
                                     else
                                     {
 
-                                        msg = System.Text.Encoding.UTF8.GetBytes(formattedMsg);
+                                        msg = Encoding.UTF8.GetBytes(formattedMsg);
                                         PlayerInfo playerInfo = new PlayerInfo();
                                         playerInfo.Pseudo = Nick.Trim('0');
                                         playerInfo.Balance = initBalance;
@@ -273,7 +281,7 @@ namespace server
                                         {
                                             playersList.Add(playerInfo.Pseudo, playerInfo);
                                         }
-                                        response.Content = JsonConvert.SerializeObject(playersList, Formatting.None);
+                                        response.Content = JsonConvert.SerializeObject(playersList);
 
                                     }
                                 }
@@ -281,8 +289,8 @@ namespace server
                                 {
                                     Logging(formattedMsg);
                                 }
-                               string  packetToSend = JsonConvert.SerializeObject(response, Formatting.Indented);
-                                msg = System.Text.Encoding.UTF8.GetBytes(packetToSend);
+                               string  packetToSend = JsonConvert.SerializeObject(response);
+                                msg = Encoding.UTF8.GetBytes(packetToSend);
 
 
                                 Console.WriteLine(packetToSend);

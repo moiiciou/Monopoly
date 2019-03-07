@@ -1,24 +1,15 @@
-﻿using Monopoly.Core;
-using Monopoly.Model;
-using Monopoly.Model.Board;
+﻿using Monopoly.Model.Board;
 using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using server;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Threading;
+
 
 namespace Monopoly.Controller
 {
@@ -129,26 +120,26 @@ namespace Monopoly.Controller
                                     byte[] msg = new Byte[ClientSocket.Available];
                                     ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
-                                    Console.WriteLine(messageReceived);
                                     string json = messageReceived;
                                     Packet p = JsonConvert.DeserializeObject<Packet>(json);
 
                                     if (p.Type == "newPlayer")
                                     {
+                                        // Récupêre la liste des joueurs reçue
+                                        Dictionary<string, PlayerInfo> playerList = JsonConvert.DeserializeObject<Dictionary<string, PlayerInfo>>(p.Content);
 
-                                        Dictionary<string, server.PlayerInfo> playerList = JsonConvert.DeserializeObject<Dictionary<string, server.PlayerInfo>>(p.Content);
-
+                                        //Recherche les joueurs manquant et les ajoutes à l'interface
                                             foreach (var player in playerList)
                                             {
-                                                if (!GameManager.playersList.Any( x => x.Pseudo == player.Key))
+                                                if (!GameManager.playersList.ContainsKey(player.Key))
                                                 {
-
+                                                    // Crée le joueur et update le hud
                                                     System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
                                                     PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
                                                     playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player.Value);
 
-
-                                                    GameManager.playersList.Add(player.Value);
+                                                    //Met à jour la player list
+                                                    GameManager.playersList.Add(player.Value.Pseudo,player.Value);
 
                                                 }
 
@@ -163,35 +154,46 @@ namespace Monopoly.Controller
 
                                     if (p.Type == "updatePlayer")
                                     {
-                                           PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
-                                          System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, playerInfo.Pseudo, playerInfo.Position); }));
+                                         PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
 
-                                          PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
-                                          playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
-                                         
+                                        //Update les données du joueur
+                                          GameManager.playersList[playerInfo.Pseudo] = playerInfo;
+
+                                        //Update l'affichage des infos du joueur
+                                        PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, playerInfo.Pseudo, playerInfo.Position); }));
+                                        playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
+
+                                        Console.WriteLine(GameManager.playersList[playerInfo.Pseudo].Balance);
+
+
                                     }
 
-                                    if (p.Type == "updatePlayerProperty")
-                                    {
-                                        PropertyCase.CaseInfo caseInfo = JsonConvert.DeserializeObject<PropertyCase.CaseInfo>(p.Content);
 
-                                        foreach (BaseCase caseBoard in Board.GetBoard.CasesList)
+                                    if (p.Type == "updatePlayers")
+                                    {
+
+                                        List<PlayerInfo> playerInfoList = JsonConvert.DeserializeObject<List<PlayerInfo>>(p.Content);
+
+                                        foreach(PlayerInfo playerInfo in playerInfoList)
                                         {
-                                            if (caseBoard.GetType().ToString() == "Monopoly.Model.Case.PropertyCase")
-                                            {
-                                                PropertyCase caseToUpdate = (PropertyCase)caseBoard;
-                                                if (caseToUpdate.CaseInformation.Location == caseInfo.Location)
-                                                    caseToUpdate.CaseInformation = caseInfo;
-                                                Console.WriteLine(caseToUpdate.CaseInformation.Owner);
-                                            }
+                                            GameManager.playersList[playerInfo.Pseudo] = playerInfo;
+
+                                            PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+                                            playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
+
                                         }
 
 
-
                                     }
 
+
                                     PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
+
+                                    //Update le chat
                                     playerHud.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerHud.chatBox.UpdateText), p.ChatMessage);
+
+                                    //Update le pseudo des joueurs
                                     playerHud.pseudo_label.Dispatcher.Invoke(new PlayerInterface.UpdatePseudoCallback(playerHud.UpdatePseudo), PlayerManager.CurrentPlayerName);
 
 

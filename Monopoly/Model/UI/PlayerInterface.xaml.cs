@@ -65,9 +65,14 @@ namespace Monopoly.Model.UI
             {
                 if(infoDisplay.Pseudo == player.Pseudo)
                 {
-                    infoDisplay.Balance = player.Balance;
+                        Console.WriteLine(infoDisplay.Pseudo);
+                        Console.WriteLine(infoDisplay.Balance);
+
+                        infoDisplay.Balance = player.Balance;
+                        Console.WriteLine(infoDisplay.Balance);
+
+                    }
                 }
-            }
             }
 
         }

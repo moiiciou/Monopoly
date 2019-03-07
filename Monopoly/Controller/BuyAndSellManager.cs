@@ -20,8 +20,16 @@ namespace Monopoly.Controller
 
         public static bool CheckIfBuyable(BaseCase baseCase)
         {
-            if (baseCase.GetType().ToString() == "Monopoly.Model.Case.StationCase" | baseCase.GetType().ToString() == "Monopoly.Model.Case.PropertyCase")
+            if(baseCase.GetType().ToString() == "Monopoly.Model.Case.PropertyCase")
+            {
+                PropertyCase propertyCase = (PropertyCase)baseCase;
+                if (propertyCase.CaseInformation.Owner == null)
+                    return true;
+            }
+
+            if (baseCase.GetType().ToString() == "Monopoly.Model.Case.StationCase")
                 return true;
+
             return false;
         }
 
@@ -31,7 +39,7 @@ namespace Monopoly.Controller
             {
                 PropertyCase propertyCase = (PropertyCase)baseCase;
 
-                if(propertyCase.CaseInformation.Owner == null && PlayerManager.CurrentPlayerName.Trim('0') == p.NamePlayer )
+                if(propertyCase.CaseInformation.Owner == null && PlayerManager.CurrentPlayerName.Trim('0') == p.playerInfo.Pseudo )
                 {
 
 
@@ -42,19 +50,27 @@ namespace Monopoly.Controller
                     }
                     else
                     {
-                        if(p.Balance >= propertyCase.CaseInformation.Price)
+                        if(p.playerInfo.Balance >= propertyCase.CaseInformation.Price)
                         {
                             try
                             {
+                                // met à jour le propriétaire de la propriété 
                                 propertyCase.CaseInformation.Owner = PlayerManager.CurrentPlayerName.Trim('0');
+
+                                //Envoie les informations au serveur
                                 Packet packet = new Packet();
                                 packet.Type = "buyProperty";
-                                packet.Content = JsonConvert.SerializeObject(propertyCase.DataContext, Formatting.Indented);
+
+                                // ajoute la propriété au joueur
+                                p.playerInfo.Estates.Add(propertyCase.CaseInformation);
+                                p.playerInfo.Balance -= propertyCase.CaseInformation.Price;
+                                //renvoie les données au serveur
+                                packet.Content = JsonConvert.SerializeObject(p.playerInfo, Formatting.Indented);
 
                                 string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
-                                byte[] msg = System.Text.Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                                byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
                                 int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
-
+                                Console.WriteLine(message);
                                 if (DtSent == 0)
                                 {
                                     MessageBox.Show("Aucune donnée n'a été envoyée");
@@ -76,12 +92,6 @@ namespace Monopoly.Controller
                     }
 
                 }
-                if (propertyCase.CaseInformation.Owner != null)
-                {
-                    MessageBox.Show("Cette case appartient à "+ propertyCase.CaseInformation.Owner + Environment.NewLine + "Vous arretez içi vous coutera "+ propertyCase.Card.CardInformation.TextRentValue +"€" );
-                }
-
-
             }
             return false;
         }
