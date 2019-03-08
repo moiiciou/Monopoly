@@ -60,7 +60,10 @@ namespace Monopoly.Model.UI
             {
                 foreach(CaseInfo property in player.Estates)
                 {
-                    property_list.Items.Add(property.Location + ": Loyer " + property.Rent + "€");
+                    if(!property_list.Items.Contains(property.Location))
+                    {
+                        property_list.Items.Add(property.Location);
+                    }
 
                 }
             }
