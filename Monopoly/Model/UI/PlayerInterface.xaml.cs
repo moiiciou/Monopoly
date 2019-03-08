@@ -15,7 +15,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Linq;
+using System;
+
 
 namespace Monopoly.Model.UI
 {
@@ -58,11 +60,12 @@ namespace Monopoly.Model.UI
         {
             if(player.Estates != null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
             {
-                foreach(CaseInfo property in player.Estates)
+                foreach (CaseInfo property in player.Estates)
                 {
-                    if(!property_list.Items.Contains(property.Location))
+                    ListBoxItem item = new ListBoxItem { Content = property.Location, Background = (SolidColorBrush)new BrushConverter().ConvertFromString(property.Color) };
+                    if (!property_list.Items.Cast<ListBoxItem>().Any(x => x.Content.ToString() == item.Content.ToString()))
                     {
-                        property_list.Items.Add(property.Location);
+                      property_list.Items.Add(item);
                     }
 
                 }
