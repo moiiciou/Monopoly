@@ -163,8 +163,7 @@ namespace Monopoly.Controller
                                         PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
                                         System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, playerInfo.Pseudo, playerInfo.Position); }));
                                         playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
-
-                                        Console.WriteLine(GameManager.playersList[playerInfo.Pseudo].Balance);
+                                        playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel.UpdateProperty), playerInfo);
 
 
                                     }

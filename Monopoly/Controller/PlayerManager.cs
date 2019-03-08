@@ -17,8 +17,6 @@ namespace Monopoly.Controller
     {
         #region Attributs
         private static List<Player> _players = new List<Player>();
-        private static int _nextId = 0;
-        private static Player _bank;
         public static volatile List<Grid> playerGrid = new List<Grid>();
 
         #endregion

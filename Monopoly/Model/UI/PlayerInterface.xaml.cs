@@ -29,6 +29,7 @@ namespace Monopoly.Model.UI
         public delegate void AddNewPlayerCallback( PlayerInfo player);
         public delegate void UpdateBalanceCallback(int balance);
         public delegate void UpdateBalanceByPlayerInfoCallback(PlayerInfo player);
+        public delegate void UpdatePropertyCallback(PlayerInfo player);
 
 
 
@@ -51,6 +52,18 @@ namespace Monopoly.Model.UI
         public void UpdateBalance(int balance)
         {
             money_label.Content = balance.ToString();
+        }
+
+        public void UpdateProperty(PlayerInfo player)
+        {
+            if(player.Estates != null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                foreach(CaseInfo property in player.Estates)
+                {
+                    property_list.Items.Add(property.Location + ": Loyer " + property.Rent + "€");
+
+                }
+            }
         }
 
         public void UpdateBalanceByPlayerInfo(PlayerInfo player)
