@@ -31,7 +31,7 @@
         <local:ChatBox x:Name="chatBox" HorizontalAlignment="Left" Margin="0,148,0,-73" Grid.Row="1" VerticalAlignment="Top" Height="379" Width="446" Grid.RowSpan="3"  Loaded="ChatBox_Loaded"/>
         <Label x:Name="currency_label" Content="€" HorizontalAlignment="Left" Margin="208,60,0,0" VerticalAlignment="Top" Height="57" Width="108" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
         <StackPanel x:Name="PlayerPanel" HorizontalAlignment="Left" Height="146" Margin="18,205,0,0" VerticalAlignment="Top" Width="396"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="340,385,0,0" HorizontalAlignment="Left" Width="89" Height="95" VerticalAlignment="Top" >
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="340,385,0,0" HorizontalAlignment="Left" Width="89" Height="95" VerticalAlignment="Top" Click="Button_Click" >
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/house_button.png"/>
             </Button.Background>

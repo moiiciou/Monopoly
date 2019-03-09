@@ -178,5 +178,11 @@ namespace Monopoly.Controller
 
             return rent;
         }
+
+        public static bool CanYouBuild(PropertyCase propertyCase,PlayerInfo player)
+        {
+            return (Core.Tools.GetColorProperty(propertyCase) == Core.Tools.GetColorProperty(player, propertyCase));
+
+        }
     }
 }

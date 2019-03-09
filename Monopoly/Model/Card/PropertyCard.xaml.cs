@@ -43,7 +43,10 @@ namespace Monopoly.Model.Card
                 RentWith3House = rentWith3house,
                 RentWith4House = rentWith4house,
                 RentWithHotel = rentWithHotel,
-                Color = color };
+                Color = color,
+                HouseCost = houseCost,
+                HostelCost = hotelCost,
+            };
             DataContext = CardInformation;
         }
 
@@ -63,6 +66,9 @@ namespace Monopoly.Model.Card
         public string TextRentWithHotel { get; set; }
 
         public int RentValue { get; set; }
+        public int HouseCost { get; set; }
+        public int HostelCost { get; set; }
+
 
         public int RentWith1House { get; set; }
         public int RentWith2House { get; set; }
