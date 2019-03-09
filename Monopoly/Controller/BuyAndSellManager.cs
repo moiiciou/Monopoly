@@ -115,8 +115,8 @@ namespace Monopoly.Controller
                         PlayerInfo receiver = GameManager.playersList[propertyCase.CaseInformation.Owner];
                         
                         // Payer le loyer
-                        player.playerInfo.Balance -= propertyCase.CaseInformation.Rent;
-                        receiver.Balance += propertyCase.CaseInformation.Rent;
+                        player.playerInfo.Balance -= BuyAndSellManager.CalculRent(propertyCase);
+                        receiver.Balance += BuyAndSellManager.CalculRent(propertyCase);
 
 
 
@@ -144,6 +144,39 @@ namespace Monopoly.Controller
                     }
                 }
             }
+        }
+
+        public static int CalculRent(PropertyCase propertyCase)
+        {
+            int rent = propertyCase.CaseInformation.Rent;
+
+            if(propertyCase.CaseInformation.NumberOfHouse == 1)
+            {
+                rent = propertyCase.Card.CardInformation.RentWith1House;
+            }
+
+            if (propertyCase.CaseInformation.NumberOfHouse == 2)
+            {
+                rent = propertyCase.Card.CardInformation.RentWith2House;
+
+            }
+
+            if (propertyCase.CaseInformation.NumberOfHouse == 3)
+            {
+                rent = propertyCase.Card.CardInformation.RentWith3House;
+            }
+
+            if (propertyCase.CaseInformation.NumberOfHouse == 4)
+            {
+                rent = propertyCase.Card.CardInformation.RentWith4House;
+            }
+
+            if(propertyCase.CaseInformation.HasHostel == true)
+            {
+                rent = propertyCase.Card.CardInformation.RentWithHotel;
+            }
+
+            return rent;
         }
     }
 }
