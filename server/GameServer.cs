@@ -216,7 +216,7 @@ namespace server
                                                     PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
 
                                                     player.Position += dice;
-                                                    response.Content = JsonConvert.SerializeObject(player);
+                                                    response.Content = JsonConvert.SerializeObject(player, Formatting.Indented);
 
 
                                             }
@@ -274,14 +274,13 @@ namespace server
                                         playerInfo.Pseudo = Nick.Trim('0');
                                         playerInfo.Balance = initBalance;
                                         playerInfo.Position = initPosition;
-                                        Console.WriteLine(initBalance);
                                         response.Type = "newPlayer";
                                         response.ChatMessage = Nick.Trim('0') + " vient de se connecter";
                                         if (!playersList.ContainsKey(playerInfo.Pseudo))
                                         {
                                             playersList.Add(playerInfo.Pseudo, playerInfo);
                                         }
-                                        response.Content = JsonConvert.SerializeObject(playersList);
+                                        response.Content = JsonConvert.SerializeObject(playersList, Formatting.Indented);
 
                                     }
                                 }
@@ -289,11 +288,14 @@ namespace server
                                 {
                                     Logging(formattedMsg);
                                 }
-                               string  packetToSend = JsonConvert.SerializeObject(response);
+                               string  packetToSend = JsonConvert.SerializeObject(response, Formatting.Indented);
                                 msg = Encoding.UTF8.GetBytes(packetToSend);
 
+                                Console.WriteLine("response :");
+                                Console.WriteLine(response.Type);
+                                Console.WriteLine(response.Content);
+                                Console.WriteLine(response.ChatMessage);
 
-                                Console.WriteLine(packetToSend);
                                 Thread forwardingThread = new Thread(new ThreadStart(writeToAll));
                                 forwardingThread.Start();
                                 forwardingThread.Join();

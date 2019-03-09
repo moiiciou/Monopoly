@@ -32,7 +32,7 @@ namespace Monopoly.Model.Case
             Card = card;
             DataContext = CaseInformation;
             Position = position;
-
+            CaseInformation.Rent = Card.CardInformation.RentValue;
         }
 
 

@@ -90,6 +90,7 @@ namespace Monopoly.Controller
             {
                 BuyAndSellManager.BuyProperty(b.CasesList[position], p);
             }
+            BuyAndSellManager.PayRent(b.CasesList[position], p);
         }
 
 

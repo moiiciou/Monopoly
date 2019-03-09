@@ -165,8 +165,30 @@ namespace Monopoly.Controller
                                         playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
                                         playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel.UpdateProperty), playerInfo);
 
+                                        //Update les propriétés sur le board
+                                        if(playerInfo.Estates != null)
+                                        {
+                                            foreach (CaseInfo estate in playerInfo.Estates)
+                                            {
+                                                foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+                                                {
+                                                    if (baseCase is PropertyCase)
+                                                    {
+                                                        PropertyCase property = (PropertyCase)baseCase;
 
+                                                        if (property.CaseInformation.Location == estate.Location)
+                                                        {
+                                                            property.CaseInformation = estate;
+                                                        }
+
+                                                    }
+                                                }
+
+                                            }
+
+                                        }
                                     }
+
 
 
                                     if (p.Type == "updatePlayers")
@@ -180,6 +202,31 @@ namespace Monopoly.Controller
 
                                             PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
                                             playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
+                                            playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel.UpdateProperty), playerInfo);
+
+                                            //Update les propriétés sur le board
+                                            if (playerInfo.Estates != null)
+                                            {
+                                                foreach (CaseInfo estate in playerInfo.Estates)
+                                                {
+                                                    foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+                                                    {
+                                                        if (baseCase is PropertyCase)
+                                                        {
+                                                            PropertyCase property = (PropertyCase)baseCase;
+
+                                                            if (property.CaseInformation.Location == estate.Location)
+                                                            {
+                                                                property.CaseInformation = estate;
+                                                            }
+
+                                                        }
+                                                    }
+
+                                                }
+
+                                            }
+
 
                                         }
 

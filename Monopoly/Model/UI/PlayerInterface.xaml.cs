@@ -65,7 +65,9 @@ namespace Monopoly.Model.UI
                     ListBoxItem item = new ListBoxItem { Content = property.Location, Background = (SolidColorBrush)new BrushConverter().ConvertFromString(property.Color) };
                     if (!property_list.Items.Cast<ListBoxItem>().Any(x => x.Content.ToString() == item.Content.ToString()))
                     {
+                       
                       property_list.Items.Add(item);
+
                     }
 
                 }

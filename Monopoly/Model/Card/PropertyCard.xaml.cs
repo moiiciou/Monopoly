@@ -26,7 +26,24 @@ namespace Monopoly.Model.Card
         {
 
             InitializeComponent();
-            CardInformation = new CardInfo { TextPropertyName = propertyName, TextHouseCost = houseCost.ToString() + "€ each", TextHotelCost = hotelCost.ToString() + "€ plus 4 houses", TextRentWith1House = rentWith1house.ToString() + "€", TextRentWith2House = rentWith2house.ToString() + "€", TextRentWith3House = rentWith3house.ToString() + "€", TextRentWith4House = rentWith4house.ToString() + "€", TextRentWithHotel = rentWithHotel.ToString() + "€", TextRentValue = "Rent :" + rentValue.ToString() + "€", TextMortgageValue = mortgageValue.ToString() + "€", Color = color };
+            CardInformation = new CardInfo {
+                TextPropertyName = propertyName,
+                TextHouseCost = houseCost.ToString() + "€ each",
+                TextHotelCost = hotelCost.ToString() + "€ plus 4 houses",
+                TextRentWith1House = rentWith1house.ToString() + "€",
+                TextRentWith2House = rentWith2house.ToString() + "€",
+                TextRentWith3House = rentWith3house.ToString() + "€",
+                TextRentWith4House = rentWith4house.ToString() + "€",
+                TextRentWithHotel = rentWithHotel.ToString() + "€",
+                TextRentValue = "Rent :" + rentValue.ToString() + "€",
+                TextMortgageValue = mortgageValue.ToString() + "€",
+                RentValue = rentValue,
+                RentWith1House = rentWith1house,
+                RentWith2House = rentWith2house,
+                RentWith3House = rentWith3house,
+                RentWith4House = rentWith4house,
+                RentWithHotel = rentWithHotel,
+                Color = color };
             DataContext = CardInformation;
         }
 
@@ -45,7 +62,16 @@ namespace Monopoly.Model.Card
         public string TextRentWith4House { get; set; }
         public string TextRentWithHotel { get; set; }
 
+        public int RentValue { get; set; }
+
+        public int RentWith1House { get; set; }
+        public int RentWith2House { get; set; }
+        public int RentWith3House { get; set; }
+        public int RentWith4House { get; set; }
+        public int RentWithHotel { get; set; }
+
         public string TextRentValue { get; set; }
+
         public string TextMortgageValue { get; set; }
 
 
