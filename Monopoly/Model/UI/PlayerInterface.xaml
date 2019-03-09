@@ -6,18 +6,23 @@
              xmlns:local="clr-namespace:Monopoly.Model.UI"
              mc:Ignorable="d"
             >
+    
     <Grid Height="Auto" Width="Auto">
         <Grid.RowDefinitions>
-            <RowDefinition Height="385*"/>
-            <RowDefinition Height="299*"/>
-            <RowDefinition Height="7*"/>
-            <RowDefinition Height="38*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Image HorizontalAlignment="Left" Height="90" Margin="10,60,0,0" VerticalAlignment="Top" Width="90" Source="/Monopoly;component/ressources/templates/default/money.png"/>
         <Label x:Name="money_label" Content="{Binding MoneyPlayer}" HorizontalAlignment="Left" Margin="100,60,0,0" VerticalAlignment="Top" Height="57" Width="108" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
         <Label x:Name="pseudo_label" Content="{Binding PseudoPlayer}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="45" Width="226" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
         <ListBox x:Name="property_list" HorizontalAlignment="Left" Height="272" Margin="10,385,0,0" VerticalAlignment="Top" Width="325" Grid.RowSpan="2">
-
+            <ListBox.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </ListBox.Resources>
         </ListBox>
 
         <Label Content="Propriétés possédées:" HorizontalAlignment="Left" Margin="10,348,0,0" VerticalAlignment="Top" Width="207" FontSize="20" Height="37"/>
@@ -26,19 +31,11 @@
         <local:ChatBox x:Name="chatBox" HorizontalAlignment="Left" Margin="0,148,0,-73" Grid.Row="1" VerticalAlignment="Top" Height="379" Width="446" Grid.RowSpan="3"  Loaded="ChatBox_Loaded"/>
         <Label x:Name="currency_label" Content="€" HorizontalAlignment="Left" Margin="208,60,0,0" VerticalAlignment="Top" Height="57" Width="108" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
         <StackPanel x:Name="PlayerPanel" HorizontalAlignment="Left" Height="146" Margin="18,205,0,0" VerticalAlignment="Top" Width="396"/>
-        <Button Content="" Margin="340,385,0,0" HorizontalAlignment="Left" Width="89" Height="95" VerticalAlignment="Top" Background="#FF150000">
-            <Button.Template>
-                <ControlTemplate>
-                    <Border CornerRadius="10">
-                        <Border.BorderBrush>
-                            <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/blue_button05.png"/>
-                        </Border.BorderBrush>
-                        <Border.Background>
-                            <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/house_button.png"/>
-                        </Border.Background>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="340,385,0,0" HorizontalAlignment="Left" Width="89" Height="95" VerticalAlignment="Top" >
+            <Button.Background>
+                <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/house_button.png"/>
+            </Button.Background>
+
         </Button>
 
     </Grid>

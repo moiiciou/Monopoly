@@ -130,6 +130,10 @@
     <Compile Include="optionForm.Designer.cs">
       <DependentUpon>optionForm.cs</DependentUpon>
     </Compile>
+    <Page Include="ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
