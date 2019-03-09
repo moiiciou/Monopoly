@@ -150,7 +150,12 @@ namespace Monopoly.Controller
         {
             int rent = propertyCase.CaseInformation.Rent;
 
-            if(propertyCase.CaseInformation.NumberOfHouse == 1)
+            if (propertyCase.CaseInformation.NumberOfHouse == 0 & Core.Tools.GetColorProperty(GameManager.playersList[propertyCase.CaseInformation.Owner], propertyCase) == Core.Tools.GetColorProperty(propertyCase))
+            {
+                rent = 2 * propertyCase.CaseInformation.Rent;
+            }
+
+            if (propertyCase.CaseInformation.NumberOfHouse == 1)
             {
                 rent = propertyCase.Card.CardInformation.RentWith1House;
             }
