@@ -9,6 +9,7 @@ namespace server
 {
     public class PlayerInfo : INotifyPropertyChanged
     {
+
         private string pseudo;
         private int position;
         private int balance;
@@ -57,6 +58,11 @@ namespace server
         protected void OnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        public PlayerInfo()
+        {
+            Estates = new List<CaseInfo>();
         }
     }
     

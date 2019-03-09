@@ -50,7 +50,7 @@ namespace Monopoly.Controller
                     }
                     else
                     {
-                        if(p.playerInfo.Balance >= propertyCase.CaseInformation.Price)
+                        if(GameManager.playersList[p.playerInfo.Pseudo].Balance >= propertyCase.CaseInformation.Price)
                         {
                             try
                             {
@@ -62,10 +62,10 @@ namespace Monopoly.Controller
                                 packet.Type = "buyProperty";
 
                                 // ajoute la propriété au joueur
-                                p.playerInfo.Estates.Add(propertyCase.CaseInformation);
-                                p.playerInfo.Balance -= propertyCase.CaseInformation.Price;
+                                GameManager.playersList[p.playerInfo.Pseudo].Estates.Add(propertyCase.CaseInformation);
+                                GameManager.playersList[p.playerInfo.Pseudo].Balance -= propertyCase.CaseInformation.Price;
                                 //renvoie les données au serveur
-                                packet.Content = JsonConvert.SerializeObject(p.playerInfo, Formatting.Indented);
+                                packet.Content = JsonConvert.SerializeObject(GameManager.playersList[p.playerInfo.Pseudo], Formatting.Indented);
 
                                 string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
                                 byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
@@ -150,9 +150,12 @@ namespace Monopoly.Controller
         {
             int rent = propertyCase.CaseInformation.Rent;
 
-            if (propertyCase.CaseInformation.NumberOfHouse == 0 & Core.Tools.GetColorProperty(GameManager.playersList[propertyCase.CaseInformation.Owner], propertyCase) == Core.Tools.GetColorProperty(propertyCase))
+            if(propertyCase.CaseInformation.Owner != null)
             {
-                rent = 2 * propertyCase.CaseInformation.Rent;
+                if (propertyCase.CaseInformation.NumberOfHouse == 0 & Core.Tools.GetColorProperty(GameManager.playersList[propertyCase.CaseInformation.Owner], propertyCase) == Core.Tools.GetColorProperty(propertyCase))
+                {
+                    rent = 2 * propertyCase.CaseInformation.Rent;
+                }
             }
 
             if (propertyCase.CaseInformation.NumberOfHouse == 1)

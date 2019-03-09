@@ -1,4 +1,5 @@
 ﻿using Monopoly.Core;
+using Monopoly.Model.Card;
 using Monopoly.Model.Case;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Monopoly.Model.Board
     {
         public  List<BaseCase> CasesList = new List<BaseCase>();
         private static readonly Lazy<Board> lazy = new Lazy<Board>(() => new Board());
+        public List<ChanceCard> ChanceCardList = new List<ChanceCard>();
 
         public static Board GetBoard { get { return lazy.Value; } }
 
@@ -29,6 +31,7 @@ namespace Monopoly.Model.Board
             ThemeParser template = new ThemeParser(".\\ressources\\level.json");
 
             List<BaseCase> CaseList = template.CasesList;
+            ChanceCardList = template.ChanceList;
 
             foreach (BaseCase BaseCase in CaseList)
             {

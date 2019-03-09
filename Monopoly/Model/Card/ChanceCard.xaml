@@ -7,9 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="250" Width="400">
     <Grid Background="White" >
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="10,60,0,0" VerticalAlignment="Top" Width="100" Source="/Monopoly;component/ressources/templates/default/monopoly-man.jpg" RenderTransformOrigin="0.264,0.258"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="107,10,0,0" TextWrapping="Wrap" Text="{Binding Label}" VerticalAlignment="Top" Height="40" Width="202" FontWeight="Bold"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="152,94,0,0" TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Top" Height="100" Width="227"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="127" Margin="10,60,0,0" VerticalAlignment="Top" Width="142" Source="/Monopoly;component/ressources/templates/default/monopoly-man.jpg" RenderTransformOrigin="0.264,0.258"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="152,10,21,0" TextWrapping="Wrap" Text="{Binding Label}" VerticalAlignment="Top" Height="38" Width="227" FontWeight="Bold" FontSize="24"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="152,94,0,0" TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Top" Height="100" Width="227" FontSize="18"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="250" VerticalAlignment="Top" Width="400"/>
 
     </Grid>
 </local:BaseCard>

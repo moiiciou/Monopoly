@@ -1,4 +1,5 @@
-﻿using Monopoly.Model.Board;
+﻿using Monopoly.Model;
+using Monopoly.Model.Board;
 using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
@@ -155,10 +156,10 @@ namespace Monopoly.Controller
                                     if (p.Type == "updatePlayer")
                                     {
                                          PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
+                                        Console.WriteLine(p.Content);
 
                                         //Update les données du joueur
-                                          GameManager.playersList[playerInfo.Pseudo] = playerInfo;
-
+                                        GameManager.playersList[playerInfo.Pseudo] = playerInfo;
                                         //Update l'affichage des infos du joueur
                                         PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
                                         System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, playerInfo.Pseudo, playerInfo.Position); }));
