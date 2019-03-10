@@ -160,6 +160,9 @@ namespace Monopoly.Model.UI
                                         byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
                                         int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
                                         Console.WriteLine(message);
+
+                                        property.UpdateBackground();
+
                                         if (DtSent == 0)
                                         {
                                             MessageBox.Show("Aucune donnée n'a été envoyée");

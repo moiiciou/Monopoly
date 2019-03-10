@@ -4,6 +4,9 @@ using server;
 using System.IO;
 using System.Windows.Controls;
 using Monopoly.Controller;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Monopoly.Model.Case
 {
@@ -12,6 +15,9 @@ namespace Monopoly.Model.Case
     /// </summary>
     public partial class PropertyCase : BaseCase
     {
+        private static Action EmptyDelegate = delegate () { };
+
+
 
         public PropertyCard Card { get; set; }
         public CaseInfo CaseInformation { get; set; }
@@ -36,7 +42,35 @@ namespace Monopoly.Model.Case
             CaseInformation.Rent = Card.CardInformation.RentValue;
         }
 
+        public void UpdateBackground()
+        {
+            var brush = new ImageBrush();
 
+                string path = "";
+
+                if (CaseInformation.NumberOfHouse == 1)
+                {
+                    path = "house";
+                }
+                if (CaseInformation.NumberOfHouse == 2)
+                {
+                    path = "house2";
+                }
+                if (CaseInformation.NumberOfHouse == 3)
+                {
+                    path = "house3";
+                }
+                if (CaseInformation.NumberOfHouse == 4)
+                {
+                    path = "house4";
+                }
+            if(CaseInformation.NumberOfHouse != 0)
+            {
+                brush.ImageSource = new BitmapImage(new Uri("ressources/templates/default/" + path + ".png", UriKind.Relative));
+                buttonProperty.Background = brush;
+                Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
+            }
+        }
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -48,7 +82,7 @@ namespace Monopoly.Model.Case
             Console.WriteLine("ok");
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void buttonProperty_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if(CaseInformation.Owner == null)
             {
@@ -69,5 +103,6 @@ namespace Monopoly.Model.Case
                 }
             }
         }
+
     }
 }
