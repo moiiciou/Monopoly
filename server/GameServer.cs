@@ -24,11 +24,11 @@ namespace server
         public static int initBalance = 10000;
         public static Dictionary<string, server.PlayerInfo> playersList = new Dictionary<string, server.PlayerInfo>(); // string = PseudoPlayer
         public static List<string> message = new List<string>();
-
+        public Thread jeu = new Thread(new ThreadStart(GameManager.TourManagement));
 
         public void Start()
         {
-            Thread jeu = new Thread(new ThreadStart(GameManager.TourManagement));
+            
             try
             {
                 
@@ -39,8 +39,7 @@ namespace server
                 Thread CheckConnectionThread = new Thread(new ThreadStart(CheckIfStillConnected));
                 CheckConnectionThread.Start();
 
-                Thread connexion = new Thread(new ThreadStart(test));
-                connexion.Start();
+                
 
                 IPHostEntry ipHostEntry = Dns.Resolve(Dns.GetHostName());
                 IPAddress ipAddress = ipHostEntry.AddressList[0];
@@ -69,7 +68,7 @@ namespace server
                 do
                 {
 
-                    Console.WriteLine("check Client ");
+                   /* Console.WriteLine("check Client ");
                    
                     string commande = Console.ReadLine();
                     if (commande == "/start")
@@ -79,14 +78,16 @@ namespace server
                     }else if (commande == "/a")
                     {
                         GameManager.action = true;
-                        Thread.Sleep(50);
+                        
                         print_message();
                     }
                     else if(commande == "/p")
                     {
                         Console.Write("check message");
-                        print_message();
-                    }
+                        
+                    }*/
+                    Thread.Sleep(50);
+                    print_message();
 
                 } while (true);
                   
@@ -112,11 +113,6 @@ namespace server
             
         } 
         
-
-        private void test()
-        {
-         
-        }
 
         //Méthode permettant de générer du logging
         private void Logging(string message)
@@ -206,7 +202,6 @@ namespace server
             MatchList.Remove(Resource);
         }
 
-
         private void getRead()
         {
             while (true)
@@ -235,7 +230,17 @@ namespace server
                                 msg = new byte[((Socket)readList[i]).Available];
                                 ((Socket)readList[i]).Receive(msg, msg.Length, SocketFlags.None);
                                 msgString = System.Text.Encoding.UTF8.GetString(msg);
-                                if (paquetsReceived == 0)
+
+                                if (msgString == "/start")
+                                {
+                                    jeu.Start();
+                                }
+                                else if (msgString == "/a")
+                                {
+                                    GameManager.action = true;
+                                    
+                                    
+                                }else if (paquetsReceived == 0)
                                 {
 
                                     string seq = msgString.Substring(0, 6);
@@ -276,6 +281,7 @@ namespace server
                                                 }
 
                                             }
+                                            
                                         }
                                         catch
                                         {
@@ -380,6 +386,7 @@ namespace server
                         byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
                         int bytesSent = ((Socket)acceptList[i]).Send(msg, msg.Length, SocketFlags.None);
                         Console.WriteLine("Writing to:" + acceptList.Count.ToString());
+                        Console.WriteLine(message);
                     }
                     catch
                     {

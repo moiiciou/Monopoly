@@ -7,9 +7,10 @@ namespace server
 
     class MainClass
     {
+       public static GameServer startIt;
         public static void Main(string[] args)
         {
-            GameServer startIt = new GameServer();
+            startIt = new GameServer();
 
             if (args.Length > 0)
             {

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
 using System.Diagnostics;
+using Monopoly.Controller;
 
 namespace Monopoly
 {

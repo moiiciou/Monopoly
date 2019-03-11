@@ -11,9 +11,9 @@ namespace Monopoly.Model
     /// Logique d'interaction pour Player.xaml
     /// </summary>
     public partial class Player : UserControl
-    {        
+    {
         #region Attributs
-
+        public GameWindow gmW;
         private int _balance;
         private int _idPlayer;
         private object _image;

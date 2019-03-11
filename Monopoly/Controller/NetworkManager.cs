@@ -129,8 +129,48 @@ namespace Monopoly.Controller
                                     ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
                                     Console.WriteLine(messageReceived);
+
                                     string json = messageReceived;
+                                   
                                     Packet p = JsonConvert.DeserializeObject<Packet>(json);
+
+                                    if (p.Type== "changement de tour")
+                                    {
+                                        try
+                                        {
+                                            PlayerInterface playerInterface = (PlayerInterface)GameManager.controls["playerHud"];
+
+                                            playerInterface.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerInterface.chatBox.UpdateText), messageReceived);
+
+                                            string jsoMessage = messageReceived;
+                                            Packet pa = JsonConvert.DeserializeObject<Packet>(jsoMessage);
+                                            string pseudo = pa.ChatMessage;
+
+                                            List<bool> li = new List<bool>();
+
+                                            if (pseudo != PlayerManager.CurrentPlayerName.Trim('0')) 
+                                            {
+
+                                                li.Add(false);
+                                                li.Add(false);
+
+                                            }
+                                            else
+                                            {
+
+                                                li.Add(false);
+                                                li.Add(true);
+
+                                            }
+                                           // System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
+                                            playerInterface.board.Dispatcher.Invoke(new BoardLayout.UpdateBoardCallback(playerInterface.board.UpdateBoard), li);
+                                        }catch(Exception e)
+                                        {
+                                            System.Windows.MessageBox.Show(e.Message);
+                                        }
+                                    }
+
+                                   
 
                                     if (p.Type == "newPlayer")
                                     {
@@ -154,11 +194,6 @@ namespace Monopoly.Controller
                                                 }
 
                                             }
-
-
-
-
-
 
                                     }
 

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Monopoly.Model.Board;
 
 namespace Monopoly.Model.UI
 {
@@ -24,6 +25,7 @@ namespace Monopoly.Model.UI
     public partial class PlayerInterface : UserControl
 
     {
+        public BoardLayout board;
         public delegate void UpdatePseudoCallback(string pseudo);
         public delegate void AddNewPlayerCallback(server.PlayerInfo player);
         public delegate void UpdateBalanceCallback(int balance);

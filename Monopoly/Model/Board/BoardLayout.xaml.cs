@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Monopoly.Controller;
 
 namespace Monopoly.Model.Board
 {
@@ -20,9 +21,25 @@ namespace Monopoly.Model.Board
     /// </summary>
     public partial class BoardLayout : Grid
     {
+        public delegate void UpdateBoardCallback();
         public BoardLayout()
         {
             InitializeComponent();
+        }
+
+        private void lancerPartie(object sender, RoutedEventArgs e)
+        {
+            Connection.SendMsg("/start");
+        }
+        private void lancerDe(object sender, RoutedEventArgs e)
+        {
+            Connection.SendMsg("/a");
+        }
+
+        public void UpdateBoard()
+        { 
+                this.StartGame.IsEnabled = !this.StartGame.IsEnabled;
+                this.LancerDes.IsEnabled = !this.LancerDes.IsEnabled;
         }
     }
 }

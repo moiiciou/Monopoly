@@ -10,6 +10,7 @@ using Monopoly.Model.Board;
 using Monopoly.Model.UI;
 using Monopoly.Controller;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Monopoly
 {
@@ -25,10 +26,13 @@ namespace Monopoly
         {
             InitializeComponent();
             GameManager newGame = new GameManager(root);
-
+      
 
         }
 
+
+ 
+        
 
 
     }
