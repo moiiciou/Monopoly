@@ -1,6 +1,7 @@
 ﻿using Monopoly.Controller;
 using Monopoly.Core;
 using Monopoly.Model.Board;
+using Monopoly.Model.Card;
 using Monopoly.Model.Case;
 using Newtonsoft.Json;
 using System;
@@ -110,6 +111,11 @@ namespace Monopoly.Model.UI
         {
 
             PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
+
+            ChanceCard carte = CardManager.DrawChanceCard();
+            BaseCard baseCard = (BaseCard)carte;
+
+            CardManager.DisplayCard(baseCard);
 
         }
     }

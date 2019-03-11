@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controller\BuyAndSellManager.cs" />
+    <Compile Include="Controller\CardManager.cs" />
     <Compile Include="Controller\GameManager.cs" />
     <Compile Include="Controller\NetworkManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />

@@ -156,7 +156,6 @@ namespace Monopoly.Controller
                                     if (p.Type == "updatePlayer")
                                     {
                                          PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
-                                        Console.WriteLine(p.Content);
 
                                         //Update les données du joueur
                                         GameManager.playersList[playerInfo.Pseudo] = playerInfo;
@@ -176,12 +175,10 @@ namespace Monopoly.Controller
                                                     if (baseCase is PropertyCase)
                                                     {
                                                         PropertyCase property = (PropertyCase)baseCase;
-
                                                         if (property.CaseInformation.Location == estate.Location)
                                                         {
                                                             property.CaseInformation = estate;
                                                         }
-
                                                     }
                                                 }
 

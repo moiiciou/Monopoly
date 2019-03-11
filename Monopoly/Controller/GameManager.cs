@@ -34,13 +34,6 @@ namespace Monopoly.Controller
             controls.Add("grid", root);
             controls.Add("playerPanel", playerHud.PlayerPanel);
 
-            Grid.SetColumn(board.ChanceCardList[0],4);
-            Grid.SetRow(board.ChanceCardList[0], 4);
-            Grid.SetRowSpan(board.ChanceCardList[0], 4);
-            Grid.SetColumnSpan(board.ChanceCardList[0], 4);
-
-            board.Children.Add(board.ChanceCardList[0]);
-
             Grid.SetRow(playerHud, 0);
             Grid.SetColumn(playerHud, 1);
             root.Children.Add(playerHud);

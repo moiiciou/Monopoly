@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-
+using System.Windows.Controls;
 
 namespace Monopoly.Model.Card
 {
@@ -21,6 +21,12 @@ namespace Monopoly.Model.Card
             public string Label { get; set; }
             public string Text { get; set; }
             public string Effect { get; set; }
+
+        }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ((Panel)this.Parent).Children.Remove(this);
 
         }
     }
