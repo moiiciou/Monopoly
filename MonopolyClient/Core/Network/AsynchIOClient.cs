@@ -53,8 +53,6 @@ namespace MonopolyClient.Core.Network
 
                 Console.WriteLine("Response received : {0}", response);
 
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
 
             }
             catch (Exception e)
@@ -117,7 +115,7 @@ namespace MonopolyClient.Core.Network
                 {
                     if (state.sb.Length > 1)
                     {
-                        response = state.sb.ToString();
+                        response = state.sb.ToString().Remove(state.sb.ToString().Length - 5);
                     }
                     receiveDone.Set();
                 }

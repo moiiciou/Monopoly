@@ -9,5 +9,8 @@
     <Grid x:Name="myGrid" Margin="0,0,380,173">
         <Button Content="Se connecter !" HorizontalAlignment="Center" Height="32" Margin="88,193,-228,-147" VerticalAlignment="Center" Width="140" Click="Button_Click"/>
         <TextBox x:Name="pseudo_input" HorizontalAlignment="Left" Height="23" Margin="88,150,-228,-95" TextWrapping="Wrap" Text="Pseudo .." VerticalAlignment="Top" Width="140"/>
+        <Button Content="Se connecter !" HorizontalAlignment="Center" Height="32" Margin="88,45,-228,1" VerticalAlignment="Center" Width="140" Click="Button_Click_1"/>
+
+
     </Grid>
 </Window>

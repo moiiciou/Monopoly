@@ -1,4 +1,4 @@
-﻿using MonopolyClient.Core;
+﻿using MonopolyClient.Model;
 using MonopolyClient.Core.Network;
 using System;
 using System.Collections.Generic;
@@ -8,11 +8,15 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using MonopolyClient.Core;
+
 public class AsynchIOServer
 {
     public static ManualResetEvent allDone = new ManualResetEvent(false);
     public static ObservableCollection<ClientInfo> Clients = new ObservableCollection<ClientInfo>();
 
+    //for POC
+    public static List<PlayerInfo> PlayerList = new List<PlayerInfo>();
 
 
 
@@ -46,6 +50,7 @@ public class AsynchIOServer
                     listener);
 
                 allDone.WaitOne();
+
             }
 
         }
@@ -80,90 +85,120 @@ public class AsynchIOServer
         Socket handler = state.workSocket;
 
         int bytesRead = handler.EndReceive(ar);
-
-        if (bytesRead > 0)
-        {
-            state.sb.Append(Encoding.UTF8.GetString(
-                state.buffer, 0, bytesRead));
-  
-            content = state.sb.ToString();
-            if (content.IndexOf("<EOF>") > -1)
+            if (bytesRead > 0)
             {
-                Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
-                    content.Length, content.Remove(content.Length - 5));
+                state.sb.Append(Encoding.UTF8.GetString(
+                    state.buffer, 0, bytesRead));
 
-                Object incomingData = Tools.DerializeObject<Object>(content.Remove(content.Length - 5));
-
-                Console.WriteLine("Object Type : {0}",
-                   incomingData.GetType().ToString());
-
-                ServerMessage serverMessage = new ServerMessage();
-
-                if(incomingData.GetType() == typeof(ClientInfo))
+                content = state.sb.ToString();
+                if (content.IndexOf("<EOF>") > -1)
                 {
-                    ClientInfo client = (ClientInfo)incomingData;
-                    if(CheckPseudo(client.Pseudo))
+                    Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
+                        content.Length, content.Remove(content.Length - 5));
+
+                    Object incomingData = Tools.DerializeObject<Object>(content.Remove(content.Length - 5));
+
+                    Console.WriteLine("Object Type : {0}",
+                       incomingData.GetType().ToString());
+
+                    ServerMessage serverMessage = new ServerMessage();
+
+                    if (incomingData.GetType() == typeof(ClientInfo))
                     {
-                        Clients.Add(client);
-                        serverMessage.Content = " Connection réussi !";
-                    }
-                    else
-                    {
-                        serverMessage.Content = "Pseudo déjà pris, veuillez réessayer !";
+                        ClientInfo client = (ClientInfo)incomingData;
+                        if (CheckPseudo(client.Pseudo))
+                        {
+                            Clients.Add(client);
+
+                            //for POC 
+                            PlayerInfo player = new PlayerInfo();
+                            player.Pseudo = client.Pseudo;
+                            PlayerList.Add(player);
+
+
+                            serverMessage.Content = " Connection réussi !";
+                            Console.WriteLine("connection réussi !");
+                        }
+                        else
+                        {
+                            serverMessage.Content = "Pseudo déjà pris, veuillez réessayer !";
+                            Console.WriteLine("pseudo pris !");
+
                     }
                     string response = Tools.SerializeObject<ServerMessage>(serverMessage);
-                    Send(handler, response);
-                }
+                        Send(handler, response);
+                    }
+
+                    if (incomingData.GetType() == typeof(ClientMessage))
+                    {
+                        ClientMessage clientMessage = (ClientMessage)incomingData;
+                        if (clientMessage.Command == "getPlayersInfos")
+                        {
+                            string playerList = Tools.SerializeObject<List<PlayerInfo>>(PlayerList);
+                            serverMessage.Content = playerList;
+                            string response = Tools.SerializeObject<ServerMessage>(serverMessage);
+                            Send(handler, response);
+                        }
+
+
+                    }
+
+                state.sb = new StringBuilder();
+            }
+
+                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    new AsyncCallback(ReadCallback), state);
 
             }
-            else
+
+
+        
+    }
+
+        public static void Send(Socket handler, String data)
+        {
+            byte[] byteData = Encoding.UTF8.GetBytes(data);
+
+            // Begin sending the data to the remote device.  
+            handler.BeginSend(byteData, 0, byteData.Length, 0,
+                new AsyncCallback(SendCallback), handler);
+        }
+
+        private static void SendCallback(IAsyncResult ar)
+        {
+            try
             {
+                // Retrieve the socket from the state object.  
+                Socket handler = (Socket)ar.AsyncState;
+
+                // Complete sending the data to the remote device.  
+                int bytesSent = handler.EndSend(ar);
+                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
+
+                StateObject state = new StateObject();
+                state.workSocket = handler;
                 handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                new AsyncCallback(ReadCallback), state);
+                    new AsyncCallback(ReadCallback), state);
+
+
+        }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
-    }
 
-    private static void Send(Socket handler, String data)
-    {
-        byte[] byteData = Encoding.UTF8.GetBytes(data);
-
-        // Begin sending the data to the remote device.  
-        handler.BeginSend(byteData, 0, byteData.Length, 0,
-            new AsyncCallback(SendCallback), handler);
-    }
-
-    private static void SendCallback(IAsyncResult ar)
-    {
-        try
+        public static bool CheckPseudo(string pseudo)
         {
-            // Retrieve the socket from the state object.  
-            Socket handler = (Socket)ar.AsyncState;
-
-            // Complete sending the data to the remote device.  
-            int bytesSent = handler.EndSend(ar);
-            Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-
-            handler.Shutdown(SocketShutdown.Both);
-            handler.Close();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.ToString());
+            var item = Clients.FirstOrDefault(i => i.Pseudo == pseudo);
+            if (item == null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 
-    public static bool CheckPseudo(string pseudo)
-    {
-        var item =Clients.FirstOrDefault(i => i.Pseudo == pseudo);
-        if (item == null)
-        {
-            return true;
-        }
-        return false;
-    }
-}
     // State object for reading client data asynchronously  
     public class StateObject
     {
