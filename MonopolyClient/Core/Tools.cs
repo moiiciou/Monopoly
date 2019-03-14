@@ -29,6 +29,7 @@ namespace MonopolyClient.Core
 
         public static T DerializeObject<T>(string objectToDerialize)
         {
+            Console.WriteLine(objectToDerialize);
             System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             byte[] byteArray = Convert.FromBase64String(objectToDerialize);
             MemoryStream memStr = new MemoryStream(byteArray);

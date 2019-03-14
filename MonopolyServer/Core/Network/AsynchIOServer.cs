@@ -87,14 +87,13 @@ public class AsynchIOServer
         int bytesRead = handler.EndReceive(ar);
             if (bytesRead > 0)
             {
-                state.sb.Append(Encoding.UTF8.GetString(
-                    state.buffer, 0, bytesRead));
+                state.sb = new StringBuilder (Encoding.UTF8.GetString(state.buffer, 0, bytesRead));
 
                 content = state.sb.ToString();
                 if (content.IndexOf("<EOF>") > -1)
                 {
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
-                        content.Length, content.Remove(content.Length - 5));
+                        content.Length, content);
 
                     Object incomingData = Tools.DerializeObject<Object>(content.Remove(content.Length - 5));
 
@@ -134,6 +133,7 @@ public class AsynchIOServer
                         ClientMessage clientMessage = (ClientMessage)incomingData;
                         if (clientMessage.Command == "getPlayersInfos")
                         {
+                        Console.WriteLine("Liste des joueurs demandé !");
                             string playerList = Tools.SerializeObject<List<PlayerInfo>>(PlayerList);
                             serverMessage.Content = playerList;
                             string response = Tools.SerializeObject<ServerMessage>(serverMessage);
@@ -142,20 +142,19 @@ public class AsynchIOServer
 
 
                     }
-
-                state.sb = new StringBuilder();
+                state.buffer = new byte[StateObject.BufferSize];
             }
 
-                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+            handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
 
             }
 
 
-        
+
     }
 
-        public static void Send(Socket handler, String data)
+    public static void Send(Socket handler, String data)
         {
             byte[] byteData = Encoding.UTF8.GetBytes(data);
 

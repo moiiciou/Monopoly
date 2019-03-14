@@ -32,27 +32,28 @@ namespace MonopolyClient
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ClientInfo client = new ClientInfo(pseudo_input.Text, "");
-            Thread thread = new Thread(() => AsynchIOClient.StartClient(client));
-            thread.Start();
-
+            var t = new Thread(() =>
+            {
+                AsynchIOClient.StartClient(client);
+            });
+            t.Start();
+            Lobby lobby = new Lobby();
+            lobby.Show();
 
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ClientInfo client2 = new ClientInfo(pseudo_input.Text, "");
-
-            var t = new Thread(() =>
+            var t2 = new Thread(() =>
             {
-                string dataToSend = Tools.SerializeObject<ClientInfo>(client2);
-
+                string dataToSend = Tools.SerializeObject<ClientInfo>(client2);          
                 AsynchIOClient.Send(AsynchIOClient.client, dataToSend);
-            AsynchIOClient.sendDone.WaitOne();
-
-            AsynchIOClient.Receive(AsynchIOClient.client);
-            AsynchIOClient.receiveDone.WaitOne();
+                AsynchIOClient.sendDone.WaitOne();
+                AsynchIOClient.Receive(AsynchIOClient.client);
+                AsynchIOClient.receiveDone.WaitOne();
             });
-            t.Start();
+            t2.Start();
         }
     }
 }

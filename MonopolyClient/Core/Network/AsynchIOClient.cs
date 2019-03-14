@@ -126,7 +126,7 @@ namespace MonopolyClient.Core.Network
             }
         }
 
-        public static void Send(Socket client, String data)
+        public static void Send(Socket client, string data)
         {
             byte[] byteData = Encoding.UTF8.GetBytes(data+eof);
 

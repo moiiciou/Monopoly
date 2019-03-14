@@ -1,6 +1,10 @@
 ﻿using MonopolyClient.Controleur;
+using MonopolyClient.Core;
+using MonopolyClient.Core.Network;
 using MonopolyClient.Model;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 
 
@@ -14,6 +18,7 @@ namespace MonopolyClient.UI
         public Lobby()
         {
             InitializeComponent();
+
 
         }
 
