@@ -18,7 +18,20 @@ namespace MonopolyClient.UI
         public Lobby()
         {
             InitializeComponent();
+            var t = new Thread(() =>
+            {
 
+                    Thread.Sleep(100);
+                    ClientMessage clientMessage = new ClientMessage();
+                    clientMessage.Command = "getPlayersInfos";
+                    string dataToSend = Tools.SerializeObject<ClientMessage>(clientMessage);
+                    AsynchIOClient.Send(AsynchIOClient.client, dataToSend);
+                    AsynchIOClient.sendDone.WaitOne();
+                    AsynchIOClient.Receive(AsynchIOClient.client);
+                    AsynchIOClient.receiveDone.WaitOne();
+
+            });
+            t.Start();
 
         }
 
