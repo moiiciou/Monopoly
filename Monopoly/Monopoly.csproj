@@ -122,6 +122,9 @@
       <DependentUpon>ChatBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Tools.cs" />
+    <Compile Include="Model\UI\Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\PlayerInfoDisplay.xaml.cs">
       <DependentUpon>PlayerInfoDisplay.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\UI\ChatBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\UI\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

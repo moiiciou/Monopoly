@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Monopoly +"    
         WindowState="Maximized"
-        WindowStyle="None">
+        WindowStyle="None" KeyDown="GameWindow1_KeyDown">
     <Grid x:Name="root">
         <Grid.Background>
             <ImageBrush/>
