@@ -10,6 +10,7 @@ using Monopoly.Model.Board;
 using System.Threading;
 using server;
 using Monopoly.Model.UI;
+using Monopoly.Model.Case;
 
 namespace Monopoly.Controller
 {
@@ -102,14 +103,19 @@ namespace Monopoly.Controller
 
             BuyDialog buyDialog = new BuyDialog();
             b.Children.Remove(buyDialog);
-            if (BuyAndSellManager.CheckIfBuyable(b.CasesList[position]) & (CurrentPlayerLastPosition != position))
+            if (BuyAndSellManager.CheckIfBuyable(b.CasesList[position]) & CurrentPlayerLastPosition != position & b.CasesList[position].GetType() == typeof(PropertyCase))
             {
-                Grid.SetColumn(buyDialog, 4);
-                Grid.SetRow(buyDialog, 4);
-                Grid.SetRowSpan(buyDialog, 8);
-                Grid.SetColumnSpan(buyDialog, 8);
+                PropertyCase propertyCase = (PropertyCase)b.CasesList[position];
+                if (CurrentPlayerName.Trim('0') != propertyCase.CaseInformation.Owner)
+                {
+                    Grid.SetColumn(buyDialog, 4);
+                    Grid.SetRow(buyDialog, 4);
+                    Grid.SetRowSpan(buyDialog, 8);
+                    Grid.SetColumnSpan(buyDialog, 8);
 
-                b.Children.Add(buyDialog);
+                    b.Children.Add(buyDialog);
+                }
+
             }       
         }
 
