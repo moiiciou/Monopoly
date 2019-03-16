@@ -39,7 +39,7 @@ namespace Monopoly.Model.UI
 
 
 
-        void SendMessage(object sender, System.EventArgs e)
+        void SendMessage(object sender, EventArgs e)
         {
 
             try
@@ -48,11 +48,9 @@ namespace Monopoly.Model.UI
                 {
                     Packet p = new Packet();
                     p.Type = textBox.Text.TrimStart('/');
-                    p.Content = JsonConvert.SerializeObject(GameManager.playersList[PlayerManager.CurrentPlayerName.Trim('0')], Formatting.Indented);
 
                     string message = JsonConvert.SerializeObject(p, Formatting.Indented);
-                    Console.WriteLine(message);
-                    byte[] msg = System.Text.Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                    byte[] msg = Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);
                     int DtSent = conn.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
                     if (DtSent == 0)
@@ -97,7 +95,7 @@ namespace Monopoly.Model.UI
         void SendMsg(string message)
         {
 
-            byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
+            byte[] msg = Encoding.UTF8.GetBytes(message);
             int DtSent = conn.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
             if (DtSent == 0)
@@ -112,10 +110,6 @@ namespace Monopoly.Model.UI
 
             PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
 
-            ChanceCard carte = CardManager.DrawChanceCard();
-            BaseCard baseCard = (BaseCard)carte;
-
-            CardManager.DisplayCard(baseCard);
 
         }
     }

@@ -16,6 +16,8 @@ namespace Monopoly.Controller
     {
         public static Dictionary<string, FrameworkElement> controls = new Dictionary<string, FrameworkElement>();
         public static Dictionary<string, PlayerInfo> playersList = new Dictionary<string, PlayerInfo>(); // string = PseudoPlayer
+        public static GameData MonopolyGameData = GameData.GetGameData;
+
 
         public GameManager(Grid root)
         {

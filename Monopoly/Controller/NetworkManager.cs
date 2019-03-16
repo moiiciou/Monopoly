@@ -121,71 +121,80 @@ namespace Monopoly.Controller
                                     byte[] msg = new Byte[ClientSocket.Available];
                                     ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
+                                    Console.WriteLine(messageReceived);
                                     string json = messageReceived;
                                     Packet p = JsonConvert.DeserializeObject<Packet>(json);
 
-                                    if (p.Type == "newPlayer")
+
+
+                                    if (p.Type == "updateGameData")
                                     {
-                                        // Récupêre la liste des joueurs reçue
-                                        Dictionary<string, PlayerInfo> playerList = JsonConvert.DeserializeObject<Dictionary<string, PlayerInfo>>(p.Content);
+                                        Console.WriteLine(p.Content);
+                                        GameData gameData = JsonConvert.DeserializeObject <GameData> (p.Content);
 
-                                        //Recherche les joueurs manquant et les ajoutes à l'interface
-                                            foreach (var player in playerList)
-                                            {
-                                                if (!GameManager.playersList.ContainsKey(player.Key))
-                                                {
-                                                    // Crée le joueur et update le hud
-                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
-                                                    PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
-                                                    playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player.Value);
-
-                                                    //Met à jour la player list
-                                                    GameManager.playersList.Add(player.Value.Pseudo,player.Value);
-
-                                                }
-
-                                            }
-
-
-
-
-
-
-                                    }
-
-                                    if (p.Type == "updatePlayer")
-                                    {
-                                         PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
-
-                                        //Update les données du joueur
-                                        GameManager.playersList[playerInfo.Pseudo] = playerInfo;
-                                        //Update l'affichage des infos du joueur
-                                        PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
-                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, playerInfo.Pseudo, playerInfo.Position); }));
-                                        playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
-                                        playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel.UpdateProperty), playerInfo);
-
-                                        //Update les propriétés sur le board
-                                        if(playerInfo.Estates != null)
+                                        if(gameData.PlayerList != null)
                                         {
-                                            foreach (CaseInfo estate in playerInfo.Estates)
+
+                                            foreach (PlayerInfo player in gameData.PlayerList)
                                             {
-                                                foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+
+                                                if (!GameManager.MonopolyGameData.PlayerList.Any(pl => pl.Pseudo == player.Pseudo))
                                                 {
-                                                    if (baseCase is PropertyCase)
-                                                    {
-                                                        PropertyCase property = (PropertyCase)baseCase;
-                                                        if (property.CaseInformation.Location == estate.Location)
-                                                        {
-                                                            property.CaseInformation = estate;
-                                                        }
-                                                    }
+                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Pseudo, player.Balance, player.Position); }));
+                                                    PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+
+                                                    playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player);
+
+                                                    GameManager.playersList.Add(player.Pseudo, player);
+
                                                 }
 
+                                                System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
+
+
+
+                                                //Update l'affichage des infos du joueur
+                                                PlayerInterface playerHudPanel2 = (PlayerInterface)GameManager.controls["playerHud"];
+                                                playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel2.UpdateBalanceByPlayerInfo), player);
+                                                playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel2.UpdateProperty), player);
+
+
+                                                //Update les propriétés sur le board
+                                                if (player.Estates != null)
+                                                {
+                                                    foreach (CaseInfo estate in player.Estates)
+                                                    {
+                                                        foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+                                                        {
+                                                            if (baseCase is PropertyCase)
+                                                            {
+                                                                PropertyCase property = (PropertyCase)baseCase;
+
+                                                                if (property.CaseInformation.Location == estate.Location)
+                                                                {
+                                                                    property.CaseInformation = estate;
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                    }
+
+                                                }
+
+                                                if (player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+                                                    if (player.Position != PlayerManager.CurrentPlayerLastPosition)
+                                                        PlayerManager.CurrentPlayerLastPosition = player.Position;
                                             }
 
                                         }
+
+
+                                        GameManager.MonopolyGameData = gameData;
+
+
                                     }
+
 
 
 

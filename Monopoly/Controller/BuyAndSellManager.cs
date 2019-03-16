@@ -33,39 +33,20 @@ namespace Monopoly.Controller
             return false;
         }
 
-        public static bool BuyProperty(BaseCase baseCase, Player p)
+        public static void BuyProperty(BaseCase baseCase, Player p)
         {
             if (baseCase.GetType().ToString() == "Monopoly.Model.Case.PropertyCase")
             {
                 PropertyCase propertyCase = (PropertyCase)baseCase;
-                Console.WriteLine("Owner: "+propertyCase.CaseInformation.Owner);
                 if(propertyCase.CaseInformation.Owner == null && PlayerManager.CurrentPlayerName.Trim('0') == p.playerInfo.Pseudo )
                 {
-
-
-                    if (MessageBox.Show("Voulez vous achetez " + propertyCase.CaseInformation.Location + " pour " + propertyCase.CaseInformation.Price + "€", "Acheter", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        //Non
-                        return false;
-                    }
-                    else
-                    {
-                        if(GameManager.playersList[p.playerInfo.Pseudo].Balance >= propertyCase.CaseInformation.Price)
-                        {
                             try
                             {
-                                // met à jour le propriétaire de la propriété 
-                                propertyCase.CaseInformation.Owner = p.playerInfo.Pseudo;
 
-                                //Envoie les informations au serveur
                                 Packet packet = new Packet();
                                 packet.Type = "buyProperty";
 
-                                // ajoute la propriété au joueur
-                                GameManager.playersList[p.playerInfo.Pseudo].Estates.Add(propertyCase.CaseInformation);
-                                GameManager.playersList[p.playerInfo.Pseudo].Balance -= propertyCase.CaseInformation.Price;
-                                //renvoie les données au serveur
-                                packet.Content = JsonConvert.SerializeObject(GameManager.playersList[p.playerInfo.Pseudo], Formatting.Indented);
+                                packet.Content = JsonConvert.SerializeObject(propertyCase.CaseInformation, Formatting.Indented);
 
                                 string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
                                 byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
@@ -81,19 +62,8 @@ namespace Monopoly.Controller
                             {
                                 MessageBox.Show(E.Message);
                             }
-                            return true;
                         }
-
-                       else
-                        {
-                            MessageBox.Show("Désolés, vous n'avez pas assez d'argent !");
-                        }
-                        return false;
-                    }
-
-                }
-            }
-            return false;
+              }
         }
 
         public static void PayRent(BaseCase baseCase, Player player)

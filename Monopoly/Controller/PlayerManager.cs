@@ -9,6 +9,7 @@ using Monopoly.Model;
 using Monopoly.Model.Board;
 using System.Threading;
 using server;
+using Monopoly.Model.UI;
 
 namespace Monopoly.Controller
 {
@@ -23,6 +24,7 @@ namespace Monopoly.Controller
 
   
         public static string CurrentPlayerName = "ERROR_NAME";
+        public static int CurrentPlayerLastPosition = 0;
 
 
 
@@ -55,6 +57,16 @@ namespace Monopoly.Controller
             return true;
         }
 
+        public static PlayerInfo GetPlayerByPseuso(string pseudo)
+        {
+            foreach (PlayerInfo player in GameManager.MonopolyGameData.PlayerList)
+            {
+                if (player.Pseudo == pseudo)
+                    return player;
+            }
+
+            return new PlayerInfo();
+        }
 
         public static Player SearchPlayer(string pseudo)
         {
@@ -86,11 +98,19 @@ namespace Monopoly.Controller
             position = position % 40;
             DrawPlayer(b, pseudo, position);
             p.playerInfo.Position = position;
-            if(BuyAndSellManager.CheckIfBuyable(b.CasesList[position]))
+
+
+            BuyDialog buyDialog = new BuyDialog();
+            b.Children.Remove(buyDialog);
+            if (BuyAndSellManager.CheckIfBuyable(b.CasesList[position]) & (CurrentPlayerLastPosition != position))
             {
-                BuyAndSellManager.BuyProperty(b.CasesList[position], p);
-            }
-            BuyAndSellManager.PayRent(b.CasesList[position], p);
+                Grid.SetColumn(buyDialog, 4);
+                Grid.SetRow(buyDialog, 4);
+                Grid.SetRowSpan(buyDialog, 8);
+                Grid.SetColumnSpan(buyDialog, 8);
+
+                b.Children.Add(buyDialog);
+            }       
         }
 
 

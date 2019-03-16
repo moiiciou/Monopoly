@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Linq;
+using server.Controleur;
 
 namespace server
 {
@@ -24,10 +24,11 @@ namespace server
         private int initPosition = 0;
         public static int initBalance = 10000;
         public static Dictionary<string, PlayerInfo> playersList = new Dictionary<string, PlayerInfo>(); // string = PseudoPlayer
-
+        private Packet response = new Packet();        
 
         public void Start()
         {
+
             IPHostEntry ipHostEntry = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostEntry.AddressList[0];
             Console.WriteLine("IP=" + ipAddress.ToString());
@@ -42,6 +43,11 @@ namespace server
                 //Démarrage du thread avant la première connexion client
                 Thread getReadClients = new Thread(new ThreadStart(getRead));
                 getReadClients.Start();
+
+                //Thread d'update des informations
+                Thread updateClients = new Thread(new ThreadStart(updateClient));
+                updateClients.Start();
+
                 //Démarrage du thread vérifiant l'état des connexions clientes
                 Thread CheckConnectionThread = new Thread(new ThreadStart(CheckIfStillConnected));
                 CheckConnectionThread.Start();
@@ -52,8 +58,6 @@ namespace server
                     CurrentClient = ServerSocket.Accept();
                     Console.WriteLine("Nouveau client:" + CurrentClient.GetHashCode());
                     acceptList.Add(CurrentClient);
-
-
 
                 }
             }
@@ -74,12 +78,7 @@ namespace server
         }
 
 
-        public void SendToAll(string msg)
-        {
-            Thread forwardingThread = new Thread(new ThreadStart(writeToAll));
-            forwardingThread.Start();
-            forwardingThread.Join();
-        }
+
 
         //Méthode démarrant l'écriture du message reu par un client
         //vers tous les autres clients
@@ -90,6 +89,24 @@ namespace server
         private void infoToAll()
         {
             base.sendMsg(msgDisconnected);
+        }
+
+        //Un peu moisie comme tricks, mais j'ai pas trouvé mieux :D puis ça permet de géré les déco/réco 
+        private void updateClient()
+        {
+            while(true)
+            {
+                Packet packet = new Packet();
+                packet.Type = "updateGameData";
+                string gameDataString = JsonConvert.SerializeObject(GameData.GetGameData, Formatting.Indented);
+                packet.Content = gameDataString;
+                packet.ChatMessage = "Game Data updated";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                msg = Encoding.UTF8.GetBytes(packetToSend);
+                base.sendMsg(msg);
+                Thread.Sleep(400);
+            }
+
         }
 
         private void CheckIfStillConnected()
@@ -103,7 +120,7 @@ namespace server
                         if (!readLock)
                         {
                             Console.WriteLine("Client " + ((Socket)acceptList[i]).GetHashCode() + " déconnecté");
-                            removeNick(((Socket)acceptList[i]));
+                            removePseudo(((Socket)acceptList[i]));
                             ((Socket)acceptList[i]).Close();
                             acceptList.Remove(((Socket)acceptList[i]));
                             i--;
@@ -114,9 +131,9 @@ namespace server
             }
         }
         //Vérifie que le pseudo n'est pas déjà attribué à un autre utilisateur
-        private bool checkNick(string nick, Socket Resource)
+        private bool checkPseudo(string pseudo, Socket Resource)
         {
-            if (MatchList.ContainsValue(nick))
+            if (MatchList.ContainsValue(pseudo))
             {
                 //Le pseudo est déjà pris, on refuse la connexion.
                 ((Socket)acceptList[acceptList.IndexOf(Resource)]).Shutdown(SocketShutdown.Both);
@@ -127,7 +144,7 @@ namespace server
             }
             else
             {
-                MatchList.Add(Resource, nick);
+                MatchList.Add(Resource, pseudo);
                 getConnected();
             }
             return true;
@@ -142,7 +159,7 @@ namespace server
             }
         }
         //Lorsqu'un client se déconnecte, il faut supprimer le pseudo associé à cette connexion
-        private void removeNick(Socket Resource)
+        private void removePseudo(Socket Resource)
         {
             Console.Write("DECONNEXION DE:" + MatchList[Resource]);
             msgDisconnected =  ((string)MatchList[Resource]).Trim() + " vient de se déconnecter!";
@@ -174,7 +191,6 @@ namespace server
                             long sequence = 0;
                             string Nick = null;
                             string formattedMsg = "";
-                            Packet response = new Packet();
 
                             while (((Socket)readList[i]).Available > 0)
                             {
@@ -210,25 +226,26 @@ namespace server
 
                                                     Random rnd = new Random();
                                                     int dice = rnd.Next(1, 13);
-
-                                                    response.Type = "updatePlayer";
+                                                    response.Type = "message";
                                                     response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
-                                                    PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
-
+                                                    PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                     player.Position += dice;
-                                                    response.Content = JsonConvert.SerializeObject(player, Formatting.Indented);
-
 
                                             }
 
                                             if (p.Type == "buyProperty")
                                             {
-                                                Console.WriteLine("updatePlayer:");
-
-                                                response.Type = "updatePlayer";
-
+                                                response.Type = "message";
                                                 Console.WriteLine(p.Content);
-                                                response.Content = p.Content;
+                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
+                                                /*
+                                                 * Faire les check necessaire pour savoir si je peux acheter la propriété
+                                                 */
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                player.Balance -= propertyToBuy.Price;
+                                                propertyToBuy.Owner = player.Pseudo;
+                                                player.Estates.Add(propertyToBuy);
+
                                                 response.ChatMessage = Nick.Trim('0') +" achete une propriete";
 
 
@@ -237,10 +254,9 @@ namespace server
 
                                             if (p.Type == "payRent")
                                             {
+                                                response.Type = "message";
 
-                                                response.Type = "updatePlayers";                                              
-                                                response.Content = p.Content;
-
+                                                response.ChatMessage = Nick.Trim('0') + " achete une propriete";
                                             }
 
 
@@ -262,7 +278,7 @@ namespace server
 
                                 if (sequence == 1)
                                 {
-                                    if (!checkNick(Nick, ((Socket)readList[i])))
+                                    if (!checkPseudo(Nick, ((Socket)readList[i])))
                                     {
                                         break;
                                     }
@@ -274,13 +290,17 @@ namespace server
                                         playerInfo.Pseudo = Nick.Trim('0');
                                         playerInfo.Balance = initBalance;
                                         playerInfo.Position = initPosition;
-                                        response.Type = "newPlayer";
+                                        response.Type = "updateGameData";
                                         response.ChatMessage = Nick.Trim('0') + " vient de se connecter";
                                         if (!playersList.ContainsKey(playerInfo.Pseudo))
                                         {
                                             playersList.Add(playerInfo.Pseudo, playerInfo);
                                         }
-                                        response.Content = JsonConvert.SerializeObject(playersList, Formatting.Indented);
+                                        if (!GameData.GetGameData.PlayerList.Any(p => p.Pseudo.Contains(playerInfo.Pseudo)))
+                                        {
+                                            GameData.GetGameData.PlayerList.Add(playerInfo);
+                                        }
+                                        response.Content = JsonConvert.SerializeObject(GameData.GetGameData, Formatting.Indented);
 
                                     }
                                 }

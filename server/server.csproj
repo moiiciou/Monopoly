@@ -46,10 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CaseInfo.cs" />
-    <Compile Include="GameServer.cs" />
-    <Compile Include="Packet.cs" />
-    <Compile Include="PlayerInfo.cs" />
+    <Compile Include="Controleur\CardManager.cs" />
+    <Compile Include="Controleur\PlayerManager.cs" />
+    <Compile Include="Model\CardInfo.cs" />
+    <Compile Include="Model\GameData.cs" />
+    <Compile Include="Model\CaseInfo.cs" />
+    <Compile Include="Core\GameServer.cs" />
+    <Compile Include="Model\Packet.cs" />
+    <Compile Include="Model\PlayerInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

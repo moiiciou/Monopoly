@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -115,6 +115,9 @@
     <Compile Include="Model\Player\Player.xaml.cs">
       <DependentUpon>Player.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\UI\BuyDialog.xaml.cs">
+      <DependentUpon>BuyDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\ChatBox.xaml.cs">
       <DependentUpon>ChatBox.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,9 @@
     </Compile>
     <Compile Include="Model\UI\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UI\PlayerList.xaml.cs">
+      <DependentUpon>PlayerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="optionForm.cs">
       <SubType>Form</SubType>
@@ -191,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Model\UI\BuyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\UI\ChatBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\UI\PlayerInterface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\UI\PlayerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,6 +312,12 @@
     <Resource Include="ressources\templates\default\house4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\MonopolyManBuy.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\bubble.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
