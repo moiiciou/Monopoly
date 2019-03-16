@@ -245,10 +245,7 @@ namespace server
                                                 player.Balance -= propertyToBuy.Price;
                                                 propertyToBuy.Owner = player.Pseudo;
                                                 player.Estates.Add(propertyToBuy);
-
                                                 response.ChatMessage = Nick.Trim('0') +" achete une propriete";
-
-
                                             }
 
 
