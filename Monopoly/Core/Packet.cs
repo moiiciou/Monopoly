@@ -7,5 +7,8 @@
 
         public string ChatMessage { get; set; }
 
+        public string ServerMessage { get; set; }
+
+
     }
 }
