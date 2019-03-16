@@ -1,5 +1,6 @@
 ﻿using Monopoly.Controller;
 using Monopoly.Model.Card;
+using server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Linq;
+using System;
+using Monopoly.Model.Case;
+using Newtonsoft.Json;
+using System.Net.Sockets;
 
 namespace Monopoly.Model.UI
 {
@@ -25,8 +30,10 @@ namespace Monopoly.Model.UI
 
     {
         public delegate void UpdatePseudoCallback(string pseudo);
-        public delegate void AddNewPlayerCallback(server.PlayerInfo player);
+        public delegate void AddNewPlayerCallback(PlayerInfo player);
         public delegate void UpdateBalanceCallback(int balance);
+        public delegate void UpdateBalanceByPlayerInfoCallback(PlayerInfo player);
+        public delegate void UpdatePropertyCallback(PlayerInfo player);
 
 
 
@@ -48,18 +55,63 @@ namespace Monopoly.Model.UI
 
         public void UpdateBalance(int balance)
         {
-            money_label.Content = balance.ToString()+"€";
+            money_label.Content = balance.ToString();
         }
 
-        public void AddNewPlayer(server.PlayerInfo player)
+        public void UpdateProperty(PlayerInfo player)
         {
-            if(player.Pseudo != PlayerManager.CurrentPlayerName.Trim('0'))
+            if (player.Estates != null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                foreach (CaseInfo property in player.Estates)
+                {
+                    ListBoxItem item = new ListBoxItem { Content = property.Location, Background = (SolidColorBrush)new BrushConverter().ConvertFromString(property.Color) };
+                    if (!property_list.Items.Cast<ListBoxItem>().Any(x => x.Content.ToString() == item.Content.ToString()))
+                    {
+
+                        property_list.Items.Add(item);
+
+                    }
+
+                }
+            }
+        }
+
+        public void UpdateBalanceByPlayerInfo(PlayerInfo player)
+        {
+            if (player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                UpdateBalance(player.Balance);
+            }
+            else
+            {
+                foreach (PlayerInfoDisplay infoDisplay in PlayerPanel.Children)
+                {
+                    if (infoDisplay.Pseudo == player.Pseudo)
+                    {
+                        infoDisplay.Balance = player.Balance;
+                    }
+                }
+            }
+
+        }
+
+        public void AddNewPlayer(PlayerInfo player)
+        {
+            if (player.Pseudo != PlayerManager.CurrentPlayerName.Trim('0'))
             {
                 PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance);
                 PlayerPanel.Children.Add(infoHud);
             }
 
         }
-    }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (BuyAndSellManager.CheckIfBuyable(Board.Board.GetBoard.CasesList[PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0')).Position%40]))
+            {
+            }
+
+        }
+
+    }
 }

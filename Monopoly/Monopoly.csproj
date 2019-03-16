@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -60,6 +60,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\BuyAndSellManager.cs" />
+    <Compile Include="Controller\CardManager.cs" />
     <Compile Include="Controller\GameManager.cs" />
     <Compile Include="Controller\NetworkManager.cs" />
     <Compile Include="Controller\PlayerManager.cs" />
@@ -110,15 +112,14 @@
     <Compile Include="Model\Case\StationCase.xaml.cs">
       <DependentUpon>StationCase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Packet.cs" />
     <Compile Include="Model\Player\Player.xaml.cs">
       <DependentUpon>Player.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\UI\BuyDialog.xaml.cs">
+      <DependentUpon>BuyDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\ChatBox.xaml.cs">
       <DependentUpon>ChatBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\UI\DialogueBox.xaml.cs">
-      <DependentUpon>DialogueBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Tools.cs" />
     <Compile Include="Model\UI\PlayerInfoDisplay.xaml.cs">
@@ -127,12 +128,19 @@
     <Compile Include="Model\UI\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\UI\PlayerList.xaml.cs">
+      <DependentUpon>PlayerList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="optionForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="optionForm.Designer.cs">
       <DependentUpon>optionForm.cs</DependentUpon>
     </Compile>
+    <Page Include="ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,11 +197,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Model\UI\ChatBox.xaml">
+    <Page Include="Model\UI\BuyDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Model\UI\DialogueBox.xaml">
+    <Page Include="Model\UI\ChatBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\UI\PlayerInterface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\UI\PlayerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,6 +287,37 @@
       <Project>{69521b30-e40e-444d-b2b5-970c8c31f508}</Project>
       <Name>server</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\house_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\house.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\house2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\house3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\house4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\MonopolyManBuy.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\bubble.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

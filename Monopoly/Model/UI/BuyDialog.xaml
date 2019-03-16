@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Monopoly.Model.UI.BuyDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Monopoly.Model.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="450">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="183" Margin="0,257,0,0" VerticalAlignment="Top" Width="154" Source="/Monopoly;component/ressources/templates/default/MonopolyManBuy.gif"/>
+        <Image HorizontalAlignment="Left" Height="269" Margin="87,24,0,0" VerticalAlignment="Top" Width="363" Source="/Monopoly;component/ressources/templates/default/bubble.png"/>
+        <TextBlock HorizontalAlignment="Left" Margin="145,92,0,0" TextWrapping="Wrap" Text="Voulez vous achetez rue blabla pour 200€ ?" VerticalAlignment="Top" Height="62" Width="233"/>
+        <Button Name="yesButton" Content="Oui" HorizontalAlignment="Left" Margin="174,167,0,0" VerticalAlignment="Top" Width="46" Height="24" Click="yesButton_Click"/>
+        <Button Name="noButton"  Content="Non" HorizontalAlignment="Left" Margin="287,167,0,0" VerticalAlignment="Top" Width="46" Height="24" Click="noButton_Click"/>
+
+    </Grid>
+</UserControl>

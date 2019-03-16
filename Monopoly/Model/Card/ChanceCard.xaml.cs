@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-
+using System.Windows.Controls;
 
 namespace Monopoly.Model.Card
 {
@@ -16,20 +16,17 @@ namespace Monopoly.Model.Card
         }
 
 
-        public class CardInfo : INotifyPropertyChanged
+        public class CardInfo
         {
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void NotifyPropertyChanged(string info)
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-
             public string Label { get; set; }
             public string Text { get; set; }
             public string Effect { get; set; }
 
+        }
 
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ((Panel)this.Parent).Children.Remove(this);
 
         }
     }

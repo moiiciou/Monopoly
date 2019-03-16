@@ -1,23 +1,16 @@
-﻿using Monopoly.Core;
-using Monopoly.Model;
+﻿using Monopoly.Model;
 using Monopoly.Model.Board;
+using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using server;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Threading;
+
 
 namespace Monopoly.Controller
 {
@@ -132,47 +125,128 @@ namespace Monopoly.Controller
                                     string json = messageReceived;
                                     Packet p = JsonConvert.DeserializeObject<Packet>(json);
 
-                                    if (p.Type == "newPlayer")
+
+
+                                    if (p.Type == "updateGameData")
+                                    {
+                                        Console.WriteLine(p.Content);
+                                        GameData gameData = JsonConvert.DeserializeObject <GameData> (p.Content);
+
+                                        if(gameData.PlayerList != null)
+                                        {
+
+                                            foreach (PlayerInfo player in gameData.PlayerList)
+                                            {
+
+                                                if (!GameManager.MonopolyGameData.PlayerList.Any(pl => pl.Pseudo == player.Pseudo))
+                                                {
+                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Pseudo, player.Balance, player.Position); }));
+                                                    PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+
+                                                    playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player);
+
+                                                    GameManager.playersList.Add(player.Pseudo, player);
+
+                                                }
+
+                                                System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
+
+
+
+                                                //Update l'affichage des infos du joueur
+                                                PlayerInterface playerHudPanel2 = (PlayerInterface)GameManager.controls["playerHud"];
+                                                playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel2.UpdateBalanceByPlayerInfo), player);
+                                                playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel2.UpdateProperty), player);
+
+
+                                                //Update les propriétés sur le board
+                                                if (player.Estates != null)
+                                                {
+                                                    foreach (CaseInfo estate in player.Estates)
+                                                    {
+                                                        foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+                                                        {
+                                                            if (baseCase is PropertyCase)
+                                                            {
+                                                                PropertyCase property = (PropertyCase)baseCase;
+
+                                                                if (property.CaseInformation.Location == estate.Location)
+                                                                {
+                                                                    property.CaseInformation = estate;
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                    }
+
+                                                }
+
+                                                if (player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+                                                    if (player.Position != PlayerManager.CurrentPlayerLastPosition)
+                                                        PlayerManager.CurrentPlayerLastPosition = player.Position;
+                                            }
+
+                                        }
+
+
+                                        GameManager.MonopolyGameData = gameData;
+
+
+                                    }
+
+
+
+
+                                    if (p.Type == "updatePlayers")
                                     {
 
-                                        Dictionary<string, server.PlayerInfo> playerList = JsonConvert.DeserializeObject<Dictionary<string, server.PlayerInfo>>(p.Content);
+                                        List<PlayerInfo> playerInfoList = JsonConvert.DeserializeObject<List<PlayerInfo>>(p.Content);
 
-                                            foreach (var player in playerList)
+                                        foreach(PlayerInfo playerInfo in playerInfoList)
+                                        {
+                                            GameManager.playersList[playerInfo.Pseudo] = playerInfo;
+
+                                            PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
+                                            playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel.UpdateBalanceByPlayerInfo), playerInfo);
+                                            playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel.UpdateProperty), playerInfo);
+
+                                            //Update les propriétés sur le board
+                                            if (playerInfo.Estates != null)
                                             {
-                                                if (!GameManager.playersList.ContainsKey(player.Key))
+                                                foreach (CaseInfo estate in playerInfo.Estates)
                                                 {
-                                                    Console.WriteLine("Player Current Name :" + PlayerManager.CurrentPlayerName);
-                                                    Console.WriteLine("Player Pseudo  :" + player.Value.Pseudo);
+                                                    foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+                                                    {
+                                                        if (baseCase is PropertyCase)
+                                                        {
+                                                            PropertyCase property = (PropertyCase)baseCase;
 
-                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Value.Pseudo, player.Value.Balance, player.Value.Position); }));
-                                                    PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
-                                                    playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player.Value);
+                                                            if (property.CaseInformation.Location == estate.Location)
+                                                            {
+                                                                property.CaseInformation = estate;
+                                                            }
 
-
-                                                    GameManager.playersList.Add(player.Value.Pseudo, player.Value);
+                                                        }
+                                                    }
 
                                                 }
 
                                             }
 
 
-
-
-
-
-                                    }
-
-                                    if (p.Type == "updatePlayerPosition")
-                                    {
-                                        PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(p.Content);
-                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
-
+                                        }
 
 
                                     }
+
 
                                     PlayerInterface playerHud = (PlayerInterface)GameManager.controls["playerHud"];
+
+                                    //Update le chat
                                     playerHud.chatBox.Dispatcher.Invoke(new ChatBox.UpdateTextCallback(playerHud.chatBox.UpdateText), p.ChatMessage);
+
+                                    //Update le pseudo des joueurs
                                     playerHud.pseudo_label.Dispatcher.Invoke(new PlayerInterface.UpdatePseudoCallback(playerHud.UpdatePseudo), PlayerManager.CurrentPlayerName);
 
 

@@ -1,6 +1,12 @@
 ﻿using Monopoly.Model.Card;
-using System.ComponentModel;
+using System;
+using server;
 using System.IO;
+using System.Windows.Controls;
+using Monopoly.Controller;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Monopoly.Model.Case
 {
@@ -9,52 +15,94 @@ namespace Monopoly.Model.Case
     /// </summary>
     public partial class PropertyCase : BaseCase
     {
+        private static Action EmptyDelegate = delegate () { };
+
+
 
         public PropertyCard Card { get; set; }
-        public string Location { get; set; }
-        public int IdOwner { get; set; } = 0;
+        public CaseInfo CaseInformation { get; set; }
 
 
-        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card)
+        public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card , string owner = null)
         {
             InitializeComponent();
             if (File.Exists(skinPath))
             {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
+                CaseInformation = new CaseInfo { ImageTemplate = skinPath, Location = location, Price = price, Color = color, Rotation = angle, Owner = owner, TxtPrice = price.ToString() + "€"  };
 
             }
             else
             {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price.ToString() + "€", Color = color, Rotation = angle };
+                CaseInformation = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price, Color = color, Rotation = angle, Owner = owner, TxtPrice = price.ToString() + "€" };
 
             }
-            Position = position;
             Card = card;
-            Location = location;
+            DataContext = CaseInformation;
+            Position = position;
+            CaseInformation.Rent = Card.CardInformation.RentValue;
         }
 
-        public class CaseInfo : INotifyPropertyChanged
+        public void UpdateBackground()
         {
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void NotifyPropertyChanged(string info)
+            var brush = new ImageBrush();
+
+                string path = "";
+
+                if (CaseInformation.NumberOfHouse == 1)
+                {
+                    path = "house";
+                }
+                if (CaseInformation.NumberOfHouse == 2)
+                {
+                    path = "house2";
+                }
+                if (CaseInformation.NumberOfHouse == 3)
+                {
+                    path = "house3";
+                }
+                if (CaseInformation.NumberOfHouse == 4)
+                {
+                    path = "house4";
+                }
+            if(CaseInformation.NumberOfHouse != 0)
             {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(info));
+                brush.ImageSource = new BitmapImage(new Uri("ressources/templates/default/" + path + ".png", UriKind.Relative));
+                buttonProperty.Background = brush;
+                Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
             }
-
-            public string ImageTemplate { get; set; }
-            public string Location { get; set; }
-            public string Price { get; set; }
-            public string Color { get; set; }
-            public int Rotation { get; set; }
-            public int IdOwner { get; set; } = 0; //By default, owner is bank(IdOwner : 0)
-
-
         }
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            toolTip.Content = Card;
+            toolTip.Content = Card ;
         }
+
+        private void BaseCase_IsHitTestVisibleChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            Console.WriteLine("ok");
+        }
+
+        private void buttonProperty_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(CaseInformation.Owner == null)
+            {
+                System.Windows.MessageBox.Show("Cette propriété n'appartient à personne !");
+
+            }
+            else
+            {
+                if( PlayerManager.CurrentPlayerName.Trim('0') == CaseInformation.Owner)
+                {
+                    System.Windows.MessageBox.Show("Cette propriété vous appartient !"+ Environment.NewLine + "Le loyer est de " + BuyAndSellManager.CalculRent(this) + "€");
+
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Cette propriété appartient à " + CaseInformation.Owner + Environment.NewLine + "Vous arretez içi vous coûteras " + BuyAndSellManager.CalculRent(this) + "€");
+
+                }
+            }
+        }
+
     }
 }

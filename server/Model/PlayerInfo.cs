@@ -9,10 +9,13 @@ namespace server
 {
     public class PlayerInfo : INotifyPropertyChanged
     {
+
         private string pseudo;
         private int position;
         private int balance;
         public string ColorCode;
+        public List<CaseInfo> Estates { get; set; }
+        public object Image { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Pseudo
@@ -47,14 +50,17 @@ namespace server
 
         protected void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
+            PropertyChanged?.Invoke(this, e);
         }
 
         protected void OnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        public PlayerInfo()
+        {
+            Estates = new List<CaseInfo>();
         }
     }
     
