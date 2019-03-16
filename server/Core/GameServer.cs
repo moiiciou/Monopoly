@@ -248,6 +248,15 @@ namespace server
                                                 response.ChatMessage = Nick.Trim('0') +" achete une propriete";
                                             }
 
+                                            if (p.Type == "sellProperty")
+                                            {
+                                                response.Type = "message";
+                                                Console.WriteLine(p.Content);
+                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
+  
+                                                response.ChatMessage = Nick.Trim('0') + " vend une propriete";
+                                            }
+
 
                                             if (p.Type == "drawChance")
                                             {
