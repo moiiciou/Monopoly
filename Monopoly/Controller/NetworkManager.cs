@@ -149,9 +149,10 @@ namespace Monopoly.Controller
 
                                                 }
 
-                                                System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
-
-
+                                                if(player.Pseudo != PlayerManager.CurrentPlayerName.Trim('0'))
+                                                {
+                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
+                                                }
 
                                                 //Update l'affichage des infos du joueur
                                                 PlayerInterface playerHudPanel2 = (PlayerInterface)GameManager.controls["playerHud"];
@@ -184,7 +185,11 @@ namespace Monopoly.Controller
 
                                                 if (player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
                                                     if (player.Position != PlayerManager.CurrentPlayerLastPosition)
+                                                    {
+                                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.MoovePlayer(Board.GetBoard, player.Pseudo, player.Position); }));
                                                         PlayerManager.CurrentPlayerLastPosition = player.Position;
+                                                    }
+
                                             }
 
                                         }
