@@ -252,13 +252,6 @@ namespace server
                                             }
 
 
-                                            if (p.Type == "payRent")
-                                            {
-                                                response.Type = "message";
-
-                                                response.ChatMessage = Nick.Trim('0') + " achete une propriete";
-                                            }
-
                                             if (p.Type == "drawChance")
                                             {
 
