@@ -107,9 +107,34 @@ namespace Monopoly.Model.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (BuyAndSellManager.CheckIfBuyable(Board.Board.GetBoard.CasesList[PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0')).Position%40]))
+            if (property_list.SelectedItem != null)
             {
+                PropertyCase property = Core.Tools.GetPropertyByName(((ListBoxItem)property_list.SelectedValue).Content.ToString());
+                try
+                {
+
+                    Packet packet = new Packet();
+                    packet.Type = "buildHouse";
+
+                    packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
+
+                    string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                    byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                    int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+                    Console.WriteLine(message);
+                    if (DtSent == 0)
+                    {
+                        MessageBox.Show("Aucune donnée n'a été envoyée");
+                    }
+
+                }
+                catch (Exception E)
+                {
+                    MessageBox.Show(E.Message);
+                }
             }
+
+
 
         }
 

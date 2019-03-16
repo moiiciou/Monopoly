@@ -277,6 +277,8 @@ namespace server
 
                                             if(p.Type == "buildHouse") // Maison + hotel
                                             {
+                                                Console.WriteLine("Construction d'une maison demandé");
+                                                Console.WriteLine(p.Content);
 
                                             }
 
