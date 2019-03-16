@@ -278,6 +278,7 @@ namespace server
                                             {
                                                 Console.WriteLine("Construction d'une maison demandé");
                                                 Console.WriteLine(p.Content);
+                                                response.ChatMessage = Nick.Trim('0') + " construit une maison";
 
                                             }
 

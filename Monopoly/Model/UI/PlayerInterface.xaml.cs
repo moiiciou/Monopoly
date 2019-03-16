@@ -64,11 +64,10 @@ namespace Monopoly.Model.UI
             {
                 foreach (CaseInfo property in player.Estates)
                 {
-                    ListBoxItem item = new ListBoxItem { Content = property.Location, Background = (SolidColorBrush)new BrushConverter().ConvertFromString(property.Color) };
-                    if (!property_list.Items.Cast<ListBoxItem>().Any(x => x.Content.ToString() == item.Content.ToString()))
+                    if (!property_list.Items.Cast<CaseInfo>().Any(x => x.Location == property.Location))
                     {
 
-                        property_list.Items.Add(item);
+                        property_list.Items.Add(property);
 
                     }
 
@@ -109,7 +108,7 @@ namespace Monopoly.Model.UI
         {
             if (property_list.SelectedItem != null)
             {
-                PropertyCase property = Core.Tools.GetPropertyByName(((ListBoxItem)property_list.SelectedValue).Content.ToString());
+                PropertyCase property = Core.Tools.GetPropertyByName(((CaseInfo)property_list.SelectedValue).Location);
                 try
                 {
 
