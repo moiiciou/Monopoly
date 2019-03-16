@@ -259,6 +259,27 @@ namespace server
                                                 response.ChatMessage = Nick.Trim('0') + " achete une propriete";
                                             }
 
+                                            if (p.Type == "drawChance")
+                                            {
+
+                                            }
+
+
+                                            if(p.Type == "drawCommunity")
+                                            {
+
+                                            }
+
+                                            if(p.Type =="useFreeFromJailCard")
+                                            {
+
+                                            }
+
+                                            if(p.Type == "buildHouse") // Maison + hotel
+                                            {
+
+                                            }
+
 
                                         }
                                         catch
