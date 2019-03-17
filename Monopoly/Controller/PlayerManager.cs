@@ -100,12 +100,12 @@ namespace Monopoly.Controller
             DrawPlayer(b, pseudo, position);
             p.playerInfo.Position = position;
 
-
-            BuyDialog buyDialog = new BuyDialog();
-            b.Children.Remove(buyDialog);
             if (BuyAndSellManager.CheckIfBuyable(b.CasesList[position]) & CurrentPlayerLastPosition != position & b.CasesList[position].GetType() == typeof(PropertyCase))
             {
                 PropertyCase propertyCase = (PropertyCase)b.CasesList[position];
+                BuyDialog buyDialog = new BuyDialog(propertyCase.Card.CardInformation.TextPropertyName, propertyCase.CaseInformation.TxtPrice);
+                b.Children.Remove(buyDialog);
+
                 if (CurrentPlayerName.Trim('0') != propertyCase.CaseInformation.Owner & pseudo == CurrentPlayerName.Trim('0'))
                 {
                     Grid.SetColumn(buyDialog, 4);
