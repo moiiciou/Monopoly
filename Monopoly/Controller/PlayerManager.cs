@@ -106,7 +106,7 @@ namespace Monopoly.Controller
             if (BuyAndSellManager.CheckIfBuyable(b.CasesList[position]) & CurrentPlayerLastPosition != position & b.CasesList[position].GetType() == typeof(PropertyCase))
             {
                 PropertyCase propertyCase = (PropertyCase)b.CasesList[position];
-                if (CurrentPlayerName.Trim('0') != propertyCase.CaseInformation.Owner)
+                if (CurrentPlayerName.Trim('0') != propertyCase.CaseInformation.Owner & pseudo == CurrentPlayerName.Trim('0'))
                 {
                     Grid.SetColumn(buyDialog, 4);
                     Grid.SetRow(buyDialog, 4);

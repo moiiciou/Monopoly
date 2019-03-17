@@ -147,7 +147,6 @@ namespace Monopoly.Model.UI
 
                 Packet packet = new Packet();
                 packet.Type = "sellProperty";
-
                 packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
 
                 string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
