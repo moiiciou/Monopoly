@@ -64,10 +64,12 @@ namespace Monopoly.Model.UI
             {
                 foreach (CaseInfo property in player.Estates)
                 {
-                    if (!property_list.Items.Cast<CaseInfo>().Any(x => x.Location == property.Location))
+                    PropertyCase propertyCase = Core.Tools.GetPropertyByName(property.Location);
+                    Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
+                    if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
                     {
 
-                        property_list.Items.Add(property);
+                        property_list.Items.Add(cardInfo);
 
                     }
 
