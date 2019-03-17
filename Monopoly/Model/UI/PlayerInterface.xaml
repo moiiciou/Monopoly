@@ -50,6 +50,11 @@
             </Button.Background>
 
         </Button>
+        <Button Style="{StaticResource ButtonStyle}" Content="" HorizontalAlignment="Left" Margin="350,118,0,0" Grid.Row="1" VerticalAlignment="Top" Width="89" Height="95">
+            <Button.Background>
+                <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/sell_button.png"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </UserControl>
