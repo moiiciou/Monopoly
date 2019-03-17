@@ -4,12 +4,8 @@ using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using server;
 
@@ -66,55 +62,6 @@ namespace Monopoly.Controller
               }
         }
 
-        public static void PayRent(BaseCase baseCase, Player player)
-        {
-            if (baseCase.GetType().ToString() == "Monopoly.Model.Case.PropertyCase")
-            {
-                PropertyCase propertyCase = (PropertyCase)baseCase;
-                if(propertyCase.CaseInformation.Owner != null & propertyCase.CaseInformation.Owner != player.playerInfo.Pseudo & player.playerInfo.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
-                {
-                    MessageBox.Show("Cette propriété appartient à "+ propertyCase.CaseInformation.Owner+"!"+Environment.NewLine+"Vous devez lui payer la somme de "+ propertyCase.CaseInformation.Rent+"€");
-
-                    try
-                    {
-                        //Envoie les informations au serveur
-                        Packet packet = new Packet();
-                        packet.Type = "payRent";
-
-                        //Récuperer le joueur owner;
-                        PlayerInfo receiver = GameManager.playersList[propertyCase.CaseInformation.Owner];
-                        
-                        // Payer le loyer
-                        player.playerInfo.Balance -= BuyAndSellManager.CalculRent(propertyCase);
-                        receiver.Balance += BuyAndSellManager.CalculRent(propertyCase);
-
-
-
-
-                        //Renvoyer la list des joueurs
-                        List<PlayerInfo> payload = new List<PlayerInfo>();
-                        payload.Add(player.playerInfo);
-                        payload.Add(receiver);
-
-                        //renvoie les données au serveur
-                        packet.Content = JsonConvert.SerializeObject(payload, Formatting.Indented);
-                        string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
-                        byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
-                        int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
-                        Console.WriteLine(message);
-                        if (DtSent == 0)
-                        {
-                            MessageBox.Show("Aucune donnée n'a été envoyée");
-                        }
-
-                    }
-                    catch (Exception E)
-                    {
-                        MessageBox.Show(E.Message);
-                    }
-                }
-            }
-        }
 
         public static int CalculRent(PropertyCase propertyCase)
         {

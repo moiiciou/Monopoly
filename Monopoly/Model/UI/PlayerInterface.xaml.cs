@@ -139,5 +139,32 @@ namespace Monopoly.Model.UI
 
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            PropertyCase property = Core.Tools.GetPropertyByName(((CaseInfo)property_list.SelectedValue).Location);
+            try
+            {
+
+                Packet packet = new Packet();
+                packet.Type = "sellProperty";
+
+                packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
+
+                string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+                Console.WriteLine(message);
+                if (DtSent == 0)
+                {
+                    MessageBox.Show("Aucune donnée n'a été envoyée");
+                }
+
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+            }
+        }
     }
+    
 }
