@@ -110,7 +110,7 @@ namespace Monopoly.Model.UI
         {
             if (property_list.SelectedItem != null)
             {
-                PropertyCase property = Core.Tools.GetPropertyByName(((CaseInfo)property_list.SelectedValue).Location);
+                PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
                 try
                 {
 
@@ -141,7 +141,7 @@ namespace Monopoly.Model.UI
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PropertyCase property = Core.Tools.GetPropertyByName(((CaseInfo)property_list.SelectedValue).Location);
+            PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
             try
             {
 

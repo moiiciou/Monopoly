@@ -226,7 +226,7 @@ namespace Monopoly.Controller
             }
             catch
             {
-                Thread.ResetAbort();
+                //Thread.ResetAbort();
             }
         }
     }

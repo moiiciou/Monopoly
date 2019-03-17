@@ -5,7 +5,6 @@ namespace server
 {
     public sealed class GameData
     {
-        //THREAD SAFE SINGLETON
         public List<PlayerInfo> PlayerList { get; set;}
 
         public List<CaseInfo> BoardCaseInfo { get; set; }
@@ -14,13 +13,11 @@ namespace server
 
         public List<CardInfo> CommunityDeck { get; set; }
 
-
         public string CurrentPlayerTurn;
 
         private static readonly Lazy<GameData> lazy = new Lazy<GameData> (() => new GameData());
 
         public static GameData GetGameData { get { return lazy.Value; } }
-
 
         private GameData()
         {
