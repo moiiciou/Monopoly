@@ -18,7 +18,7 @@ namespace server.Model
         public string Owner { get; set; }
         public string TxtPrice { get; set; }
 
-        public string TextPropertyName { get; set; }
+        public string Location { get; set; }
         public string TextHouseCost { get; set; }
         public string TextHotelCost { get; set; }
 
@@ -50,7 +50,7 @@ namespace server.Model
         {
             Price = price;
             TxtPrice = price.ToString() + "€";
-            TextPropertyName = propertyName;
+            Location = propertyName;
 
             TextHouseCost = houseCost.ToString() + "€ each";
             TextHotelCost = hotelCost.ToString() + "€ plus 4 houses";
