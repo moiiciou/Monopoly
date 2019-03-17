@@ -24,7 +24,8 @@ namespace server
         private int initPosition = 0;
         public static int initBalance = 10000;
         public static Dictionary<string, PlayerInfo> playersList = new Dictionary<string, PlayerInfo>(); // string = PseudoPlayer
-        private Packet response = new Packet();        
+        private Packet response = new Packet();
+        private ThemeParser tp = new ThemeParser("Ressources\\level.json");
 
         public void Start()
         {
@@ -36,6 +37,8 @@ namespace server
             Socket ServerSocket = new Socket(AddressFamily.InterNetwork,
               SocketType.Stream,
               ProtocolType.Tcp);
+
+            GameData.GetGameData.BoardCaseInfo = tp.CasesList; // faire pareil pour toutes les autres listes.
             try
             {
                 ServerSocket.Bind(new IPEndPoint(ipAddress, 8000));
@@ -51,6 +54,8 @@ namespace server
                 //Démarrage du thread vérifiant l'état des connexions clientes
                 Thread CheckConnectionThread = new Thread(new ThreadStart(CheckIfStillConnected));
                 CheckConnectionThread.Start();
+
+
                 //Boucle infinie
                 while (true)
                 {
@@ -237,7 +242,7 @@ namespace server
                                             {
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);
-                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
+                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content); // mettre la bonne case  de game data
                                                 /*
                                                  * Faire les check necessaire pour savoir si je peux acheter la propriété
                                                  */
