@@ -4,6 +4,7 @@ using Monopoly.Model.Board;
 using Monopoly.Model.Card;
 using Monopoly.Model.Case;
 using Newtonsoft.Json;
+using server.Core;
 using System;
 using System.IO;
 using System.Net;
@@ -48,7 +49,6 @@ namespace Monopoly.Model.UI
                 {
                     Packet p = new Packet();
                     p.Type = textBox.Text.TrimStart('/');
-
                     string message = JsonConvert.SerializeObject(p, Formatting.Indented);
                     byte[] msg = Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);
                     int DtSent = conn.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
@@ -66,7 +66,7 @@ namespace Monopoly.Model.UI
                     p.ChatMessage = textBox.Text;
                     string message = JsonConvert.SerializeObject(p, Formatting.Indented);
                     Console.WriteLine(message);
-                    byte[] msg = System.Text.Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                    byte[] msg = Encoding.UTF8.GetBytes(conn.GetSequence() + PlayerManager.CurrentPlayerName + message);
                     int DtSent = conn.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
                     if (DtSent == 0)
@@ -92,17 +92,7 @@ namespace Monopoly.Model.UI
            
            chatBody.AppendText(Environment.NewLine + message);
         }
-        void SendMsg(string message)
-        {
 
-            byte[] msg = Encoding.UTF8.GetBytes(message);
-            int DtSent = conn.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
-
-            if (DtSent == 0)
-            {
-                MessageBox.Show("Aucune donnée n'a été envoyée");
-            }
-        }
 
 
         private void button_Click(object sender, RoutedEventArgs e)

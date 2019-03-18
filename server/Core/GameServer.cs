@@ -103,7 +103,7 @@ namespace server
                 packet.Type = "updateGameData";
                 string gameDataString = JsonConvert.SerializeObject(GameData.GetGameData, Formatting.Indented);
                 packet.Content = gameDataString;
-                packet.ChatMessage = "Game Data updated";
+                packet.ChatMessage = response.ChatMessage;
                 string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
                 msg = Encoding.UTF8.GetBytes(packetToSend);
                 sendMsg(msg);
@@ -420,6 +420,7 @@ namespace server
                     try
                     {
                         byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
+                        msg = ServerTools.Compress(msg);
                         int bytesSent = ((Socket)acceptList[i]).Send(msg, msg.Length, SocketFlags.None);
                         Console.WriteLine("Writing to:" + acceptList.Count.ToString());
                     }
