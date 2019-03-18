@@ -39,7 +39,6 @@ namespace server
               SocketType.Stream,
               ProtocolType.Tcp);
 
-            GameData.GetGameData.BoardCaseInfo = tp.CasesList; // faire pareil pour toutes les autres listes.
             try
             {
                 ServerSocket.Bind(new IPEndPoint(ipAddress, 8000));

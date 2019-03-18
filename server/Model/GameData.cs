@@ -7,12 +7,6 @@ namespace server
     {
         public List<PlayerInfo> PlayerList { get; set;}
 
-        public List<CaseInfo> BoardCaseInfo { get; set; }
-
-        public List<CardInfo> ChanceDeck { get; set; }
-
-        public List<CardInfo> CommunityDeck { get; set; }
-
         public string CurrentPlayerTurn;
 
         private static readonly Lazy<GameData> lazy = new Lazy<GameData> (() => new GameData());
@@ -24,9 +18,7 @@ namespace server
            
          
             PlayerList = new List<PlayerInfo>();
-            BoardCaseInfo = new List<CaseInfo>();
-            ChanceDeck = new List<CardInfo>();
-            CommunityDeck = new List<CardInfo>();
+
             CurrentPlayerTurn = "";
 
         }
