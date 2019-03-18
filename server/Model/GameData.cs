@@ -21,6 +21,8 @@ namespace server
 
         private GameData()
         {
+           
+         
             PlayerList = new List<PlayerInfo>();
             BoardCaseInfo = new List<CaseInfo>();
             ChanceDeck = new List<CardInfo>();
