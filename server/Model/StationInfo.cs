@@ -9,8 +9,16 @@ namespace server.Model
     class StationInfo : CaseInfo
     {
        
-        public string TextLabel { get; set; }
+      
         public string Price { get; set; }
-        public int Rotation { get; set; }
+        public StationInfo(string text, int price, string skinPath, int angle)
+        {
+
+            this.ImageTemplate = skinPath;
+
+            TextLabel = text;
+            this.Rotation = angle;
+        }
+
     }
 }

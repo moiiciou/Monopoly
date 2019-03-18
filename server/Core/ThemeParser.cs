@@ -51,38 +51,38 @@ namespace server
                             //PropertyCardList.Add(CardProperty);
                             break;
 
-                       /* case "start":
-                            StartCase Start = new StartCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), item.position);
+                        case "start":
+                            StartInfo Start = new StartInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString());
                             CasesList.Add(Start);
                             break;
 
                         case "custom":
-                            CustomCase Custom = new CustomCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), item.position, angle);
+                            CustomInfo Custom = new CustomInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), angle);
                             CasesList.Add(Custom);
                             break;
 
                         case "chance":
-                            ChanceCase Chance = new ChanceCase("Chance", "", angle, item.position);
+                            ChanceInfo Chance = new ChanceInfo("Chance", "", angle);
                             CasesList.Add(Chance);
 
                             break;
 
                         case "community":
-                            CommunityCase Com = new CommunityCase("Caisse de Communauté", "", angle, item.position);
+                            CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle);
                             CasesList.Add(Com);
 
                             break;
 
                         case "station":
-                            StationCase Station = new StationCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.position, angle);
+                            StationInfo Station = new StationInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), angle);
                             CasesList.Add(Station);
 
                             break;
 
                         case "jail":
-                            JailCase Jail = new JailCase(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), item.position);
+                            JailInfo Jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString());
                             CasesList.Add(Jail);
-                            break;*/
+                            break;
                         default:
                             Console.WriteLine("Error parsing case");
 

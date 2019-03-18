@@ -14,6 +14,7 @@
         public bool HasHostel { get; set; } 
         public string Color { get; set; }*/
         public int Rotation { get; set; }
+        public string TextLabel { get; set; }
         /*
         public string Owner { get; set; }
         public string TxtPrice { get; set; }*/
