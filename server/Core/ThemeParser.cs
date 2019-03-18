@@ -42,8 +42,21 @@ namespace server
                     }
                     switch (item.type)
                     {
+       
                         case "property":
-                            PropertyInfo propertyInfo = new PropertyInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["houseCost"]), Convert.ToInt16(item.caseAttributes["houseCost"]), Convert.ToInt16(item.caseAttributes["rentWith1House"]), Convert.ToInt16(item.caseAttributes["rentWith2House"]), Convert.ToInt16(item.caseAttributes["rentWith3House"]), Convert.ToInt16(item.caseAttributes["rentWith4House"]), Convert.ToInt16(item.caseAttributes["rentWithHostel"]), Convert.ToInt16(item.caseAttributes["rent"]), Convert.ToInt16(item.caseAttributes["mortgageValue"]), item.caseAttributes["color"].ToString(), angle, Convert.ToInt16(item.caseAttributes["Price"]));
+                            PropertyInfo propertyInfo = new PropertyInfo(
+                                item.caseAttributes["label"].ToString(),
+                                Convert.ToInt16(item.caseAttributes["houseCost"]),
+                                Convert.ToInt16(item.caseAttributes["houseCost"]), 
+                                Convert.ToInt16(item.caseAttributes["rentWith1House"]),
+                                Convert.ToInt16(item.caseAttributes["rentWith2House"]), 
+                                Convert.ToInt16(item.caseAttributes["rentWith3House"]),
+                                Convert.ToInt16(item.caseAttributes["rentWith4House"]),
+                                Convert.ToInt16(item.caseAttributes["rentWithHostel"]), 
+                                Convert.ToInt16(item.caseAttributes["rent"]), 
+                                Convert.ToInt16(item.caseAttributes["mortgageValue"]), 
+                                item.caseAttributes["color"].ToString(), angle, 
+                                Convert.ToInt16(item.caseAttributes["price"]));
                             // CaseInfo Property = new PropertyCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.caseAttributes["color"].ToString(), angle, item.position, CardProperty);
                             //CasesList.Add(Property);
 
@@ -127,4 +140,4 @@ namespace server
     /**/
 
 
-}
+                    }

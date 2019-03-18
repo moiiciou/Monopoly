@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using server.Controleur;
+using server.Model;
 
 namespace server
 {
@@ -242,7 +243,7 @@ namespace server
                                             {
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);
-                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content); // mettre la bonne case  de game data
+                                                PropertyInfo propertyToBuy = JsonConvert.DeserializeObject<PropertyInfo>(p.Content); // mettre la bonne case  de game data
                                                 /*
                                                  * Faire les check necessaire pour savoir si je peux acheter la propriété
                                                  */
