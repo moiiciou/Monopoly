@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using server.Controleur;
+using server.Core;
 using server.Model;
 
 namespace server
@@ -394,6 +395,7 @@ namespace server
                 {
                     try
                     {
+                        msg = ServerTools.Compress(msg);
                         int bytesSent = ((Socket)acceptList[i]).Send(msg, msg.Length, SocketFlags.None);
                     }
                     catch

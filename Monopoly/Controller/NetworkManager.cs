@@ -1,17 +1,15 @@
-﻿using Monopoly.Model;
-using Monopoly.Model.Board;
+﻿using Monopoly.Model.Board;
 using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using server;
+using server.Core;
 using server.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-
 
 namespace Monopoly.Controller
 {
@@ -77,6 +75,7 @@ namespace Monopoly.Controller
         {
             
             byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
+            msg = ServerTools.Compress(msg);
             int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
             if (DtSent == 0)
@@ -121,6 +120,9 @@ namespace Monopoly.Controller
 
                                     byte[] msg = new Byte[ClientSocket.Available];
                                     ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
+
+                                    msg = ServerTools.Decompress(msg);
+
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
                                     Console.WriteLine(messageReceived);
                                     string json = messageReceived;
