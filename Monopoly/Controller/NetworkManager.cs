@@ -130,7 +130,6 @@ namespace Monopoly.Controller
 
                                     if (p.Type == "updateGameData")
                                     {
-                                        Console.WriteLine(p.Content);
                                         GameData gameData = JsonConvert.DeserializeObject <GameData> (p.Content);
 
                                         if(gameData.PlayerList != null)

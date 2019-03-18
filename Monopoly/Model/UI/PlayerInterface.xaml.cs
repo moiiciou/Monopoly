@@ -42,6 +42,7 @@ namespace Monopoly.Model.UI
         {
             InitializeComponent();
             UpdateBalance(balance);
+            UpdatePseudo(pseudoPlayer);
         }
 
         private void ChatBox_Loaded(object sender, RoutedEventArgs e)
@@ -72,7 +73,6 @@ namespace Monopoly.Model.UI
                         Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
                         if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
                         {
-
                             property_list.Items.Add(cardInfo);
 
                         }
