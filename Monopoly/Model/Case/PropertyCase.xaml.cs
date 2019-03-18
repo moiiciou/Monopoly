@@ -7,6 +7,7 @@ using Monopoly.Controller;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using server.Model;
 
 namespace Monopoly.Model.Case
 {
@@ -20,26 +21,21 @@ namespace Monopoly.Model.Case
 
 
         public PropertyCard Card { get; set; }
-        public CaseInfo CaseInformation { get; set; }
+        public PropertyInfo CaseInformation { get; set; }
 
 
         public PropertyCase(string location, int price, string skinPath, string color, int angle, int[] position, PropertyCard card , string owner = null)
         {
             InitializeComponent();
-            if (File.Exists(skinPath))
-            {
-                CaseInformation = new CaseInfo { ImageTemplate = skinPath, Location = location, Price = price, Color = color, Rotation = angle, Owner = owner, TxtPrice = price.ToString() + "€"  };
-
-            }
-            else
-            {
-                CaseInformation = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", Location = location, Price = price, Color = color, Rotation = angle, Owner = owner, TxtPrice = price.ToString() + "€" };
-
-            }
+            CaseInformation = new PropertyInfo();
+            CaseInformation.Price = price;
+            CaseInformation.TxtPrice = price.ToString() + "€";
+            CaseInformation.Location = location;
+            CaseInformation.Color = color;
+            CaseInformation.Owner = owner;
             Card = card;
             DataContext = CaseInformation;
             Position = position;
-            CaseInformation.Rent = Card.CardInformation.RentValue;
         }
 
         public void UpdateBackground()

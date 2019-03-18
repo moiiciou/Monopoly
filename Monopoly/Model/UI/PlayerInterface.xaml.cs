@@ -20,6 +20,7 @@ using System;
 using Monopoly.Model.Case;
 using Newtonsoft.Json;
 using System.Net.Sockets;
+using server.Model;
 
 namespace Monopoly.Model.UI
 {
@@ -64,15 +65,18 @@ namespace Monopoly.Model.UI
             {
                 foreach (CaseInfo property in player.Estates)
                 {
-                    PropertyCase propertyCase = Core.Tools.GetPropertyByName(property.Location);
-                    Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
-                    if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
+                    if(property.GetType() == typeof(PropertyInfo))
                     {
+                        PropertyInfo propertyInfo = (PropertyInfo)property;
+                        PropertyCase propertyCase = Core.Tools.GetPropertyByName(propertyInfo.Location);
+                        Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
+                        if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
+                        {
 
-                        property_list.Items.Add(cardInfo);
+                            property_list.Items.Add(cardInfo);
 
+                        }
                     }
-
                 }
             }
         }

@@ -4,6 +4,7 @@ using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using server;
+using server.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -165,18 +166,23 @@ namespace Monopoly.Controller
                                                 {
                                                     foreach (CaseInfo estate in player.Estates)
                                                     {
-                                                        foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+                                                        if(estate.GetType() == typeof(PropertyInfo))
                                                         {
-                                                            if (baseCase is PropertyCase)
+                                                           PropertyInfo propertyInfo = (PropertyInfo)estate;
+                                                           foreach (BaseCase baseCase in Board.GetBoard.CasesList)
                                                             {
-                                                                PropertyCase property = (PropertyCase)baseCase;
-
-                                                                if (property.CaseInformation.Location == estate.Location)
+                                                                if (baseCase is PropertyCase)
                                                                 {
-                                                                    property.CaseInformation = estate;
-                                                                }
+                                                                    PropertyCase property = (PropertyCase)baseCase;
 
+                                                                    if (property.CaseInformation.Location == propertyInfo.Location)
+                                                                    {
+                                                                        property.CaseInformation = propertyInfo;
+                                                                    }
+
+                                                                }
                                                             }
+
                                                         }
 
                                                     }

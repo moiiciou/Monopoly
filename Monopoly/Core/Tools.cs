@@ -3,6 +3,7 @@ using Monopoly.Model;
 using Monopoly.Model.Board;
 using Monopoly.Model.Case;
 using server;
+using server.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,8 +53,14 @@ namespace Monopoly.Core
             int result = 0;
             foreach(server.CaseInfo caseInfo in player.Estates)
             {
-                if (caseInfo.Color == property.CaseInformation.Color)
-                    result++;
+                if(caseInfo.GetType() == typeof(PropertyInfo))
+                {
+                    PropertyInfo propertyInfo = (PropertyInfo)caseInfo;
+
+                    if (propertyInfo.Color == property.CaseInformation.Color)
+                        result++;
+                }
+
             }
             return result;
         }

@@ -28,7 +28,7 @@ namespace server.Model
         public string TextRentWith4House { get; set; }
         public string TextRentWithHotel { get; set; }
 
-        public int RentValue { get; set; }
+        public int Rent { get; set; }
         public int HouseCost { get; set; }
         public int HostelCost { get; set; }
 
@@ -64,7 +64,7 @@ namespace server.Model
             TextRentValue = "Rent :" + rentValue.ToString() + "€";
             TextMortgageValue = mortgageValue.ToString() + "€";
 
-            RentValue = rentValue;
+            Rent = rentValue;
 
             RentWith1House = rentWith1house;
             RentWith2House = rentWith2house;
@@ -84,6 +84,11 @@ namespace server.Model
             
            
         }
-    }
 
+        public PropertyInfo()
+        {
+
+        }
+
+    }
 }
