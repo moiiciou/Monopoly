@@ -122,14 +122,14 @@
       <DependentUpon>ChatBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Tools.cs" />
+    <Compile Include="Model\UI\Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\PlayerInfoDisplay.xaml.cs">
       <DependentUpon>PlayerInfoDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\UI\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\UI\PlayerList.xaml.cs">
-      <DependentUpon>PlayerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="optionForm.cs">
       <SubType>Form</SubType>
@@ -205,15 +205,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Model\UI\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Model\UI\PlayerInfoDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\UI\PlayerInterface.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Model\UI\PlayerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,6 +318,41 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\bubble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\avatar\#06d694.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#089dd8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#0ea02b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#0f08d8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#6408db.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#e50daf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#e58612.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#ea0e0e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#eaf213.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ressources\templates\default\avatar\#ff865e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\sell_button.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

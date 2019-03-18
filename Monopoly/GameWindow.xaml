@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Monopoly"
         mc:Ignorable="d"
-        Title="Monopoly +" Height="800" Width="600">
+        Title="Monopoly +"    
+        WindowState="Maximized"
+        WindowStyle="None" KeyDown="GameWindow1_KeyDown">
     <Grid x:Name="root">
         <Grid.Background>
             <ImageBrush/>

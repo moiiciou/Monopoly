@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="Monopoly.Model.UI.Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Monopoly.Model.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}" d:DesignWidth="{Binding Source={x:Static SystemParameters.FullPrimaryScreenWidth}}">
+    <Grid>
+        <Button Name="quitButton" Content="Quitter !" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="63" Click="quitButton_Click"/>
+        <Button Name="optionButton" Content="Options" HorizontalAlignment="Center" Height="63"  VerticalAlignment="Center" Width="150" Margin="0,0,0,200"/>
+    </Grid>
+</UserControl>

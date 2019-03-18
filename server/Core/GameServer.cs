@@ -24,9 +24,9 @@ namespace server
         public bool readLock = false;//Flag aidant à la synchronisation
         private int initPosition = 0;
         public static int initBalance = 10000;
-        public static Dictionary<string, PlayerInfo> playersList = new Dictionary<string, PlayerInfo>(); // string = PseudoPlayer
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
+        private bool gameOver = false;
 
         public void Start()
         {
@@ -49,8 +49,6 @@ namespace server
                 getReadClients.Start();
 
                 //Thread d'update des informations
-                Thread updateClients = new Thread(new ThreadStart(updateClient));
-                updateClients.Start();
 
                 //Démarrage du thread vérifiant l'état des connexions clientes
                 Thread CheckConnectionThread = new Thread(new ThreadStart(CheckIfStillConnected));
@@ -100,8 +98,7 @@ namespace server
         //Un peu moisie comme tricks, mais j'ai pas trouvé mieux :D puis ça permet de géré les déco/réco 
         private void updateClient()
         {
-            while(true)
-            {
+
                 Packet packet = new Packet();
                 packet.Type = "updateGameData";
                 string gameDataString = JsonConvert.SerializeObject(GameData.GetGameData, Formatting.Indented);
@@ -109,11 +106,38 @@ namespace server
                 packet.ChatMessage = "Game Data updated";
                 string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
                 msg = Encoding.UTF8.GetBytes(packetToSend);
-                base.sendMsg(msg);
-                Thread.Sleep(400);
-            }
+                sendMsg(msg);
+
 
         }
+
+        private string GetNextPlayer()
+        {
+            PlayerInfo firstPlayer = GameData.GetGameData.PlayerList.FirstOrDefault();
+            PlayerInfo lastPlayer = GameData.GetGameData.PlayerList.LastOrDefault();
+
+            if (GameData.GetGameData.CurrentPlayerTurn == "")
+                return firstPlayer.Pseudo;
+
+            for (int i=0; i < GameData.GetGameData.PlayerList.Count; i++)
+                {
+                    if(GameData.GetGameData.PlayerList[i].Pseudo == GameData.GetGameData.CurrentPlayerTurn)
+                    {
+
+                    if (GameData.GetGameData.PlayerList[i].Pseudo == lastPlayer.Pseudo)
+                    {
+                        return firstPlayer.Pseudo;
+                    }
+                    else
+                    {
+                        return GameData.GetGameData.PlayerList[i+1].Pseudo;
+                    }
+                }
+
+             }
+            return lastPlayer.Pseudo;
+        }
+        
 
         private void CheckIfStillConnected()
         {
@@ -236,7 +260,7 @@ namespace server
                                                     response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
                                                     PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                     player.Position += dice;
-
+                                                    GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer();
                                             }
 
                                             if (p.Type == "buyProperty")
@@ -251,19 +275,18 @@ namespace server
                                                 player.Balance -= propertyToBuy.Price;
                                                 propertyToBuy.Owner = player.Pseudo;
                                                 player.Estates.Add(propertyToBuy);
-
                                                 response.ChatMessage = Nick.Trim('0') +" achete une propriete";
-
-
                                             }
 
-
-                                            if (p.Type == "payRent")
+                                            if (p.Type == "sellProperty")
                                             {
                                                 response.Type = "message";
-
-                                                response.ChatMessage = Nick.Trim('0') + " achete une propriete";
+                                                Console.WriteLine(p.Content);
+                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
+  
+                                                response.ChatMessage = Nick.Trim('0') + " vend une propriete";
                                             }
+
 
                                             if (p.Type == "drawChance")
                                             {
@@ -283,6 +306,9 @@ namespace server
 
                                             if(p.Type == "buildHouse") // Maison + hotel
                                             {
+                                                Console.WriteLine("Construction d'une maison demandé");
+                                                Console.WriteLine(p.Content);
+                                                response.ChatMessage = Nick.Trim('0') + " construit une maison";
 
                                             }
 
@@ -319,10 +345,7 @@ namespace server
                                         playerInfo.Position = initPosition;
                                         response.Type = "updateGameData";
                                         response.ChatMessage = Nick.Trim('0') + " vient de se connecter";
-                                        if (!playersList.ContainsKey(playerInfo.Pseudo))
-                                        {
-                                            playersList.Add(playerInfo.Pseudo, playerInfo);
-                                        }
+
                                         if (!GameData.GetGameData.PlayerList.Any(p => p.Pseudo.Contains(playerInfo.Pseudo)))
                                         {
                                             GameData.GetGameData.PlayerList.Add(playerInfo);
@@ -343,10 +366,11 @@ namespace server
                                 Console.WriteLine(response.Content);
                                 Console.WriteLine(response.ChatMessage);
 
-                                Thread forwardingThread = new Thread(new ThreadStart(writeToAll));
+                                Thread forwardingThread = new Thread(new ThreadStart(updateClient));
                                 forwardingThread.Start();
                                 forwardingThread.Join();
                                 paquetsReceived++;
+                                
                             }
                             readLock = false;
                         }

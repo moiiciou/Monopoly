@@ -64,11 +64,12 @@ namespace Monopoly.Model.UI
             {
                 foreach (CaseInfo property in player.Estates)
                 {
-                    ListBoxItem item = new ListBoxItem { Content = property.Location, Background = (SolidColorBrush)new BrushConverter().ConvertFromString(property.Color) };
-                    if (!property_list.Items.Cast<ListBoxItem>().Any(x => x.Content.ToString() == item.Content.ToString()))
+                    PropertyCase propertyCase = Core.Tools.GetPropertyByName(property.Location);
+                    Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
+                    if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
                     {
 
-                        property_list.Items.Add(item);
+                        property_list.Items.Add(cardInfo);
 
                     }
 
@@ -107,11 +108,62 @@ namespace Monopoly.Model.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (BuyAndSellManager.CheckIfBuyable(Board.Board.GetBoard.CasesList[PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0')).Position%40]))
+            if (property_list.SelectedItem != null)
             {
+                PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
+                try
+                {
+
+                    Packet packet = new Packet();
+                    packet.Type = "buildHouse";
+
+                    packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
+
+                    string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                    byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                    int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+                    Console.WriteLine(message);
+                    if (DtSent == 0)
+                    {
+                        MessageBox.Show("Aucune donnée n'a été envoyée");
+                    }
+
+                }
+                catch (Exception E)
+                {
+                    MessageBox.Show(E.Message);
+                }
             }
+
+
 
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
+            try
+            {
+
+                Packet packet = new Packet();
+                packet.Type = "sellProperty";
+                packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
+
+                string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+                Console.WriteLine(message);
+                if (DtSent == 0)
+                {
+                    MessageBox.Show("Aucune donnée n'a été envoyée");
+                }
+
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+            }
+        }
     }
+    
 }

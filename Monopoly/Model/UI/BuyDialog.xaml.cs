@@ -21,9 +21,20 @@ namespace Monopoly.Model.UI
     /// </summary>
     public partial class BuyDialog : UserControl
     {
-        public BuyDialog()
+        private string propertyName;
+        private string propertyPrice;
+        public string DialogText { get; set; }
+
+        public BuyDialog(string location, string price)
         {
             InitializeComponent();
+
+            propertyName = location;
+            propertyPrice = price;
+
+            DialogText = "Voulez vous achetez " + propertyName + " pour " + propertyPrice;
+
+            DataContext = this;
         }
 
         private void yesButton_Click(object sender, RoutedEventArgs e)

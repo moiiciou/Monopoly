@@ -3,6 +3,7 @@ using Monopoly.Core;
 using Monopoly.Model.Board;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,14 @@ namespace Monopoly
             InitializeComponent();
 
             ip_server_input.Text = Tools.GetLocalIPAddress();
+
+            DirectoryInfo d = new DirectoryInfo(".\\ressources\\templates\\default\\avatar\\");
+
+            foreach (var file in d.GetFiles("*.png"))
+            {
+                Avatar avatar = new Avatar(file.Name, file.FullName, file.Name);
+                avatarCBox.Items.Add(avatar);
+            }
         }
 
         private void join_button_Click(object sender, RoutedEventArgs e)
@@ -43,10 +52,25 @@ namespace Monopoly
             }
             else
             {
-                System.Windows.MessageBox.Show("Votre pseudo doit être inférieur à 15 charactères !");
+                MessageBox.Show("Votre pseudo doit être inférieur à 15 charactères !");
 
             }
 
         }
+    }
+
+    public class Avatar
+    {
+        public string Color { get; set; }
+        public string Image { get; set; }
+        public string Name { get; set; }
+
+        public Avatar(string color, string image, string name)
+        {
+            Color = color;
+            Image = image;
+            Name = name;
+        }
+
     }
 }

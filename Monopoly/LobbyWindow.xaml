@@ -8,13 +8,23 @@
         Title="LobbyWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="create_server" Content="Crée un serveur" HorizontalAlignment="Left" Margin="679,108,0,0" VerticalAlignment="Top" Width="113" Height="29"/>
-        <Button x:Name="join_button" Content="Rejoindre" HorizontalAlignment="Left" Margin="429,81,0,0" VerticalAlignment="Top" Width="117" Height="29" Click="join_button_Click"/>
+        <Button x:Name="join_button" Content="Rejoindre" HorizontalAlignment="Left" Margin="390,108,0,0" VerticalAlignment="Top" Width="117" Height="29" Click="join_button_Click"/>
         <ListBox HorizontalAlignment="Left" Height="68" Margin="10,42,0,0" VerticalAlignment="Top" Width="290"/>
         <Label Content="Serveur LAN découvert :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="27" Width="144"/>
         <TextBox x:Name="ip_server_input" HorizontalAlignment="Left" Height="23" Margin="387,14,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="159"/>
         <Label Content="IP du serveur :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,10,0,0" Width="88"/>
-        <TextBox x:Name="pseudoTxtBox" HorizontalAlignment="Left" Height="23" Margin="387,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Pseudo:" HorizontalAlignment="Left" Margin="335,42,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="pseudoTxtBox" HorizontalAlignment="Left" Height="23" Margin="387,45,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
+        <Label Content="Pseudo :" HorizontalAlignment="Left" Margin="327,42,0,0" VerticalAlignment="Top"/>
+        <Label Content="Avatar :" HorizontalAlignment="Left" Margin="330,73,0,0" VerticalAlignment="Top" Width="52"/>
+        <ComboBox Name="avatarCBox" HorizontalAlignment="Left" Margin="390,77,0,0" VerticalAlignment="Top" Width="156">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Image}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
     </Grid>
 </Window>
