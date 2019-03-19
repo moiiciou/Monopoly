@@ -75,7 +75,6 @@ namespace Monopoly.Controller
         {
             
             byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
-            msg = ServerTools.Compress(msg);
             int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
             if (DtSent == 0)
@@ -120,9 +119,6 @@ namespace Monopoly.Controller
 
                                     byte[] msg = new Byte[ClientSocket.Available];
                                     ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
-
-                                    msg = ServerTools.Decompress(msg);
-
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
                                     Console.WriteLine(messageReceived);
                                     string json = messageReceived;

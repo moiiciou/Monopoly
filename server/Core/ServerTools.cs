@@ -10,7 +10,7 @@ namespace server.Core
 {
     public static class ServerTools
     {
-        public static byte[] Compress(byte[] data)
+      /*  public static byte[] Compress(byte[] data)
         {
             MemoryStream output = new MemoryStream();
             using (DeflateStream dstream = new DeflateStream(output, CompressionLevel.Optimal))
@@ -30,5 +30,6 @@ namespace server.Core
             }
             return output.ToArray();
         }
+        */
     }
 }

@@ -392,7 +392,6 @@ namespace server
                 {
                     try
                     {
-                        msg = ServerTools.Compress(msg);
                         int bytesSent = ((Socket)acceptList[i]).Send(msg, msg.Length, SocketFlags.None);
                     }
                     catch
@@ -417,7 +416,6 @@ namespace server
                     try
                     {
                         byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
-                        msg = ServerTools.Compress(msg);
                         int bytesSent = ((Socket)acceptList[i]).Send(msg, msg.Length, SocketFlags.None);
                         Console.WriteLine("Writing to:" + acceptList.Count.ToString());
                     }
