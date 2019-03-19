@@ -163,9 +163,9 @@ namespace Monopoly.Controller
 
 
                                                 //Update les propriétés sur le board
-                                                if (player.Estates != null)
+                                                if (player.Properties != null)
                                                 {
-                                                    foreach (CaseInfo estate in player.Estates)
+                                                    foreach (PropertyInfo estate in player.Properties)
                                                     {
                                                         if(estate.GetType() == typeof(PropertyInfo))
                                                         {

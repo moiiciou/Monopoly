@@ -64,11 +64,11 @@ namespace Monopoly.Model.UI
         {
             Console.WriteLine("update property lancer");
 
-            if (player.Estates != null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            if (player.Properties != null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
             {
              Console.WriteLine("update property lancer");
 
-                foreach (CaseInfo property in player.Estates)
+                foreach (PropertyInfo property in player.Properties)
                 {
 
                         PropertyInfo propertyInfo = (PropertyInfo)property;

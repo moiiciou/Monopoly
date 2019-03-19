@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace server.Model
 {
-    class StationInfo : CaseInfo
+    public class StationInfo : CaseInfo
     {
        
       

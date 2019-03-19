@@ -11,6 +11,7 @@ using System.Threading;
 using server;
 using Monopoly.Model.UI;
 using Monopoly.Model.Case;
+using server.Model;
 
 namespace Monopoly.Controller
 {
@@ -44,7 +45,7 @@ namespace Monopoly.Controller
         /// <return> Renvoie l'id du joueur créé. </return>
         public static bool CreatePlayer(Board board, string name, int balance, int position)
         {
-            Player p = new Player( name, balance, position, new List<CaseInfo>(), null, null);
+            Player p = new Player( name, balance, position, new List<PropertyInfo>(), null, null);
             _players.Add(p);
             InitGrid(p);
             if (position >= 0)

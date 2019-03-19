@@ -266,7 +266,6 @@ namespace server
                                             if (p.Type == "buyProperty")
                                             {
                                                 response.Type = "message";
-                                                Console.WriteLine(p.Content);
                                                 PropertyInfo propertyToBuy = JsonConvert.DeserializeObject<PropertyInfo>(p.Content); // mettre la bonne case  de game data
                                                 /*
                                                  * Faire les check necessaire pour savoir si je peux acheter la propriété
@@ -274,8 +273,10 @@ namespace server
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                 player.Balance -= propertyToBuy.Price;
                                                 propertyToBuy.Owner = player.Pseudo;
-                                                player.Estates.Add(propertyToBuy);
+                                                player.Properties.Add(propertyToBuy);
                                                 response.ChatMessage = Nick.Trim('0') +" achete une propriete";
+                                                Console.WriteLine(player.Properties.Count);
+
                                             }
 
                                             if (p.Type == "sellProperty")
@@ -360,15 +361,11 @@ namespace server
                                 }
                                string  packetToSend = JsonConvert.SerializeObject(response, Formatting.Indented);
                                 msg = Encoding.UTF8.GetBytes(packetToSend);
-
-                                Console.WriteLine("response :");
-                                Console.WriteLine(response.Type);
-                                Console.WriteLine(response.Content);
-                                Console.WriteLine(response.ChatMessage);
-
                                 Thread forwardingThread = new Thread(new ThreadStart(updateClient));
                                 forwardingThread.Start();
                                 forwardingThread.Join();
+                                Console.WriteLine(response.Content);
+
                                 paquetsReceived++;
                                 
                             }

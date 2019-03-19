@@ -1,6 +1,7 @@
 ﻿using Monopoly.Model.Card;
 using Monopoly.Model.UI;
 using server;
+using server.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +41,7 @@ namespace Monopoly.Model
         /// <param name="position">Position du Player sur le plateau</param>
         /// <param name="cards">Liste de cartes que le Player possède</param>
         /// <param name="image">Skin du Player</param>
-        public Player( string name, int balance, int position, List<CaseInfo> estates, object image, string colorCode )
+        public Player( string name, int balance, int position, List<PropertyInfo> estates, object image, string colorCode )
         {
             InitializeComponent();
             playerInfo = new PlayerInfo();
@@ -48,7 +49,7 @@ namespace Monopoly.Model
             playerInfo.Image = image;
             playerInfo.Pseudo = name;
             playerInfo.Position = position;
-            playerInfo.Estates = estates;    
+            playerInfo.Properties = estates;    
             playerInfo.ColorCode = colorCode;
 
         }
@@ -63,7 +64,7 @@ namespace Monopoly.Model
             playerInfo.Pseudo = name;
             playerInfo.Balance = 0;
             playerInfo.Position = 0;
-            playerInfo.Estates = new List<CaseInfo>();
+            playerInfo.Properties = new List<PropertyInfo>();
             playerInfo.Image = null;
 
         }

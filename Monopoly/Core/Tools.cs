@@ -51,7 +51,7 @@ namespace Monopoly.Core
         public static int GetColorProperty(PlayerInfo player, PropertyCase property)
         {
             int result = 0;
-            foreach(server.CaseInfo caseInfo in player.Estates)
+            foreach(server.CaseInfo caseInfo in player.Properties)
             {
                 if(caseInfo.GetType() == typeof(PropertyInfo))
                 {
