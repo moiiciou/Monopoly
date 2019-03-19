@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace server.Model
 {
-    public class PropertyInfo : CaseInfo
+    public partial class PropertyInfo : CaseInfo
     {
  
         public int Price { get; set; }

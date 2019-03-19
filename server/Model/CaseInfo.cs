@@ -1,6 +1,6 @@
 ﻿namespace server
 {
-    public class CaseInfo
+    public partial class CaseInfo
     {
        public string ImageTemplate { get; set; }
       /*  public string Location { get; set; }

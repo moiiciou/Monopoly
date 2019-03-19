@@ -62,21 +62,29 @@ namespace Monopoly.Model.UI
 
         public void UpdateProperty(PlayerInfo player)
         {
+            Console.WriteLine("update property lancer");
+
             if (player.Estates != null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
             {
+             Console.WriteLine("update property lancer");
+
                 foreach (CaseInfo property in player.Estates)
                 {
-                    if(property.GetType() == typeof(PropertyInfo))
-                    {
+
                         PropertyInfo propertyInfo = (PropertyInfo)property;
                         PropertyCase propertyCase = Core.Tools.GetPropertyByName(propertyInfo.Location);
+                        Console.WriteLine("propertyInfo location : " + propertyInfo.Location);
+                        Console.WriteLine("propertyCase location : " + propertyCase.CaseInformation.Location);
+
                         Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
+                        Console.WriteLine("cardInfo location : " + cardInfo.TextPropertyName);
+
                         if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
                         {
                             property_list.Items.Add(cardInfo);
+                            Console.WriteLine("Carte ajouté");
 
-                        }
-                    }
+                        }                    
                 }
             }
         }
