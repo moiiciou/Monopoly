@@ -117,7 +117,17 @@ namespace Monopoly.Controller
                     b.Children.Add(buyDialog);
                 }
 
-            }       
+            }
+            
+            if(CurrentPlayerLastPosition != position & b.CasesList[position].GetType() == typeof(ChanceCase))
+            {
+                CardManager.drawCard(p.playerInfo, "chance");
+            }
+
+            if (CurrentPlayerLastPosition != position & b.CasesList[position].GetType() == typeof(CommunityCase))
+            {
+                CardManager.drawCard(p.playerInfo, "community");
+            }
         }
 
 

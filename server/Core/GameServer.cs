@@ -199,6 +199,11 @@ namespace server
             MatchList.Remove(Resource);
         }
 
+        private void StartBid()
+        {
+
+        }
+
 
         private void getRead()
         {
@@ -291,16 +296,16 @@ namespace server
 
                                             if (p.Type == "drawChance")
                                             {
-
+                                                Console.WriteLine("Pioche carte chance");
                                             }
 
 
                                             if(p.Type == "drawCommunity")
                                             {
-
+                                                Console.WriteLine("Pioche carte community");
                                             }
 
-                                            if(p.Type =="useFreeFromJailCard")
+                                            if (p.Type =="useFreeFromJailCard")
                                             {
 
                                             }

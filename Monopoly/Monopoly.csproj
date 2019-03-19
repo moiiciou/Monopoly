@@ -115,6 +115,9 @@
     <Compile Include="Model\Player\Player.xaml.cs">
       <DependentUpon>Player.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\UI\BidDialog.xaml.cs">
+      <DependentUpon>BidDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\UI\BuyDialog.xaml.cs">
       <DependentUpon>BuyDialog.xaml</DependentUpon>
     </Compile>
@@ -196,6 +199,10 @@
     <Page Include="Model\Player\Player.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Model\UI\BidDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Model\UI\BuyDialog.xaml">
       <SubType>Designer</SubType>

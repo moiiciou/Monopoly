@@ -9,7 +9,7 @@
     <Grid Background="#FFFBFBFB">
         <Canvas HorizontalAlignment="Left" Height="236" Margin="10,109,0,0" VerticalAlignment="Top" Width="202"/>
         <Label Content="Propriété en vente :" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="179" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Enchère la plus haute :" HorizontalAlignment="Left" Margin="206,70,-18,0" VerticalAlignment="Top" Width="212" FontWeight="Bold" FontSize="14"/>
+        <Label Content="Enchère la plus haute :" HorizontalAlignment="Left" Margin="206,70,0,0" VerticalAlignment="Top" Width="194" FontWeight="Bold" FontSize="14"/>
         <Label Content="" HorizontalAlignment="Left" Margin="231,109,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.423,0.017" Width="159" FontSize="18" FontWeight="Bold"/>
         <Label Content="Temps restant :" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="91"/>
         <Label Content="59s" HorizontalAlignment="Left" Margin="119,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.703,-0.105" Width="66"/>
