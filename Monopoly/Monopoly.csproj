@@ -271,16 +271,24 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\blue_button06.png" />
+    <Resource Include="ressources\templates\default\blue_button06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\monopoly-man.jpg" />
+    <Resource Include="ressources\templates\default\monopoly-man.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\money.png" />
+    <Resource Include="ressources\templates\default\money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\player_avatar_test.png" />
+    <Resource Include="ressources\templates\default\player_avatar_test.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\server\server.csproj">
@@ -314,14 +322,18 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\MonopolyManBuy.gif" />
+    <Resource Include="ressources\templates\default\MonopolyManBuy.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\bubble.png" />
+    <Resource Include="ressources\templates\default\bubble.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\avatar\#06d694.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="ressources\templates\default\avatar\#089dd8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -352,7 +364,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\sell_button.png" />
+    <Resource Include="ressources\templates\default\sell_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
