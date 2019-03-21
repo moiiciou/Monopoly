@@ -10,7 +10,10 @@ namespace server
     public  class ThemeParser
     {
 
-        public List<CaseInfo> CasesList = new List<CaseInfo>();
+        public List<PropertyInfo> CasesList = new List<PropertyInfo>();
+        public List<StationInfo> StationList = new List<StationInfo>();
+        public List<CustomInfo> CustomInfo = new List<CustomInfo>();
+        public List<CaseInfo> restinfo = new List<CaseInfo>();
        // public List<UserControl> CommunityList = new List<UserControl>();
        // public List<ChanceCard> ChanceList = new List<ChanceCard>();
        // public List<UserControl> PropertyCardList = new List<UserControl>();
@@ -66,35 +69,35 @@ namespace server
 
                         case "start":
                             StartInfo Start = new StartInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString());
-                            CasesList.Add(Start);
+                            restinfo.Add(Start);
                             break;
 
                         case "custom":
                             CustomInfo Custom = new CustomInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), angle);
-                            CasesList.Add(Custom);
+                            CustomInfo.Add(Custom);
                             break;
 
                         case "chance":
                             ChanceInfo Chance = new ChanceInfo("Chance", "", angle);
-                            CasesList.Add(Chance);
+                            restinfo.Add(Chance);
 
                             break;
 
                         case "community":
                             CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle);
-                            CasesList.Add(Com);
+                            restinfo.Add(Com);
 
                             break;
 
                         case "station":
                             StationInfo Station = new StationInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), angle);
-                            CasesList.Add(Station);
+                            StationList.Add(Station);
 
                             break;
 
                         case "jail":
                             JailInfo Jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString());
-                            CasesList.Add(Jail);
+                            restinfo.Add(Jail);
                             break;
                         default:
                             Console.WriteLine("Error parsing case");
@@ -111,8 +114,31 @@ namespace server
 
 
         }
+        public PropertyInfo searchCaseProperty(string textlbl)
+        {
+            foreach (PropertyInfo c in CasesList)
+            {
+                if (c.Location == textlbl)
+                    return c;
+            }
 
-       public class CaseInfoJson
+            return null;
+        }
+
+        public int searchIndexProperty(string textlbl)
+        {
+            int compteur = 0;
+            foreach (PropertyInfo c in CasesList)
+            {
+                if (c.Location == textlbl)
+                    return compteur;
+                else compteur++;
+            }
+
+            return -1;
+        }
+
+        public class CaseInfoJson
         {
             public int[] position { get; set; }
             public string type { get; set; }
