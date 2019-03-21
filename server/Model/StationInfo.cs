@@ -8,9 +8,9 @@ namespace server.Model
 {
     public class StationInfo : CaseInfo
     {
-       
-      
-        public string Price { get; set; }
+
+        public string Owner;
+        public int Price { get; set; }
         public StationInfo(string text, int price, string skinPath, int angle)
         {
 
@@ -19,6 +19,10 @@ namespace server.Model
             TextLabel = text;
             this.Rotation = angle;
         }
-
+        public StationInfo()
+        {
+            Owner = "";
+            Price = 0;
+        }
     }
 }
