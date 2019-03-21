@@ -265,46 +265,55 @@ namespace server
                                                     player.Position += dice;
                                                     GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer();
                                             }
+                                             if(p.Type == "buyStation")
+                                             {
+                                                 response.Type = "message";
+                                                 Console.WriteLine(p.Content);// le content doit être le nom de la case info.
+                                                 StationInfo cell = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
 
+                                                StationInfo stationToBuy = new StationInfo(); // search station dans la liste dans le themeparser.
+
+
+                                                if ((stationToBuy.Owner == null || stationToBuy.Owner == "") && player.Balance > stationToBuy.Price)
+                                                {
+                                                     player.Balance -= stationToBuy.Price;
+                                                     stationToBuy.Owner = player.Pseudo;
+                                                     player.Stations.Add(stationToBuy);
+                                                    tp.StationList.Remove(stationToBuy);
+                                                    tp.StationList.Add(stationToBuy);
+                                                    response.ChatMessage = Nick.Trim('0') + " achète " + stationToBuy.TextLabel;
+
+                                                 }
+                                                 else
+                                                 {
+                                                     response.ChatMessage = Nick.Trim('0') + " ne peut pas acheter cette station"; // on retourne un message de retour indiquant que la transaction ne s'est pas bien passée.
+                                                 }
+
+
+                                             }
                                             if (p.Type == "buyProperty")
                                             {
+                                               
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);// le content doit être le nom de la case info.
-                                                CaseInfo cell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
-                                                PropertyInfo propertyToBuy = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
-                                                StationInfo stationToBuy = JsonConvert.DeserializeObject<StationInfo>(p.Content);
-                                                //CustomInfo customToBuy = new CustomInfo();
+
+                                                PropertyInfo cell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
+
+                                                PropertyInfo propertyToBuy = tp.searchCaseProperty(cell.Location);
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
 
-                                                Console.WriteLine("-----------------------------------------" + player.ToString());
-                                                Console.WriteLine(p.Content);
-
-                                                if (cell is PropertyInfo)
+                                                // On cherche la case info dans la liste des cases qui sont contenus dans le serveur
+                                                if ((propertyToBuy.Owner == null || propertyToBuy.Owner == "") && player.Balance > propertyToBuy.Price)
                                                 {
-                                                    propertyToBuy = JsonConvert.DeserializeObject<PropertyInfo>(p.Content); // On cherche la case info dans la liste des cases qui sont contenus dans le serveur
-                                                    if (propertyToBuy.Owner != player.Pseudo && propertyToBuy.Owner != "" && player.Balance > propertyToBuy.Price) // on check si la propriété est libre et que le joueur ait assez d'argent pour l'acheter
-                                                    {
-
-                                                        player.Balance -= propertyToBuy.Price;
-                                                        propertyToBuy.Owner = player.Pseudo;
-                                                        player.Properties.Add(propertyToBuy);
-                                                        response.ChatMessage = Nick.Trim('0') + " achète " + propertyToBuy.TextLabel; // on initialise un message de retour
-
-                                                    }
+                                                    player.Balance -= propertyToBuy.Price;
+                                                    propertyToBuy.Owner = player.Pseudo;
+                                                    player.Properties.Add(propertyToBuy);
+                                                    tp.CasesList.Remove(propertyToBuy);
+                                                    tp.CasesList.Add(propertyToBuy);          
+                                                    response.ChatMessage = Nick.Trim('0') + " achète " + propertyToBuy.Location;  // on initialise un message de retour
                                                 }
-                                                else if (cell is StationInfo)
-                                                { // comme au dessus
-                                                    stationToBuy = (StationInfo)tp.searchCase(cell.TextLabel);
-                                                    if (stationToBuy.Owner != player.Pseudo && stationToBuy.Owner != "" && player.Balance > stationToBuy.Price)
-                                                    {
-                                                        player.Balance -= stationToBuy.Price;
-                                                        stationToBuy.Owner = player.Pseudo;
-                                                        player.Stations.Add(stationToBuy);
-                                                        response.ChatMessage = Nick.Trim('0') + " achète " + stationToBuy.TextLabel;
 
-                                                    }
-
-                                                }
                                                 /*else if (cell is CustomInfo)
                                                 { // de même pour les cases spéciales où l'on doit tirer les dés.
                                                     customToBuy = (CustomInfo)tp.searchCase(cell.TextLabel);
@@ -320,7 +329,7 @@ namespace server
                                                 }*/
                                                 else
                                                 {
-                                                    response.ChatMessage = Nick.Trim('0') + " ne peut pas acheter de propriété"; // on retourne un message de retour indiquant que la transaction ne s'est pas bien passée.
+                                                    response.ChatMessage = Nick.Trim('0') + " ne peut pas acheter cette propriété"; // on retourne un message de retour indiquant que la transaction ne s'est pas bien passée.
                                                 }
                                             }
 
