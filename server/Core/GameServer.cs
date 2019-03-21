@@ -297,20 +297,28 @@ namespace server
                                             if (p.Type == "drawChance")
                                             {
                                                 Console.WriteLine("Pioche carte chance");
+                                                // Envoyé la carte dans le packet.ServerMessage
+                                                //prendre une carte au hasard dans la liste de carte
+                                                //Appliquer les effets
+                                                //Si carte sortir de prison -> la retirer de la liste tant que le joueur ne l'a pas utilisé
+
                                             }
 
 
                                             if(p.Type == "drawCommunity")
                                             {
                                                 Console.WriteLine("Pioche carte community");
+                                                // Envoyé la carte dans le packet.ServerMessage
+                                                //Appliquer les effets
+                                                //prendre une carte au hasard dans la liste de carte
+
                                             }
 
                                             if (p.Type =="useFreeFromJailCard")
                                             {
-
                                             }
 
-                                            if(p.Type == "buildHouse") // Maison + hotel
+                                            if (p.Type == "buildHouse") // Maison + hotel
                                             {
                                                 Console.WriteLine("Construction d'une maison demandé");
                                                 Console.WriteLine(p.Content);
