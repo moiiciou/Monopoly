@@ -309,8 +309,7 @@ namespace server
                                                     player.Balance -= propertyToBuy.Price;
                                                     propertyToBuy.Owner = player.Pseudo;
                                                     player.Properties.Add(propertyToBuy);
-                                                    tp.CasesList.Remove(propertyToBuy);
-                                                    tp.CasesList.Add(propertyToBuy);          
+                                                    tp.CasesList.ElementAt(tp.searchIndexProperty(propertyToBuy.Location)).Owner = player.Pseudo;    
                                                     response.ChatMessage = Nick.Trim('0') + " achète " + propertyToBuy.Location;  // on initialise un message de retour
                                                 }
 
