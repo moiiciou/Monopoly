@@ -266,29 +266,29 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\blue_button05.png">
+    <None Include="ressources\templates\default\blue_button05.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\blue_button06.png">
+    <None Include="ressources\templates\default\blue_button06.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\monopoly-man.jpg">
+    <None Include="ressources\templates\default\monopoly-man.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\money.png">
+    <None Include="ressources\templates\default\money.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\player_avatar_test.png">
+    <None Include="ressources\templates\default\player_avatar_test.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\server\server.csproj">
@@ -297,76 +297,76 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\house_button.png">
+    <None Include="ressources\templates\default\house_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\house.png">
+    <None Include="ressources\templates\default\house.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\house2.png">
+    <None Include="ressources\templates\default\house2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\house3.png">
+    <None Include="ressources\templates\default\house3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\house4.png">
+    <None Include="ressources\templates\default\house4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\MonopolyManBuy.gif">
+    <None Include="ressources\templates\default\MonopolyManBuy.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\bubble.png">
+    <None Include="ressources\templates\default\bubble.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\avatar\#06d694.png">
+    <None Include="ressources\templates\default\avatar\#06d694.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#089dd8.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#089dd8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#0ea02b.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#0ea02b.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#0f08d8.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#0f08d8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#6408db.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#6408db.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#e50daf.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#e50daf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#e58612.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#e58612.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#ea0e0e.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#ea0e0e.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#eaf213.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#eaf213.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#ff865e.png">
+    </None>
+    <None Include="ressources\templates\default\avatar\#ff865e.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\sell_button.png">
+    <None Include="ressources\templates\default\sell_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
