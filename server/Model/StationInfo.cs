@@ -8,16 +8,20 @@ namespace server.Model
 {
     class StationInfo : CaseInfo
     {
-       
+        public string Owner { get; set; }
       
-        public string Price { get; set; }
+        public int Price { get; set; }
         public StationInfo(string text, int price, string skinPath, int angle)
         {
 
             this.ImageTemplate = skinPath;
-
+            Price = price;
             TextLabel = text;
             this.Rotation = angle;
+        }
+        public StationInfo()
+        {
+
         }
 
     }

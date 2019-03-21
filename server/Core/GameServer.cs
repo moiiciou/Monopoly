@@ -266,16 +266,57 @@ namespace server
                                             if (p.Type == "buyProperty")
                                             {
                                                 response.Type = "message";
-                                                Console.WriteLine(p.Content);
-                                                PropertyInfo propertyToBuy = JsonConvert.DeserializeObject<PropertyInfo>(p.Content); // mettre la bonne case  de game data
-                                                /*
-                                                 * Faire les check necessaire pour savoir si je peux acheter la propriété
-                                                 */
+                                                Console.WriteLine(p.Content);// le content doit être le nom de la case info.
+                                                CaseInfo cell = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
+                                                PropertyInfo propertyToBuy = new PropertyInfo();
+                                                StationInfo stationToBuy = new StationInfo();
+                                                CustomInfo customToBuy = new CustomInfo();
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                player.Balance -= propertyToBuy.Price;
-                                                propertyToBuy.Owner = player.Pseudo;
-                                                player.Estates.Add(propertyToBuy);
-                                                response.ChatMessage = Nick.Trim('0') +" achete une propriete";
+
+                                                if (cell is PropertyInfo)
+                                                {
+                                                    propertyToBuy = (PropertyInfo)tp.searchCase(cell.TextLabel); // On cherche la case info dans la liste des cases qui sont contenus dans le serveur
+                                                    if (propertyToBuy.Owner != player.Pseudo && propertyToBuy.Owner != "" && player.Balance > propertyToBuy.Price) // on check si la propriété est libre et que le joueur ait assez d'argent pour l'acheter
+                                                    {
+                                                        player.Balance -= propertyToBuy.Price;
+                                                        propertyToBuy.Owner = player.Pseudo;
+                                                        player.Estates.Add(propertyToBuy);
+                                                        response.ChatMessage = Nick.Trim('0') + " achète " + propertyToBuy.TextLabel; // on initialise un message de retour
+
+                                                    }
+                                                }
+                                                else if (cell is StationInfo)
+                                                { // comme au dessus
+                                                    stationToBuy = (StationInfo)tp.searchCase(cell.TextLabel);
+                                                    if (stationToBuy.Owner != player.Pseudo && stationToBuy.Owner != "" && player.Balance > stationToBuy.Price)
+                                                    {
+                                                        player.Balance -= stationToBuy.Price;
+                                                        stationToBuy.Owner = player.Pseudo;
+                                                        player.Estates.Add(stationToBuy);
+                                                        response.ChatMessage = Nick.Trim('0') + " achète " + stationToBuy.TextLabel;
+
+                                                    }
+
+                                                }
+                                                else if(cell is CustomInfo)
+                                                { // de même pour les cases spéciales où l'on doit tirer les dés.
+                                                    customToBuy = (CustomInfo)tp.searchCase(cell.TextLabel);
+
+                                                    if (customToBuy.Owner != player.Pseudo && customToBuy.Owner != "" && player.Balance > customToBuy.Income)
+                                                    {
+                                                        player.Balance -= customToBuy.Income;
+                                                        customToBuy.Owner = player.Pseudo;
+                                                        player.Estates.Add(customToBuy);
+                                                        response.ChatMessage = Nick.Trim('0') + " achète " + customToBuy.TextLabel;
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = Nick.Trim('0') + " ne peut pas acheter de propriété"; // on retourne un message de retour indiquant que la transaction ne s'est pas bien passée.
+                                                }
+
+                                                
                                             }
 
                                             if (p.Type == "sellProperty")

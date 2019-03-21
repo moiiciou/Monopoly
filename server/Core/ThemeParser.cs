@@ -109,10 +109,23 @@ namespace server
                 }
             }
 
+            
 
         }
+        public CaseInfo searchCase(string textlbl)
+        {
+            foreach (CaseInfo c in CasesList)
+            {
+                if (c.TextLabel == textlbl)
+                    return c;
+            }
 
-       public class CaseInfoJson
+            return null;
+        }
+
+
+
+        public class CaseInfoJson
         {
             public int[] position { get; set; }
             public string type { get; set; }
