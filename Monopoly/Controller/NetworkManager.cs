@@ -123,10 +123,17 @@ namespace Monopoly.Controller
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
                                     Console.WriteLine(messageReceived);
                                     string json = Tools.CleanJson(messageReceived);
+                                    Packet p = new Packet();
+                                    try
+                                    {
+                                        p = JsonConvert.DeserializeObject<Packet>(json);
 
-                                    Packet p = JsonConvert.DeserializeObject<Packet>(json);
+                                    }
 
+                                    catch
+                                    {
 
+                                    }
 
 
 
