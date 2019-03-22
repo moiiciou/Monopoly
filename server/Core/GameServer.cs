@@ -257,41 +257,39 @@ namespace server
                                             if (p.Type == "moove")
                                             {
 
-                                                    Random rnd = new Random();
-                                                    int dice = rnd.Next(1, 13);
-                                                    response.Type = "message";
-                                                    response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
-                                                    PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                    player.Position += dice;
-                                                    GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer();
+                                                Random rnd = new Random();
+                                                int dice = rnd.Next(1, 13);
+                                                response.Type = "message";
+                                                response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                player.Position += dice;
+                                                GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer();
                                             }
-                                             if(p.Type == "buyStation")
-                                             {
-                                                 response.Type = "message";
-                                                 Console.WriteLine(p.Content);// le content doit être le nom de la case info.
-                                                 StationInfo cell = JsonConvert.DeserializeObject<StationInfo>(p.Content);
-                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                            if (p.Type == "buyStation")
+                                            {
+                                                response.Type = "message";
+                                                Console.WriteLine(p.Content);// le content doit être le nom de la case info.
+                                                StationInfo cell = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
 
                                                 StationInfo stationToBuy = new StationInfo(); // search station dans la liste dans le themeparser.
 
 
                                                 if ((stationToBuy.Owner == null || stationToBuy.Owner == "") && player.Balance > stationToBuy.Price)
                                                 {
-                                                     player.Balance -= stationToBuy.Price;
-                                                     stationToBuy.Owner = player.Pseudo;
-                                                     player.Stations.Add(stationToBuy);
-                                                    tp.StationList.Remove(stationToBuy);
-                                                    tp.StationList.Add(stationToBuy);
+                                                    player.Balance -= stationToBuy.Price;
+                                                    stationToBuy.Owner = player.Pseudo;
+                                                    player.Stations.Add(stationToBuy);
                                                     response.ChatMessage = Nick.Trim('0') + " achète " + stationToBuy.TextLabel;
 
-                                                 }
-                                                 else
-                                                 {
-                                                     response.ChatMessage = Nick.Trim('0') + " ne peut pas acheter cette station"; // on retourne un message de retour indiquant que la transaction ne s'est pas bien passée.
-                                                 }
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = Nick.Trim('0') + " ne peut pas acheter cette station"; // on retourne un message de retour indiquant que la transaction ne s'est pas bien passée.
+                                                }
 
 
-                                             }
+                                            }
                                             if (p.Type == "buyProperty")
                                             {
                                                
@@ -308,8 +306,7 @@ namespace server
                                                 {
                                                     player.Balance -= propertyToBuy.Price;
                                                     propertyToBuy.Owner = player.Pseudo;
-                                                    player.Properties.Add(propertyToBuy);
-                                                    tp.CasesList.ElementAt(tp.searchIndexProperty(propertyToBuy.Location)).Owner = player.Pseudo;    
+                                                    player.Properties.Add(propertyToBuy);   
                                                     response.ChatMessage = Nick.Trim('0') + " achète " + propertyToBuy.Location;  // on initialise un message de retour
                                                 }
 
@@ -358,11 +355,37 @@ namespace server
 
                                             }
 
-                                            if(p.Type == "buildHouse") // Maison + hotel
+                                            if (p.Type == "buildHouse") // Maison + hotel
                                             {
+
                                                 Console.WriteLine("Construction d'une maison demandé");
                                                 Console.WriteLine(p.Content);
-                                                response.ChatMessage = Nick.Trim('0') + " construit une maison";
+
+                                                PropertyInfo cell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+
+                                                if (cell.Location != null || cell.Location != "") // je check si la propriété possède un nom
+                                                {
+                                                    PropertyInfo propertyToBuild = tp.searchCaseProperty(cell.Location);
+                                                    if (propertyToBuild.NumberOfHouse < 4 && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas le nombre maximale de maison
+                                                    {
+                                                        propertyToBuild.NumberOfHouse++;
+                                                        player.Balance -= propertyToBuild.HouseCost;
+                                                        response.ChatMessage = Nick.Trim('0') + " construit une maison sur le terrain " + propertyToBuild.Location;
+                                                    }
+                                                    else if (propertyToBuild.NumberOfHouse == 4 && !propertyToBuild.HasHostel && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas d'hotel
+                                                    {
+                                                        player.Balance -= propertyToBuild.HostelCost;
+                                                        propertyToBuild.HasHostel = true;
+                                                        response.ChatMessage = Nick.Trim('0') + " construit un hotel sur le terrain " + propertyToBuild.Location;
+                                                    }
+                                                    else // sinon on renvoie un message indiquant qu'on ne peut pas construire.
+                                                    {
+                                                        response.ChatMessage = Nick.Trim('0') + " ne peut pas construire sur le terrain " + propertyToBuild.Location;
+                                                    }
+
+
+                                                }
 
                                             }
 
