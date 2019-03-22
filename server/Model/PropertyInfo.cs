@@ -46,8 +46,10 @@ namespace server.Model
 
         public string Color { get; set; }
 
-        public PropertyInfo(string propertyName, int houseCost, int hotelCost, int rentWith1house, int rentWith2house, int rentWith3house, int rentWith4house, int rentWithHotel, int rentValue, int mortgageValue,  string color, int angle, int price)
+        public PropertyInfo(string propertyName, int houseCost, int hotelCost, int rentWith1house, int rentWith2house, int rentWith3house, int rentWith4house, int rentWithHotel, int rentValue, int mortgageValue,  string color, int angle, int price, int posPlateau)
         {
+            positionPlateau = posPlateau;
+        
             Price = price;
             TxtPrice = price.ToString() + "€";
             Location = propertyName;

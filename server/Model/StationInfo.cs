@@ -11,8 +11,9 @@ namespace server.Model
 
         public string Owner;
         public int Price { get; set; }
-        public StationInfo(string text, int price, string skinPath, int angle)
+        public StationInfo(string text, int price, string skinPath, int angle, int posPlateau)
         {
+            positionPlateau = posPlateau;
 
             this.ImageTemplate = skinPath;
 

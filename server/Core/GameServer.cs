@@ -260,10 +260,33 @@ namespace server
                                                 Random rnd = new Random();
                                                 int dice = rnd.Next(1, 13);
                                                 response.Type = "message";
-                                                response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
+                                                
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                player.Position += dice;
-                                                GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer();
+                                                if(GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") // on check si le jeu à commencer
+                                                {
+                                                    GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on init le premier joueur à bouger
+                                                }
+                                                if (GameData.GetGameData.CurrentPlayerTurn == player.Pseudo) // on check si c'est le tour du joueur qui a envoyé le packet.
+                                                {
+                                                    response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
+                                                    player.Position += dice; 
+                                                
+                                                    PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
+                                                    if (propRent != null && player.Pseudo != propRent.Owner)
+                                                    {
+                                                        int rent = RentManager.computeRent(propRent, player, tp);
+
+                                                        player.Balance -= rent;
+                                                        response.ChatMessage += " Le joueur  "+player.Pseudo + " paie " + rent+ "€ à " + propRent.Owner;
+                                                        PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+
+                                                    }
+                                                    GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au joueur suivant.
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = "Ce n'est pas au tour de "+ player.Pseudo;
+                                                }
                                             }
                                             if (p.Type == "buyStation")
                                             {
@@ -386,6 +409,11 @@ namespace server
 
 
                                                 }
+                                                if(p.Type == "finTour")
+                                                {
+                                                    // get le tour du joueur suivant.
+                                                }
+                                           
 
                                             }
 

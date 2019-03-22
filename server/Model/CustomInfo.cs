@@ -9,8 +9,10 @@ namespace server.Model
     public class CustomInfo : CaseInfo
     {
         public int Income;
-        public CustomInfo(string text, int income, string skinPath, int angle)
+        public CustomInfo(string text, int income, string skinPath, int angle, int posPlateau)
         {
+            positionPlateau = posPlateau;
+
             Rotation = angle;
             Income = income;
             TextLabel = text;

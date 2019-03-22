@@ -9,8 +9,9 @@ namespace server.Model
     public class CommunityInfo : CaseInfo
     {
 
-        public CommunityInfo(string text, string skinPath, int angle)
+        public CommunityInfo(string text, string skinPath, int angle, int posPlateau)
         {
+            positionPlateau = posPlateau;
             this.Rotation = angle;
             TextLabel = text;
             ImageTemplate = skinPath;
@@ -22,8 +23,9 @@ namespace server.Model
     public class ChanceInfo : CaseInfo
     {
 
-        public ChanceInfo(string text, string skinPath, int angle)
+        public ChanceInfo(string text, string skinPath, int angle, int posPlateau)
         {
+            positionPlateau = posPlateau;
             this.Rotation = angle;
             TextLabel = text;
             ImageTemplate = skinPath;
