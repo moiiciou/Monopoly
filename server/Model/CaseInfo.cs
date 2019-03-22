@@ -3,6 +3,7 @@
     public partial class CaseInfo
     {
        public string ImageTemplate { get; set; }
+        public int positionPlateau { get; set; }
       /*  public string Location { get; set; }
         public int Price { get; set; }
         public int Rent { get; set; }

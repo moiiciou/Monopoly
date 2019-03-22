@@ -25,11 +25,12 @@ namespace server
                 string json = r.ReadToEnd();
                 GameElement items = JsonConvert.DeserializeObject<GameElement>(json);
 
-              /*  foreach (var item in items.Chance)
-                {
-                    ChanceCard Card = new ChanceCard(item.title, item.text, item.effect);
-                    ChanceList.Add(Card);
-                }*/
+                /*  foreach (var item in items.Chance)
+                  {
+                      ChanceCard Card = new ChanceCard(item.title, item.text, item.effect);
+                      ChanceList.Add(Card);
+                  }*/
+                int compteur = 0;
 
                 foreach (var item in items.Case)
                 {
@@ -59,7 +60,8 @@ namespace server
                                 Convert.ToInt16(item.caseAttributes["rent"]), 
                                 Convert.ToInt16(item.caseAttributes["mortgageValue"]), 
                                 item.caseAttributes["color"].ToString(), angle, 
-                                Convert.ToInt16(item.caseAttributes["price"]));
+                                Convert.ToInt16(item.caseAttributes["price"]),
+                                compteur);
                             // CaseInfo Property = new PropertyCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), item.caseAttributes["color"].ToString(), angle, item.position, CardProperty);
                             //CasesList.Add(Property);
 
@@ -68,35 +70,35 @@ namespace server
                             break;
 
                         case "start":
-                            StartInfo Start = new StartInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString());
+                            StartInfo Start = new StartInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), compteur);
                             restinfo.Add(Start);
                             break;
 
                         case "custom":
-                            CustomInfo Custom = new CustomInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), angle);
+                            CustomInfo Custom = new CustomInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), angle, compteur);
                             CustomInfo.Add(Custom);
                             break;
 
                         case "chance":
-                            ChanceInfo Chance = new ChanceInfo("Chance", "", angle);
+                            ChanceInfo Chance = new ChanceInfo("Chance", "", angle, compteur);
                             restinfo.Add(Chance);
 
                             break;
 
                         case "community":
-                            CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle);
+                            CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
                             restinfo.Add(Com);
 
                             break;
 
                         case "station":
-                            StationInfo Station = new StationInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), angle);
+                            StationInfo Station = new StationInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), angle, compteur);
                             StationList.Add(Station);
 
                             break;
 
                         case "jail":
-                            JailInfo Jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString());
+                            JailInfo Jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), compteur);
                             restinfo.Add(Jail);
                             break;
                         default:
@@ -104,6 +106,7 @@ namespace server
 
                             break;
                     }
+                    compteur++;
                 }
 
                 foreach (var item in items.Community)
@@ -136,6 +139,18 @@ namespace server
             }
 
             return -1;
+        }
+
+        public PropertyInfo searchIndexPropertyAtPos(int pos)
+        {
+            foreach (PropertyInfo p in CasesList)
+            {
+                if(p.positionPlateau == pos)
+                {
+                    return p;
+                }
+            }
+            return null;
         }
 
         public class CaseInfoJson
