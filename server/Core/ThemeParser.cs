@@ -12,8 +12,9 @@ namespace server
 
         public List<PropertyInfo> CasesList = new List<PropertyInfo>();
         public List<StationInfo> StationList = new List<StationInfo>();
-        public List<CustomInfo> CustomInfo = new List<CustomInfo>();
+        public List<CustomInfo> CustomList = new List<CustomInfo>();
         public List<CaseInfo> restinfo = new List<CaseInfo>();
+        public JailInfo jail;
        // public List<UserControl> CommunityList = new List<UserControl>();
        // public List<ChanceCard> ChanceList = new List<ChanceCard>();
        // public List<UserControl> PropertyCardList = new List<UserControl>();
@@ -76,7 +77,7 @@ namespace server
 
                         case "custom":
                             CustomInfo Custom = new CustomInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["income"]), item.caseAttributes["skin"].ToString(), angle, compteur);
-                            CustomInfo.Add(Custom);
+                            CustomList.Add(Custom);
                             break;
 
                         case "chance":
@@ -98,8 +99,8 @@ namespace server
                             break;
 
                         case "jail":
-                            JailInfo Jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), compteur);
-                            restinfo.Add(Jail);
+                            jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), compteur);
+                            restinfo.Add(jail);
                             break;
                         default:
                             Console.WriteLine("Error parsing case");
@@ -126,6 +127,31 @@ namespace server
             }
 
             return null;
+        }
+
+        public int searchPosGoToJail()
+        {
+            foreach(CustomInfo c in CustomList)
+            {
+                if(c.TextLabel == "ALLEZ EN PRISON !")
+                {
+                    return c.positionPlateau;
+                }
+            }
+            return -1;
+        }
+
+        public int searchPositionJail()
+        {
+            foreach (CaseInfo c in restinfo)
+            {
+                if (c.TextLabel == "PRISON")
+                {
+                    return c.positionPlateau;
+                }
+            }
+            return -1;
+
         }
 
         public int searchIndexProperty(string textlbl)

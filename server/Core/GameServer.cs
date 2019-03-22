@@ -258,7 +258,8 @@ namespace server
                                             {
 
                                                 Random rnd = new Random();
-                                                int dice = rnd.Next(1, 13);
+                                                int dice1 = rnd.Next(1, 7);
+                                                int dice2 = rnd.Next(1, 7);
                                                 response.Type = "message";
                                                 
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
@@ -268,17 +269,43 @@ namespace server
                                                 }
                                                 if (GameData.GetGameData.CurrentPlayerTurn == player.Pseudo) // on check si c'est le tour du joueur qui a envoyé le packet.
                                                 {
-                                                    response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
-                                                    player.Position += dice; 
+
+                                                    if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
+                                                    {
+                                                        int nbCase = dice1 + dice2;
+                                                        response.ChatMessage = Nick.Trim('0') + " avance de " + nbCase;
+                                                        player.Position += nbCase;
+                                                    }
+                                                    else // le joueur est en prison
+                                                    {
+                                                        if(dice1 == dice2)
+                                                        {
+
+                                                            response.ChatMessage = Nick.Trim('0') + " est libéré  et avance de "+ dice1 + " + " + dice2;
+                                                            player.isInJail = false;
+                                                            player.Position += dice1 + dice2; 
+                                                        }
+                                                        response.ChatMessage = Nick.Trim('0') + " est en prison et a fait le jet de dés : "+ dice1 + ", "+dice2;
+                                                        
+                                                    }
+
+                                                    if(player.Position == tp.searchPosGoToJail()) // on check si le joueur atterri en prison ou non.
+                                                    {
+                                                        player.Position = tp.searchPositionJail();
+                                                        player.isInJail = true;
+                                                    }
+
                                                 
                                                     PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
                                                     if (propRent != null && player.Pseudo != propRent.Owner)
                                                     {
                                                         int rent = RentManager.computeRent(propRent, player, tp);
-
-                                                        player.Balance -= rent;
-                                                        response.ChatMessage += " Le joueur  "+player.Pseudo + " paie " + rent+ "€ à " + propRent.Owner;
-                                                        PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                        if (rent > 0)
+                                                        {
+                                                            player.Balance -= rent;
+                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                            PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                        }
 
                                                     }
                                                     GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au joueur suivant.
@@ -356,9 +383,33 @@ namespace server
                                             {
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);
-                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
+                                                PropertyInfo propertyToSell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                if (propertyToSell != null && propertyToSell.Owner == player.Pseudo)
+                                                {
+                                                    player.Balance += propertyToSell.Price;
+                                                    player.Properties.Remove(propertyToSell);
+                                                   
+                                                    player.Balance += (propertyToSell.NumberOfHouse * propertyToSell.HouseCost) /2;
+                                                    if (propertyToSell.HasHostel)
+                                                    {
+                                                        player.Balance += propertyToSell.HostelCost / 2;
+
+                                                    }
+
+                                                    tp.searchCaseProperty(propertyToSell.Location).Owner = null;
+                                                    tp.searchCaseProperty(propertyToSell.Location).NumberOfHouse = 0;
+                                                    tp.searchCaseProperty(propertyToSell.Location).HasHostel = false;
+                                                    
+                                                    response.ChatMessage = Nick.Trim('0') + " vend la propriété " + propertyToSell.Location;
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = Nick.Trim('0') + " ne peut pas vendre la propriété " + propertyToSell.Location;
+                                                }
+
   
-                                                response.ChatMessage = Nick.Trim('0') + " vend une propriete";
+                                               
                                             }
 
 
@@ -378,6 +429,25 @@ namespace server
 
                                             }
 
+                                            if(p.Type == "payFreedom")
+                                            {
+                                                response.Type = "message";
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0')); 
+
+                                                if(tp.jail.priceOfFreedom< player.Balance) // si le joueur peut payer.
+                                                {
+                                                    player.Balance -= tp.jail.priceOfFreedom;
+                                                    player.isInJail = false;
+                                                    response.ChatMessage = player.Pseudo + " a payé " + tp.jail.priceOfFreedom + " et est sorti de prison.";
+
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = player.Pseudo + " n'a pas les fonds disponibles pour sortir de prison. ("+ tp.jail.priceOfFreedom+"€ )";
+                                                }
+                                                GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au tour suivant
+                                            }
+
                                             if (p.Type == "buildHouse") // Maison + hotel
                                             {
 
@@ -390,21 +460,28 @@ namespace server
                                                 if (cell.Location != null || cell.Location != "") // je check si la propriété possède un nom
                                                 {
                                                     PropertyInfo propertyToBuild = tp.searchCaseProperty(cell.Location);
-                                                    if (propertyToBuild.NumberOfHouse < 4 && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas le nombre maximale de maison
+                                                    if (propertyToBuild.Owner == player.Pseudo)
                                                     {
-                                                        propertyToBuild.NumberOfHouse++;
-                                                        player.Balance -= propertyToBuild.HouseCost;
-                                                        response.ChatMessage = Nick.Trim('0') + " construit une maison sur le terrain " + propertyToBuild.Location;
+                                                        if (propertyToBuild.NumberOfHouse < 4 && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas le nombre maximale de maison
+                                                        {
+                                                            propertyToBuild.NumberOfHouse++;
+                                                            player.Balance -= propertyToBuild.HouseCost;
+                                                            response.ChatMessage = Nick.Trim('0') + " construit une maison sur le terrain " + propertyToBuild.Location;
+                                                        }
+                                                        else if (propertyToBuild.NumberOfHouse == 4 && !propertyToBuild.HasHostel && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas d'hotel
+                                                        {
+                                                            player.Balance -= propertyToBuild.HostelCost;
+                                                            propertyToBuild.HasHostel = true;
+                                                            response.ChatMessage = Nick.Trim('0') + " construit un hotel sur le terrain " + propertyToBuild.Location;
+                                                        }
+                                                        else // sinon on renvoie un message indiquant qu'on ne peut pas construire.
+                                                        {
+                                                            response.ChatMessage = Nick.Trim('0') + " ne peut pas construire sur le terrain " + propertyToBuild.Location;
+                                                        }
                                                     }
-                                                    else if (propertyToBuild.NumberOfHouse == 4 && !propertyToBuild.HasHostel && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas d'hotel
+                                                    else
                                                     {
-                                                        player.Balance -= propertyToBuild.HostelCost;
-                                                        propertyToBuild.HasHostel = true;
-                                                        response.ChatMessage = Nick.Trim('0') + " construit un hotel sur le terrain " + propertyToBuild.Location;
-                                                    }
-                                                    else // sinon on renvoie un message indiquant qu'on ne peut pas construire.
-                                                    {
-                                                        response.ChatMessage = Nick.Trim('0') + " ne peut pas construire sur le terrain " + propertyToBuild.Location;
+                                                        response.ChatMessage = Nick.Trim('0') + " n'est pas propriétaire du terrain " + propertyToBuild.Location;
                                                     }
 
 

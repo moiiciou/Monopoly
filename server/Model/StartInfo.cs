@@ -25,11 +25,11 @@ namespace server.Model
 
     public class JailInfo : CaseInfo
     {
-
+        public int priceOfFreedom;
         public JailInfo(string text, string skinPath, int posPlateau)
         {
             positionPlateau = posPlateau;
-
+            priceOfFreedom = 50;
             TextLabel = text;
             ImageTemplate = skinPath;
 
