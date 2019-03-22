@@ -81,5 +81,17 @@ namespace Monopoly.Core
 
             return null;
         }
+
+        public static string CleanJson(string json)
+        {
+            int indexLastValidChar = 0;
+            for (int i = 0; i < json.Length; i++)
+            {
+                if (json[i] == '}')
+                    indexLastValidChar = i;
+            }
+
+            return json.Remove(indexLastValidChar+1);
+        }
     }
 }

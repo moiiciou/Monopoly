@@ -27,12 +27,16 @@ namespace server
         public static int initBalance = 10000;
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
+#pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
+#pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
 
         public void Start()
         {
 
+#pragma warning disable CS0618 // 'Dns.Resolve(string)' est obsolète : 'Resolve is obsoleted for this type, please use GetHostEntry instead. http://go.microsoft.com/fwlink/?linkid=14202'
             IPHostEntry ipHostEntry = Dns.Resolve(Dns.GetHostName());
+#pragma warning restore CS0618 // 'Dns.Resolve(string)' est obsolète : 'Resolve is obsoleted for this type, please use GetHostEntry instead. http://go.microsoft.com/fwlink/?linkid=14202'
             IPAddress ipAddress = ipHostEntry.AddressList[0];
             Console.WriteLine("IP=" + ipAddress.ToString());
             Socket CurrentClient = null;

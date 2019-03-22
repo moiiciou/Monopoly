@@ -15,8 +15,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+#pragma warning disable CS0105 // La directive using de 'System.Linq' est apparue précédemment dans cet espace de noms
 using System.Linq;
+#pragma warning restore CS0105 // La directive using de 'System.Linq' est apparue précédemment dans cet espace de noms
+#pragma warning disable CS0105 // La directive using de 'System' est apparue précédemment dans cet espace de noms
 using System;
+#pragma warning restore CS0105 // La directive using de 'System' est apparue précédemment dans cet espace de noms
 using Monopoly.Model.Case;
 using Newtonsoft.Json;
 using System.Net.Sockets;

@@ -1,4 +1,5 @@
-﻿using Monopoly.Model.Board;
+﻿using Monopoly.Core;
+using Monopoly.Model.Board;
 using Monopoly.Model.Case;
 using Monopoly.Model.UI;
 using Newtonsoft.Json;
@@ -117,12 +118,15 @@ namespace Monopoly.Controller
                                 try
                                 {
 
-                                    byte[] msg = new Byte[ClientSocket.Available];
-                                    ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
+                                    byte[] msg = new Byte[ClientSocket.ReceiveBufferSize];
+                                    ClientSocket.Receive(msg, 0, ClientSocket.ReceiveBufferSize, SocketFlags.None);
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
                                     Console.WriteLine(messageReceived);
-                                    string json = messageReceived;
+                                    string json = Tools.CleanJson(messageReceived);
+
                                     Packet p = JsonConvert.DeserializeObject<Packet>(json);
+
+
 
 
 
@@ -155,7 +159,7 @@ namespace Monopoly.Controller
                                                 //Update l'affichage des infos du joueur
                                                 PlayerInterface playerHudPanel2 = (PlayerInterface)GameManager.controls["playerHud"];
                                                 playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel2.UpdateBalanceByPlayerInfo), player);
-                                                playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel2.UpdateProperty), player);
+                                               // playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel2.UpdateProperty), player);
 
 
                                                 //Update les propriétés sur le board

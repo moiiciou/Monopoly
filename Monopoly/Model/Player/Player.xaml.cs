@@ -18,8 +18,12 @@ namespace Monopoly.Model
     {
 
         #region Attributs
+#pragma warning disable CS0169 // Le champ 'Player._position' n'est jamais utilisé
         private int _position;
+#pragma warning restore CS0169 // Le champ 'Player._position' n'est jamais utilisé
+#pragma warning disable CS0169 // Le champ 'Player._canMoove' n'est jamais utilisé
         private bool _canMoove;
+#pragma warning restore CS0169 // Le champ 'Player._canMoove' n'est jamais utilisé
         public int grid;
         public PlayerInfoDisplay playerInfoDisplay;
         public event PropertyChangedEventHandler PropertyChanged;
