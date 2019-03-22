@@ -140,6 +140,18 @@ namespace server
             }
             return -1;
         }
+       public List<PropertyInfo> searchCasePropertyOfColor(string color)
+        {
+            List<PropertyInfo> lp = new List<PropertyInfo>();
+            foreach(PropertyInfo p in CasesList)
+            {
+                if(p.Color == color)
+                {
+                    lp.Add(p);
+                }
+            }
+            return lp;
+        }
 
         public int searchPositionJail()
         {

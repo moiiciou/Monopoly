@@ -273,7 +273,7 @@ namespace server
                                                     if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
                                                     {
                                                         int nbCase = dice1 + dice2;
-                                                        response.ChatMessage = Nick.Trim('0') + " avance de " + nbCase;
+                                                        response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", "+ dice2;
                                                         player.Position += nbCase;
                                                     }
                                                     else // le joueur est en prison
@@ -289,7 +289,7 @@ namespace server
                                                         
                                                     }
 
-                                                    if(player.Position == tp.searchPosGoToJail()) // on check si le joueur atterri en prison ou non.
+                                                    if(player.Position %40 == tp.searchPosGoToJail()) // on check si le joueur atterri en prison ou non.
                                                     {
                                                         player.Position = tp.searchPositionJail();
                                                         player.isInJail = true;
@@ -385,10 +385,10 @@ namespace server
                                                 Console.WriteLine(p.Content);
                                                 PropertyInfo propertyToSell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                if (propertyToSell != null && propertyToSell.Owner == player.Pseudo)
+                                                if (propertyToSell != null && propertyToSell.Owner == player.Pseudo && PlayerManager.searchProperty(player,propertyToSell.Location) != null)
                                                 {
                                                     player.Balance += propertyToSell.Price;
-                                                    player.Properties.Remove(propertyToSell);
+                                                    player.Properties.Remove(PlayerManager.searchProperty(player, propertyToSell.Location));
                                                    
                                                     player.Balance += (propertyToSell.NumberOfHouse * propertyToSell.HouseCost) /2;
                                                     if (propertyToSell.HasHostel)
@@ -462,21 +462,41 @@ namespace server
                                                     PropertyInfo propertyToBuild = tp.searchCaseProperty(cell.Location);
                                                     if (propertyToBuild.Owner == player.Pseudo)
                                                     {
-                                                        if (propertyToBuild.NumberOfHouse < 4 && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas le nombre maximale de maison
+                                                        List<PropertyInfo> listColor = tp.searchCasePropertyOfColor(propertyToBuild.Color);
+                                                        if (listColor.Count > 0)
                                                         {
-                                                            propertyToBuild.NumberOfHouse++;
-                                                            player.Balance -= propertyToBuild.HouseCost;
-                                                            response.ChatMessage = Nick.Trim('0') + " construit une maison sur le terrain " + propertyToBuild.Location;
-                                                        }
-                                                        else if (propertyToBuild.NumberOfHouse == 4 && !propertyToBuild.HasHostel && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas d'hotel
-                                                        {
-                                                            player.Balance -= propertyToBuild.HostelCost;
-                                                            propertyToBuild.HasHostel = true;
-                                                            response.ChatMessage = Nick.Trim('0') + " construit un hotel sur le terrain " + propertyToBuild.Location;
-                                                        }
-                                                        else // sinon on renvoie un message indiquant qu'on ne peut pas construire.
-                                                        {
-                                                            response.ChatMessage = Nick.Trim('0') + " ne peut pas construire sur le terrain " + propertyToBuild.Location;
+                                                            bool canBuild = true;
+
+                                                            if (propertyToBuild.NumberOfHouse > 0)
+                                                            {
+                                                                for (int it = 0; it<listColor.Count && canBuild; it++)
+                                                                {
+                                                                    PropertyInfo pi = listColor[it];
+                                                                    if (pi.Location != propertyToBuild.Location && pi.Owner != player.Pseudo && pi.NumberOfHouse != propertyToBuild.NumberOfHouse && pi.NumberOfHouse != propertyToBuild.NumberOfHouse+1 )
+                                                                    {
+                                                                        canBuild = false;
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (canBuild)
+                                                            {
+                                                                if (propertyToBuild.NumberOfHouse < 4 && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas le nombre maximale de maison
+                                                                {
+                                                                    propertyToBuild.NumberOfHouse++;
+                                                                    player.Balance -= propertyToBuild.HouseCost;
+                                                                    response.ChatMessage = Nick.Trim('0') + " construit une maison sur le terrain " + propertyToBuild.Location;
+                                                                }
+                                                                else if (propertyToBuild.NumberOfHouse == 4 && !propertyToBuild.HasHostel && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas d'hotel
+                                                                {
+                                                                    player.Balance -= propertyToBuild.HostelCost;
+                                                                    propertyToBuild.HasHostel = true;
+                                                                    response.ChatMessage = Nick.Trim('0') + " construit un hotel sur le terrain " + propertyToBuild.Location;
+                                                                }
+                                                            }
+                                                            else // sinon on renvoie un message indiquant qu'on ne peut pas construire.
+                                                            {
+                                                                response.ChatMessage = Nick.Trim('0') + " ne peut pas construire sur le terrain " + propertyToBuild.Location;
+                                                            }
                                                         }
                                                     }
                                                     else
