@@ -276,7 +276,7 @@ namespace server
 
                                                     if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
                                                     {
-                                                        int nbCase =1;// dice1 + dice2;
+                                                        int nbCase = dice1 + dice2;
                                                         response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", "+ dice2;
                                                         player.Position += nbCase;
                                                     }
