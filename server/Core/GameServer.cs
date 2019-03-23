@@ -276,7 +276,7 @@ namespace server
 
                                                     if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
                                                     {
-                                                        int nbCase = dice1 + dice2;
+                                                        int nbCase =1;// dice1 + dice2;
                                                         response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", "+ dice2;
                                                         player.Position += nbCase;
                                                     }
@@ -476,8 +476,23 @@ namespace server
                                                                 for (int it = 0; it<listColor.Count && canBuild; it++)
                                                                 {
                                                                     PropertyInfo pi = listColor[it];
-                                                                    if (pi.Location != propertyToBuild.Location && pi.Owner != player.Pseudo && pi.NumberOfHouse != propertyToBuild.NumberOfHouse && pi.NumberOfHouse != propertyToBuild.NumberOfHouse+1 )
+                                                                    Console.WriteLine(" Owner : " + pi.Owner);
+                                                                    Console.WriteLine(" Property to build owner : " + propertyToBuild.Owner);
+                                                                    if (pi.NumberOfHouse < propertyToBuild.NumberOfHouse || pi.Owner != propertyToBuild.Owner || pi.Owner==null)
                                                                     {
+                                                                        Console.WriteLine("Je suis dans le if");
+                                                                        canBuild = false;
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                for (int it = 0; it < listColor.Count && canBuild; it++)
+                                                                {
+                                                                    PropertyInfo pi = listColor[it];
+                                                                    if ((pi.Owner == null || pi.Owner != player.Pseudo) )
+                                                                    {
+                                                                        Console.WriteLine("Je suis dans le else");
                                                                         canBuild = false;
                                                                     }
                                                                 }
