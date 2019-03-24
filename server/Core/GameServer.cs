@@ -390,22 +390,23 @@ namespace server
                                                 Console.WriteLine(p.Content);
                                                 PropertyInfo propertyToSell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                if (propertyToSell != null && propertyToSell.Owner == player.Pseudo && PlayerManager.searchProperty(player, propertyToSell.Location) != null)
+                                                if (propertyToSell != null && propertyToSell.Owner == player.Pseudo && PlayerManager.searchProperty(player, propertyToSell.Location) != null && propertyToSell.NumberOfHouse == 0)
                                                 {
                                                     player.Balance += propertyToSell.Price;
                                                     player.Properties.Remove(PlayerManager.searchProperty(player, propertyToSell.Location));
 
-                                                    player.Balance += (propertyToSell.NumberOfHouse * propertyToSell.HouseCost) / 2;
-                                                    if (propertyToSell.HasHostel)
-                                                    {
-                                                        player.Balance += propertyToSell.HostelCost / 2;
+                                                    /*  player.Balance += (propertyToSell.NumberOfHouse * propertyToSell.HouseCost) / 2;
+                                                      if (propertyToSell.HasHostel)
+                                                      {
+                                                          player.Balance += propertyToSell.HostelCost / 2;
 
-                                                    }
+                                                      }
 
+
+                                                      tp.searchCaseProperty(propertyToSell.Location).NumberOfHouse = 0;
+                                                      tp.searchCaseProperty(propertyToSell.Location).HasHostel = false;
+                                                      */
                                                     tp.searchCaseProperty(propertyToSell.Location).Owner = null;
-                                                    tp.searchCaseProperty(propertyToSell.Location).NumberOfHouse = 0;
-                                                    tp.searchCaseProperty(propertyToSell.Location).HasHostel = false;
-
                                                     response.ChatMessage = Nick.Trim('0') + " vend la propriété " + propertyToSell.Location;
                                                 }
                                                 else
