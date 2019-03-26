@@ -17,6 +17,7 @@ namespace server
 {
     public class GameServer : forwardToAll
     {
+        Packet lastPacketSend;
         ArrayList readList = new ArrayList(); //liste utilisée par socket.select 
         string msgString = null; //contiendra le message envoyé aux autres clients
         string msgDisconnected = null; //Notification connexion/déconnexion
@@ -27,12 +28,16 @@ namespace server
         public static int initBalance = 10000;
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
+#pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
+#pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
 
         public void Start()
         {
 
+#pragma warning disable CS0618 // 'Dns.Resolve(string)' est obsolète : 'Resolve is obsoleted for this type, please use GetHostEntry instead. http://go.microsoft.com/fwlink/?linkid=14202'
             IPHostEntry ipHostEntry = Dns.Resolve(Dns.GetHostName());
+#pragma warning restore CS0618 // 'Dns.Resolve(string)' est obsolète : 'Resolve is obsoleted for this type, please use GetHostEntry instead. http://go.microsoft.com/fwlink/?linkid=14202'
             IPAddress ipAddress = ipHostEntry.AddressList[0];
             Console.WriteLine("IP=" + ipAddress.ToString());
             Socket CurrentClient = null;
@@ -238,13 +243,13 @@ namespace server
 
                                         Nick = msgString.Substring(6,15);
 
-                                       
+
                                         try
                                         {
                                             string json = msgString.Substring(21, (msgString.Length - 21));
                                             Packet p = JsonConvert.DeserializeObject<Packet>(json);
 
-                                          
+
 
                                             if (p.Type == "message")
                                             {
@@ -258,34 +263,61 @@ namespace server
                                             {
 
                                                 Random rnd = new Random();
-                                                int dice = rnd.Next(1, 13);
+                                                int dice1 = rnd.Next(1, 7);
+                                                int dice2 = rnd.Next(1, 7);
                                                 response.Type = "message";
-                                                
+
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                if(GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") // on check si le jeu à commencer
+                                                if (GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") // on check si le jeu à commencer
                                                 {
                                                     GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on init le premier joueur à bouger
                                                 }
                                                 if (GameData.GetGameData.CurrentPlayerTurn == player.Pseudo) // on check si c'est le tour du joueur qui a envoyé le packet.
                                                 {
-                                                    response.ChatMessage = Nick.Trim('0') + " avance de " + dice;
-                                                    player.Position += dice; 
-                                                
+
+                                                    if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
+                                                    {
+                                                        int nbCase = dice1 + dice2;
+                                                        response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", " + dice2;
+                                                        player.Position += nbCase;
+                                                    }
+                                                    else // le joueur est en prison
+                                                    {
+                                                        if (dice1 == dice2)
+                                                        {
+
+                                                            response.ChatMessage = Nick.Trim('0') + " est libéré  et avance de " + dice1 + " + " + dice2;
+                                                            player.isInJail = false;
+                                                            player.Position += dice1 + dice2;
+                                                        }
+                                                        response.ChatMessage = Nick.Trim('0') + " est en prison et a fait le jet de dés : " + dice1 + ", " + dice2;
+
+                                                    }
+
+                                                    if (player.Position % 40 == tp.searchPosGoToJail()) // on check si le joueur atterri en prison ou non.
+                                                    {
+                                                        player.Position = tp.searchPositionJail();
+                                                        player.isInJail = true;
+                                                    }
+
+
                                                     PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
                                                     if (propRent != null && player.Pseudo != propRent.Owner)
                                                     {
                                                         int rent = RentManager.computeRent(propRent, player, tp);
-
-                                                        player.Balance -= rent;
-                                                        response.ChatMessage += " Le joueur  "+player.Pseudo + " paie " + rent+ "€ à " + propRent.Owner;
-                                                        PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                        if (rent > 0)
+                                                        {
+                                                            player.Balance -= rent;
+                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                            PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                        }
 
                                                     }
                                                     GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au joueur suivant.
                                                 }
                                                 else
                                                 {
-                                                    response.ChatMessage = "Ce n'est pas au tour de "+ player.Pseudo;
+                                                    response.ChatMessage = "Ce n'est pas au tour de " + player.Pseudo;
                                                 }
                                             }
                                             if (p.Type == "buyStation")
@@ -315,7 +347,7 @@ namespace server
                                             }
                                             if (p.Type == "buyProperty")
                                             {
-                                               
+
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);// le content doit être le nom de la case info.
 
@@ -329,7 +361,7 @@ namespace server
                                                 {
                                                     player.Balance -= propertyToBuy.Price;
                                                     propertyToBuy.Owner = player.Pseudo;
-                                                    player.Properties.Add(propertyToBuy);   
+                                                    player.Properties.Add(propertyToBuy);
                                                     response.ChatMessage = Nick.Trim('0') + " achète " + propertyToBuy.Location;  // on initialise un message de retour
                                                 }
 
@@ -356,9 +388,34 @@ namespace server
                                             {
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);
-                                                CaseInfo propertyToBuy = JsonConvert.DeserializeObject<CaseInfo>(p.Content);
-  
-                                                response.ChatMessage = Nick.Trim('0') + " vend une propriete";
+                                                PropertyInfo propertyToSell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                if (propertyToSell != null && propertyToSell.Owner == player.Pseudo && PlayerManager.searchProperty(player, propertyToSell.Location) != null && propertyToSell.NumberOfHouse == 0)
+                                                {
+                                                    player.Balance += propertyToSell.Price;
+                                                    player.Properties.Remove(PlayerManager.searchProperty(player, propertyToSell.Location));
+
+                                                    /*  player.Balance += (propertyToSell.NumberOfHouse * propertyToSell.HouseCost) / 2;
+                                                      if (propertyToSell.HasHostel)
+                                                      {
+                                                          player.Balance += propertyToSell.HostelCost / 2;
+
+                                                      }
+
+
+                                                      tp.searchCaseProperty(propertyToSell.Location).NumberOfHouse = 0;
+                                                      tp.searchCaseProperty(propertyToSell.Location).HasHostel = false;
+                                                      */
+                                                    tp.searchCaseProperty(propertyToSell.Location).Owner = null;
+                                                    response.ChatMessage = Nick.Trim('0') + " vend la propriété " + propertyToSell.Location;
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = Nick.Trim('0') + " ne peut pas vendre la propriété " + propertyToSell.Location;
+                                                }
+
+
+
                                             }
 
 
@@ -368,14 +425,33 @@ namespace server
                                             }
 
 
-                                            if(p.Type == "drawCommunity")
+                                            if (p.Type == "drawCommunity")
                                             {
 
                                             }
 
-                                            if(p.Type =="useFreeFromJailCard")
+                                            if (p.Type == "useFreeFromJailCard")
                                             {
 
+                                            }
+
+                                            if (p.Type == "payFreedom")
+                                            {
+                                                response.Type = "message";
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+
+                                                if (tp.jail.priceOfFreedom < player.Balance) // si le joueur peut payer.
+                                                {
+                                                    player.Balance -= tp.jail.priceOfFreedom;
+                                                    player.isInJail = false;
+                                                    response.ChatMessage = player.Pseudo + " a payé " + tp.jail.priceOfFreedom + " et est sorti de prison.";
+
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = player.Pseudo + " n'a pas les fonds disponibles pour sortir de prison. (" + tp.jail.priceOfFreedom + "€ )";
+                                                }
+                                                GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au tour suivant
                                             }
 
                                             if (p.Type == "buildHouse") // Maison + hotel
@@ -390,34 +466,139 @@ namespace server
                                                 if (cell.Location != null || cell.Location != "") // je check si la propriété possède un nom
                                                 {
                                                     PropertyInfo propertyToBuild = tp.searchCaseProperty(cell.Location);
-                                                    if (propertyToBuild.NumberOfHouse < 4 && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas le nombre maximale de maison
+                                                    if (propertyToBuild.Owner == player.Pseudo)
                                                     {
-                                                        propertyToBuild.NumberOfHouse++;
-                                                        player.Balance -= propertyToBuild.HouseCost;
-                                                        response.ChatMessage = Nick.Trim('0') + " construit une maison sur le terrain " + propertyToBuild.Location;
-                                                    }
-                                                    else if (propertyToBuild.NumberOfHouse == 4 && !propertyToBuild.HasHostel && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas d'hotel
-                                                    {
-                                                        player.Balance -= propertyToBuild.HostelCost;
-                                                        propertyToBuild.HasHostel = true;
-                                                        response.ChatMessage = Nick.Trim('0') + " construit un hotel sur le terrain " + propertyToBuild.Location;
-                                                    }
-                                                    else // sinon on renvoie un message indiquant qu'on ne peut pas construire.
-                                                    {
-                                                        response.ChatMessage = Nick.Trim('0') + " ne peut pas construire sur le terrain " + propertyToBuild.Location;
-                                                    }
+                                                        List<PropertyInfo> listColor = tp.searchCasePropertyOfColor(propertyToBuild.Color);
+                                                        if (listColor.Count > 0)
+                                                        {
+                                                            bool canBuild = true;
 
-
+                                                            if (propertyToBuild.NumberOfHouse > 0)
+                                                            {
+                                                                for (int it = 0; it < listColor.Count && canBuild; it++)
+                                                                {
+                                                                    PropertyInfo pi = listColor[it];
+                                                                    Console.WriteLine(" Owner : " + pi.Owner);
+                                                                    Console.WriteLine(" Property to build owner : " + propertyToBuild.Owner);
+                                                                    if (pi.NumberOfHouse < propertyToBuild.NumberOfHouse || pi.Owner != propertyToBuild.Owner || pi.Owner == null)
+                                                                    {
+                                                                        Console.WriteLine("Je suis dans le if");
+                                                                        canBuild = false;
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                for (int it = 0; it < listColor.Count && canBuild; it++)
+                                                                {
+                                                                    PropertyInfo pi = listColor[it];
+                                                                    if ((pi.Owner == null || pi.Owner != player.Pseudo))
+                                                                    {
+                                                                        Console.WriteLine("Je suis dans le else");
+                                                                        canBuild = false;
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (canBuild)
+                                                            {
+                                                                if (propertyToBuild.NumberOfHouse < 4 && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas le nombre maximale de maison
+                                                                {
+                                                                    propertyToBuild.NumberOfHouse++;
+                                                                    player.Balance -= propertyToBuild.HouseCost;
+                                                                    response.ChatMessage = Nick.Trim('0') + " construit une maison sur le terrain " + propertyToBuild.Location;
+                                                                }
+                                                                else if (propertyToBuild.NumberOfHouse == 4 && !propertyToBuild.HasHostel && player.Balance > propertyToBuild.HostelCost) // je check si la propriété ne possède pas d'hotel
+                                                                {
+                                                                    player.Balance -= propertyToBuild.HostelCost;
+                                                                    propertyToBuild.HasHostel = true;
+                                                                    response.ChatMessage = Nick.Trim('0') + " construit un hotel sur le terrain " + propertyToBuild.Location;
+                                                                }
+                                                            }
+                                                            else // sinon on renvoie un message indiquant qu'on ne peut pas construire.
+                                                            {
+                                                                response.ChatMessage = Nick.Trim('0') + " ne peut pas construire sur le terrain " + propertyToBuild.Location;
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        response.ChatMessage = Nick.Trim('0') + " n'est pas propriétaire du terrain " + propertyToBuild.Location;
+                                                    }
                                                 }
-                                                if(p.Type == "finTour")
+                                            }
+                                            if (p.Type == "sellHouse")
+                                            {
+                                                Console.WriteLine("Construction d'une maison demandé");
+                                                Console.WriteLine(p.Content);
+
+                                                PropertyInfo cell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+
+                                                if (cell.Location != null || cell.Location != "") // je check si la propriété possède un nom
                                                 {
-                                                    // get le tour du joueur suivant.
+                                                    PropertyInfo propToSellHouse = tp.searchCaseProperty(cell.Location);
+                                                    if (propToSellHouse.Owner == player.Pseudo)
+                                                    {
+                                                        List<PropertyInfo> listColor = tp.searchCasePropertyOfColor(propToSellHouse.Color);
+                                                        if (listColor.Count > 0)
+                                                        {
+                                                            bool canSell = true;
+
+                                                            if (propToSellHouse.NumberOfHouse > 0)
+                                                            {
+                                                                for (int it = 0; it < listColor.Count && canSell; it++)
+                                                                {
+                                                                    PropertyInfo pi = listColor[it];
+                                                                    if (pi.NumberOfHouse > propToSellHouse.NumberOfHouse || pi.Owner != propToSellHouse.Owner || pi.Owner == null)
+                                                                    {
+                                                                        canSell = false;
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                response.ChatMessage = "Le terrain " + propToSellHouse.Location + " n'a plus de maison à vendre.";
+                                                            }
+                                                            if (canSell)
+                                                            {
+                                                                if (propToSellHouse.NumberOfHouse > 0 && !propToSellHouse.HasHostel) // je check si la propriété  possède une maison
+                                                                {
+                                                                    propToSellHouse.NumberOfHouse--;
+                                                                    player.Balance += propToSellHouse.HouseCost / 2;
+                                                                    response.ChatMessage = Nick.Trim('0') + " vend une maison sur le terrain " + propToSellHouse.Location;
+                                                                }
+                                                                else if (propToSellHouse.NumberOfHouse == 4 && !propToSellHouse.HasHostel) // je check si la propriété  possède  un hotel 
+                                                                {
+                                                                    player.Balance += propToSellHouse.HostelCost / 2;
+                                                                    propToSellHouse.HasHostel = false;
+                                                                    response.ChatMessage = Nick.Trim('0') + " vend un hotel sur le terrain " + propToSellHouse.Location;
+                                                                }
+                                                            }
+                                                            else // sinon on renvoie un message indiquant qu'on ne peut pas vendre.
+                                                            {
+                                                                response.ChatMessage = Nick.Trim('0') + " ne peut pas vendre sur le terrain " + propToSellHouse.Location;
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        response.ChatMessage = Nick.Trim('0') + " n'est pas propriétaire du terrain " + propToSellHouse.Location;
+                                                    }
                                                 }
-                                           
+
 
                                             }
-
-
+                                            if (p.Type == "finTour")
+                                            {
+                                                // get le tour du joueur suivant.
+                                            }
+                                            if(p.Type == "erreurPacket")
+                                            {
+                                                if(lastPacketSend != null)
+                                                {
+                                                    response = lastPacketSend;
+                                                }
+                                            }
                                         }
                                         catch
                                         {

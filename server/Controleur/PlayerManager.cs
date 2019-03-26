@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using server.Model;
 
 namespace server.Controleur
 {
@@ -26,6 +27,18 @@ namespace server.Controleur
             }
 
             return new PlayerInfo();
+        }
+
+        public static PropertyInfo searchProperty(PlayerInfo pl , string location)
+        {
+            foreach(PropertyInfo p in pl.Properties)
+            {
+                if(p.Location == location)
+                {
+                    return p;
+                }
+            }
+            return null;
         }
     }
 

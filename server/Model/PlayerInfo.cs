@@ -15,6 +15,7 @@ namespace server
         public int Position { get; set; }
         public int Balance { get; set; }
         public string ColorCode;
+        public bool isInJail { get; set; }
         public List<PropertyInfo> Properties { get; set; }
         public List<StationInfo> Stations {get; set;}
         public object Image { get; set; }
@@ -23,6 +24,7 @@ namespace server
         {
             Pseudo = "Pseudo_ERROR";
             Balance = 0;
+            isInJail = false;
             Properties = new List<PropertyInfo>();
             Stations = new List<StationInfo>();
         }
