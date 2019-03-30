@@ -9,6 +9,7 @@ namespace server.Model
     public class CommunityInfo : CaseInfo
     {
 
+
         public CommunityInfo(string text, string skinPath, int angle, int posPlateau)
         {
             positionPlateau = posPlateau;
