@@ -16,6 +16,8 @@ namespace server
         public List<CaseInfo> restinfo = new List<CaseInfo>();
         public List<CardInfo> communityCards = new List<CardInfo>();
         public List<CardInfo> chanceCards = new List<CardInfo>();
+        public List<int> posCommunity = new List<int>();
+        public List<int> posChance = new List<int>();
         public CardInfo freeFromJail;
         public JailInfo jail;
        // public List<UserControl> CommunityList = new List<UserControl>();
@@ -86,12 +88,13 @@ namespace server
                         case "chance":
                             ChanceInfo Chance = new ChanceInfo("Chance", "", angle, compteur);
                             restinfo.Add(Chance);
+                            posChance.Add(compteur);
 
                             break;
 
                         case "community":
                             CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
-
+                            posCommunity.Add(compteur);
                             restinfo.Add(Com);
 
                             break;
