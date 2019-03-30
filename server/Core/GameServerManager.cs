@@ -18,10 +18,13 @@ namespace server.Core
                 int deplacement = 0;
                 int oldPosition = player.Position;
 
-                if (player.Position % 40 > position) // si le joueur a dépassé la case à atteindre
-                    deplacement = player.Position % 40 - position;
+                if (player.Position % 40 > position)
+                {// si le joueur a dépassé la case à atteindre
+                    deplacement = 40 - player.Position % 40 ;
+                    deplacement += position;
+                }
                 else
-                    deplacement = position - player.Position % 40 ;
+                    deplacement = position - player.Position % 40;
                 
                 player.Position += deplacement;
 
@@ -33,6 +36,8 @@ namespace server.Core
                 {
                     player.Balance += salaire;
                 }
+
+
                 PropertyInfo prop = tp.searchIndexPropertyAtPos(player.Position);
 
                 if (prop != null && prop.Owner != player.Pseudo && prop.Owner != null && prop.Owner != "")

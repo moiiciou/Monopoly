@@ -312,9 +312,9 @@ namespace server
                                                     {
                                                         Console.WriteLine("pioche chance");
 
-                                                        CardInfo chance = tp.chanceCards.ElementAt(nextIndComm);
+                                                        CardInfo chance = tp.chanceCards.ElementAt(nextIndComm%tp.chanceCards.Count);
                                                         nextIndChance++;
-                                                        nextIndChance %= tp.chanceCards.Count;
+                                                       // nextIndChance %= tp.chanceCards.Count;
 
                                                         Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
                                                         dicoChance.Add(Nick.Trim('0'), chance);
@@ -324,9 +324,9 @@ namespace server
                                                     }else if (tp.posCommunity.Contains(player.Position % 40))
                                                     {
                                                         Console.WriteLine("pioche community");
-                                                        CardInfo comm = tp.communityCards.ElementAt(nextIndComm);
+                                                        CardInfo comm = tp.communityCards.ElementAt(nextIndComm % tp.communityCards.Count);
                                                         nextIndComm++;
-                                                        nextIndComm %= tp.communityCards.Count;
+                                                        //nextIndComm %= tp.communityCards.Count;
 
                                                         Dictionary<string, CardInfo> dicoComm = new Dictionary<string, CardInfo>();
                                                         dicoComm.Add(Nick.Trim('0'), comm);
