@@ -362,7 +362,7 @@ namespace server
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                 PropertyInfo prop = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
 
-                                                if(prop!=null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged)
+                                                if(prop!=null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged && prop.NumberOfHouse == 0)
                                                 {
                                                     player.Balance += prop.Price / 2;
                                                     prop.isMortgaged = true;
