@@ -113,11 +113,13 @@ namespace server
                 string gameDataString = JsonConvert.SerializeObject(GameData.GetGameData, Formatting.Indented);
                 packet.Content = gameDataString;
                 packet.ChatMessage = response.ChatMessage;
+                packet.ServerContent = response.ServerContent;
+                packet.ServerMessage = response.ServerMessage;
                 string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
                 msg = Encoding.UTF8.GetBytes(packetToSend);
                 sendMsg(msg);
-
-
+                response.ServerContent = "";
+                response.ServerMessage = "";
         }
 
         private string GetNextPlayer()
