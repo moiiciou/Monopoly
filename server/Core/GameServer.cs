@@ -445,7 +445,10 @@ namespace server
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                 if (propertyToSell != null && propertyToSell.Owner == player.Pseudo && PlayerManager.searchProperty(player, propertyToSell.Location) != null && propertyToSell.NumberOfHouse == 0)
                                                 {
-                                                    player.Balance += propertyToSell.Price;
+                                                    if (!propertyToSell.isMortgaged)
+                                                        player.Balance += propertyToSell.Price;
+                                                    else
+                                                        player.Balance += propertyToSell.Price / 2;
                                                     player.Properties.Remove(PlayerManager.searchProperty(player, propertyToSell.Location));
 
                                                     /*  player.Balance += (propertyToSell.NumberOfHouse * propertyToSell.HouseCost) / 2;
