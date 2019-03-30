@@ -277,7 +277,9 @@
     <Resource Include="ressources\templates\default\monopoly-man.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\money.png" />
+    <Resource Include="ressources\templates\default\money.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\player_avatar_test.png" />
@@ -304,9 +306,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\house3.png">
+    <None Include="ressources\templates\default\house3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\house4.png">

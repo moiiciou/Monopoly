@@ -28,6 +28,7 @@ namespace server
         public static int initBalance = 10000;
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
+        int salaire = 200;
 #pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
 #pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
@@ -279,6 +280,8 @@ namespace server
                                                     {
                                                         int nbCase = dice1 + dice2;
                                                         response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", " + dice2;
+                                                        if (player.Position / 40 < (player.Position + nbCase) / 40)
+                                                            player.Balance += salaire;
                                                         player.Position += nbCase;
                                                     }
                                                     else // le joueur est en prison
