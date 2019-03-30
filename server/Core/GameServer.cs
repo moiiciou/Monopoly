@@ -28,6 +28,8 @@ namespace server
         public static int initBalance = 10000;
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
+        private List<string> avatar = new List<string>();
+        
 
         int nextIndComm = 0;
         int nextIndChance = 0;
@@ -48,6 +50,17 @@ namespace server
             Socket ServerSocket = new Socket(AddressFamily.InterNetwork,
               SocketType.Stream,
               ProtocolType.Tcp);
+
+            avatar.Add("#06d694");
+            avatar.Add("#089dd8");
+            avatar.Add("#0ea02b");
+            avatar.Add("#0f08d8");
+            avatar.Add("#6408db");
+            avatar.Add("#e50daf");
+            avatar.Add("#e58612");
+            avatar.Add("#ea0e0e");
+            avatar.Add("#eaf213");
+            avatar.Add("#ff865e");
 
             try
             {
@@ -731,6 +744,9 @@ namespace server
                                         playerInfo.Pseudo = Nick.Trim('0');
                                         playerInfo.Balance = initBalance;
                                         playerInfo.Position = initPosition;
+                                        playerInfo.ColorCode = avatar.ElementAt(0);
+                                        playerInfo.Image = "ressources/templates/default/avatar/" + playerInfo.ColorCode + ".png";
+                                        avatar.Remove(playerInfo.ColorCode);
                                         response.Type = "updateGameData";
                                         response.ChatMessage = Nick.Trim('0') + " vient de se connecter";
 
