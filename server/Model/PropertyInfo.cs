@@ -8,9 +8,9 @@ namespace server.Model
 {
     public partial class PropertyInfo : CaseInfo
     {
- 
+
         public int Price { get; set; }
- 
+
         public int NumberOfHouse { get; set; }
 
         public bool HasHostel { get; set; }
@@ -42,6 +42,7 @@ namespace server.Model
         public string TextRentValue { get; set; }
 
         public string TextMortgageValue { get; set; }
+        public bool isMortgaged {get;set;}
 
 
         public string Color { get; set; }

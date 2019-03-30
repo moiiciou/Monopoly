@@ -359,7 +359,19 @@ namespace server
                                             }
                                             if(p.Type == "mortGageProperty")
                                             {
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                PropertyInfo prop = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
 
+                                                if(prop!=null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged)
+                                                {
+                                                    player.Balance += prop.Price / 2;
+                                                    prop.isMortgaged = true;
+                                                    response.ChatMessage = player.Pseudo + " hypothèque la propriété " + prop.Location + " et gagne " + (prop.Price / 2);
+                                                }
+                                                else
+                                                {
+                                                    response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                }
                                             }
                                             if (p.Type == "buyStation")
                                             {
@@ -459,7 +471,7 @@ namespace server
 
                                             }
 
-
+#region useless
                                             if (p.Type == "drawChance")
                                             {
                                                 /*
@@ -493,11 +505,7 @@ namespace server
                                                 response.ServerMessage = "drawCommunity";*/
 
                                             }
-
-                                            if (p.Type == "useFreeFromJailCard")
-                                            {
-                                                Console.WriteLine("utilise une carte libéré de prison");
-                                            }
+                                            #endregion
 
                                             if (p.Type == "payFreedom")
                                             {
@@ -655,6 +663,8 @@ namespace server
 
                                             if(p.Type == "useFreeFromJailCard")
                                             {
+
+                                                Console.WriteLine("utilise une carte libéré de prison");
                                                 Console.WriteLine(Nick.Trim('0') + " utilise une carte libéré de prison");
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
 

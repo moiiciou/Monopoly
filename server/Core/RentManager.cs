@@ -11,7 +11,7 @@ namespace server.Core
         public static int computeRent(PropertyInfo propRent, PlayerInfo p, ThemeParser tp)
         {
             int rent = 0;
-            if (propRent.Owner != null && propRent.Owner != "" && propRent.Owner != p.Pseudo) // on compute le rent si le player et l'owner de la propriété sont différents et que la propriété n'est pas possédée par la banque.
+            if (propRent.Owner != null && propRent.Owner != "" && propRent.Owner != p.Pseudo && !propRent.isMortgaged) // on compute le rent si le player et l'owner de la propriété sont différents et que la propriété n'est pas possédée par la banque.
                 switch (propRent.NumberOfHouse)
                 {
                     case 0:
