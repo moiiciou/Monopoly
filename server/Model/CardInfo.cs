@@ -2,6 +2,7 @@
 {
     public class CardInfo
     {
+        /*
         public string TextPropertyName { get; set; }
         public string TextHouseCost { get; set; }
         public string TextHotelCost { get; set; }
@@ -29,5 +30,34 @@
 
 
         public string Color { get; set; }
+        */
+        public string Label { get; set; }
+        public string Text { get; set; }
+        public string Effect { get; set; }
+
+        public enum TypeAction
+        {
+            reparation = 1,
+            paiement = 2,
+            moove = 3,
+            freefromjail = 4
+        };
+
+        public enum TypeCard
+        {
+            community = 1,
+            chance = 2,
+
+        };
+
+        public TypeAction typeAction;
+        public TypeCard typeCard;
+
+        public int value;
+
+        public CardInfo(string label, string text, int typeCard, int typeEffet, int value)
+        {
+
+        }
     }
 }

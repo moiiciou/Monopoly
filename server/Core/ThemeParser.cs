@@ -88,6 +88,7 @@ namespace server
 
                         case "community":
                             CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
+                            Com.typeCard = CommunityInfo.TypeCard.community;
                             restinfo.Add(Com);
 
                             break;
