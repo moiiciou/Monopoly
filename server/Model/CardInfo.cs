@@ -59,5 +59,10 @@
         {
 
         }
+
+        public CardInfo()
+        {
+
+        }
     }
 }

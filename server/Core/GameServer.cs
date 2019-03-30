@@ -424,12 +424,13 @@ namespace server
 
                                             if (p.Type == "drawChance")
                                             {
-
+                                                Console.WriteLine("pioche chance");
                                             }
 
 
                                             if (p.Type == "drawCommunity")
                                             {
+                                                Console.WriteLine("pioche community");
 
                                             }
 
