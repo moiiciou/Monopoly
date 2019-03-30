@@ -89,7 +89,7 @@ namespace server
                             break;
 
                         case "community":
-                            ChanceInfo Com = new ChanceInfo("Chance", "", angle, compteur);
+                           // ChanceInfo Com = new ChanceInfo("Chance", "", angle, compteur);
                             CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
 
                             restinfo.Add(Com);
