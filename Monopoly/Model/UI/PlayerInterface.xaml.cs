@@ -80,10 +80,9 @@ namespace Monopoly.Model.UI
                         Console.WriteLine("propertyInfo location : " + propertyInfo.Location);
                         Console.WriteLine("propertyCase location : " + propertyCase.CaseInformation.Location);
 
-                        Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
-                        Console.WriteLine("cardInfo location : " + cardInfo.TextPropertyName);
+                        PropertyInfo cardInfo = propertyCase.Card.CardInformation;
 
-                        if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
+                        if (!property_list.Items.Cast<PropertyInfo>().Any(x => x.Location == cardInfo.Location))
                         {
                             property_list.Items.Add(cardInfo);
                             Console.WriteLine("Carte ajouté");
@@ -126,7 +125,7 @@ namespace Monopoly.Model.UI
         {
             if (property_list.SelectedItem != null)
             {
-                PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
+                PropertyCase property = Core.Tools.GetPropertyByName(((PropertyInfo)property_list.SelectedValue).Location);
                 try
                 {
 
@@ -157,7 +156,7 @@ namespace Monopoly.Model.UI
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
+            PropertyCase property = Core.Tools.GetPropertyByName(((PropertyInfo)property_list.SelectedValue).Location);
             try
             {
 

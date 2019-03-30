@@ -12,6 +12,7 @@ using server;
 using Monopoly.Model.UI;
 using Monopoly.Model.Case;
 using server.Model;
+using Newtonsoft.Json;
 
 namespace Monopoly.Controller
 {
@@ -104,7 +105,7 @@ namespace Monopoly.Controller
             if (BuyAndSellManager.CheckIfBuyable(b.CasesList[position]) & CurrentPlayerLastPosition != position & b.CasesList[position].GetType() == typeof(PropertyCase))
             {
                 PropertyCase propertyCase = (PropertyCase)b.CasesList[position];
-                BuyDialog buyDialog = new BuyDialog(propertyCase.Card.CardInformation.TextPropertyName, propertyCase.CaseInformation.TxtPrice);
+                BuyDialog buyDialog = new BuyDialog(propertyCase.Card.CardInformation.Location, propertyCase.CaseInformation.TxtPrice);
                 b.Children.Remove(buyDialog);
 
                 if (CurrentPlayerName.Trim('0') != propertyCase.CaseInformation.Owner & pseudo == CurrentPlayerName.Trim('0'))
@@ -117,7 +118,27 @@ namespace Monopoly.Controller
                     b.Children.Add(buyDialog);
                 }
 
-            }       
+            }
+            
+            if(b.CasesList[position].GetType() == typeof(ChanceCase))
+            {
+                Packet packet = new Packet();
+                packet.Type = "drawChance";
+                packet.Content = "";
+                packet.ChatMessage = "pioche une carte";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+            }
+
+            if (b.CasesList[position].GetType() == typeof(CommunityCase))
+            {
+                Packet packet = new Packet();
+                packet.Type = "drawCommunity";
+                packet.Content = "";
+                packet.ChatMessage = "pioche une carte";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+            }
         }
 
 

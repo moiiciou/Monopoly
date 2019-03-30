@@ -75,7 +75,7 @@ namespace Monopoly.Controller
         public static void SendMsg(string message)
         {
             
-            byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
+            byte[] msg = System.Text.Encoding.UTF8.GetBytes(GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
             int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
             if (DtSent == 0)
