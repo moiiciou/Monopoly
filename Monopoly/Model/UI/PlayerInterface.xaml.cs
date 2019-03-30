@@ -199,6 +199,20 @@ namespace Monopoly.Model.UI
             string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
             Connection.SendMsg(packetToSend);
         }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            if (property_list.SelectedItem != null)
+            {
+                PropertyCase property = Core.Tools.GetPropertyByName(((PropertyInfo)property_list.SelectedValue).Location);
+                Packet packet = new Packet();
+                packet.Type = "mortGageProperty";
+                packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+            }
+        }
     }
     
 }
