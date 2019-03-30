@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="Monopoly.Model.UI.PlayerInterface"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.Model.UI"
+             xmlns:Card="clr-namespace:Monopoly.Model.Card" x:Class="Monopoly.Model.UI.PlayerInterface"
              mc:Ignorable="d"
              d:DesignHeight="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}"
             >
@@ -18,11 +19,11 @@
         <Label x:Name="money_label" Content="{Binding MoneyPlayer}" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="38" Width="94" FontSize="24" FontWeight="Bold" FontFamily="Arial Black" Margin="79,49,0,0"/>
         <Label x:Name="pseudo_label" Content="{Binding PseudoPlayer}" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Top" Height="36" Width="218" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
         <ListView Grid.Row="1" x:Name="property_list" HorizontalAlignment="Left" Height="274"  VerticalAlignment="Top" Width="330">
-            <ItemsControl.ItemsPanel>
+            <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
                 </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+            </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Right" Margin="-4,0" Width="206" Height="232" VerticalAlignment="Bottom">
@@ -55,6 +56,13 @@
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/sell_button.png"/>
             </Button.Background>
         </Button>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="10,286,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83" Height="98" Click="Button_Click_2">
+            <Button.Background>
+                <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/monopoly-man.jpg"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="113,286,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83" Height="98" Click="Button_Click_3"/>
+
 
     </Grid>
 </UserControl>

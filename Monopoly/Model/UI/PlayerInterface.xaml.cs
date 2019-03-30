@@ -179,6 +179,26 @@ namespace Monopoly.Model.UI
                 MessageBox.Show(E.Message);
             }
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Packet packet = new Packet();
+            packet.Type = "useFreeFromJailCard";
+            packet.Content = "freeFromJailChance";
+            packet.ChatMessage = "";
+            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+            Connection.SendMsg(packetToSend);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Packet packet = new Packet();
+            packet.Type = "useFreeFromJailCard";
+            packet.Content = "freeFromJailCommunity";
+            packet.ChatMessage = "";
+            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+            Connection.SendMsg(packetToSend);
+        }
     }
     
 }

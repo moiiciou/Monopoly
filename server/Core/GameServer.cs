@@ -461,7 +461,7 @@ namespace server
 
                                             if (p.Type == "useFreeFromJailCard")
                                             {
-
+                                                Console.WriteLine("utilise une carte libéré de prison");
                                             }
 
                                             if (p.Type == "payFreedom")
