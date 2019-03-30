@@ -28,6 +28,9 @@ namespace server
         public static int initBalance = 10000;
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
+
+        int nextIndComm = 0;
+        int nextIndChance = 0;
         int salaire = 200;
 #pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
@@ -425,12 +428,32 @@ namespace server
                                             if (p.Type == "drawChance")
                                             {
                                                 Console.WriteLine("pioche chance");
+
+                                                CardInfo chance = tp.chanceCards.ElementAt(nextIndComm);
+                                                nextIndChance++;
+                                                nextIndChance %= tp.chanceCards.Count;
+
+                                                Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
+                                                dicoChance.Add(Nick.Trim('0'), chance);
+                                                p.ServerContent = JsonConvert.SerializeObject(dicoChance);
+                                                p.ServerMessage = "drawChance";
                                             }
 
 
                                             if (p.Type == "drawCommunity")
                                             {
                                                 Console.WriteLine("pioche community");
+                                                CardInfo comm = tp.communityCards.ElementAt(nextIndComm);
+                                                nextIndComm++;
+                                                nextIndComm %= tp.communityCards.Count;
+                                                
+                                                Dictionary<string, CardInfo> dicoComm = new Dictionary<string, CardInfo>();
+                                                dicoComm.Add(Nick.Trim('0'), comm);
+                                                p.ServerContent = JsonConvert.SerializeObject(dicoComm);
+
+                                                Console.WriteLine(p.ServerContent);
+
+                                                p.ServerMessage = "drawCommunity";
 
                                             }
 
