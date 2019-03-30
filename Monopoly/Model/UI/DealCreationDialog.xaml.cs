@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Monopoly.Controller;
+using Monopoly.Model.Case;
+using server;
+using server.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +27,23 @@ namespace Monopoly.Model.UI
         public DealCreationDialog()
         {
             InitializeComponent();
+
+            PlayerInfo player = PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0'));
+            foreach (PropertyInfo property in player.Properties)
+            {
+
+                PropertyInfo propertyInfo = (PropertyInfo)property;
+                PropertyCase propertyCase = Core.Tools.GetPropertyByName(propertyInfo.Location);
+
+
+                PropertyInfo cardInfo = propertyCase.Card.CardInformation;
+
+                if (!property_list.Items.Cast<PropertyInfo>().Any(x => x.Location == cardInfo.Location))
+                {
+                    property_list.Items.Add(cardInfo);
+
+                }
+            }
         }
     }
 }
