@@ -50,13 +50,13 @@
         <local:ChatBox Grid.Row="2" x:Name="chatBox"  Loaded="ChatBox_Loaded" Margin="10,0,10,23"/>
         <Label x:Name="currency_label" Content="€" Margin="173,49,238,0" VerticalAlignment="Top" Height="38" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
         <StackPanel x:Name="PlayerPanel" Margin="10,138,0,42" HorizontalAlignment="Left" Width="300"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="0,279,0,0" Height="95" VerticalAlignment="Top" Click="Button_Click" Grid.Row="1" HorizontalAlignment="Left" Width="98" >
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="0,279,0,20" Click="Button_Click" Grid.Row="1" HorizontalAlignment="Left" Width="98" >
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/house_button.png"/>
             </Button.Background>
 
         </Button>
-        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="103,274,0,0" Grid.Row="1" VerticalAlignment="Top" Height="105" Click="Button_Click_1" HorizontalAlignment="Left" Width="100">
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="103,274,0,15" Grid.Row="1" Click="Button_Click_1" HorizontalAlignment="Left" Width="100">
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/sell_button.png"/>
             </Button.Background>
