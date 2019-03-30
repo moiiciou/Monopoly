@@ -62,7 +62,9 @@
             </Button.Background>
         </Button>
         <Button Content="Button" HorizontalAlignment="Left" Margin="113,286,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83" Height="98" Click="Button_Click_3"/>
-
+        <Button  HorizontalAlignment="Left" Margin="347,225,0,0" Grid.Row="1" VerticalAlignment="Top" Width="89" Height="43" Click="Button_Click_4">
+        <TextBlock Width="79">Hypothèquer<LineBreak/>une propriété</TextBlock>
+        </Button>
 
     </Grid>
 </UserControl>

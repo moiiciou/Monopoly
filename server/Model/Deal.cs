@@ -29,9 +29,9 @@ namespace server.Model
 
         public bool Process()
         {
-            // si object est une propriété ... faire le traitement
+            // si object est une propriété ... faire le traitement (échange + paiement)
 
-            // si object est de type carte libéré de prison, faire le traitement
+            // si object est de type carte libéré de prison, faire le traitement (échange + paiement)
 
             //return true si tout c'est bien passé
             return true;
