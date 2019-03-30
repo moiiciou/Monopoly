@@ -7,6 +7,7 @@ using server;
 using server.Core;
 using server.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -137,7 +138,9 @@ namespace Monopoly.Controller
 
                                     if(p.ServerMessage == "drawChance" )
                                     {
-                                        System.Windows.MessageBox.Show("carte chance pioché");
+                                        Dictionary<string, server.CardInfo> data = JsonConvert.DeserializeObject<Dictionary<string, server.CardInfo>>(p.ServerContent);
+                                        string pseudoPlayer = data.Keys.FirstOrDefault();
+                                        System.Windows.MessageBox.Show(pseudoPlayer+" pioche une carte chance");
 
                                     }
 
