@@ -55,8 +55,14 @@
 
         public int value;
 
-        public CardInfo(string label, string text, int typeCard, int typeEffet, int value)
+        public CardInfo(string label, string text, TypeCard typeCard, TypeAction typeEffet, int value)
         {
+            this.Label = label;
+            this.Text = text;
+            this.value = value;
+            this.typeCard = typeCard;
+            this.typeAction = typeEffet;
+
 
         }
 

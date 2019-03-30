@@ -14,6 +14,8 @@ namespace server
         public List<StationInfo> StationList = new List<StationInfo>();
         public List<CustomInfo> CustomList = new List<CustomInfo>();
         public List<CaseInfo> restinfo = new List<CaseInfo>();
+        public List<CardInfo> communityCards = new List<CardInfo>();
+        public List<CardInfo> chanceCards = new List<CardInfo>();
         public JailInfo jail;
        // public List<UserControl> CommunityList = new List<UserControl>();
        // public List<ChanceCard> ChanceList = new List<ChanceCard>();
@@ -88,6 +90,8 @@ namespace server
 
                         case "community":
                             ChanceInfo Com = new ChanceInfo("Chance", "", angle, compteur);
+                            CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
+
                             restinfo.Add(Com);
 
                             break;
@@ -112,9 +116,89 @@ namespace server
 
                 foreach (var item in items.Community)
                 {
+                    string[] effects = item.effect.Split(';');
 
+                    if (effects.Length == 2) // on check que le string est bien sous la forme "type card ; value"
+                    {
+                        string action = effects[1];
+                        CardInfo.TypeAction typeAction;
+                        int value = 0;
+                        if (action == "moove")
+                        {
+                            typeAction = CardInfo.TypeAction.moove;
+                            value = Convert.ToInt16(effects[1]) % 40; // deplacement à la position value.
+
+                        }
+                        else
+                        if (action == "freefromjail")
+                        {
+                            typeAction = CardInfo.TypeAction.freefromjail;
+
+                        }
+
+                        else if (action == "reparation")
+                        {
+                            typeAction = CardInfo.TypeAction.reparation;
+
+                        }
+                        else  // par défaut on considère qu'on effectue un paiement
+                        {
+                            typeAction = CardInfo.TypeAction.paiement; // paiement de value €.
+                            value = Convert.ToInt16(effects[1]);
+
+                        }
+
+                        CardInfo comm = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value);
+                        communityCards.Add(comm);
+                    }
                 }
+
+                foreach (var item in items.Chance)
+                {
+                    string[] effects = item.effect.Split(';');
+
+                    if (effects.Length == 2)
+                    {
+                        string action = effects[1];
+                        CardInfo.TypeAction typeAction;
+                        int value = 0;
+                        if (action == "moove")
+                        {
+                            typeAction = CardInfo.TypeAction.moove;
+                            value = Convert.ToInt16(effects[1])%40; // deplacement à la position value.
+
+                        }
+                        else 
+                        if (action == "freefromjail")
+                        {
+                            typeAction = CardInfo.TypeAction.freefromjail;
+
+                        }
+                        
+                        else if (action == "reparation")
+                        {
+                            typeAction = CardInfo.TypeAction.reparation; 
+
+                        }
+                        else  // par défaut on considère qu'on effectue un paiement
+                        {
+                            typeAction = CardInfo.TypeAction.paiement; // paiement de value €.
+                            value = Convert.ToInt16(effects[1]);
+
+                        }
+
+
+
+
+
+                        CardInfo chance = new CardInfo(item.title, item.text,CardInfo.TypeCard.chance, typeAction, value );
+                        chanceCards.Add(chance);
+                    }
+                }
+
+                Console.WriteLine(communityCards.Count + "  " + chanceCards.Count);
             }
+
 
 
         }

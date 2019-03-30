@@ -553,21 +553,36 @@
   ],
 
 
-"Chance":[
-{
-        "title": "un titre",
-        "text": "un texte",
-        "effect": "ma_function"
-}
-      
-],
-"Community":[
-{
-        "title":"un titre",
-        "text" : "un texte",
-        "effect": "ma_function"
-}
-]
+  "Chance": [
+    {
+      "title": "un titre",
+      "text": "un texte",
+      "effect": "moove;50"
+    },
+
+    {
+      "title": "un titre",
+      "text": "un texte",
+      "effect": "paiement;50"
+    },
+    {
+      "title": "un titre",
+      "text": "un texte",
+      "effect": "freefromjail;50"
+    },
+    {
+      "title": "un titre",
+      "text": "un texte",
+      "effect": "reparation;50"
+    }
+  ],
+  "Community": [
+    {
+      "title": "un titre",
+      "text": "un texte",
+      "effect": "1;50"
+    }
+  ]
   
 
 
