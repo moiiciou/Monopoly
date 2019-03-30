@@ -555,32 +555,48 @@
 
   "Chance": [
     {
-      "title": "un titre",
-      "text": "un texte",
-      "effect": "moove;50"
+      "title": "Go to jail !",
+      "text": "Pas de chance vous allez en prison!",
+      "effect": "moove;10"
     },
 
     {
-      "title": "un titre",
-      "text": "un texte",
+      "title": "C'est jour de paie !",
+      "text": "Erreur de la banque recevez de la tune! (50€)",
       "effect": "paiement;50"
     },
     {
-      "title": "un titre",
-      "text": "un texte",
+      "title": "Libéré de prison",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
       "effect": "freefromjail;50"
     },
     {
-      "title": "un titre",
-      "text": "un texte",
-      "effect": "reparation;50"
+      "title": "Réparation sur les propriétés",
+      "text": "Vos maisons sont moisies et ragoutante, 30€ par maison par propriétés et 40€ par hotel sont a payé pour tout réparer",
+      "effect": "reparation;30;40"
     }
   ],
   "Community": [
     {
-      "title": "un titre",
-      "text": "un texte",
-      "effect": "1;50"
+      "title": "Go to jail !",
+      "text": "Pas de chance vous allez en prison!",
+      "effect": "moove;10"
+    },
+
+    {
+      "title": "Frais de scolarité !",
+      "text": "Le CFAI vous remercie pour votre inscription (200€)",
+      "effect": "paiement;-200"
+    },
+    {
+      "title": "Libéré de prison community",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
+      "effect": "freefromjail;50"
+    },
+    {
+      "title": "Réparation sur les propriétés",
+      "text": "Vos maisons sont cassées, les 2A sont passés par là ! 50€ par maison par propriétés et 70€ par hotel sont a payé pour tout réparer",
+      "effect": "reparation;50;70"
     }
   ]
   

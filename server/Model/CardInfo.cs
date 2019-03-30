@@ -54,12 +54,24 @@
         public TypeCard typeCard;
 
         public int value;
+        public int value2;
 
         public CardInfo(string label, string text, TypeCard typeCard, TypeAction typeEffet, int value)
         {
             this.Label = label;
             this.Text = text;
             this.value = value;
+            this.typeCard = typeCard;
+            this.typeAction = typeEffet;
+
+
+        }
+        public CardInfo(string label, string text, TypeCard typeCard, TypeAction typeEffet, int costMaison, int costHostel)
+        {
+            this.Label = label;
+            this.Text = text;
+            this.value = costMaison;
+            value2 = costHostel;
             this.typeCard = typeCard;
             this.typeAction = typeEffet;
 
