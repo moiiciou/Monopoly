@@ -16,6 +16,8 @@ namespace server
         public List<CaseInfo> restinfo = new List<CaseInfo>();
         public List<CardInfo> communityCards = new List<CardInfo>();
         public List<CardInfo> chanceCards = new List<CardInfo>();
+        public List<int> posCommunity = new List<int>();
+        public List<int> posChance = new List<int>();
         public CardInfo freeFromJail;
         public JailInfo jail;
        // public List<UserControl> CommunityList = new List<UserControl>();
@@ -86,12 +88,13 @@ namespace server
                         case "chance":
                             ChanceInfo Chance = new ChanceInfo("Chance", "", angle, compteur);
                             restinfo.Add(Chance);
+                            posChance.Add(compteur);
 
                             break;
 
                         case "community":
                             CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
-
+                            posCommunity.Add(compteur);
                             restinfo.Add(Com);
 
                             break;
@@ -118,11 +121,12 @@ namespace server
                 {
                     string[] effects = item.effect.Split(';');
 
-                    if (effects.Length == 2) // on check que le string est bien sous la forme "type card ; value"
+                    if (effects.Length >= 2 && effects.Length<4) // on check que le string est bien sous la forme "type card ; value"
                     {
-                        string action = effects[1];
+                        string action = effects[0];
                         CardInfo.TypeAction typeAction;
                         int value = 0;
+                        int value2 = 0;
                         if (action == "moove")
                         {
                             typeAction = CardInfo.TypeAction.moove;
@@ -139,6 +143,9 @@ namespace server
                         else if (action == "reparation")
                         {
                             typeAction = CardInfo.TypeAction.reparation;
+                            value = Convert.ToInt16(effects[1]);
+                            value2 = Convert.ToInt16(effects[2]);
+
 
                         }
                         else  // par défaut on considère qu'on effectue un paiement
@@ -147,8 +154,11 @@ namespace server
                             value = Convert.ToInt16(effects[1]);
 
                         }
-
-                        CardInfo comm = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value);
+                        CardInfo comm;
+                        if (typeAction != CardInfo.TypeAction.reparation)
+                            comm = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value);
+                        else
+                            comm = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value,value2);
                         communityCards.Add(comm);
                     }
                 }
@@ -156,12 +166,15 @@ namespace server
                 foreach (var item in items.Chance)
                 {
                     string[] effects = item.effect.Split(';');
-
-                    if (effects.Length == 2)
+                    Console.WriteLine(item.effect);
+                    if (effects.Length >= 2 && effects.Length < 4)
                     {
-                        string action = effects[1];
+                        string action = effects[0];
+                        Console.WriteLine(action + " "+ action.Length);
                         CardInfo.TypeAction typeAction;
                         int value = 0;
+                        int value2 = 0;
+
                         if (action == "moove")
                         {
                             typeAction = CardInfo.TypeAction.moove;
@@ -177,7 +190,9 @@ namespace server
                         
                         else if (action == "reparation")
                         {
-                            typeAction = CardInfo.TypeAction.reparation; 
+                            typeAction = CardInfo.TypeAction.reparation;
+                            value = Convert.ToInt16(effects[1]);
+                            value2 = Convert.ToInt16(effects[2]);
 
                         }
                         else  // par défaut on considère qu'on effectue un paiement
@@ -189,9 +204,13 @@ namespace server
 
 
 
+                        CardInfo chance;
 
-
-                        CardInfo chance = new CardInfo(item.title, item.text,CardInfo.TypeCard.chance, typeAction, value );
+                        if (typeAction != CardInfo.TypeAction.reparation)
+                            chance = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value);
+                        else
+                            chance = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value, value2);
+                        
                         chanceCards.Add(chance);
                     }
                 }

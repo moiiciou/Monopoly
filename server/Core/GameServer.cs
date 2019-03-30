@@ -31,7 +31,7 @@ namespace server
 
         int nextIndComm = 0;
         int nextIndChance = 0;
-        int salaire = 200;
+        public int salaire = 200;
 #pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
 #pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
@@ -307,6 +307,35 @@ namespace server
                                                         player.Position = tp.searchPositionJail();
                                                         player.isInJail = true;
                                                     }
+                                                    // si le joueur tombe sur une case chance ou caisse de communauté
+                                                    if(tp.posChance.Contains(player.Position % 40))
+                                                    {
+                                                        Console.WriteLine("pioche chance");
+
+                                                        CardInfo chance = tp.chanceCards.ElementAt(nextIndComm%tp.chanceCards.Count);
+                                                        nextIndChance++;
+                                                       // nextIndChance %= tp.chanceCards.Count;
+
+                                                        Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
+                                                        dicoChance.Add(Nick.Trim('0'), chance);
+                                                        response.ServerContent = JsonConvert.SerializeObject(dicoChance);
+                                                        response.ServerMessage = "drawChance";
+                                                        GameServerManager.useEffectCard(chance,ref player, tp, salaire);
+                                                    }else if (tp.posCommunity.Contains(player.Position % 40))
+                                                    {
+                                                        Console.WriteLine("pioche community");
+                                                        CardInfo comm = tp.communityCards.ElementAt(nextIndComm % tp.communityCards.Count);
+                                                        nextIndComm++;
+                                                        //nextIndComm %= tp.communityCards.Count;
+
+                                                        Dictionary<string, CardInfo> dicoComm = new Dictionary<string, CardInfo>();
+                                                        dicoComm.Add(Nick.Trim('0'), comm);
+                                                        response.ServerContent = JsonConvert.SerializeObject(dicoComm);
+
+                                                        GameServerManager.useEffectCard(comm, ref player, tp, salaire);
+
+                                                        response.ServerMessage = "drawCommunity";
+                                                    }
 
 
                                                     PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
@@ -327,6 +356,10 @@ namespace server
                                                 {
                                                     response.ChatMessage = "Ce n'est pas au tour de " + player.Pseudo;
                                                 }
+                                            }
+                                            if(p.Type == "mortGageProperty")
+                                            {
+
                                             }
                                             if (p.Type == "buyStation")
                                             {
@@ -429,6 +462,7 @@ namespace server
 
                                             if (p.Type == "drawChance")
                                             {
+                                                /*
                                                 Console.WriteLine("pioche chance");
 
                                                 CardInfo chance = tp.chanceCards.ElementAt(nextIndComm);
@@ -438,12 +472,13 @@ namespace server
                                                 Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
                                                 dicoChance.Add(Nick.Trim('0'), chance);
                                                 response.ServerContent = JsonConvert.SerializeObject(dicoChance);
-                                                response.ServerMessage = "drawChance";
+                                                response.ServerMessage = "drawChance";*/
                                             }
 
 
                                             if (p.Type == "drawCommunity")
                                             {
+                                                /*
                                                 Console.WriteLine("pioche community");
                                                 CardInfo comm = tp.communityCards.ElementAt(nextIndComm);
                                                 nextIndComm++;
@@ -455,7 +490,7 @@ namespace server
 
                                                 Console.WriteLine(p.ServerContent);
 
-                                                response.ServerMessage = "drawCommunity";
+                                                response.ServerMessage = "drawCommunity";*/
 
                                             }
 
@@ -622,6 +657,7 @@ namespace server
                                             {
                                                 Console.WriteLine(Nick.Trim('0') + " utilise une carte libéré de prison");
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+
                                                 if(p.Content == "freeFromJailCommunity" && player.hasCommunityCardFree && player.isInJail)
                                                 {
                                                     tp.communityCards.Add(tp.freeFromJail);
