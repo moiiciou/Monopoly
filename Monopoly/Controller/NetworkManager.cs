@@ -136,18 +136,12 @@ namespace Monopoly.Controller
 
                                     }
 
-                                    if(p.ServerMessage == "drawChance" )
+                                    if (p.ServerMessage == "drawCommunity" | p.ServerMessage == "drawChance")
                                     {
                                         Dictionary<string, server.CardInfo> data = JsonConvert.DeserializeObject<Dictionary<string, server.CardInfo>>(p.ServerContent);
                                         string pseudoPlayer = data.Keys.FirstOrDefault();
-                                        System.Windows.MessageBox.Show(pseudoPlayer+" pioche une carte chance");
-
-                                    }
-
-                                    if (p.ServerMessage == "drawCommunity")
-                                    {
-                                        System.Windows.MessageBox.Show("carte community pioché");
-
+                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { Board.GetBoard.BoardLabel.Content = pseudoPlayer + "à pioché :"; }));
+                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { CardManager.DisplayCard(data.Values.FirstOrDefault()); }));
                                     }
 
                                     if (p.Type == "updateGameData")
