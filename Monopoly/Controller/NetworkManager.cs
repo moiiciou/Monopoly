@@ -135,7 +135,17 @@ namespace Monopoly.Controller
 
                                     }
 
+                                    if(p.ServerMessage == "drawChance" )
+                                    {
+                                        System.Windows.MessageBox.Show("carte chance pioché");
 
+                                    }
+
+                                    if (p.ServerMessage == "drawCommunity")
+                                    {
+                                        System.Windows.MessageBox.Show("carte community pioché");
+
+                                    }
 
                                     if (p.Type == "updateGameData")
                                     {
@@ -207,7 +217,6 @@ namespace Monopoly.Controller
                                             }
 
                                         }
-
 
                                         GameManager.MonopolyGameData = gameData;
 
