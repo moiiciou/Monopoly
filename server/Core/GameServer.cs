@@ -31,7 +31,7 @@ namespace server
 
         int nextIndComm = 0;
         int nextIndChance = 0;
-        int salaire = 200;
+        public int salaire = 200;
 #pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
 #pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
@@ -320,6 +320,7 @@ namespace server
                                                         dicoChance.Add(Nick.Trim('0'), chance);
                                                         response.ServerContent = JsonConvert.SerializeObject(dicoChance);
                                                         response.ServerMessage = "drawChance";
+                                                        GameServerManager.useEffectCard(chance,ref player, tp, salaire);
                                                     }else if (tp.posCommunity.Contains(player.Position % 40))
                                                     {
                                                         Console.WriteLine("pioche community");
@@ -331,7 +332,7 @@ namespace server
                                                         dicoComm.Add(Nick.Trim('0'), comm);
                                                         response.ServerContent = JsonConvert.SerializeObject(dicoComm);
 
-                                                        Console.WriteLine(p.ServerContent);
+                                                        GameServerManager.useEffectCard(comm, ref player, tp, salaire);
 
                                                         response.ServerMessage = "drawCommunity";
                                                     }
@@ -355,6 +356,10 @@ namespace server
                                                 {
                                                     response.ChatMessage = "Ce n'est pas au tour de " + player.Pseudo;
                                                 }
+                                            }
+                                            if(p.Type == "mortGageProperty")
+                                            {
+
                                             }
                                             if (p.Type == "buyStation")
                                             {
