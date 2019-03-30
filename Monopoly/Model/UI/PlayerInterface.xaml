@@ -7,6 +7,9 @@
              mc:Ignorable="d"
              d:DesignHeight="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}"
             >
+    <UserControl.Background>
+        <ImageBrush/>
+    </UserControl.Background>
 
     <Grid Height="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}" Width="Auto">
         <Grid.RowDefinitions>
@@ -15,17 +18,20 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Image HorizontalAlignment="Left" Height="57" Margin="18,49,0,0" VerticalAlignment="Top" Width="69" Source="/Monopoly;component/ressources/templates/default/money.png"/>
-        <Label x:Name="money_label" Content="{Binding MoneyPlayer}" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="38" Width="94" FontSize="24" FontWeight="Bold" FontFamily="Arial Black" Margin="79,49,0,0"/>
-        <Label x:Name="pseudo_label" Content="{Binding PseudoPlayer}" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Top" Height="36" Width="218" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
-        <ListView Grid.Row="1" x:Name="property_list" HorizontalAlignment="Left" Height="274"  VerticalAlignment="Top" Width="330">
+        <Label x:Name="money_label" Content="{Binding MoneyPlayer}"  VerticalAlignment="Top" Height="38" FontSize="24" FontWeight="Bold" FontFamily="Arial Black" Margin="79,49,282,0"/>
+        <Label x:Name="pseudo_label" Content="{Binding PseudoPlayer}" Margin="18,0,219,0" VerticalAlignment="Top" Height="36" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
+        <ListView Grid.Row="1" x:Name="property_list" Margin="0,0,10,120">
+            <ListView.Background>
+                <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/monopoly-man.jpg"  Opacity="0.5" Stretch="Uniform"/>
+            </ListView.Background>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
+                    <UniformGrid Columns="5" HorizontalAlignment="Stretch" Opacity="1"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Right" Margin="-4,0" Width="206" Height="232" VerticalAlignment="Bottom">
+                    <StackPanel HorizontalAlignment="Right" Margin="-4,0" Width="206" Height="232" VerticalAlignment="Bottom" Opacity="1" Background="White" >
                         <Border BorderThickness="1" BorderBrush="Black"  Width="182" >
                             <TextBlock x:Name="textBlock1" TextWrapping="Wrap" RenderTransformOrigin="0.489,3.304" Height="51" Panel.ZIndex="1" FontWeight="Bold" TextAlignment="Center" Margin="-1,0" HorizontalAlignment="Left" Width="182" Background="{Binding Color}"><Run/><LineBreak/><Run Text="{Binding TextPropertyName}"/></TextBlock>
                         </Border>
@@ -38,19 +44,19 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Label Grid.Row="0" Content="Propriétés possédées:" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="207" FontSize="20" Height="37"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="69" Margin="350,10,0,0" VerticalAlignment="Top" Width="64" Source="/Monopoly;component/ressources/templates/default/player_avatar_test.png"/>
+        <Label Grid.Row="0" Content="Propriétés possédées:"  VerticalAlignment="Bottom" FontSize="20" Height="37" Margin="0,0,243,0" FontWeight="Bold"/>
+        <Image x:Name="image" Margin="207,0,0,0" Source="/Monopoly;component/ressources/templates/default/player_avatar_test.png" HorizontalAlignment="Left" Width="69" Height="69" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="Autres Joueurs :" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.719,0.705" Width="178" Height="38" FontSize="16" FontWeight="Bold"/>
-        <local:ChatBox Grid.Row="2" x:Name="chatBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="275" Width="446"  Loaded="ChatBox_Loaded"/>
-        <Label x:Name="currency_label" Content="€" HorizontalAlignment="Left" Margin="173,49,0,0" VerticalAlignment="Top" Height="38" Width="44" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
-        <StackPanel x:Name="PlayerPanel" HorizontalAlignment="Left" Height="222" Margin="10,138,0,0" VerticalAlignment="Top" Width="396"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="347,10,0,0" HorizontalAlignment="Left" Width="89" Height="95" VerticalAlignment="Top" Click="Button_Click" Grid.Row="1" >
+        <local:ChatBox Grid.Row="2" x:Name="chatBox"  Loaded="ChatBox_Loaded" Margin="10,0,10,23"/>
+        <Label x:Name="currency_label" Content="€" Margin="173,49,238,0" VerticalAlignment="Top" Height="38" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
+        <StackPanel x:Name="PlayerPanel" Margin="10,138,0,42" HorizontalAlignment="Left" Width="300"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="0,279,0,0" Height="95" VerticalAlignment="Top" Click="Button_Click" Grid.Row="1" HorizontalAlignment="Left" Width="98" >
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/house_button.png"/>
             </Button.Background>
 
         </Button>
-        <Button Style="{StaticResource ButtonStyle}" Content="" HorizontalAlignment="Left" Margin="350,118,0,0" Grid.Row="1" VerticalAlignment="Top" Width="89" Height="95" Click="Button_Click_1">
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="103,274,0,0" Grid.Row="1" VerticalAlignment="Top" Height="105" Click="Button_Click_1" HorizontalAlignment="Left" Width="100">
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/sell_button.png"/>
             </Button.Background>

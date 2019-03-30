@@ -22,7 +22,7 @@
               Width="Auto" 
               HorizontalScrollBarVisibility="Disabled"
               VerticalScrollBarVisibility="Auto"/>
-        <TextBox x:Name="textBox" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+        <TextBox x:Name="textBox" Grid.Row="1" Grid.Column="0" >
             <TextBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -30,7 +30,7 @@
             </TextBox.Resources>
         </TextBox>
 
-        <Button Style="{StaticResource ButtonStyle}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" x:Name="button" Content="&#xD;&#xA;SEND !" Click="button_Click">
+        <Button Style="{StaticResource ButtonStyle}"  Grid.Row="1" Grid.Column="1" x:Name="button" Content="&#xD;&#xA;SEND !" Click="button_Click" HorizontalAlignment="Left" Width="112">
             <Button.Template>
                 <ControlTemplate>
                     <Border CornerRadius="10">
@@ -46,7 +46,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <RichTextBox x:Name="chatBody" HorizontalAlignment="Left" Width="450" Grid.ColumnSpan="2" Margin="0,0,0,5">
+        <RichTextBox x:Name="chatBody" Grid.ColumnSpan="2" Margin="0,0,0,5">
             <RichTextBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

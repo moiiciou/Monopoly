@@ -14,6 +14,5 @@
         <Label x:Name="authorsLabel" Content="By Charles STILL and Thibaut PHILIPPS" Panel.ZIndex="1" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="233" Height="26" VerticalAlignment="Bottom"/>
         <Image x:Name="splashScreen" HorizontalAlignment="Center" VerticalAlignment="Center"  Stretch="Fill" Source="pack://siteoforigin:,,,/ressources/templates/default/monopoly-screen.jpg"/>
         <Button x:Name="startButton_Copy" Content="New Game" Margin="232,139,232,195" Panel.ZIndex="1" Click="startButton_Click" FontWeight="Bold" FontSize="22" Height="38" VerticalAlignment="Center" HorizontalAlignment="Center" Width="152"/>
-
     </Grid>
 </Window>

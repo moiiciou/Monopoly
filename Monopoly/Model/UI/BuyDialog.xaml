@@ -4,14 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.Model.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="450">
+             mc:Ignorable="d" Height="455" Width="489">
     <Grid>
-        <Image HorizontalAlignment="Left" Height="183" Margin="0,257,0,0" VerticalAlignment="Top" Width="154" Source="/Monopoly;component/ressources/templates/default/MonopolyManBuy.gif"/>
-        <Image HorizontalAlignment="Left" Height="269" Margin="87,24,0,0" VerticalAlignment="Top" Width="363" Source="/Monopoly;component/ressources/templates/default/bubble.png"/>
-        <TextBlock HorizontalAlignment="Left" Margin="145,92,0,0" TextWrapping="Wrap" Text="{Binding DialogText}" VerticalAlignment="Top" Height="62" Width="233"/>
-        <Button Name="yesButton" Content="Oui" HorizontalAlignment="Left" Margin="174,167,0,0" VerticalAlignment="Top" Width="46" Height="24" Click="yesButton_Click"/>
-        <Button Name="noButton"  Content="Non" HorizontalAlignment="Left" Margin="287,167,0,0" VerticalAlignment="Top" Width="46" Height="24" Click="noButton_Click"/>
+        <Image HorizontalAlignment="Left" Height="286" Margin="0,154,0,0" VerticalAlignment="Top" Width="287" Source="/Monopoly;component/ressources/templates/default/the-sceptic.gif"/>
+        <Image HorizontalAlignment="Left" Height="269" Margin="174,10,-87,0" VerticalAlignment="Top" Width="363" Source="/Monopoly;component/ressources/templates/default/bubble.png"/>
+        <TextBlock HorizontalAlignment="Left" Margin="228,78,0,0" TextWrapping="Wrap" Text="{Binding DialogText}" VerticalAlignment="Top" Height="62" Width="233" FontFamily="Miriam Mono CLM" FontWeight="Bold" FontSize="16"/>
+        <Button Name="yesButton" Content="Oui" HorizontalAlignment="Left" Margin="258,154,0,0" VerticalAlignment="Top" Width="46" Height="24" Click="yesButton_Click"/>
+        <Button Name="noButton"  Content="Non" HorizontalAlignment="Left" Margin="394,154,0,0" VerticalAlignment="Top" Width="46" Height="24" Click="noButton_Click"/>
 
     </Grid>
 </UserControl>

@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:Monopoly.Model.Board"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
+    <Grid.Background>
+        <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/background.jpg"/>
+    </Grid.Background>
 
-        <Grid HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="Auto"/>
+    <Grid HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="Auto"/>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />

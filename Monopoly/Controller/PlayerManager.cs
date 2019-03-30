@@ -109,8 +109,8 @@ namespace Monopoly.Controller
 
                 if (CurrentPlayerName.Trim('0') != propertyCase.CaseInformation.Owner & pseudo == CurrentPlayerName.Trim('0'))
                 {
-                    Grid.SetColumn(buyDialog, 4);
-                    Grid.SetRow(buyDialog, 4);
+                    Grid.SetColumn(buyDialog, 2);
+                    Grid.SetRow(buyDialog, 2);
                     Grid.SetRowSpan(buyDialog, 8);
                     Grid.SetColumnSpan(buyDialog, 8);
 
