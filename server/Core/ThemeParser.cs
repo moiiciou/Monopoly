@@ -16,6 +16,7 @@ namespace server
         public List<CaseInfo> restinfo = new List<CaseInfo>();
         public List<CardInfo> communityCards = new List<CardInfo>();
         public List<CardInfo> chanceCards = new List<CardInfo>();
+        public CardInfo freeFromJail;
         public JailInfo jail;
        // public List<UserControl> CommunityList = new List<UserControl>();
        // public List<ChanceCard> ChanceList = new List<ChanceCard>();
