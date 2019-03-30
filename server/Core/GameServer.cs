@@ -435,8 +435,8 @@ namespace server
 
                                                 Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
                                                 dicoChance.Add(Nick.Trim('0'), chance);
-                                                p.ServerContent = JsonConvert.SerializeObject(dicoChance);
-                                                p.ServerMessage = "drawChance";
+                                                response.ServerContent = JsonConvert.SerializeObject(dicoChance);
+                                                response.ServerMessage = "drawChance";
                                             }
 
 
@@ -449,11 +449,11 @@ namespace server
                                                 
                                                 Dictionary<string, CardInfo> dicoComm = new Dictionary<string, CardInfo>();
                                                 dicoComm.Add(Nick.Trim('0'), comm);
-                                                p.ServerContent = JsonConvert.SerializeObject(dicoComm);
+                                                response.ServerContent = JsonConvert.SerializeObject(dicoComm);
 
                                                 Console.WriteLine(p.ServerContent);
 
-                                                p.ServerMessage = "drawCommunity";
+                                                response.ServerMessage = "drawCommunity";
 
                                             }
 
