@@ -1,4 +1,5 @@
-﻿using System;
+﻿using server.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -22,42 +23,16 @@ namespace Monopoly.Model.Case
     /// </summary>
     public partial class StationCase : BaseCase
     {
-        public int IdOwner { get; set; } = 0;
-        public string TextLabel { get; set; }
 
+        public StationInfo CaseInformation { get; set; }
 
         public StationCase(string text, int price, string skinPath, int[] position, int angle)
         {
             InitializeComponent();
-            if (File.Exists(skinPath))
-            {
-                this.DataContext = new CaseInfo { ImageTemplate = skinPath, TextLabel = text, Price = price.ToString() + "€", Rotation = angle };
-
-            }
-            else
-            {
-                this.DataContext = new CaseInfo { ImageTemplate = "C:\\Users\\me\\Pictures\\error.png", TextLabel = text, Price = price.ToString() + "€", Rotation = angle };
-
-            }
-
-            TextLabel = text;
+            CaseInformation = new StationInfo(text, price, skinPath, angle, 0);
+            DataContext = CaseInformation;
             Position = position;
         }
 
-        public class CaseInfo : INotifyPropertyChanged
-        {
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void NotifyPropertyChanged(string info)
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-
-            public string ImageTemplate { get; set; }
-            public string TextLabel { get; set; }
-            public string Price { get; set; }
-            public int Rotation { get; set; }
-
-        }
     }
 }

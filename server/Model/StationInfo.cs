@@ -12,13 +12,15 @@ namespace server.Model
         public string Owner { get; set; }
         public int Price { get; set; }
         public int RentBase { get; set; }
+
+        public string TextPrice { get; set; }
         public StationInfo(string text, int price, string skinPath, int angle, int posPlateau)
         {
             RentBase = 25;
             positionPlateau = posPlateau;
 
             this.ImageTemplate = skinPath;
-            
+            TextPrice = price.ToString() + " €";
             TextLabel = text;
             this.Rotation = angle;
             isMortgaged = false;

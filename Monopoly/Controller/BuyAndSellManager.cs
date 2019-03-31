@@ -24,7 +24,12 @@ namespace Monopoly.Controller
             }
 
             if (baseCase.GetType().ToString() == "Monopoly.Model.Case.StationCase")
-                return true;
+            {
+                StationCase stationCase = (StationCase)baseCase;
+                if (stationCase.CaseInformation.Owner == null)
+                    return true;
+
+            }
 
             return false;
         }
@@ -60,7 +65,39 @@ namespace Monopoly.Controller
                             }
                         }
               }
+
+            if (baseCase.GetType() == typeof(StationCase))
+            {
+                StationCase stationCase = (StationCase)baseCase;
+                if (stationCase.CaseInformation.Owner == null && PlayerManager.CurrentPlayerName.Trim('0') == p.playerInfo.Pseudo)
+                {
+                    try
+                    {
+
+                        Packet packet = new Packet();
+                        packet.Type = "buyStation";
+
+                        packet.Content = JsonConvert.SerializeObject(stationCase.CaseInformation, Formatting.Indented);
+
+                        string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                        byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                        int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+                        Console.WriteLine(message);
+                        if (DtSent == 0)
+                        {
+                            MessageBox.Show("Aucune donnée n'a été envoyée");
+                        }
+
+                    }
+                    catch (Exception E)
+                    {
+                        MessageBox.Show(E.Message);
+                    }
+                }
+            }
         }
+
+
 
 
         public static int CalculRent(PropertyCase propertyCase)
@@ -104,10 +141,5 @@ namespace Monopoly.Controller
             return rent;
         }
 
-        public static bool CanYouBuild(PropertyCase propertyCase,PlayerInfo player)
-        {
-            return (Core.Tools.GetColorProperty(propertyCase) == Core.Tools.GetColorProperty(player, propertyCase));
-
-        }
     }
 }
