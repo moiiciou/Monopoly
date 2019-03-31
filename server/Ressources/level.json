@@ -558,7 +558,7 @@
     },
     {
       "title": "Fuyez pauvres fous! ",
-      "text": "Vous êtes sauvagement attaqué par un dragon, direction case départ!",
+      "text": "Vous etes sauvagement attaque par un dragon, direction case depart!",
       "effect": "moove;0"
     },
     {
@@ -567,8 +567,8 @@
       "effect": "paiement;200"
     },
     {
-      "title": "Cassage de matériel",
-      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de réparation)",
+      "title": "Cassage de materiel",
+      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de reparation)",
       "effect": "paiement;-100"
     },
     {
@@ -627,7 +627,7 @@
     },
     {
       "title": "Fuyez pauvres fous! ",
-      "text": "Vous êtes sauvagement attaqué par un dragon, direction case départ!",
+      "text": "Vous etes sauvagement attaque par un dragon, direction case depart!",
       "effect": "moove;0"
     },
     {
@@ -636,8 +636,8 @@
       "effect": "paiement;200"
     },
     {
-      "title": "Cassage de matériel",
-      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de réparation)",
+      "title": "Cassage de materiel",
+      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de reparation)",
       "effect": "paiement;-100"
     },
     {
