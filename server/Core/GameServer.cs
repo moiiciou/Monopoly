@@ -704,7 +704,7 @@ namespace server
                                                         {
                                                             
                                                             int rent = RentManager.computeRent(propRent, player, tp);
-                                                            if (rent > 0 && player.Balance > rent)
+                                                            if (rent >= 0 && player.Balance >= rent)
                                                             {
                                                                 player.Balance -= rent;
                                                                 response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
@@ -735,7 +735,7 @@ namespace server
                                                         if (companyRent != null && player.Pseudo != companyRent.Owner)
                                                         {
                                                             int rent = RentManager.computeRent(companyRent, player, tp);
-                                                            if (rent > 0 && player.Balance > rent)
+                                                            if (rent >= 0 && player.Balance >= rent)
                                                             {
                                                                 player.Balance -= rent;
                                                                
@@ -762,7 +762,7 @@ namespace server
                                                         if (stationRent != null && player.Pseudo != stationRent.Owner)
                                                         {
                                                             int rent = RentManager.computeRent(stationRent, player, tp);
-                                                            if (rent > 0 && player.Balance> rent)
+                                                            if (rent >= 0 && player.Balance> rent)
                                                             {
                                                                
                                                                 response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + stationRent.Owner;

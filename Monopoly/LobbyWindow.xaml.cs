@@ -29,13 +29,7 @@ namespace Monopoly
 
             ip_server_input.Text = Tools.GetLocalIPAddress();
 
-            DirectoryInfo d = new DirectoryInfo(".\\ressources\\templates\\default\\avatar\\");
-
-            foreach (var file in d.GetFiles("*.png"))
-            {
-                Avatar avatar = new Avatar(file.Name, file.FullName, file.Name);
-                avatarCBox.Items.Add(avatar);
-            }
+           
         }
 
         private void join_button_Click(object sender, RoutedEventArgs e)

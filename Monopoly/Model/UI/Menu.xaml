@@ -8,6 +8,5 @@
              d:DesignHeight="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}" d:DesignWidth="{Binding Source={x:Static SystemParameters.FullPrimaryScreenWidth}}">
     <Grid>
         <Button Name="quitButton" Content="Quitter !" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="63" Click="quitButton_Click"/>
-        <Button Name="optionButton" Content="Options" HorizontalAlignment="Center" Height="63"  VerticalAlignment="Center" Width="150" Margin="0,0,0,200"/>
     </Grid>
 </UserControl>
