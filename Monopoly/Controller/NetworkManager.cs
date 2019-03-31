@@ -157,6 +157,17 @@ namespace Monopoly.Controller
 
                                     }
 
+                                    if (p.ServerMessage == "won")
+                                    {
+                                        PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.ServerContent);
+                                        if (playerInfo.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+                                        {
+                                            MessageBox.Show(playerInfo.Pseudo+" a gagné ! bien joué à lui ! :) ");
+                                            Application.Current.Windows[0].Close();
+                                        }
+
+                                    }
+
                                     if (p.Type == "updateGameData")
                                     {
                                         GameData gameData = JsonConvert.DeserializeObject <GameData> (p.Content);
