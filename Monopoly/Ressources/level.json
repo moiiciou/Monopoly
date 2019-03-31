@@ -55,10 +55,9 @@
     },
     {
       "position": [ 0, 4 ],
-      "type": "custom",
+      "type": "chance",
       "caseAttributes": {
-        "label": "Impots sur le revenu !",
-        "income": 100,
+        "label": "",
         "skin": ""
       }
     },
@@ -161,10 +160,9 @@
     },
     {
       "position": [ 2, 10 ],
-      "type": "company",
+      "type": "community",
       "caseAttributes": {
-        "label": "Compagnie General d'electricite !",
-        "income": 100,
+        "label": "",
         "skin": ""
       }
     },
@@ -393,10 +391,9 @@
     },
     {
       "position": [ 10, 2 ],
-      "type": "company",
+      "type": "community",
       "caseAttributes": {
-        "label": "Compagnie  de distribution d'eau !",
-        "income": 100,
+        "label": "",
         "skin": ""
       }
     },

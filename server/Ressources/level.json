@@ -1,5 +1,5 @@
 {
-  "Case": [
+ "Case": [
     {
       "position": [ 0, 0 ],
       "type": "start",
@@ -55,10 +55,9 @@
     },
     {
       "position": [ 0, 4 ],
-      "type": "custom",
+      "type": "chance",
       "caseAttributes": {
-        "label": "Impots sur le revenu !",
-        "income": 100,
+        "label": "",
         "skin": ""
       }
     },
@@ -68,7 +67,6 @@
       "caseAttributes": {
         "label": "Gare Montparnasse",
         "price": 100,
-        "rent": 25,
         "skin": ""
       }
     },
@@ -162,11 +160,9 @@
     },
     {
       "position": [ 2, 10 ],
-      "type": "company",
+      "type": "community",
       "caseAttributes": {
-        "label": "Compagnie General d'electricite !",
-        "income": 100,
-        "price": 150,
+        "label": "",
         "skin": ""
       }
     },
@@ -212,7 +208,6 @@
       "caseAttributes": {
         "label": "Gare de Lyon",
         "price": 100,
-        "rent": 25,
         "skin": ""
       }
     },
@@ -355,7 +350,6 @@
       "caseAttributes": {
         "label": "Gare du Nord",
         "price": 100,
-        "rent": 25,
         "skin": ""
       }
     },
@@ -397,11 +391,9 @@
     },
     {
       "position": [ 10, 2 ],
-      "type": "company",
+      "type": "community",
       "caseAttributes": {
-        "label": "Compagnie  de distribution d'eau !",
-        "income": 100,
-        "price": 150,
+        "label": "",
         "skin": ""
       }
     },
@@ -500,7 +492,6 @@
       "caseAttributes": {
         "label": "Gare Saint-Lazard",
         "price": 100,
-        "rent": 25,
         "skin": ""
       }
     },
@@ -567,18 +558,44 @@
     },
 
     {
+      "title": "Frais de scolarite !",
+      "text": "Le CFAI vous remercie pour votre inscription (200 euros)",
+      "effect": "paiement;-200"
+    },
+    {
+      "title": "Reparation de votre voiture !",
+      "text": "Les reparation de votre voiture vous on couter 150 euros",
+      "effect": "paiement;-150"
+    },
+    {
+      "title": "Amende de stationement",
+      "text": "Vous payez une amende de 100 euros",
+      "effect": "paiement;-100"
+    },
+    {
+      "title": "Des factures encore !",
+      "text": "Vous croulez sous les factures, payez 175 euros",
+      "effect": "paiement;-175"
+    },
+    {
+      "title": "Libere de prison community",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
+      "effect": "freefromjail;50"
+    },
+
+    {
       "title": "C'est jour de paie !",
       "text": "Erreur de la banque recevez de la tune! (50€)",
       "effect": "paiement;50"
     },
     {
-      "title": "Libéré de prison",
+      "title": "Libere de prison",
       "text": "Utiliser cette carte quand vous êtes en prison !",
       "effect": "freefromjail;50"
     },
     {
-      "title": "Réparation sur les propriétés",
-      "text": "Vos maisons sont moisies et ragoutante, 30€ par maison par propriétés et 40€ par hotel sont a payé pour tout réparer",
+      "title": "Reparation sur les proprietes",
+      "text": "Vos maisons sont moisies et ragoutante, 30 euros par maison par proprietes et 40 euros par hotel sont a paye pour tout reparer",
       "effect": "reparation;30;40"
     }
   ],
@@ -590,18 +607,33 @@
     },
 
     {
-      "title": "Frais de scolarité !",
-      "text": "Le CFAI vous remercie pour votre inscription (200€)",
+      "title": "Frais de scolarite !",
+      "text": "Le CFAI vous remercie pour votre inscription (200 euros)",
       "effect": "paiement;-200"
     },
     {
-      "title": "Libéré de prison community",
+      "title": "Reparation de votre voiture !",
+      "text": "Les reparation de votre voiture vous on couter 150 euros",
+      "effect": "paiement;-150"
+    },
+    {
+      "title": "Amende de stationement",
+      "text": "Vous payez une amende de 100 euros",
+      "effect": "paiement;-100"
+    },
+    {
+      "title": "Des factures encore !",
+      "text": "Vous croulez sous les factures, payez 175 euros",
+      "effect": "paiement;-175"
+    },
+    {
+      "title": "Libere de prison community",
       "text": "Utiliser cette carte quand vous êtes en prison !",
       "effect": "freefromjail;50"
     },
     {
-      "title": "Réparation sur les propriétés",
-      "text": "Vos maisons sont cassées, les 2A sont passés par là ! 50€ par maison par propriétés et 70€ par hotel sont a payé pour tout réparer",
+      "title": "Reparation sur les proprietes",
+      "text": "Vos maisons sont cassees, les 2A sont passes par la ! 50 euros par maison par proprietes et 70 euros par hotel sont a paye pour tout reparer",
       "effect": "reparation;50;70"
     }
   ]
