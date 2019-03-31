@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 using Monopoly.Model;
-
 using Monopoly.Model.Board;
-using System.Threading;
 using server;
 using Monopoly.Model.UI;
 using Monopoly.Model.Case;
-using server.Model;
 using Newtonsoft.Json;
 
 namespace Monopoly.Controller

@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using server.Model;
 
 namespace server.Controleur
 {
 
-    /* A faire :
-     *  Implémenter tout les méthodes pour pouvoir effectué sur les joueurs tout les actions possible au monopoly en respectant les régles
-     * 
-     * 
-     * 
-     * 
-     * */
     public class PlayerManager 
     {
         public static int nbPlayer()

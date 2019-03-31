@@ -1,13 +1,10 @@
-﻿using Monopoly.Core;
-using Monopoly.Model;
+﻿using Monopoly.Model;
 using Monopoly.Model.Case;
-using Monopoly.Model.UI;
 using Newtonsoft.Json;
 using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
-using server;
 
 namespace Monopoly.Controller
 {

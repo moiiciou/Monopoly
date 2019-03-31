@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace server.Model
+﻿namespace server.Model
 {
     public class StationInfo : CaseInfo
     {
@@ -18,14 +12,13 @@ namespace server.Model
         {
             RentBase = rent;
             positionPlateau = posPlateau;
-
-            this.ImageTemplate = skinPath;
+            ImageTemplate = skinPath;
             TextPrice = price.ToString() + " €";
             TextLabel = text;
-            this.Rotation = angle;
+            Rotation = angle;
             isMortgaged = false;
-            this.Price = price;
-            this.Owner = null;
+            Price = price;
+            Owner = null;
         }
         public StationInfo()
         {

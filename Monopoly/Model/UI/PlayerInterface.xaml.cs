@@ -1,30 +1,14 @@
 ﻿using Monopoly.Controller;
-using Monopoly.Model.Card;
-using server;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-#pragma warning disable CS0105 // La directive using de 'System.Linq' est apparue précédemment dans cet espace de noms
-using System.Linq;
-#pragma warning restore CS0105 // La directive using de 'System.Linq' est apparue précédemment dans cet espace de noms
-#pragma warning disable CS0105 // La directive using de 'System' est apparue précédemment dans cet espace de noms
-using System;
-#pragma warning restore CS0105 // La directive using de 'System' est apparue précédemment dans cet espace de noms
 using Monopoly.Model.Case;
 using Newtonsoft.Json;
-using System.Net.Sockets;
+using server;
 using server.Model;
+using System;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Monopoly.Model.UI
 {
@@ -199,22 +183,40 @@ namespace Monopoly.Model.UI
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            Packet packet = new Packet();
-            packet.Type = "useFreeFromJailCard";
-            packet.Content = "freeFromJailChance";
-            packet.ChatMessage = "";
-            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
-            Connection.SendMsg(packetToSend);
+            PlayerInfo playerInfo = PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0'));
+            if (playerInfo.hasChanceCardFree)
+            {
+                Packet packet = new Packet();
+                packet.Type = "useFreeFromJailCard";
+                packet.Content = "freeFromJailChance";
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+            }
+            else
+            {
+                MessageBox.Show("Vous n'avez pas cette carte !");
+            }
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            Packet packet = new Packet();
-            packet.Type = "useFreeFromJailCard";
-            packet.Content = "freeFromJailCommunity";
-            packet.ChatMessage = "";
-            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
-            Connection.SendMsg(packetToSend);
+            PlayerInfo playerInfo = PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0'));
+            if(playerInfo.hasCommunityCardFree)
+            {
+                Packet packet = new Packet();
+                packet.Type = "useFreeFromJailCard";
+                packet.Content = "freeFromJailCommunity";
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+
+            }
+            else
+            {
+                MessageBox.Show("Vous n'avez pas cette carte !");
+            }
+
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)

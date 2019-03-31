@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using server;
-using Monopoly.Model.Board;
 
 namespace Monopoly.Model.Card
 {
