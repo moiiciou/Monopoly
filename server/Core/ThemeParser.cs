@@ -245,6 +245,28 @@ namespace server
             return null;
         }
 
+        public StationInfo searchCaseStation(string textlbl)
+        {
+            foreach (StationInfo s in StationList)
+            {
+                if (s.TextLabel == textlbl)
+                    return s;
+            }
+
+            return null;
+        }
+
+        public CompanyInfo searchCaseCompany(string textlbl)
+        {
+            foreach (CompanyInfo c in companiesList)
+            {
+                if (c.TextLabel == textlbl)
+                    return c;
+            }
+
+            return null;
+        }
+
         public int searchPosGoToJail()
         {
             foreach(CustomInfo c in CustomList)
@@ -300,6 +322,30 @@ namespace server
             foreach (PropertyInfo p in CasesList)
             {
                 if(p.positionPlateau == pos)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public StationInfo searchCaseStationAtPos(int pos)
+        {
+            foreach (StationInfo p in StationList)
+            {
+                if (p.positionPlateau == pos)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public CompanyInfo searchCaseCompanyAtPos(int pos)
+        {
+            foreach (CompanyInfo p in companiesList)
+            {
+                if (p.positionPlateau == pos)
                 {
                     return p;
                 }

@@ -352,6 +352,9 @@ namespace server
 
 
                                                     PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
+                                                    CompanyInfo companyRent = tp.searchCaseCompanyAtPos(player.Position);
+                                                    StationInfo stationRent = tp.searchCaseStationAtPos(player.Position);
+
                                                     if (propRent != null && player.Pseudo != propRent.Owner)
                                                     {
                                                         int rent = RentManager.computeRent(propRent, player, tp);
@@ -362,6 +365,27 @@ namespace server
                                                             PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
                                                         }
 
+                                                    }
+                                                    if(companyRent != null && player.Pseudo != companyRent.Owner)
+                                                    {
+                                                        int rent = RentManager.computeRent(propRent, player, tp);
+                                                        if (rent > 0)
+                                                        {
+                                                            player.Balance -= rent;
+                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                            PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                        }
+                                                    }
+
+                                                    if (stationRent != null && player.Pseudo != stationRent.Owner)
+                                                    {
+                                                        int rent = RentManager.computeRent(stationRent, player, tp);
+                                                        if (rent > 0)
+                                                        {
+                                                            player.Balance -= rent;
+                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                            PlayerManager.GetPlayerByPseuso(stationRent.Owner).Balance += rent;
+                                                        }
                                                     }
                                                     GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au joueur suivant.
                                                 }
@@ -476,6 +500,7 @@ namespace server
                                                       tp.searchCaseProperty(propertyToSell.Location).HasHostel = false;
                                                       */
                                                     tp.searchCaseProperty(propertyToSell.Location).Owner = null;
+                                                    tp.searchCaseProperty(propertyToSell.Location).isMortgaged = false;
                                                     response.ChatMessage = Nick.Trim('0') + " vend la propriété " + propertyToSell.Location;
                                                 }
                                                 else
@@ -491,15 +516,34 @@ namespace server
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                 if(station != null && station.Owner == player.Pseudo)
                                                 {
-                                                    station.Owner = null;
                                                     player.Stations.Remove(station);
+                                                    tp.searchCaseStation(station.TextLabel).Owner = null;
+                                                    tp.searchCaseStation(station.TextLabel).isMortaged = false;
                                                     if (station.isMortaged)
                                                         player.Balance += station.Price/2;
                                                     else
                                                         player.Balance += station.Price;
                                                 }
                                             }
+                                            if(p.Type == "sellCompany")
+                                            {
+                                                response.Type = "message";
+                                                Console.WriteLine(p.Content);
+                                                CompanyInfo company = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                if (company != null && company.Owner == player.Pseudo)
+                                                {
+                                                    
+                                                    player.Companies.Remove(company);
+                                                    tp.searchCaseStation(company.TextLabel).Owner = null;
+                                                    tp.searchCaseStation(company.TextLabel).isMortaged = false;
+                                                    if (company.isMortaged)
+                                                        player.Balance += company.Price / 2;
+                                                    else
+                                                        player.Balance += company.Price;
+                                                }
 
+                                            }
 #region useless
                                             if (p.Type == "drawChance")
                                             {
