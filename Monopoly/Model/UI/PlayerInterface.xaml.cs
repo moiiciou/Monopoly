@@ -276,6 +276,17 @@ namespace Monopoly.Model.UI
                 Connection.SendMsg(packetToSend);
             }
         }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            
+            Packet packet = new Packet();
+            packet.Type = "moove";
+            packet.Content = "";
+            packet.ChatMessage = "";
+            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+            Connection.SendMsg(packetToSend);
+        }
     }
     
 }

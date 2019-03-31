@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.Model"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100">
-    <Ellipse Name ="pion" Fill="{Binding ColorCode}" HorizontalAlignment="Left" Height="100" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+             d:DesignHeight="75" d:DesignWidth="75">
+    <Ellipse Name ="pion" Fill="{Binding ColorCode}" Margin="0,0,0,0" Stroke="Black" Height="58" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="58"/>
     <ToolTipService.ToolTip >
         <ToolTip Name="toolTip" HorizontalOffset="0" VerticalOffset="0">
             <StackPanel Width="250" Height="150">

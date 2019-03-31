@@ -8,11 +8,9 @@
         mc:Ignorable="d"
         Title="Monopoly" Height="402.548" Width="623.829">
     <Grid>
-        <Button x:Name="MultiButton" Content="Multiplayer" Margin="232,208,232,127" Panel.ZIndex="1" Click="Multi_button_click" FontWeight="Bold" FontSize="22" Height="37" VerticalAlignment="Center" HorizontalAlignment="Center" Width="152">
+        <Button x:Name="MultiButton" Content="Jouer" Margin="235,171,229,164" Panel.ZIndex="1" Click="Multi_button_click" FontWeight="Bold" FontSize="22" Height="37" VerticalAlignment="Center" HorizontalAlignment="Center" Width="152">
         </Button>
-        <Button x:Name="optionButton" Content="Options" Margin="232,276,232,60" Panel.ZIndex="1" ClickMode="Press" Click="optionButton_Click" FontWeight="Bold" FontSize="22" HorizontalAlignment="Center" Width="152" Height="36" VerticalAlignment="Center"/>
         <Label x:Name="authorsLabel" Content="By Charles STILL and Thibaut PHILIPPS" Panel.ZIndex="1" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="233" Height="26" VerticalAlignment="Bottom"/>
         <Image x:Name="splashScreen" HorizontalAlignment="Center" VerticalAlignment="Center"  Stretch="Fill" Source="pack://siteoforigin:,,,/ressources/templates/default/monopoly-screen.jpg"/>
-        <Button x:Name="startButton_Copy" Content="New Game" Margin="232,139,232,195" Panel.ZIndex="1" Click="startButton_Click" FontWeight="Bold" FontSize="22" Height="38" VerticalAlignment="Center" HorizontalAlignment="Center" Width="152"/>
     </Grid>
 </Window>
