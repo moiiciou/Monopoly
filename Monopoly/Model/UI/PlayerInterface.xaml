@@ -84,10 +84,10 @@
             </ListView.ItemTemplate>
         </ListView>
         <Label Content="Gares possédées :" HorizontalAlignment="Left" Margin="10,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="134" FontWeight="Bold"/>
-        <Button HorizontalAlignment="Left" Margin="317,176,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="36" Visibility="Hidden">
+        <Button Name="companyEau" HorizontalAlignment="Left" Margin="317,176,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="36" Visibility="Hidden">
             <TextBlock Width="100">Compagnie  de <LineBreak/>distribution d'eau !</TextBlock>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="317,217,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="36" Visibility="Hidden">
+        <Button Name="companyElec" HorizontalAlignment="Left" Margin="317,217,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="36" Visibility="Hidden">
             <TextBlock Width="110">Compagnie General <LineBreak/>d'electricite !</TextBlock>
         </Button>
         <Label Content="Entreprises :" HorizontalAlignment="Left" Margin="317,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="97" FontWeight="Bold"/>

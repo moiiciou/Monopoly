@@ -228,7 +228,29 @@ namespace Monopoly.Controller
                                                     }
 
                                                 }
+                                                if (player.Companies != null)
+                                                {
+                                                    foreach (CompanyInfo company in player.Companies)
+                                                    {
+                                                        if (company.GetType() == typeof(CompanyInfo))
+                                                        {
+                                                            foreach (BaseCase baseCase in Board.GetBoard.CasesList)
+                                                            {
+                                                                if (baseCase is CompanyCase)
+                                                                {
+                                                                    CompanyCase companyCase = (CompanyCase)baseCase;
+                                                                    if (companyCase.ComInfo.TextLabel == company.TextLabel)
+                                                                    {
+                                                                        companyCase.ComInfo = company;
+                                                                    }
+                                                                }
+                                                            }
 
+                                                        }
+
+                                                    }
+
+                                                }
                                                 if (player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
                                                     if (player.Position != PlayerManager.CurrentPlayerLastPosition)
                                                     {
