@@ -17,7 +17,7 @@ namespace server
 {
     public class GameServer : forwardToAll
     {
-        Packet lastPacketSend;
+        Packet lastPacketSend = new Packet();
         ArrayList readList = new ArrayList(); //liste utilisée par socket.select 
         string msgString = null; //contiendra le message envoyé aux autres clients
         string msgDisconnected = null; //Notification connexion/déconnexion
@@ -482,9 +482,22 @@ namespace server
                                                 {
                                                     response.ChatMessage = Nick.Trim('0') + " ne peut pas vendre la propriété " + propertyToSell.Location;
                                                 }
-
-
-
+                                            }
+                                            if(p.Type == "sellStation")
+                                            {
+                                                response.Type = "message";
+                                                Console.WriteLine(p.Content);
+                                                StationInfo station = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                if(station != null && station.Owner == player.Pseudo)
+                                                {
+                                                    station.Owner = null;
+                                                    player.Stations.Remove(station);
+                                                    if (station.isMortaged)
+                                                        player.Balance += station.Price/2;
+                                                    else
+                                                        player.Balance += station.Price;
+                                                }
                                             }
 
 #region useless
@@ -707,6 +720,7 @@ namespace server
                                             {
                                                 // get le tour du joueur suivant.
                                             }
+                                           
                                             if(p.Type == "erreurPacket")
                                             {
                                                 if(lastPacketSend != null)
@@ -714,6 +728,7 @@ namespace server
                                                     response = lastPacketSend;
                                                 }
                                             }
+                                            lastPacketSend = response;
                                         }
                                         catch
                                         {
