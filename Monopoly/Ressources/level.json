@@ -1,5 +1,5 @@
 {
-  "Case": [
+ "Case": [
     {
       "position": [ 0, 0 ],
       "type": "start",
@@ -14,17 +14,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Bd de Belleville",
-        "price": 200,
+        "price": 60,
         "skin": "",
         "color": "#c542f4",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
+        "houseCost": 20,
+        "mortgageValue": 30,
+        "rent": 8,
         "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "rentWith2House": 30,
+        "rentWith3House": 90,
+        "rentWith4House": 120,
+        "rentWithHostel": 200
       }
     },
     {
@@ -40,17 +40,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Rue Lecourbe",
-        "price": 200,
+        "price": 60,
         "skin": "",
         "color": "#c542f4",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
+        "houseCost": 20,
+        "mortgageValue": 30,
+        "rent": 8,
         "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "rentWith2House": 30,
+        "rentWith3House": 90,
+        "rentWith4House": 120,
+        "rentWithHostel": 260
       }
     },
     {
@@ -67,6 +67,7 @@
       "caseAttributes": {
         "label": "Gare Montparnasse",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },
@@ -75,17 +76,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Rue de Vaurigard",
-        "price": 200,
+        "price": 120,
         "skin": "",
         "color": "#20dbd8",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 25,
+        "mortgageValue": 60,
+        "rent": 10,
+        "rentWith1House": 100,
+        "rentWith2House": 150,
+        "rentWith3House": 300,
+        "rentWith4House": 420,
+        "rentWithHostel": 500
       }
     },
     {
@@ -101,17 +102,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Rue de Courcelles",
-        "price": 200,
+        "price": 120,
         "skin": "",
         "color": "#20dbd8",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 25,
+        "mortgageValue": 60,
+        "rent": 10,
+        "rentWith1House": 100,
+        "rentWith2House": 150,
+        "rentWith3House": 300,
+        "rentWith4House": 420,
+        "rentWithHostel": 500
       }
     },
     {
@@ -119,17 +120,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Av. de la republique",
-        "price": 200,
+        "price": 120,
         "skin": "",
         "color": "#20dbd8",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 25,
+        "mortgageValue": 60,
+        "rent": 10,
+        "rentWith1House": 100,
+        "rentWith2House": 150,
+        "rentWith3House": 300,
+        "rentWith4House": 420,
+        "rentWithHostel": 500
       }
     },
     {
@@ -145,17 +146,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Bd de la Vilette",
-        "price": 200,
+        "price": 330,
         "skin": "",
         "color": "#db8d1f",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 165,
+        "rent": 30,
+        "rentWith1House": 160,
+        "rentWith2House": 470,
+        "rentWith3House": 1050,
+        "rentWith4House": 1250,
+        "rentWithHostel": 1500
       }
     },
     {
@@ -171,17 +172,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Av. de Neuilly",
-        "price": 200,
+        "price": 330,
         "skin": "",
         "color": "#db8d1f",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 165,
+        "rent": 30,
+        "rentWith1House": 160,
+        "rentWith2House": 470,
+        "rentWith3House": 1050,
+        "rentWith4House": 1250,
+        "rentWithHostel": 1500
       }
     },
     {
@@ -189,17 +190,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Rue de Paradis",
-        "price": 200,
+        "price": 330,
         "skin": "",
         "color": "#db8d1f",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 165,
+        "rent": 30,
+        "rentWith1House": 160,
+        "rentWith2House": 470,
+        "rentWith3House": 1050,
+        "rentWith4House": 1250,
+        "rentWithHostel": 1500
       }
     },
     {
@@ -208,6 +209,7 @@
       "caseAttributes": {
         "label": "Gare de Lyon",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },
@@ -216,17 +218,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Av Mozart",
-        "price": 200,
+        "price": 300,
         "skin": "",
         "color": "#ed2e15",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 250,
+        "mortgageValue": 150,
+        "rent": 45,
+        "rentWith1House": 210,
+        "rentWith2House": 575,
+        "rentWith3House": 1300,
+        "rentWith4House": 1600,
+        "rentWithHostel": 1800
       }
     },
     {
@@ -242,17 +244,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Bd Saint-Michel",
-        "price": 200,
+        "price": 300,
         "skin": "",
         "color": "#ed2e15",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 250,
+        "mortgageValue": 150,
+        "rent": 45,
+        "rentWith1House": 210,
+        "rentWith2House": 575,
+        "rentWith3House": 1300,
+        "rentWith4House": 1600,
+        "rentWithHostel": 1800
       }
     },
     {
@@ -260,17 +262,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Place Pigalle",
-        "price": 200,
+        "price": 300,
         "skin": "",
         "color": "#ed2e15",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 250,
+        "mortgageValue": 150,
+        "rent": 45,
+        "rentWith1House": 210,
+        "rentWith2House": 575,
+        "rentWith3House": 1300,
+        "rentWith4House": 1600,
+        "rentWithHostel": 1800
       }
     },
     {
@@ -287,17 +289,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Av Matignon",
-        "price": 200,
+        "price": 260,
         "skin": "",
         "color": "#ede215",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 130,
+        "rent": 32,
+        "rentWith1House": 160,
+        "rentWith2House": 470,
+        "rentWith3House": 1050,
+        "rentWith4House": 1250,
+        "rentWithHostel": 1500
       }
     },
     {
@@ -313,17 +315,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Bd Male-Sherbes",
-        "price": 200,
+        "price": 260,
         "skin": "",
         "color": "#ede215",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 130,
+        "rent": 32,
+        "rentWith1House": 160,
+        "rentWith2House": 470,
+        "rentWith3House": 1050,
+        "rentWith4House": 1250,
+        "rentWithHostel": 1500
       }
     },
     {
@@ -331,17 +333,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Av Henri-Martin",
-        "price": 200,
+        "price": 260,
         "skin": "",
         "color": "#ede215",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 130,
+        "rent": 32,
+        "rentWith1House": 160,
+        "rentWith2House": 470,
+        "rentWith3House": 1050,
+        "rentWith4House": 1250,
+        "rentWithHostel": 1500
       }
     },
     {
@@ -350,6 +352,7 @@
       "caseAttributes": {
         "label": "Gare du Nord",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },
@@ -358,17 +361,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Fb Saint-Honore",
-        "price": 200,
+        "price": 220,
         "skin": "",
         "color": "#0e0aff",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 150,
+        "mortgageValue": 110,
+        "rent": 23,
+        "rentWith1House": 115,
+        "rentWith2House": 345,
+        "rentWith3House": 825,
+        "rentWith4House": 1010,
+        "rentWithHostel": 1180
       }
     },
     {
@@ -376,17 +379,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Place de la bourse",
-        "price": 200,
+        "price": 220,
         "skin": "",
         "color": "#0e0aff",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 150,
+        "mortgageValue": 110,
+        "rent": 23,
+        "rentWith1House": 115,
+        "rentWith2House": 345,
+        "rentWith3House": 825,
+        "rentWith4House": 1010,
+        "rentWithHostel": 1180
       }
     },
     {
@@ -402,17 +405,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Rue Lafayette",
-        "price": 200,
+        "price": 220,
         "skin": "",
         "color": "#0e0aff",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 150,
+        "mortgageValue": 110,
+        "rent": 23,
+        "rentWith1House": 115,
+        "rentWith2House": 345,
+        "rentWith3House": 825,
+        "rentWith4House": 1010,
+        "rentWithHostel": 1180
       }
     },
     {
@@ -432,14 +435,14 @@
         "price": 200,
         "skin": "",
         "color": "#46b51b",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 100,
+        "mortgageValue": 100,
+        "rent": 17,
+        "rentWith1House": 85,
+        "rentWith2House": 240,
+        "rentWith3House": 670,
+        "rentWith4House": 840,
+        "rentWithHostel": 1025
       }
     },
     {
@@ -450,14 +453,14 @@
         "price": 200,
         "skin": "",
         "color": "#46b51b",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 100,
+        "mortgageValue": 100,
+        "rent": 17,
+        "rentWith1House": 85,
+        "rentWith2House": 240,
+        "rentWith3House": 670,
+        "rentWith4House": 840,
+        "rentWithHostel": 1025
       }
     },
     {
@@ -476,14 +479,14 @@
         "price": 200,
         "skin": "",
         "color": "#46b51b",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 100,
+        "mortgageValue": 100,
+        "rent": 17,
+        "rentWith1House": 85,
+        "rentWith2House": 240,
+        "rentWith3House": 670,
+        "rentWith4House": 840,
+        "rentWithHostel": 1025
       }
     },
     {
@@ -492,6 +495,7 @@
       "caseAttributes": {
         "label": "Gare Saint-Lazard",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },
@@ -508,17 +512,17 @@
       "type": "property",
       "caseAttributes": {
         "label": "Champs Elysees",
-        "price": 200,
+        "price": 400,
         "skin": "",
         "color": "#ed4972",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 200,
+        "rent": 50,
+        "rentWith1House": 200,
+        "rentWith2House": 500,
+        "rentWith3House": 1000,
+        "rentWith4House": 1375,
+        "rentWithHostel": 2000
       }
     },
     {
@@ -534,37 +538,149 @@
       "type": "property",
       "caseAttributes": {
         "label": "Rue de la paix",
-        "price": 200,
+        "price": 380,
         "skin": "",
         "color": "#ed4972",
-        "houseCost": 50,
-        "mortgageValue": 250,
-        "rent": 20,
-        "rentWith1House": 10,
-        "rentWith2House": 20,
-        "rentWith3House": 30,
-        "rentWith4House": 40,
-        "rentWithHostel": 60
+        "houseCost": 200,
+        "mortgageValue": 170,
+        "rent": 35,
+        "rentWith1House": 125,
+        "rentWith2House": 450,
+        "rentWith3House": 950,
+        "rentWith4House": 1200,
+        "rentWithHostel": 1975
       }
     }
   ],
 
 
-"Chance":[
-{
-        "title": "un titre",
-        "text": "un texte",
-        "effect": "ma_function"
-}
-      
-],
-"Community":[
-{
-        "title":"un titre",
-        "text" : "un texte",
-        "effect": "ma_function"
-}
-]
+  "Chance": [
+    {
+      "title": "Accident du travail",
+      "text": "Un papillon vole dans votre oeil !",
+      "effect": "moove;20"
+    },
+    {
+      "title": "Fuyez pauvres fous! ",
+      "text": "Vous etes sauvagement attaque par un dragon, direction case depart!",
+      "effect": "moove;0"
+    },
+    {
+      "title": "Gentil donnateur louche",
+      "text": "Un mec bizarre dans le tram vous donne 200 euros",
+      "effect": "paiement;200"
+    },
+    {
+      "title": "Cassage de materiel",
+      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de reparation)",
+      "effect": "paiement;-100"
+    },
+    {
+      "title": "Go to jail !",
+      "text": "Pas de chance vous allez en prison!",
+      "effect": "moove;10"
+    },
+
+    {
+      "title": "Frais de scolarite !",
+      "text": "Le CFAI vous remercie pour votre inscription (200 euros)",
+      "effect": "paiement;-200"
+    },
+    {
+      "title": "Reparation de votre voiture !",
+      "text": "Les reparation de votre voiture vous on couter 150 euros",
+      "effect": "paiement;-150"
+    },
+    {
+      "title": "Amende de stationement",
+      "text": "Vous payez une amende de 100 euros",
+      "effect": "paiement;-100"
+    },
+    {
+      "title": "Des factures encore !",
+      "text": "Vous croulez sous les factures, payez 175 euros",
+      "effect": "paiement;-175"
+    },
+    {
+      "title": "Libere de prison community",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
+      "effect": "freefromjail;50"
+    },
+
+    {
+      "title": "C'est jour de paie !",
+      "text": "Erreur de la banque recevez de la tune! (50€)",
+      "effect": "paiement;50"
+    },
+    {
+      "title": "Libere de prison",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
+      "effect": "freefromjail;50"
+    },
+    {
+      "title": "Reparation sur les proprietes",
+      "text": "Vos maisons sont moisies et ragoutante, 30 euros par maison par proprietes et 40 euros par hotel sont a paye pour tout reparer",
+      "effect": "reparation;30;40"
+    }
+  ],
+  "Community": [
+    {
+      "title": "Accident du travail",
+      "text": "Un papillon vole dans votre oeil !",
+      "effect": "moove;20"
+    },
+    {
+      "title": "Fuyez pauvres fous! ",
+      "text": "Vous etes sauvagement attaque par un dragon, direction case depart!",
+      "effect": "moove;0"
+    },
+    {
+      "title": "Gentil donnateur louche",
+      "text": "Un mec bizarre dans le tram vous donne 200 euros",
+      "effect": "paiement;200"
+    },
+    {
+      "title": "Cassage de materiel",
+      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de reparation)",
+      "effect": "paiement;-100"
+    },
+    {
+      "title": "Go to jail !",
+      "text": "Pas de chance vous allez en prison!",
+      "effect": "moove;10"
+    },
+
+    {
+      "title": "Frais de scolarite !",
+      "text": "Le CFAI vous remercie pour votre inscription (200 euros)",
+      "effect": "paiement;-200"
+    },
+    {
+      "title": "Reparation de votre voiture !",
+      "text": "Les reparation de votre voiture vous on couter 150 euros",
+      "effect": "paiement;-150"
+    },
+    {
+      "title": "Amende de stationement",
+      "text": "Vous payez une amende de 100 euros",
+      "effect": "paiement;-100"
+    },
+    {
+      "title": "Des factures encore !",
+      "text": "Vous croulez sous les factures, payez 175 euros",
+      "effect": "paiement;-175"
+    },
+    {
+      "title": "Libere de prison community",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
+      "effect": "freefromjail;50"
+    },
+    {
+      "title": "Reparation sur les proprietes",
+      "text": "Vos maisons sont cassees, les 2A sont passes par la ! 50 euros par maison par proprietes et 70 euros par hotel sont a paye pour tout reparer",
+      "effect": "reparation;50;70"
+    }
+  ]
   
 
 

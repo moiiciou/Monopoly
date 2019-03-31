@@ -61,11 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controleur\CardManager.cs" />
     <Compile Include="Controleur\PlayerManager.cs" />
     <Compile Include="Core\GameServerManager.cs" />
     <Compile Include="Core\RentManager.cs" />
-    <Compile Include="Core\ServerTools.cs" />
     <Compile Include="Core\ThemeParser.cs" />
     <Compile Include="Model\CardInfo.cs" />
     <Compile Include="Model\CommunityInfo.cs" />
