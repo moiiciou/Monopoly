@@ -174,6 +174,7 @@ namespace Monopoly.Controller
                                                 PlayerInterface playerHudPanel2 = (PlayerInterface)GameManager.controls["playerHud"];
                                                 playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel2.UpdateBalanceByPlayerInfo), player);
                                                 playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel2.UpdateProperty), player);
+                                                playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateAvatarCallback(playerHudPanel2.UpdateAvatar), player);
 
 
                                                 //Update les propriétés sur le board

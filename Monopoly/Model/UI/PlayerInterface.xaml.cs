@@ -39,8 +39,9 @@ namespace Monopoly.Model.UI
         public delegate void UpdateBalanceCallback(int balance);
         public delegate void UpdateBalanceByPlayerInfoCallback(PlayerInfo player);
         public delegate void UpdatePropertyCallback(PlayerInfo player);
+        public delegate void UpdateAvatarCallback(PlayerInfo playerInfo);
 
-
+        public string ImagePath { get; set; }
 
         public PlayerInterface(string pseudoPlayer, int balance)
         {
@@ -57,6 +58,16 @@ namespace Monopoly.Model.UI
         public void UpdatePseudo(string pseudo)
         {
             pseudo_label.Content = pseudo.Trim('0');
+        }
+
+        public void UpdateAvatar(PlayerInfo playerInfo)
+        {
+            if(playerInfo.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                ImagePath = "/Monopoly;component/ressources/templates/default/avatar/" + playerInfo.ColorCode.Trim('#') + ".png";
+                DataContext = this;
+                Console.WriteLine(ImagePath);
+            }
         }
 
         public void UpdateBalance(int balance)
@@ -115,7 +126,7 @@ namespace Monopoly.Model.UI
         {
             if (player.Pseudo != PlayerManager.CurrentPlayerName.Trim('0'))
             {
-                PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance);
+                PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance, player.ColorCode);
                 PlayerPanel.Children.Add(infoHud);
             }
 

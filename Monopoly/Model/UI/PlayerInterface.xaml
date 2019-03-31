@@ -40,7 +40,7 @@
         </ListView>
 
         <Label Grid.Row="0" Content="Propriétés possédées:" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="207" FontSize="20" Height="37"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="69" Margin="350,10,0,0" VerticalAlignment="Top" Width="64" Source="/Monopoly;component/ressources/templates/default/player_avatar_test.png"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="69" Margin="350,10,0,0" VerticalAlignment="Top" Width="64" Source= "{Binding ImagePath}"/>
         <Label x:Name="label" Content="Autres Joueurs :" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.719,0.705" Width="178" Height="38" FontSize="16" FontWeight="Bold"/>
         <local:ChatBox Grid.Row="2" x:Name="chatBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="275" Width="446"  Loaded="ChatBox_Loaded"/>
         <Label x:Name="currency_label" Content="€" HorizontalAlignment="Left" Margin="173,49,0,0" VerticalAlignment="Top" Height="38" Width="44" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>

@@ -38,7 +38,7 @@ namespace Monopoly.Model
         /// <param name="position">Position du Player sur le plateau</param>
         /// <param name="cards">Liste de cartes que le Player possède</param>
         /// <param name="image">Skin du Player</param>
-        public Player( string name, int balance, int position, List<PropertyInfo> estates, object image, string colorCode )
+        public Player( string name, int balance, int position, List<PropertyInfo> estates, string image, string colorCode )
         {
             InitializeComponent();
             playerInfo = new PlayerInfo();

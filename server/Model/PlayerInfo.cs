@@ -18,7 +18,7 @@ namespace server
         public bool isInJail { get; set; }
         public List<PropertyInfo> Properties { get; set; }
         public List<StationInfo> Stations {get; set;}
-        public object Image { get; set; }
+        public string Image { get; set; }
         public bool hasCommunityCardFree { get; set; }
         public bool hasChanceCardFree { get; set; }
         public PlayerInfo()
