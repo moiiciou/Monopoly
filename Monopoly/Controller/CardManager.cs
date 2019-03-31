@@ -12,8 +12,8 @@ namespace Monopoly.Controller
             ChanceCard chanceCard = new ChanceCard(cardInfo.Label, cardInfo.Text, cardInfo.Effect);
             Grid.SetColumn(chanceCard, 4);
             Grid.SetRow(chanceCard, 4);
-            Grid.SetRowSpan(chanceCard, 2);
-            Grid.SetColumnSpan(chanceCard, 3);
+            Grid.SetRowSpan(chanceCard, 4);
+            Grid.SetColumnSpan(chanceCard, 5);
             Board.GetBoard.Children.Add(chanceCard);
 
         }

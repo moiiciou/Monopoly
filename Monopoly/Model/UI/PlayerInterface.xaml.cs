@@ -183,22 +183,40 @@ namespace Monopoly.Model.UI
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            Packet packet = new Packet();
-            packet.Type = "useFreeFromJailCard";
-            packet.Content = "freeFromJailChance";
-            packet.ChatMessage = "";
-            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
-            Connection.SendMsg(packetToSend);
+            PlayerInfo playerInfo = PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0'));
+            if (playerInfo.hasChanceCardFree)
+            {
+                Packet packet = new Packet();
+                packet.Type = "useFreeFromJailCard";
+                packet.Content = "freeFromJailChance";
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+            }
+            else
+            {
+                MessageBox.Show("Vous n'avez pas cette carte !");
+            }
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            Packet packet = new Packet();
-            packet.Type = "useFreeFromJailCard";
-            packet.Content = "freeFromJailCommunity";
-            packet.ChatMessage = "";
-            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
-            Connection.SendMsg(packetToSend);
+            PlayerInfo playerInfo = PlayerManager.GetPlayerByPseuso(PlayerManager.CurrentPlayerName.Trim('0'));
+            if(playerInfo.hasCommunityCardFree)
+            {
+                Packet packet = new Packet();
+                packet.Type = "useFreeFromJailCard";
+                packet.Content = "freeFromJailCommunity";
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+
+            }
+            else
+            {
+                MessageBox.Show("Vous n'avez pas cette carte !");
+            }
+
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
