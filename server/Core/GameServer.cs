@@ -29,7 +29,7 @@ namespace server
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
         private List<string> avatar = new List<string>();
-        
+
 
         int nextIndComm = 0;
         int nextIndChance = 0;
@@ -103,6 +103,146 @@ namespace server
             }
         }
 
+        public static void AutoVente(PlayerInfo p, int rent, ref ThemeParser tp)
+        {
+
+            PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
+            #region autovente
+            List<PropertyInfo> propertiesFreeWithHouse = PlayerManager.searchPropertyUnMortgageWithHouse(player);
+            List<PropertyInfo> propertyFree = PlayerManager.searchPropertyUnMortgage(player);
+            List<CompanyInfo> companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
+            List<StationInfo> stationFree = PlayerManager.searchStationUnMortgage(player);
+
+            List<PropertyInfo> propertyMortgage = PlayerManager.searchPropertyMortgage(player);
+            List<CompanyInfo> companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
+            List<StationInfo> stationMortgage = PlayerManager.searchStationMortgage(player);
+
+
+
+            while (player.Balance < rent && (stationMortgage.Count > 0 || companiesMortgage.Count > 0 || propertyMortgage.Count > 0 || stationFree.Count > 0 || companiesFree.Count > 0 || propertyFree.Count > 0 || propertiesFreeWithHouse.Count > 0)) // tant que le joueur possède du patrimoine immobilier
+            {
+
+                #region auto-hypothèque
+                if (companiesFree.Count > 0 && player.Balance < rent)
+                {
+                    while (PlayerManager.searchCompaniesUnMortgage(player).Count > 0 && player.Balance < rent)
+                    {
+                        CompanyInfo c = PlayerManager.searchCompany(player, companiesFree[0].TextLabel);
+                        if (c != null)
+                            mortgage(ref player, ref c);
+                        companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
+                        player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                    }
+
+                }
+                if (stationFree.Count > 0 && player.Balance < rent)
+                {
+                    while (PlayerManager.searchStationUnMortgage(player).Count > 0 && player.Balance < rent)
+                    {
+                        StationInfo c = PlayerManager.searchStation(player, stationFree[0].TextLabel);
+                        if (c != null)
+                            mortgage(ref player, ref c);
+                        stationFree = PlayerManager.searchStationUnMortgage(player);
+                        player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                    }
+
+                }
+                if (propertyFree.Count > 0 && player.Balance < rent)
+                {
+                    while (PlayerManager.searchPropertyUnMortgage(player).Count > 0 && player.Balance < rent)
+                    {
+                        PropertyInfo c = PlayerManager.searchProperty(player, propertyFree[0].TextLabel);
+                        if (c != null)
+                            mortgage(ref player, ref c);
+                        propertyFree = PlayerManager.searchPropertyUnMortgage(player);
+                        player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                    }
+
+                }
+                #endregion
+
+                #region auto vente terrain hypothéqué
+
+                if (player.Companies.Count > 0 && player.Balance < rent)
+                {
+                    while (PlayerManager.searchCompaniesMortgage(player).Count > 0 && player.Balance < rent)
+                    {
+                        CompanyInfo c = PlayerManager.searchCompany(player, companiesMortgage[0].TextLabel);
+                        if (c != null)
+                            sell(player, c, ref tp);
+                        companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
+
+                        player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                    }
+
+                }
+                if (player.Companies.Count > 0 && player.Balance < rent)
+                {
+                    while (PlayerManager.searchStationMortgage(player).Count > 0 && player.Balance < rent)
+                    {
+                        StationInfo c = PlayerManager.searchStation(player, stationMortgage[0].TextLabel);
+                        if (c != null)
+                            sell(player, c, ref tp);
+                        stationMortgage = PlayerManager.searchStationMortgage(player);
+                        player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                    }
+
+                }
+                if (propertyFree.Count > 0 && player.Balance < rent)
+                {
+                    while (PlayerManager.searchPropertyMortgage(player).Count > 0 && player.Balance < rent)
+                    {
+                        PropertyInfo c = PlayerManager.searchProperty(player, propertyMortgage[0].TextLabel);
+                        if (c != null)
+                            sell(player, c, ref tp);
+                        propertyMortgage = PlayerManager.searchPropertyMortgage(player);
+                        player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                    }
+
+                }
+                #endregion
+
+                #region autovente maison sur un terrain de couleur
+                if (propertiesFreeWithHouse.Count > 0)
+                {
+                    List<PropertyInfo> color = tp.searchCasePropertyOfColor(propertiesFreeWithHouse[0].Color);
+                    int it = 0;
+                    while (player.Balance < rent && propertiesFreeWithHouse.Contains(color[it]))
+                    {
+                        PropertyInfo current = color[it];
+                        if (canSellHouse(player, current, ref tp))
+                        {
+
+                            sellHouseOfColor(player, current, ref tp);
+                        }
+                        else
+                        {
+                            propertiesFreeWithHouse.Remove(current);
+                        }
+                        it++;
+                        it %= color.Count;
+                        player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                    }
+                }
+                #endregion
+
+
+                // on remet à jour toutes les listes
+                propertiesFreeWithHouse = PlayerManager.searchPropertyUnMortgageWithHouse(player);
+                propertyFree = PlayerManager.searchPropertyUnMortgage(player);
+                companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
+                stationFree = PlayerManager.searchStationUnMortgage(player);
+
+                propertyMortgage = PlayerManager.searchPropertyMortgage(player);
+                companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
+                stationMortgage = PlayerManager.searchStationMortgage(player);
+                player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+            }
+            #endregion
+
+        }
+
+
 
 
 
@@ -119,7 +259,7 @@ namespace server
 
 
         #region utils pour auto vente
-        private void sell( PlayerInfo p,  StationInfo c)
+        private static void sell( PlayerInfo p,  StationInfo c, ref ThemeParser tp)
         {
             PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
 
@@ -141,7 +281,7 @@ namespace server
             }
         }
 
-            private void sell( PlayerInfo p, PropertyInfo c)
+            private static void sell( PlayerInfo p, PropertyInfo c, ref ThemeParser tp)
         {
             PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
 
@@ -163,7 +303,7 @@ namespace server
 
             }
         }
-        private bool canSellHouse(PlayerInfo p, PropertyInfo prop)
+        private static bool canSellHouse(PlayerInfo p, PropertyInfo prop, ref ThemeParser tp)
         {
             PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
 
@@ -195,7 +335,7 @@ namespace server
             return canSell;
         }
 
-        private void sellHouseOfColor(PlayerInfo p, PropertyInfo cell)
+        private static void sellHouseOfColor(PlayerInfo p, PropertyInfo cell, ref ThemeParser tp)
         {
 
             PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
@@ -208,7 +348,7 @@ namespace server
                     List<PropertyInfo> listColor = tp.searchCasePropertyOfColor(propToSellHouse.Color);
                     if (listColor.Count > 0)
                     {
-                        if (canSellHouse(player,propToSellHouse))
+                        if (canSellHouse(player,propToSellHouse,ref tp))
                         {
                             if (propToSellHouse.NumberOfHouse > 0 && !propToSellHouse.HasHostel) // je check si la propriété  possède une maison
                             {
@@ -228,7 +368,7 @@ namespace server
             }
         }
 
-        private void sell( PlayerInfo p, CompanyInfo c)
+        private static  void sell( PlayerInfo p, CompanyInfo c, ref ThemeParser tp)
         {
             PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
             
@@ -252,21 +392,21 @@ namespace server
 
         }
 
-        private void mortgage(ref PlayerInfo p, ref PropertyInfo prop)
+        private static void mortgage(ref PlayerInfo p, ref PropertyInfo prop)
         {
             if(p.Pseudo == prop.Owner && !prop.isMortgaged)
             {
                 p.Balance += prop.Price / 2;
             }
         }
-        private void mortgage(ref PlayerInfo p, ref CompanyInfo prop)
+        private static void mortgage(ref PlayerInfo p, ref CompanyInfo prop)
         {
             if (p.Pseudo == prop.Owner && !prop.isMortgaged)
             {
                 p.Balance += prop.Price / 2;
             }
         }
-        private void mortgage(ref PlayerInfo p, ref StationInfo prop)
+        private static void mortgage(ref PlayerInfo p, ref StationInfo prop)
         {
             if (p.Pseudo == prop.Owner && !prop.isMortgaged)
             {
@@ -493,7 +633,8 @@ namespace server
                                                             dicoChance.Add(Nick.Trim('0'), chance);
                                                             response.ServerContent = JsonConvert.SerializeObject(dicoChance);
                                                             response.ServerMessage = "drawChance";
-                                                            GameServerManager.useEffectCard(chance, ref player, tp, salaire);
+                                                            GameServerManager.useEffectCard(chance, ref player,ref tp, salaire);
+
                                                         }
                                                         else if (tp.posCommunity.Contains(player.Position % 40))
                                                         {
@@ -506,7 +647,7 @@ namespace server
                                                             dicoComm.Add(Nick.Trim('0'), comm);
                                                             response.ServerContent = JsonConvert.SerializeObject(dicoComm);
 
-                                                            GameServerManager.useEffectCard(comm, ref player, tp, salaire);
+                                                            GameServerManager.useEffectCard(comm, ref player, ref tp, salaire);
 
                                                             response.ServerMessage = "drawCommunity";
                                                         }
@@ -528,136 +669,7 @@ namespace server
                                                             else
                                                             {
                                                                 #region autovente
-                                                                List<PropertyInfo> propertiesFreeWithHouse = PlayerManager.searchPropertyUnMortgageWithHouse(player);
-                                                                List<PropertyInfo> propertyFree = PlayerManager.searchPropertyUnMortgage(player);
-                                                                List<CompanyInfo> companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
-                                                                List<StationInfo> stationFree = PlayerManager.searchStationUnMortgage(player);
-
-                                                                List<PropertyInfo> propertyMortgage = PlayerManager.searchPropertyMortgage(player);
-                                                                List<CompanyInfo> companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
-                                                                List<StationInfo> stationMortgage = PlayerManager.searchStationMortgage(player);
-
-
-
-                                                                while (player.Balance < rent && (stationMortgage.Count > 0 || companiesMortgage.Count > 0 || propertyMortgage.Count > 0 || stationFree.Count > 0 || companiesFree.Count > 0 || propertyFree.Count > 0 || propertiesFreeWithHouse.Count > 0)) // tant que le joueur possède du patrimoine immobilier
-                                                                {
-
-                                                                    #region auto-hypothèque
-                                                                    if (companiesFree.Count > 0 && player.Balance < rent)
-                                                                    {
-                                                                        while (PlayerManager.searchCompaniesUnMortgage(player).Count > 0 && player.Balance < rent)
-                                                                        {
-                                                                            CompanyInfo c = PlayerManager.searchCompany(player, companiesFree[0].TextLabel);
-                                                                            if (c != null)
-                                                                                mortgage(ref player, ref c);
-                                                                            companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
-                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                        }
-
-                                                                    }
-                                                                    if (stationFree.Count > 0 && player.Balance < rent)
-                                                                    {
-                                                                        while (PlayerManager.searchStationUnMortgage(player).Count > 0 && player.Balance < rent)
-                                                                        {
-                                                                            StationInfo c = PlayerManager.searchStation(player, stationFree[0].TextLabel);
-                                                                            if (c != null)
-                                                                                mortgage(ref player, ref c);
-                                                                            stationFree = PlayerManager.searchStationUnMortgage(player);
-                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                        }
-
-                                                                    }
-                                                                    if (propertyFree.Count > 0 && player.Balance < rent)
-                                                                    {
-                                                                        while (PlayerManager.searchPropertyUnMortgage(player).Count > 0 && player.Balance < rent)
-                                                                        {
-                                                                            PropertyInfo c = PlayerManager.searchProperty(player, propertyFree[0].TextLabel);
-                                                                            if (c != null)
-                                                                                mortgage(ref player, ref c);
-                                                                            propertyFree = PlayerManager.searchPropertyUnMortgage(player);
-                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                        }
-
-                                                                    }
-                                                                    #endregion
-
-                                                                    #region auto vente terrain hypothéqué
-
-                                                                    if (player.Companies.Count > 0 && player.Balance < rent)
-                                                                    {
-                                                                        while (PlayerManager.searchCompaniesMortgage(player).Count > 0 && player.Balance < rent)
-                                                                        {
-                                                                            CompanyInfo c = PlayerManager.searchCompany(player, companiesMortgage[0].TextLabel);
-                                                                            if (c != null)
-                                                                                sell(player, c);
-                                                                            companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
-
-                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                        }
-
-                                                                    }
-                                                                    if (player.Companies.Count > 0 && player.Balance < rent)
-                                                                    {
-                                                                        while (PlayerManager.searchStationMortgage(player).Count > 0 && player.Balance < rent)
-                                                                        {
-                                                                            StationInfo c = PlayerManager.searchStation(player, stationMortgage[0].TextLabel);
-                                                                            if (c != null)
-                                                                                sell(player, c);
-                                                                            stationMortgage = PlayerManager.searchStationMortgage(player);
-                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                        }
-
-                                                                    }
-                                                                    if (propertyFree.Count > 0 && player.Balance < rent)
-                                                                    {
-                                                                        while (PlayerManager.searchPropertyMortgage(player).Count > 0 && player.Balance < rent)
-                                                                        {
-                                                                            PropertyInfo c = PlayerManager.searchProperty(player, propertyMortgage[0].TextLabel);
-                                                                            if (c != null)
-                                                                                sell(player, c);
-                                                                            propertyMortgage = PlayerManager.searchPropertyMortgage(player);
-                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                        }
-
-                                                                    }
-                                                                    #endregion
-
-                                                                    #region autovente maison sur un terrain de couleur
-                                                                    if (propertiesFreeWithHouse.Count > 0)
-                                                                    {
-                                                                        List<PropertyInfo> color = tp.searchCasePropertyOfColor(propertiesFreeWithHouse[0].Color);
-                                                                        int it = 0;
-                                                                        while (player.Balance < rent && propertiesFreeWithHouse.Contains(color[it]))
-                                                                        {
-                                                                            PropertyInfo current = color[it];
-                                                                            if (canSellHouse(player, current))
-                                                                            {
-
-                                                                                sellHouseOfColor(player, current);
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                propertiesFreeWithHouse.Remove(current);
-                                                                            }
-                                                                            it++;
-                                                                            it %= color.Count;
-                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                        }
-                                                                    }
-                                                                    #endregion
-
-
-                                                                    // on remet à jour toutes les listes
-                                                                    propertiesFreeWithHouse = PlayerManager.searchPropertyUnMortgageWithHouse(player);
-                                                                    propertyFree = PlayerManager.searchPropertyUnMortgage(player);
-                                                                    companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
-                                                                    stationFree = PlayerManager.searchStationUnMortgage(player);
-
-                                                                    propertyMortgage = PlayerManager.searchPropertyMortgage(player);
-                                                                    companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
-                                                                    stationMortgage = PlayerManager.searchStationMortgage(player);
-                                                                    player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
-                                                                }
+                                                                AutoVente(player, rent, ref tp);
                                                                 #endregion
                                                             }
 
@@ -669,8 +681,7 @@ namespace server
 
                                                                 player.lost = true;
 
-                                                                response.ServerMessage = "lost";
-                                                                response.Content = JsonConvert.SerializeObject(player);
+                                                      
                                                             }
 
 
@@ -678,24 +689,58 @@ namespace server
                                                         }
                                                         if (companyRent != null && player.Pseudo != companyRent.Owner)
                                                         {
-                                                            int rent = RentManager.computeRent(propRent, player, tp);
-                                                            if (rent > 0)
+                                                            int rent = RentManager.computeRent(companyRent, player, tp);
+                                                            if (rent > 0 && player.Balance > rent)
                                                             {
                                                                 player.Balance -= rent;
-                                                                response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
-                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                               
+                                                                PlayerManager.GetPlayerByPseuso(companyRent.Owner).Balance += rent;
+                                                            }
+                                                            else
+                                                            {
+                                                                AutoVente(player, rent, ref tp);
+                                                            }
+
+                                                            if (player.Balance < rent)
+                                                            {
+                                                                player.Balance -= rent;
+                                                               
+                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += player.Balance;
+
+                                                                player.lost = true;
+                                                                
                                                             }
                                                         }
 
                                                         if (stationRent != null && player.Pseudo != stationRent.Owner)
                                                         {
                                                             int rent = RentManager.computeRent(stationRent, player, tp);
-                                                            if (rent > 0)
+                                                            if (rent > 0 && player.Balance> rent)
                                                             {
                                                                 player.Balance -= rent;
                                                                 response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
                                                                 PlayerManager.GetPlayerByPseuso(stationRent.Owner).Balance += rent;
                                                             }
+                                                            else
+                                                            {
+                                                                AutoVente(player, rent, ref tp);
+                                                            }
+
+                                                            if (player.Balance < rent)
+                                                            {
+                                                                player.Balance -= rent;
+                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += player.Balance;
+
+                                                                player.lost = true;
+
+                                                               
+                                                            }
+                                                        }
+
+                                                        if (player.lost)
+                                                        {
+                                                            response.ServerMessage = "lost";
+                                                            response.Content = JsonConvert.SerializeObject(player);
                                                         }
                                                         PlayerInfo playerSuivant = PlayerManager.GetPlayerByPseuso(GameData.GetGameData.CurrentPlayerTurn);
                                                         do
@@ -923,6 +968,22 @@ namespace server
                                                 else
                                                 {
                                                     response.ChatMessage = Nick.Trim('0') + " ne peut pas acheter cette propriété"; // on retourne un message de retour indiquant que la transaction ne s'est pas bien passée.
+                                                }
+                                            }
+                                            if(p.Type == "buyCompany")
+                                            {
+                                                CompanyInfo cell = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
+
+                                                CompanyInfo propertyToBuy = tp.searchCaseCompany(cell.TextLabel);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+
+                                                // On cherche la case info dans la liste des cases qui sont contenus dans le serveur
+                                                if ((propertyToBuy.Owner == null || propertyToBuy.Owner == "") && player.Balance > propertyToBuy.Price)
+                                                {
+                                                    player.Balance -= propertyToBuy.Price;
+                                                    propertyToBuy.Owner = player.Pseudo;
+                                                    player.Companies.Add(propertyToBuy);
+                                                    response.ChatMessage = Nick.Trim('0') + " achète " + propertyToBuy.TextLabel;  // on initialise un message de retour
                                                 }
                                             }
 

@@ -10,7 +10,7 @@ namespace server.Core
 {
     public static class  GameServerManager
     {
-        public static void useEffectCard(CardInfo card, ref PlayerInfo player, ThemeParser tp, int salaire)
+        public static void useEffectCard(CardInfo card, ref PlayerInfo player, ref ThemeParser tp, int salaire)
         {
             if(card.typeAction == CardInfo.TypeAction.moove)
             {
@@ -43,11 +43,25 @@ namespace server.Core
                 if (prop != null && prop.Owner != player.Pseudo && prop.Owner != null && prop.Owner != "")
                 {
                     int rent = RentManager.computeRent(prop, player, tp);
-                    if (rent > 0)
+                    if (rent > 0 && player.Balance >rent)
                     {
                         player.Balance -= rent;
-                       // response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                        // response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
                         PlayerManager.GetPlayerByPseuso(prop.Owner).Balance += rent;
+                    }
+                    else
+                    {
+                        GameServer.AutoVente(player, rent, ref tp);
+                        if (player.Balance < rent)
+                        {
+                            player.Balance -= rent;
+               
+                            PlayerManager.GetPlayerByPseuso(prop.Owner).Balance += player.Balance;
+
+                            player.lost = true;
+
+                         
+                        }
                     }
                 }
 
