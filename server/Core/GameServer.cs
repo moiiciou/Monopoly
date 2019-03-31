@@ -29,6 +29,8 @@ namespace server
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
         private List<string> avatar = new List<string>();
+        private List<PlayerInfo> playerPret = new List<PlayerInfo>();
+        private List<PlayerInfo> playerLost = new List<PlayerInfo>();
 
 
         int nextIndComm = 0;
@@ -566,7 +568,12 @@ namespace server
                                             string json = msgString.Substring(21, (msgString.Length - 21));
                                             Packet p = JsonConvert.DeserializeObject<Packet>(json);
 
-
+                                            if(p.Type == "pret")
+                                            {
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                if (!playerPret.Contains(player))
+                                                    playerPret.Add(player);
+                                            }
 
                                             if (p.Type == "message")
                                             {
@@ -578,7 +585,7 @@ namespace server
 
                                             if (p.Type == "moove")
                                             {
-                                                
+                                               
                                                 Random rnd = new Random();
                                                 int dice1 = rnd.Next(1, 7);
                                                 int dice2 = rnd.Next(1, 7);
@@ -587,7 +594,7 @@ namespace server
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                 if (!player.lost)
                                                 {
-                                                    if (GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") // on check si le jeu à commencer
+                                                    if ((GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") && playerPret.Count == PlayerManager.nbPlayer()) // on check si le jeu à commencer
                                                     {
                                                         GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on init le premier joueur à bouger
                                                     }
@@ -631,9 +638,18 @@ namespace server
 
                                                             Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
                                                             dicoChance.Add(Nick.Trim('0'), chance);
-                                                            response.ServerContent = JsonConvert.SerializeObject(dicoChance);
+                                                            response.ServerContent = JsonConvert.SerializeObject(dicoChance,Formatting.Indented);
                                                             response.ServerMessage = "drawChance";
                                                             GameServerManager.useEffectCard(chance, ref player,ref tp, salaire);
+                                                            if (player.Balance < 0)
+                                                            {
+                                                                AutoVente(player, 0, ref tp);
+                                                                if (player.Balance < 0)
+                                                                {
+                                                                     player.lost = true;
+                                                                   
+                                                                }
+                                                            }
 
                                                         }
                                                         else if (tp.posCommunity.Contains(player.Position % 40))
@@ -645,9 +661,18 @@ namespace server
 
                                                             Dictionary<string, CardInfo> dicoComm = new Dictionary<string, CardInfo>();
                                                             dicoComm.Add(Nick.Trim('0'), comm);
-                                                            response.ServerContent = JsonConvert.SerializeObject(dicoComm);
+                                                            response.ServerContent = JsonConvert.SerializeObject(dicoComm, Formatting.Indented);
 
                                                             GameServerManager.useEffectCard(comm, ref player, ref tp, salaire);
+                                                            if (player.Balance < 0)
+                                                            {
+                                                                AutoVente(player, 0, ref tp);
+                                                                if (player.Balance < 0)
+                                                                {
+                                                                    player.lost = true;
+                                                                    
+                                                                }
+                                                            }
 
                                                             response.ServerMessage = "drawCommunity";
                                                         }
@@ -680,6 +705,7 @@ namespace server
                                                                 PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += player.Balance;
 
                                                                 player.lost = true;
+                                                               
 
                                                       
                                                             }
@@ -708,6 +734,7 @@ namespace server
                                                                 PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += player.Balance;
 
                                                                 player.lost = true;
+                                                               
                                                                 
                                                             }
                                                         }
@@ -739,6 +766,7 @@ namespace server
 
                                                         if (player.lost)
                                                         {
+                                                            playerLost.Add(player);
                                                             response.ServerMessage = "lost";
                                                             response.Content = JsonConvert.SerializeObject(player);
                                                         }
@@ -1277,9 +1305,26 @@ namespace server
                                                     response.ChatMessage = Nick.Trim('0') + " n'est pas en prison ou ne possède pas de cartes.";
                                                 }
                                             }
+                                            
                                             if (p.Type == "finTour")
                                             {
                                                 // get le tour du joueur suivant.
+                                            }
+                                            if(playerPret.Count == playerLost.Count -1)
+                                            {
+                                                foreach (PlayerInfo pl in playerPret)
+                                                {
+                                                    int itt = 0;
+                                                    while (itt < playerLost.Count && pl.Pseudo != playerLost[itt].Pseudo)
+                                                        itt++;
+                                                    if(itt == playerLost.Count)
+                                                    {
+                                                      
+                                                        response.ServerContent = JsonConvert.SerializeObject(pl);
+                                                    }
+                                                }
+                                                response.ServerMessage = "won";
+                                               
                                             }
                                            
                                             if(p.Type == "erreurPacket")
