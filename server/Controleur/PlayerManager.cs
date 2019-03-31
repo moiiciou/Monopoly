@@ -18,7 +18,10 @@ namespace server.Controleur
      * */
     public class PlayerManager 
     {
-        
+        public static int nbPlayer()
+        {
+            return GameData.GetGameData.PlayerList.Count;
+        }
         public static PlayerInfo GetPlayerByPseuso(string pseudo)
         {
             foreach(PlayerInfo player in GameData.GetGameData.PlayerList)
