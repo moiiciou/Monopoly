@@ -338,5 +338,21 @@
     <Resource Include="ressources\templates\default\avatar\eaf213.png" />
     <Resource Include="ressources\templates\default\avatar\ff865e.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\the-sceptic.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\ui-background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ressources\templates\default\monopoly-2008-classic-board.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

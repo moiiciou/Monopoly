@@ -10,6 +10,5 @@
         <Image x:Name="avatar" HorizontalAlignment="Left" Height="48" Margin="249,0,-17,0" VerticalAlignment="Top" Width="68" Source="{Binding ImagePath}"/>
         <Label x:Name="labelPseudo"   Content="error_name}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="158" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="labelBalance" Content="error_balance" HorizontalAlignment="Left" Margin="144,2,0,0" VerticalAlignment="Top" Height="38" Width="100" FontSize="14" FontWeight="Bold"/>
-
     </Grid>
 </UserControl>
