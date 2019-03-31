@@ -481,6 +481,22 @@ namespace server
                         }
                     }
                 }
+                if (acceptList.Count == 1 && GameData.GetGameData.CurrentPlayerTurn != "" && GameData.GetGameData.CurrentPlayerTurn != null)
+                {
+                    Packet packet = new Packet();
+                    packet.Type = "updateGameData";
+                    string gameDataString = JsonConvert.SerializeObject(GameData.GetGameData, Formatting.Indented);
+                    packet.Content = gameDataString;
+                    packet.ChatMessage = response.ChatMessage;
+                    packet.ServerContent = response.ServerContent;
+                    packet.ServerMessage = response.ServerMessage;
+                    string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                    msg = Encoding.UTF8.GetBytes(packetToSend);
+                    sendMsg(msg);
+                    response.ServerContent = GameData.GetGameData.CurrentPlayerTurn;
+                    response.ServerMessage = "won";
+
+                }
                 Thread.Sleep(5);
             }
         }
