@@ -69,6 +69,7 @@
     <Compile Include="Core\ThemeParser.cs" />
     <Compile Include="Model\CardInfo.cs" />
     <Compile Include="Model\CommunityInfo.cs" />
+    <Compile Include="Model\CompanyInfo.cs" />
     <Compile Include="Model\CustomInfo.cs" />
     <Compile Include="Model\GameData.cs" />
     <Compile Include="Model\CaseInfo.cs" />
