@@ -1,16 +1,11 @@
-﻿using Monopoly.Controller;
-using Monopoly.Model;
-using Monopoly.Model.Board;
+﻿using Monopoly.Model.Board;
 using Monopoly.Model.Case;
 using server;
 using server.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Monopoly.Core
 {
