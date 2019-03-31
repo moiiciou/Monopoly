@@ -81,6 +81,12 @@ namespace Monopoly.Core
                             JailCase Jail = new JailCase(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), item.position);
                             CasesList.Add(Jail);
                             break;
+
+                        case "company":
+                            CustomCase company = new CustomCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), "", item.position, angle);
+                            CasesList.Add(company);
+                            break;
+
                         default:
                             Console.WriteLine("Error parsing case");
                             break;
