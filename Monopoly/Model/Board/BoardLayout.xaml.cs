@@ -35,7 +35,7 @@ namespace Monopoly.Model.Board
             packet.ChatMessage = "";
             string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
             Connection.SendMsg(packetToSend);
-            ((Panel)this.Parent).Children.Remove(this);
+            button_pret.Visibility = Visibility.Hidden;
         }
     }
 }

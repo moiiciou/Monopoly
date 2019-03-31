@@ -93,6 +93,7 @@
         <Label Content="Entreprises :" HorizontalAlignment="Left" Margin="330,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="97" FontWeight="Bold" Height="26"/>
         <Button Content="Vendre" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="Button_Click_5" Height="37"/>
         <Button Content="Hypotheque" HorizontalAlignment="Left" Margin="90,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="Button_Click_6" Height="37"/>
+        <Button Content="Vendre Maison" HorizontalAlignment="Left" Margin="256,519,0,0" VerticalAlignment="Top" Width="91" Height="32" Click="Button_Click_7"/>
 
     </Grid>
 </UserControl>
