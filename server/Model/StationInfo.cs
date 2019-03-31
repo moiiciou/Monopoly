@@ -16,7 +16,7 @@ namespace server.Model
         public string TextPrice { get; set; }
         public StationInfo(string text, int price, string skinPath, int angle, int posPlateau)
         {
-            RentBase = 25;
+            RentBase = rent;
             positionPlateau = posPlateau;
 
             this.ImageTemplate = skinPath;
@@ -29,7 +29,7 @@ namespace server.Model
         }
         public StationInfo()
         {
-            RentBase = 25;
+            RentBase = 0;
             Owner = null;
             Price = 0;
             isMortgaged = false;

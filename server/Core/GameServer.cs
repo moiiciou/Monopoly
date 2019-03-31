@@ -451,7 +451,7 @@ namespace server
                                                 StationInfo cell = JsonConvert.DeserializeObject<StationInfo>(p.Content);
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
 
-                                                StationInfo stationToBuy = new StationInfo(); // search station dans la liste dans le themeparser.
+                                                StationInfo stationToBuy = tp.searchCaseStation(cell.TextLabel); // search station dans la liste dans le themeparser.
 
 
                                                 if ((stationToBuy.Owner == null || stationToBuy.Owner == "") && player.Balance > stationToBuy.Price)
