@@ -104,7 +104,7 @@ namespace server
                             break;
 
                         case "station":
-                            StationInfo Station = new StationInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), angle, compteur);
+                            StationInfo Station = new StationInfo(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), item.caseAttributes["skin"].ToString(), angle, compteur, Convert.ToInt16(item.caseAttributes["rent"]));
                             StationList.Add(Station);
 
                             break;
