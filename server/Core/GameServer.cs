@@ -31,6 +31,7 @@ namespace server
         private List<string> avatar = new List<string>();
         private List<PlayerInfo> playerPret = new List<PlayerInfo>();
         private List<PlayerInfo> playerLost = new List<PlayerInfo>();
+        private string oldPlayer;
 
 
         int nextIndComm = 0;
@@ -608,6 +609,7 @@ namespace server
                                                 response.Type = "message";
 
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                oldPlayer = player.Pseudo;
                                                 if (!player.lost)
                                                 {
                                                     if ((GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") && playerPret.Count == PlayerManager.nbPlayer()) // on check si le jeu à commencer
@@ -796,6 +798,7 @@ namespace server
                                                             playerSuivant = PlayerManager.GetPlayerByPseuso(GameData.GetGameData.CurrentPlayerTurn);
 
                                                         } while (playerSuivant.lost);
+                                                        
                                                     }
                                                     else
                                                     {
@@ -1329,22 +1332,18 @@ namespace server
                                             {
                                                 // get le tour du joueur suivant.
                                             }
-                                            if(playerPret.Count == playerLost.Count -1)
+                                            
+                                            if(oldPlayer == GameData.GetGameData.CurrentPlayerTurn)
                                             {
-                                                foreach (PlayerInfo pl in playerPret)
-                                                {
-                                                    int itt = 0;
-                                                    while (itt < playerLost.Count && pl.Pseudo != playerLost[itt].Pseudo)
-                                                        itt++;
-                                                    if(itt == playerLost.Count)
-                                                    {
-                                                      
-                                                        response.ServerContent = JsonConvert.SerializeObject(pl);
-                                                    }
-                                                }
+                                                PlayerInfo pl = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                Console.WriteLine("tu as gagner");
+                                                response.ServerContent = JsonConvert.SerializeObject(pl);
                                                 response.ServerMessage = "won";
-                                               
+
                                             }
+                                                
+                                               
+                                            
                                            
                                             if(p.Type == "erreurPacket")
                                             {

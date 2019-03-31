@@ -152,16 +152,16 @@ namespace Monopoly.Controller
                                        if(playerInfo.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
                                         {
                                             MessageBox.Show("Vous avez perdu ! :( ");
-                                            System.Windows.Application.Current.Shutdown();
+                                            Environment.Exit(0);
                                         }
 
                                     }
 
                                     if (p.ServerMessage == "won")
                                     {
-                                       PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.ServerContent);
-                                       MessageBox.Show(playerInfo.Pseudo+" a gagné ! bien joué à lui ! :) ");
-                                        System.Windows.Application.Current.Shutdown();
+                                     
+                                       MessageBox.Show(p.ServerContent + " a gagné ! bien joué à lui ! :) ");
+                                        Environment.Exit(0);
 
                                     }
 
