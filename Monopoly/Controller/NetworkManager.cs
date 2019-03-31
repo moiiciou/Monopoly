@@ -156,7 +156,7 @@ namespace Monopoly.Controller
 
                                                 if (!GameManager.MonopolyGameData.PlayerList.Any(pl => pl.Pseudo == player.Pseudo))
                                                 {
-                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Pseudo, player.Balance, player.Position); }));
+                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player); }));
                                                     PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
 
                                                     playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player);

@@ -44,12 +44,12 @@ namespace Monopoly.Controller
         /// <param name="balance"> Argent du joueur </param>
         /// <param name="position"> Position sur le plateau du joueur </param>
         /// <return> Renvoie l'id du joueur créé. </return>
-        public static bool CreatePlayer(Board board, string name, int balance, int position)
+        public static bool CreatePlayer(Board board, PlayerInfo playerInfo)
         {
-            Player p = new Player( name, balance, position, new List<PropertyInfo>(), null, null);
+            Player p = new Player(playerInfo);
             _players.Add(p);
             InitGrid(p);
-            if (position >= 0)
+            if (playerInfo.Position >= 0)
             {
                 DrawPlayer(board, p.playerInfo.Pseudo, 0);
 
