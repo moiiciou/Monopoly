@@ -68,6 +68,7 @@
       "caseAttributes": {
         "label": "Gare Montparnasse",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },
@@ -211,6 +212,7 @@
       "caseAttributes": {
         "label": "Gare de Lyon",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },
@@ -353,6 +355,7 @@
       "caseAttributes": {
         "label": "Gare du Nord",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },
@@ -497,6 +500,7 @@
       "caseAttributes": {
         "label": "Gare Saint-Lazard",
         "price": 100,
+        "rent": 25,
         "skin": ""
       }
     },

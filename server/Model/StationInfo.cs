@@ -12,9 +12,9 @@ namespace server.Model
         public string Owner { get; set; }
         public int Price { get; set; }
         public int RentBase { get; set; }
-        public StationInfo(string text, int price, string skinPath, int angle, int posPlateau)
+        public StationInfo(string text, int price, string skinPath, int angle, int posPlateau, int rent)
         {
-            RentBase = 25;
+            RentBase = rent;
             positionPlateau = posPlateau;
 
             this.ImageTemplate = skinPath;
