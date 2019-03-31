@@ -552,6 +552,26 @@
 
   "Chance": [
     {
+      "title": "Accident du travail",
+      "text": "Un papillon vole dans votre oeil !",
+      "effect": "moove;19"
+    },
+    {
+      "title": "Fuyez pauvres fous! ",
+      "text": "Vous êtes sauvagement attaqué par un dragon, direction case départ!",
+      "effect": "moove;0"
+    },
+    {
+      "title": "Gentil donnateur louche",
+      "text": "Un mec bizarre dans le tram vous donne 200 euros",
+      "effect": "paiement;200"
+    },
+    {
+      "title": "Cassage de matériel",
+      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de réparation)",
+      "effect": "paiement;-100"
+    },
+    {
       "title": "Go to jail !",
       "text": "Pas de chance vous allez en prison!",
       "effect": "moove;10"
@@ -600,6 +620,26 @@
     }
   ],
   "Community": [
+    {
+      "title": "Accident du travail",
+      "text": "Un papillon vole dans votre oeil !",
+      "effect": "moove;19"
+    },
+    {
+      "title": "Fuyez pauvres fous! ",
+      "text": "Vous êtes sauvagement attaqué par un dragon, direction case départ!",
+      "effect": "moove;0"
+    },
+    {
+      "title": "Gentil donnateur louche",
+      "text": "Un mec bizarre dans le tram vous donne 200 euros",
+      "effect": "paiement;200"
+    },
+    {
+      "title": "Cassage de matériel",
+      "text": "Vous cassez votre pc en jouant trop fort au monopoly (100 euros de réparation)",
+      "effect": "paiement;-100"
+    },
     {
       "title": "Go to jail !",
       "text": "Pas de chance vous allez en prison!",
