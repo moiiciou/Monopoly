@@ -17,7 +17,7 @@ namespace server
 {
     public class GameServer : forwardToAll
     {
-        Packet lastPacketSend;
+        Packet lastPacketSend = new Packet();
         ArrayList readList = new ArrayList(); //liste utilisée par socket.select 
         string msgString = null; //contiendra le message envoyé aux autres clients
         string msgDisconnected = null; //Notification connexion/déconnexion
@@ -352,6 +352,9 @@ namespace server
 
 
                                                     PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
+                                                    CompanyInfo companyRent = tp.searchCaseCompanyAtPos(player.Position);
+                                                    StationInfo stationRent = tp.searchCaseStationAtPos(player.Position);
+
                                                     if (propRent != null && player.Pseudo != propRent.Owner)
                                                     {
                                                         int rent = RentManager.computeRent(propRent, player, tp);
@@ -362,6 +365,27 @@ namespace server
                                                             PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
                                                         }
 
+                                                    }
+                                                    if(companyRent != null && player.Pseudo != companyRent.Owner)
+                                                    {
+                                                        int rent = RentManager.computeRent(propRent, player, tp);
+                                                        if (rent > 0)
+                                                        {
+                                                            player.Balance -= rent;
+                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                            PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                        }
+                                                    }
+
+                                                    if (stationRent != null && player.Pseudo != stationRent.Owner)
+                                                    {
+                                                        int rent = RentManager.computeRent(stationRent, player, tp);
+                                                        if (rent > 0)
+                                                        {
+                                                            player.Balance -= rent;
+                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                            PlayerManager.GetPlayerByPseuso(stationRent.Owner).Balance += rent;
+                                                        }
                                                     }
                                                     GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au joueur suivant.
                                                 }
@@ -476,17 +500,50 @@ namespace server
                                                       tp.searchCaseProperty(propertyToSell.Location).HasHostel = false;
                                                       */
                                                     tp.searchCaseProperty(propertyToSell.Location).Owner = null;
+                                                    tp.searchCaseProperty(propertyToSell.Location).isMortgaged = false;
                                                     response.ChatMessage = Nick.Trim('0') + " vend la propriété " + propertyToSell.Location;
                                                 }
                                                 else
                                                 {
                                                     response.ChatMessage = Nick.Trim('0') + " ne peut pas vendre la propriété " + propertyToSell.Location;
                                                 }
-
-
+                                            }
+                                            if(p.Type == "sellStation")
+                                            {
+                                                response.Type = "message";
+                                                Console.WriteLine(p.Content);
+                                                StationInfo station = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                if(station != null && station.Owner == player.Pseudo)
+                                                {
+                                                    player.Stations.Remove(station);
+                                                    tp.searchCaseStation(station.TextLabel).Owner = null;
+                                                    tp.searchCaseStation(station.TextLabel).isMortaged = false;
+                                                    if (station.isMortaged)
+                                                        player.Balance += station.Price/2;
+                                                    else
+                                                        player.Balance += station.Price;
+                                                }
+                                            }
+                                            if(p.Type == "sellCompany")
+                                            {
+                                                response.Type = "message";
+                                                Console.WriteLine(p.Content);
+                                                CompanyInfo company = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                if (company != null && company.Owner == player.Pseudo)
+                                                {
+                                                    
+                                                    player.Companies.Remove(company);
+                                                    tp.searchCaseStation(company.TextLabel).Owner = null;
+                                                    tp.searchCaseStation(company.TextLabel).isMortaged = false;
+                                                    if (company.isMortaged)
+                                                        player.Balance += company.Price / 2;
+                                                    else
+                                                        player.Balance += company.Price;
+                                                }
 
                                             }
-
 #region useless
                                             if (p.Type == "drawChance")
                                             {
@@ -680,7 +737,7 @@ namespace server
                                             if(p.Type == "useFreeFromJailCard")
                                             {
 
-                                                Console.WriteLine("utilise une carte libéré de prison");
+                                               // Console.WriteLine("utilise une carte libéré de prison");
                                                 Console.WriteLine(Nick.Trim('0') + " utilise une carte libéré de prison");
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
 
@@ -696,17 +753,18 @@ namespace server
                                                     tp.communityCards.Add(tp.freeFromJail);
                                                     player.hasChanceCardFree = false;
                                                     player.isInJail = false;
-                                                    p.ChatMessage = Nick.Trim('0') + " est libéré prison en utilisant une carte chance";
+                                                    response.ChatMessage = Nick.Trim('0') + " est libéré prison en utilisant une carte chance";
                                                 }
                                                 else
                                                 {
-                                                    p.ChatMessage = Nick.Trim('0') + " n'est pas en prison ou ne possède pas de cartes.";
+                                                    response.ChatMessage = Nick.Trim('0') + " n'est pas en prison ou ne possède pas de cartes.";
                                                 }
                                             }
                                             if (p.Type == "finTour")
                                             {
                                                 // get le tour du joueur suivant.
                                             }
+                                           
                                             if(p.Type == "erreurPacket")
                                             {
                                                 if(lastPacketSend != null)
@@ -714,6 +772,7 @@ namespace server
                                                     response = lastPacketSend;
                                                 }
                                             }
+                                            lastPacketSend = response;
                                         }
                                         catch
                                         {

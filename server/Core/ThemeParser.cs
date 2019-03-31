@@ -13,11 +13,15 @@ namespace server
         public List<PropertyInfo> CasesList = new List<PropertyInfo>();
         public List<StationInfo> StationList = new List<StationInfo>();
         public List<CustomInfo> CustomList = new List<CustomInfo>();
+        public List<CompanyInfo> companiesList = new List<CompanyInfo>();
+
         public List<CaseInfo> restinfo = new List<CaseInfo>();
         public List<CardInfo> communityCards = new List<CardInfo>();
         public List<CardInfo> chanceCards = new List<CardInfo>();
+
         public List<int> posCommunity = new List<int>();
         public List<int> posChance = new List<int>();
+
         public CardInfo freeFromJail;
         public JailInfo jail;
        // public List<UserControl> CommunityList = new List<UserControl>();
@@ -93,7 +97,7 @@ namespace server
                             break;
 
                         case "community":
-                            CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
+                            ChanceInfo Com = new ChanceInfo("Caisse de Communauté", "", angle, compteur);
                             posCommunity.Add(compteur);
                             restinfo.Add(Com);
 
@@ -108,7 +112,16 @@ namespace server
                         case "jail":
                             jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), compteur);
                             restinfo.Add(jail);
+
                             break;
+
+                        case "company":
+                            CompanyInfo company = new CompanyInfo(item.caseAttributes["label"].ToString(), 0, "", angle, compteur, Convert.ToInt16(item.caseAttributes["price"]));
+                            companiesList.Add(company);
+                            
+
+                            break;
+
                         default:
                             Console.WriteLine("Error parsing case");
 
@@ -232,6 +245,28 @@ namespace server
             return null;
         }
 
+        public StationInfo searchCaseStation(string textlbl)
+        {
+            foreach (StationInfo s in StationList)
+            {
+                if (s.TextLabel == textlbl)
+                    return s;
+            }
+
+            return null;
+        }
+
+        public CompanyInfo searchCaseCompany(string textlbl)
+        {
+            foreach (CompanyInfo c in companiesList)
+            {
+                if (c.TextLabel == textlbl)
+                    return c;
+            }
+
+            return null;
+        }
+
         public int searchPosGoToJail()
         {
             foreach(CustomInfo c in CustomList)
@@ -287,6 +322,30 @@ namespace server
             foreach (PropertyInfo p in CasesList)
             {
                 if(p.positionPlateau == pos)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public StationInfo searchCaseStationAtPos(int pos)
+        {
+            foreach (StationInfo p in StationList)
+            {
+                if (p.positionPlateau == pos)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public CompanyInfo searchCaseCompanyAtPos(int pos)
+        {
+            foreach (CompanyInfo p in companiesList)
+            {
+                if (p.positionPlateau == pos)
                 {
                     return p;
                 }

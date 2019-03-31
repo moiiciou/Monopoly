@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace server.Model
 {
-    public class CommunityInfo : CaseInfo
+    public partial class CommunityInfo : CaseInfo
     {
 
 
@@ -21,7 +21,7 @@ namespace server.Model
         }
     }
 
-    public class ChanceInfo : CaseInfo
+    public partial class ChanceInfo : CaseInfo
     {
 
         public ChanceInfo(string text, string skinPath, int angle, int posPlateau)
