@@ -36,7 +36,7 @@ namespace server
 
         int nextIndComm = 0;
         int nextIndChance = 0;
-        public int salaire = 151;
+        public int salaire = 1500;
 #pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
 #pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
@@ -621,7 +621,7 @@ namespace server
 
                                                         if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
                                                         {
-                                                            int nbCase = 12; //dice1 + dice2;
+                                                            int nbCase = dice1 + dice2;
                                                             response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", " + dice2;
                                                             if (player.Position / 40 < (player.Position + nbCase) / 40)
                                                                 player.Balance += salaire;

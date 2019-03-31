@@ -104,7 +104,7 @@ namespace server.Core
                 {
                     rent *= company.multiply;
                 }
-                rent = 201;
+               
 
                 
             }
