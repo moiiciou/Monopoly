@@ -120,7 +120,7 @@ namespace Monopoly.Controller
                                 {
 
                                     byte[] msg = new Byte[ClientSocket.ReceiveBufferSize];
-                                    ClientSocket.Receive(msg, 0, ClientSocket.Available, SocketFlags.None);
+                                    ClientSocket.Receive(msg, 0, ClientSocket.ReceiveBufferSize, SocketFlags.None);
                                     messageReceived = System.Text.Encoding.UTF8.GetString(msg).Trim();
                                     Console.WriteLine(messageReceived);
                                     string json = Tools.CleanJson(messageReceived);

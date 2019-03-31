@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Monopoly.Controller;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,17 @@ namespace Monopoly.Model.Board
         public BoardLayout()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Packet packet = new Packet();
+            packet.Type = "pret";
+            packet.Content = "";
+            packet.ChatMessage = "";
+            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+            Connection.SendMsg(packetToSend);
+            ((Panel)this.Parent).Children.Remove(this);
         }
     }
 }
