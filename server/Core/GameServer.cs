@@ -25,7 +25,7 @@ namespace server
         public bool useLogging = false; //booleen permettant de logger le processing dans un fichier log
         public bool readLock = false;//Flag aidant à la synchronisation
         private int initPosition = 0;
-        public static int initBalance = 200;
+        public static int initBalance = 1500;
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
         private List<string> avatar = new List<string>();
@@ -36,7 +36,7 @@ namespace server
 
         int nextIndComm = 0;
         int nextIndChance = 0;
-        public int salaire = 1500;
+        public int salaire = 200;
 #pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
 #pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
