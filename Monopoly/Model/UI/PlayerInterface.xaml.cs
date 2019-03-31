@@ -66,7 +66,6 @@ namespace Monopoly.Model.UI
             {
                 ImagePath = "/Monopoly;component/ressources/templates/default/avatar/" + playerInfo.ColorCode.Trim('#') + ".png";
                 DataContext = this;
-                Console.WriteLine(ImagePath);
             }
         }
 
@@ -77,29 +76,35 @@ namespace Monopoly.Model.UI
 
         public void UpdateProperty(PlayerInfo player)
         {
-            Console.WriteLine("update property lancer");
-
             if (player.Properties != null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
             {
-             Console.WriteLine("update property lancer");
-
                 foreach (PropertyInfo property in player.Properties)
                 {
 
                         PropertyInfo propertyInfo = (PropertyInfo)property;
                         PropertyCase propertyCase = Core.Tools.GetPropertyByName(propertyInfo.Location);
-                        Console.WriteLine("propertyInfo location : " + propertyInfo.Location);
-                        Console.WriteLine("propertyCase location : " + propertyCase.CaseInformation.Location);
-
                         PropertyInfo cardInfo = propertyCase.Card.CardInformation;
 
                         if (!property_list.Items.Cast<PropertyInfo>().Any(x => x.Location == cardInfo.Location))
                         {
                             property_list.Items.Add(cardInfo);
-                            Console.WriteLine("Carte ajouté");
 
                         }                    
                 }
+            }
+
+            if(player.Stations !=null && player.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                foreach(StationInfo stationInfo in player.Stations)
+                {
+                    if (!stations_list.Items.Cast<StationInfo>().Any(x => x.TextLabel == stationInfo.TextLabel))
+                    {
+                        stations_list.Items.Add(stationInfo);
+                    }
+
+                }
+
+
             }
         }
 
@@ -178,7 +183,6 @@ namespace Monopoly.Model.UI
                 string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
                 byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
                 int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
-                Console.WriteLine(message);
                 if (DtSent == 0)
                 {
                     MessageBox.Show("Aucune donnée n'a été envoyée");
@@ -189,6 +193,8 @@ namespace Monopoly.Model.UI
             {
                 MessageBox.Show(E.Message);
             }
+            property_list.Items.RemoveAt(property_list.Items.IndexOf(property_list.SelectedItem));
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -219,6 +225,36 @@ namespace Monopoly.Model.UI
                 Packet packet = new Packet();
                 packet.Type = "mortGageProperty";
                 packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+            }
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            if (stations_list.SelectedItem != null)
+            {
+                StationInfo stationInfo = (StationInfo)stations_list.SelectedItem;
+                Packet packet = new Packet();
+                packet.Type = "sellStation";
+                packet.Content = JsonConvert.SerializeObject(stationInfo, Formatting.Indented);
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
+                stations_list.Items.RemoveAt(stations_list.Items.IndexOf(stations_list.SelectedItem));
+            }
+
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            if (stations_list.SelectedItem != null)
+            {
+                StationInfo stationInfo = (StationInfo)stations_list.SelectedItem;
+                Packet packet = new Packet();
+                packet.Type = "mortGageStation";
+                packet.Content = JsonConvert.SerializeObject(stationInfo, Formatting.Indented);
                 packet.ChatMessage = "";
                 string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
                 Connection.SendMsg(packetToSend);

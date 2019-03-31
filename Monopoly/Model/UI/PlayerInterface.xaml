@@ -21,7 +21,7 @@
         <Image HorizontalAlignment="Left" Height="57" Margin="18,49,0,0" VerticalAlignment="Top" Width="69" Source="/Monopoly;component/ressources/templates/default/money.png"/>
         <Label x:Name="money_label" Content="{Binding MoneyPlayer}" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="38" Width="94" FontSize="24" FontWeight="Bold" FontFamily="Arial Black" Margin="79,49,0,0"/>
         <Label x:Name="pseudo_label" Content="{Binding PseudoPlayer}" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Top" Height="36" Width="218" FontSize="24" FontFamily="Arial Black" FontWeight="Bold"/>
-        <ListView Grid.Row="1" x:Name="property_list" HorizontalAlignment="Left" Height="274"  VerticalAlignment="Top" Width="330">
+        <ListView Grid.Row="1" x:Name="property_list" HorizontalAlignment="Left" Height="149"  VerticalAlignment="Top" Width="427">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="5" HorizontalAlignment="Stretch" Opacity="1"/>
@@ -42,32 +42,53 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Label Grid.Row="0" Content="Propriétés possédées:" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="207" FontSize="20" Height="37"/>
+        <Label Grid.Row="0" Content="Propriétés possédées:" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="207" FontSize="20" Height="37" FontWeight="Bold"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="69" Margin="350,10,0,0" VerticalAlignment="Top" Width="64" Source= "{Binding ImagePath}"/>
         <Label x:Name="label" Content="Autres Joueurs :" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.719,0.705" Width="178" Height="38" FontSize="16" FontWeight="Bold"/>
         <local:ChatBox Grid.Row="2" x:Name="chatBox"  Loaded="ChatBox_Loaded" Margin="10,0,10,23"/>
         <Label x:Name="currency_label" Content="€" Margin="173,49,238,0" VerticalAlignment="Top" Height="38" FontSize="24" FontWeight="Bold" FontFamily="Arial Black"/>
         <StackPanel x:Name="PlayerPanel" Margin="10,138,0,42" HorizontalAlignment="Left" Width="300"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="0,279,0,20" Click="Button_Click" Grid.Row="1" HorizontalAlignment="Left" Width="98" >
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="212,553,0,5" Click="Button_Click" HorizontalAlignment="Left" Width="32" >
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/house_button.png"/>
             </Button.Background>
 
         </Button>
-        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="103,274,0,15" Grid.Row="1" Click="Button_Click_1" HorizontalAlignment="Left" Width="100">
+        <Button Style="{StaticResource ButtonStyle}" Content="" Margin="250,553,0,5" Click="Button_Click_1" HorizontalAlignment="Left" Width="32">
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/sell_button.png"/>
             </Button.Background>
         </Button>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="10,286,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83" Height="98" Click="Button_Click_2">
+        <Button Content="Button" HorizontalAlignment="Left" Margin="338,331,0,0" Grid.Row="1" VerticalAlignment="Top" Width="74" Height="39" Click="Button_Click_2">
             <Button.Background>
                 <ImageBrush ImageSource="/Monopoly;component/ressources/templates/default/monopoly-man.jpg"/>
             </Button.Background>
         </Button>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="113,286,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83" Height="98" Click="Button_Click_3"/>
-        <Button  HorizontalAlignment="Left" Margin="347,225,0,0" Grid.Row="1" VerticalAlignment="Top" Width="89" Height="43" Click="Button_Click_4">
-        <TextBlock Width="79">Hypothèquer<LineBreak/>une propriété</TextBlock>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="241,331,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83" Height="43" Click="Button_Click_3"/>
+        <Button  HorizontalAlignment="Left" Margin="287,542,0,0" VerticalAlignment="Top" Width="89" Height="43" Click="Button_Click_4">
+            <TextBlock Width="79">Hypothèquer<LineBreak/>une propriété</TextBlock>
         </Button>
+        <ListView x:Name="stations_list" HorizontalAlignment="Left" Height="100" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top" Width="300">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="5" HorizontalAlignment="Stretch" Opacity="1"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Right" Margin="-4,0" Width="206" Height="232" VerticalAlignment="Bottom" Opacity="1" Background="White" >
+                        <TextBlock x:Name="textBlock1" TextWrapping="Wrap" RenderTransformOrigin="0.489,3.304" Height="51" Panel.ZIndex="1" FontWeight="Bold" TextAlignment="Center" Margin="-1,0" HorizontalAlignment="Left" Width="182" ><Run/><LineBreak/><Run Text="{Binding TextLabel}"/></TextBlock>
+                        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Height="48" Panel.ZIndex="1" FontWeight="Bold" TextAlignment="Center"><Run/><LineBreak/><Run Text="{Binding TextPrice}"/></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label Content="Gares possédées :" HorizontalAlignment="Left" Margin="10,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="134" FontWeight="Bold"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="317,176,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="36"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="317,217,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="36"/>
+        <Label Content="Entreprises :" HorizontalAlignment="Left" Margin="317,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="97" FontWeight="Bold"/>
+        <Button Content="Vendre" HorizontalAlignment="Left" Margin="10,281,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click_5"/>
+        <Button Content="Hypotheque" HorizontalAlignment="Left" Margin="90,281,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click_6"/>
 
     </Grid>
 </UserControl>

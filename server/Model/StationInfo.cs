@@ -14,7 +14,7 @@ namespace server.Model
         public int RentBase { get; set; }
 
         public string TextPrice { get; set; }
-        public StationInfo(string text, int price, string skinPath, int angle, int posPlateau)
+        public StationInfo(string text, int price, string skinPath, int angle, int posPlateau, int rent)
         {
             RentBase = rent;
             positionPlateau = posPlateau;

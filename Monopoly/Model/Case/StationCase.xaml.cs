@@ -29,7 +29,7 @@ namespace Monopoly.Model.Case
         public StationCase(string text, int price, string skinPath, int[] position, int angle)
         {
             InitializeComponent();
-            CaseInformation = new StationInfo(text, price, skinPath, angle, 0);
+            CaseInformation = new StationInfo(text, price, skinPath, angle, 0, 0);
             DataContext = CaseInformation;
             Position = position;
         }
