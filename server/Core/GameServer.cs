@@ -715,12 +715,15 @@ namespace server
                                                     response.ServerMessage = "Le joueur à perdu et ne peut plus jouer.";
                                                 }
                                             }
+
                                             if(p.Type == "mortGageProperty")
                                             {
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                PropertyInfo prop = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
+                                                PropertyInfo cell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
 
-                                                if(prop!=null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged && prop.NumberOfHouse == 0)
+                                                PropertyInfo prop = tp.searchCaseProperty(cell.Location);
+
+                                                if (prop!=null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged && prop.NumberOfHouse == 0)
                                                 {
                                                     player.Balance += prop.Price / 2;
                                                     prop.isMortgaged = true;
@@ -728,15 +731,24 @@ namespace server
                                                 }
                                                 else
                                                 {
-                                                    response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                    if (prop.Owner == player.Pseudo && prop.isMortgaged && player.Balance > prop.Price / 2)
+                                                    {
+                                                        player.Balance -= prop.Price / 2;
+                                                        prop.isMortgaged = false;
+                                                        response.ChatMessage = "Le joueur " + Nick.Trim('0') + "a déhypothéqué la propriété " + prop.Location;
+                                                    }
+                                                    else
+                                                    {
+                                                        response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                    }
                                                 }
                                             }
 
                                             if (p.Type == "mortGageCompany")
                                             {
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                CompanyInfo prop = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
-
+                                                CompanyInfo cell = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
+                                                CompanyInfo prop = tp.searchCaseCompany(cell.TextLabel);
                                                 if (prop != null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged)
                                                 {
                                                     player.Balance += prop.Price / 2;
@@ -745,14 +757,26 @@ namespace server
                                                 }
                                                 else
                                                 {
-                                                    response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+
+                                                    if (prop.Owner == player.Pseudo && prop.isMortgaged && player.Balance > prop.Price / 2)
+                                                    {
+                                                        player.Balance -= prop.Price / 2;
+                                                        prop.isMortgaged = false;
+                                                        response.ChatMessage = "Le joueur " + Nick.Trim('0') + "a déhypothéqué la compagnie " + prop.TextLabel;
+                                                    }
+                                                    else
+                                                    {
+                                                        response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                    }
                                                 }
                                             }
 
                                             if (p.Type == "mortGageStation")
                                             {
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                StationInfo prop = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                StationInfo cell  = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                StationInfo prop = tp.searchCaseStation(cell.TextLabel);
+
 
                                                 if (prop != null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged)
                                                 {
@@ -762,9 +786,22 @@ namespace server
                                                 }
                                                 else
                                                 {
-                                                    response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                    if (prop.Owner == player.Pseudo && prop.isMortgaged && player.Balance > prop.Price / 2)
+                                                    {
+                                                        player.Balance -= prop.Price / 2;
+                                                        prop.isMortgaged = false;
+                                                        response.ChatMessage = "Le joueur " + Nick.Trim('0') + "a déhypothéqué la propriété " + prop.TextLabel;
+                                                    }
+                                                    else
+                                                    {
+
+                                                        response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                    }
                                                 }
                                             }
+
+                                            #region useless
+
                                             if(p.Type == "unMortGageProperty")
                                             {
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
@@ -823,6 +860,7 @@ namespace server
                                                 }
 
                                             }
+                                            #endregion
 
                                             if (p.Type == "buyStation")
                                             {
