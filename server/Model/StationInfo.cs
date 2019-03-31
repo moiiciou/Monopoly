@@ -27,7 +27,7 @@ namespace server.Model
         }
         public StationInfo()
         {
-            RentBase = 25;
+            RentBase = 0;
             Owner = null;
             Price = 0;
             isMortgaged = false;
