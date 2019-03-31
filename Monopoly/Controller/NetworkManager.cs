@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Windows;
 
 namespace Monopoly.Controller
 {
@@ -140,8 +141,20 @@ namespace Monopoly.Controller
                                     {
                                         Dictionary<string, server.CardInfo> data = JsonConvert.DeserializeObject<Dictionary<string, server.CardInfo>>(p.ServerContent);
                                         string pseudoPlayer = data.Keys.FirstOrDefault();
-                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { Board.GetBoard.BoardLabel.Content = pseudoPlayer + "à pioché :"; }));
-                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { CardManager.DisplayCard(data.Values.FirstOrDefault()); }));
+                                        Application.Current.Dispatcher.Invoke(new Action(() => { Board.GetBoard.BoardLabel.Content = pseudoPlayer + "à pioché :"; }));
+                                        Application.Current.Dispatcher.Invoke(new Action(() => { CardManager.DisplayCard(data.Values.FirstOrDefault()); }));
+                                    }
+
+
+                                    if (p.ServerMessage == "lost")
+                                    {
+                                       PlayerInfo playerInfo = JsonConvert.DeserializeObject<PlayerInfo>(p.ServerContent);
+                                       if(playerInfo.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+                                        {
+                                            MessageBox.Show("Vous avez perdu ! :( ");
+                                            Application.Current.Windows[0].Close();
+                                        }
+
                                     }
 
                                     if (p.Type == "updateGameData")
@@ -156,7 +169,7 @@ namespace Monopoly.Controller
 
                                                 if (!GameManager.MonopolyGameData.PlayerList.Any(pl => pl.Pseudo == player.Pseudo))
                                                 {
-                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player); }));
+                                                    Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player); }));
                                                     PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
 
                                                     playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player);
