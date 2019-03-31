@@ -25,7 +25,7 @@ namespace server
         public bool useLogging = false; //booleen permettant de logger le processing dans un fichier log
         public bool readLock = false;//Flag aidant à la synchronisation
         private int initPosition = 0;
-        public static int initBalance = 10000;
+        public static int initBalance = 200;
         private Packet response = new Packet();
         private ThemeParser tp = new ThemeParser("Ressources\\level.json");
         private List<string> avatar = new List<string>();
@@ -35,7 +35,7 @@ namespace server
 
         int nextIndComm = 0;
         int nextIndChance = 0;
-        public int salaire = 200;
+        public int salaire = 151;
 #pragma warning disable CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
         private bool gameOver = false;
 #pragma warning restore CS0414 // Le champ 'GameServer.gameOver' est assigné, mais sa valeur n'est jamais utilisée
@@ -603,7 +603,7 @@ namespace server
 
                                                         if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
                                                         {
-                                                            int nbCase = dice1 + dice2;
+                                                            int nbCase = 12; //dice1 + dice2;
                                                             response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", " + dice2;
                                                             if (player.Position / 40 < (player.Position + nbCase) / 40)
                                                                 player.Balance += salaire;
@@ -684,6 +684,7 @@ namespace server
 
                                                         if (propRent != null && player.Pseudo != propRent.Owner)
                                                         {
+                                                            
                                                             int rent = RentManager.computeRent(propRent, player, tp);
                                                             if (rent > 0 && player.Balance > rent)
                                                             {
@@ -729,9 +730,10 @@ namespace server
 
                                                             if (player.Balance < rent)
                                                             {
-                                                                player.Balance -= rent;
+                                                                
                                                                
-                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += player.Balance;
+                                                                PlayerManager.GetPlayerByPseuso(companyRent.Owner).Balance += player.Balance;
+                                                                player.Balance -= rent;
 
                                                                 player.lost = true;
                                                                
@@ -744,9 +746,10 @@ namespace server
                                                             int rent = RentManager.computeRent(stationRent, player, tp);
                                                             if (rent > 0 && player.Balance> rent)
                                                             {
-                                                                player.Balance -= rent;
-                                                                response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                               
+                                                                response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + stationRent.Owner;
                                                                 PlayerManager.GetPlayerByPseuso(stationRent.Owner).Balance += rent;
+                                                                player.Balance -= rent;
                                                             }
                                                             else
                                                             {
@@ -755,9 +758,9 @@ namespace server
 
                                                             if (player.Balance < rent)
                                                             {
+                                                                
+                                                                PlayerManager.GetPlayerByPseuso(stationRent.Owner).Balance += player.Balance;
                                                                 player.Balance -= rent;
-                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += player.Balance;
-
                                                                 player.lost = true;
 
                                                                
@@ -768,7 +771,7 @@ namespace server
                                                         {
                                                             playerLost.Add(player);
                                                             response.ServerMessage = "lost";
-                                                            response.Content = JsonConvert.SerializeObject(player);
+                                                            response.ServerContent = JsonConvert.SerializeObject(player);
                                                         }
                                                         PlayerInfo playerSuivant = PlayerManager.GetPlayerByPseuso(GameData.GetGameData.CurrentPlayerTurn);
                                                         do
