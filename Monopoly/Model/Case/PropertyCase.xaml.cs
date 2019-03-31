@@ -33,6 +33,7 @@ namespace Monopoly.Model.Case
             CaseInformation.Location = location;
             CaseInformation.Color = color;
             CaseInformation.Owner = owner;
+            CaseInformation.Rotation = angle;
             Card = card;
             DataContext = CaseInformation;
             Position = position;
@@ -62,7 +63,7 @@ namespace Monopoly.Model.Case
                 }
             if(CaseInformation.NumberOfHouse != 0)
             {
-                brush.ImageSource = new BitmapImage(new Uri("ressources/templates/default/" + path + ".png", UriKind.Relative));
+                brush.ImageSource = new BitmapImage(new Uri("/Monopoly;component/ressources/templates/default/" + path + ".png", UriKind.Relative));
                 buttonProperty.Background = brush;
                 Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
             }

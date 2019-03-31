@@ -47,6 +47,7 @@ namespace Monopoly.Model.Card
                 Color = color,
                 HouseCost = houseCost,
                 HostelCost = hotelCost,
+                Rotation = angle
             };
             DataContext = CardInformation;
         }
