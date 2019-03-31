@@ -737,7 +737,7 @@ namespace server
                                             if(p.Type == "useFreeFromJailCard")
                                             {
 
-                                                Console.WriteLine("utilise une carte libéré de prison");
+                                               // Console.WriteLine("utilise une carte libéré de prison");
                                                 Console.WriteLine(Nick.Trim('0') + " utilise une carte libéré de prison");
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
 
@@ -753,11 +753,11 @@ namespace server
                                                     tp.communityCards.Add(tp.freeFromJail);
                                                     player.hasChanceCardFree = false;
                                                     player.isInJail = false;
-                                                    p.ChatMessage = Nick.Trim('0') + " est libéré prison en utilisant une carte chance";
+                                                    response.ChatMessage = Nick.Trim('0') + " est libéré prison en utilisant une carte chance";
                                                 }
                                                 else
                                                 {
-                                                    p.ChatMessage = Nick.Trim('0') + " n'est pas en prison ou ne possède pas de cartes.";
+                                                    response.ChatMessage = Nick.Trim('0') + " n'est pas en prison ou ne possède pas de cartes.";
                                                 }
                                             }
                                             if (p.Type == "finTour")
