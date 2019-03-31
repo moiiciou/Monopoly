@@ -410,6 +410,40 @@ namespace server
                                                     response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
                                                 }
                                             }
+
+                                            if (p.Type == "mortGageCompany")
+                                            {
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                CompanyInfo prop = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
+
+                                                if (prop != null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged)
+                                                {
+                                                    player.Balance += prop.Price / 2;
+                                                    prop.isMortgaged = true;
+                                                    response.ChatMessage = player.Pseudo + " hypothèque la propriété " + prop.TextLabel + " et gagne " + (prop.Price / 2);
+                                                }
+                                                else
+                                                {
+                                                    response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                }
+                                            }
+
+                                            if (p.Type == "mortGageStation")
+                                            {
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                StationInfo prop = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+
+                                                if (prop != null && prop.Owner != null && prop.Owner == player.Pseudo && !prop.isMortgaged)
+                                                {
+                                                    player.Balance += prop.Price / 2;
+                                                    prop.isMortgaged = true;
+                                                    response.ChatMessage = player.Pseudo + " hypothèque la propriété " + prop.TextLabel + " et gagne " + (prop.Price / 2);
+                                                }
+                                                else
+                                                {
+                                                    response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
+                                                }
+                                            }
                                             if (p.Type == "buyStation")
                                             {
                                                 response.Type = "message";
@@ -518,8 +552,8 @@ namespace server
                                                 {
                                                     player.Stations.Remove(station);
                                                     tp.searchCaseStation(station.TextLabel).Owner = null;
-                                                    tp.searchCaseStation(station.TextLabel).isMortaged = false;
-                                                    if (station.isMortaged)
+                                                    tp.searchCaseStation(station.TextLabel).isMortgaged = false;
+                                                    if (station.isMortgaged)
                                                         player.Balance += station.Price/2;
                                                     else
                                                         player.Balance += station.Price;
@@ -536,8 +570,8 @@ namespace server
                                                     
                                                     player.Companies.Remove(company);
                                                     tp.searchCaseStation(company.TextLabel).Owner = null;
-                                                    tp.searchCaseStation(company.TextLabel).isMortaged = false;
-                                                    if (company.isMortaged)
+                                                    tp.searchCaseStation(company.TextLabel).isMortgaged = false;
+                                                    if (company.isMortgaged)
                                                         player.Balance += company.Price / 2;
                                                     else
                                                         player.Balance += company.Price;

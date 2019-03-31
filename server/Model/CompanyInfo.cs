@@ -10,7 +10,7 @@ namespace server.Model
     {
         public int multiply { get; set; }
         public int multiplyWith2Prop { get; set; }
-        public bool isMortaged { get; set; }
+        public bool isMortgaged { get; set; }
         public int Price { get; set; }
         public string Owner { get; set; }
 
@@ -20,7 +20,7 @@ namespace server.Model
             multiply = 4;
             multiplyWith2Prop = 10;
             this.Price = price;
-            isMortaged = false;
+            isMortgaged = false;
             Owner = null;
         }
     }

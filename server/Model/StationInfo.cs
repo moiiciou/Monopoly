@@ -8,7 +8,7 @@ namespace server.Model
 {
     public class StationInfo : CaseInfo
     {
-        public bool isMortaged { get; set; }
+        public bool isMortgaged { get; set; }
         public string Owner { get; set; }
         public int Price { get; set; }
         public int RentBase { get; set; }
@@ -21,7 +21,7 @@ namespace server.Model
             
             TextLabel = text;
             this.Rotation = angle;
-            isMortaged = false;
+            isMortgaged = false;
             this.Price = price;
             this.Owner = null;
         }
@@ -30,7 +30,7 @@ namespace server.Model
             RentBase = 25;
             Owner = null;
             Price = 0;
-            isMortaged = false;
+            isMortgaged = false;
         }
     }
 }

@@ -71,12 +71,12 @@ namespace server.Core
 
             StationInfo stationRentTrue = tp.searchCaseStation(stationRent.TextLabel);
             int rent = 0;
-            if (stationRentTrue.Owner != null && stationRentTrue.Owner != "" && stationRentTrue.Owner != p.Pseudo && !stationRentTrue.isMortaged)
+            if (stationRentTrue.Owner != null && stationRentTrue.Owner != "" && stationRentTrue.Owner != p.Pseudo && !stationRentTrue.isMortgaged)
             {
                 rent = stationRentTrue.RentBase;
                 foreach (StationInfo s in PlayerManager.GetPlayerByPseuso(stationRentTrue.Owner).Stations)
                 {
-                    if (!s.isMortaged && s.TextLabel != stationRentTrue.TextLabel)
+                    if (!s.isMortgaged && s.TextLabel != stationRentTrue.TextLabel)
                     {
                         rent *= 2;
                     }
@@ -90,7 +90,7 @@ namespace server.Core
         {
             int rent = 0;
             CompanyInfo cmpRent = tp.searchCaseCompany(company.TextLabel);
-            if (cmpRent.Owner != null && cmpRent.Owner != "" && cmpRent.Owner != p.Pseudo && !cmpRent.isMortaged)
+            if (cmpRent.Owner != null && cmpRent.Owner != "" && cmpRent.Owner != p.Pseudo && !cmpRent.isMortgaged)
             {
                 Random rnd = new Random();
                 int dice1 = rnd.Next(1, 7);
