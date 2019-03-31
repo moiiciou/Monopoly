@@ -194,6 +194,7 @@ namespace Monopoly.Controller
                                                                     if (property.CaseInformation.Location == propertyInfo.Location)
                                                                     {
                                                                         property.CaseInformation = propertyInfo;
+                                                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { property.UpdateBackground(); }));
                                                                     }
 
                                                                 }
