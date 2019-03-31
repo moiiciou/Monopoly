@@ -13,7 +13,16 @@ namespace server
         public List<PropertyInfo> CasesList = new List<PropertyInfo>();
         public List<StationInfo> StationList = new List<StationInfo>();
         public List<CustomInfo> CustomList = new List<CustomInfo>();
+        public List<CompanyInfo> companiesList = new List<CompanyInfo>();
+
         public List<CaseInfo> restinfo = new List<CaseInfo>();
+        public List<CardInfo> communityCards = new List<CardInfo>();
+        public List<CardInfo> chanceCards = new List<CardInfo>();
+
+        public List<int> posCommunity = new List<int>();
+        public List<int> posChance = new List<int>();
+
+        public CardInfo freeFromJail;
         public JailInfo jail;
        // public List<UserControl> CommunityList = new List<UserControl>();
        // public List<ChanceCard> ChanceList = new List<ChanceCard>();
@@ -83,11 +92,13 @@ namespace server
                         case "chance":
                             ChanceInfo Chance = new ChanceInfo("Chance", "", angle, compteur);
                             restinfo.Add(Chance);
+                            posChance.Add(compteur);
 
                             break;
 
                         case "community":
-                            CommunityInfo Com = new CommunityInfo("Caisse de Communauté", "", angle, compteur);
+                            ChanceInfo Com = new ChanceInfo("Caisse de Communauté", "", angle, compteur);
+                            posCommunity.Add(compteur);
                             restinfo.Add(Com);
 
                             break;
@@ -101,7 +112,16 @@ namespace server
                         case "jail":
                             jail = new JailInfo(item.caseAttributes["label"].ToString(), item.caseAttributes["skin"].ToString(), compteur);
                             restinfo.Add(jail);
+
                             break;
+
+                        case "company":
+                            CompanyInfo company = new CompanyInfo(item.caseAttributes["label"].ToString(), 0, "", angle, compteur, Convert.ToInt16(item.caseAttributes["price"]));
+                            companiesList.Add(company);
+                            
+
+                            break;
+
                         default:
                             Console.WriteLine("Error parsing case");
 
@@ -112,9 +132,105 @@ namespace server
 
                 foreach (var item in items.Community)
                 {
+                    string[] effects = item.effect.Split(';');
 
+                    if (effects.Length >= 2 && effects.Length<4) // on check que le string est bien sous la forme "type card ; value"
+                    {
+                        string action = effects[0];
+                        CardInfo.TypeAction typeAction;
+                        int value = 0;
+                        int value2 = 0;
+                        if (action == "moove")
+                        {
+                            typeAction = CardInfo.TypeAction.moove;
+                            value = Convert.ToInt16(effects[1]) % 40; // deplacement à la position value.
+
+                        }
+                        else
+                        if (action == "freefromjail")
+                        {
+                            typeAction = CardInfo.TypeAction.freefromjail;
+
+                        }
+
+                        else if (action == "reparation")
+                        {
+                            typeAction = CardInfo.TypeAction.reparation;
+                            value = Convert.ToInt16(effects[1]);
+                            value2 = Convert.ToInt16(effects[2]);
+
+
+                        }
+                        else  // par défaut on considère qu'on effectue un paiement
+                        {
+                            typeAction = CardInfo.TypeAction.paiement; // paiement de value €.
+                            value = Convert.ToInt16(effects[1]);
+
+                        }
+                        CardInfo comm;
+                        if (typeAction != CardInfo.TypeAction.reparation)
+                            comm = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value);
+                        else
+                            comm = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value,value2);
+                        communityCards.Add(comm);
+                    }
                 }
+
+                foreach (var item in items.Chance)
+                {
+                    string[] effects = item.effect.Split(';');
+                    Console.WriteLine(item.effect);
+                    if (effects.Length >= 2 && effects.Length < 4)
+                    {
+                        string action = effects[0];
+                        Console.WriteLine(action + " "+ action.Length);
+                        CardInfo.TypeAction typeAction;
+                        int value = 0;
+                        int value2 = 0;
+
+                        if (action == "moove")
+                        {
+                            typeAction = CardInfo.TypeAction.moove;
+                            value = Convert.ToInt16(effects[1])%40; // deplacement à la position value.
+
+                        }
+                        else 
+                        if (action == "freefromjail")
+                        {
+                            typeAction = CardInfo.TypeAction.freefromjail;
+
+                        }
+                        
+                        else if (action == "reparation")
+                        {
+                            typeAction = CardInfo.TypeAction.reparation;
+                            value = Convert.ToInt16(effects[1]);
+                            value2 = Convert.ToInt16(effects[2]);
+
+                        }
+                        else  // par défaut on considère qu'on effectue un paiement
+                        {
+                            typeAction = CardInfo.TypeAction.paiement; // paiement de value €.
+                            value = Convert.ToInt16(effects[1]);
+
+                        }
+
+
+
+                        CardInfo chance;
+
+                        if (typeAction != CardInfo.TypeAction.reparation)
+                            chance = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value);
+                        else
+                            chance = new CardInfo(item.title, item.text, CardInfo.TypeCard.community, typeAction, value, value2);
+                        
+                        chanceCards.Add(chance);
+                    }
+                }
+
+                Console.WriteLine(communityCards.Count + "  " + chanceCards.Count);
             }
+
 
 
         }
@@ -123,6 +239,28 @@ namespace server
             foreach (PropertyInfo c in CasesList)
             {
                 if (c.Location == textlbl)
+                    return c;
+            }
+
+            return null;
+        }
+
+        public StationInfo searchCaseStation(string textlbl)
+        {
+            foreach (StationInfo s in StationList)
+            {
+                if (s.TextLabel == textlbl)
+                    return s;
+            }
+
+            return null;
+        }
+
+        public CompanyInfo searchCaseCompany(string textlbl)
+        {
+            foreach (CompanyInfo c in companiesList)
+            {
+                if (c.TextLabel == textlbl)
                     return c;
             }
 
@@ -184,6 +322,30 @@ namespace server
             foreach (PropertyInfo p in CasesList)
             {
                 if(p.positionPlateau == pos)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public StationInfo searchCaseStationAtPos(int pos)
+        {
+            foreach (StationInfo p in StationList)
+            {
+                if (p.positionPlateau == pos)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public CompanyInfo searchCaseCompanyAtPos(int pos)
+        {
+            foreach (CompanyInfo p in companiesList)
+            {
+                if (p.positionPlateau == pos)
                 {
                     return p;
                 }

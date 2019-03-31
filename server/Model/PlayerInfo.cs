@@ -18,8 +18,10 @@ namespace server
         public bool isInJail { get; set; }
         public List<PropertyInfo> Properties { get; set; }
         public List<StationInfo> Stations {get; set;}
-        public object Image { get; set; }
-
+        public List<CompanyInfo> Companies { get; set; }
+        public string Image { get; set; }
+        public bool hasCommunityCardFree { get; set; }
+        public bool hasChanceCardFree { get; set; }
         public PlayerInfo()
         {
             Pseudo = "Pseudo_ERROR";
@@ -27,6 +29,9 @@ namespace server
             isInJail = false;
             Properties = new List<PropertyInfo>();
             Stations = new List<StationInfo>();
+            Companies = new List<CompanyInfo>();
+            hasChanceCardFree = false;
+            hasCommunityCardFree = false;
         }
     }
     

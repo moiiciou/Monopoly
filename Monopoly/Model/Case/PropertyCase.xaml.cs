@@ -33,6 +33,7 @@ namespace Monopoly.Model.Case
             CaseInformation.Location = location;
             CaseInformation.Color = color;
             CaseInformation.Owner = owner;
+            CaseInformation.Rotation = angle;
             Card = card;
             DataContext = CaseInformation;
             Position = position;

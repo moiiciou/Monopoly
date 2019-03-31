@@ -39,8 +39,9 @@ namespace Monopoly.Model.UI
         public delegate void UpdateBalanceCallback(int balance);
         public delegate void UpdateBalanceByPlayerInfoCallback(PlayerInfo player);
         public delegate void UpdatePropertyCallback(PlayerInfo player);
+        public delegate void UpdateAvatarCallback(PlayerInfo playerInfo);
 
-
+        public string ImagePath { get; set; }
 
         public PlayerInterface(string pseudoPlayer, int balance)
         {
@@ -57,6 +58,16 @@ namespace Monopoly.Model.UI
         public void UpdatePseudo(string pseudo)
         {
             pseudo_label.Content = pseudo.Trim('0');
+        }
+
+        public void UpdateAvatar(PlayerInfo playerInfo)
+        {
+            if(playerInfo.Pseudo == PlayerManager.CurrentPlayerName.Trim('0'))
+            {
+                ImagePath = "/Monopoly;component/ressources/templates/default/avatar/" + playerInfo.ColorCode.Trim('#') + ".png";
+                DataContext = this;
+                Console.WriteLine(ImagePath);
+            }
         }
 
         public void UpdateBalance(int balance)
@@ -80,10 +91,9 @@ namespace Monopoly.Model.UI
                         Console.WriteLine("propertyInfo location : " + propertyInfo.Location);
                         Console.WriteLine("propertyCase location : " + propertyCase.CaseInformation.Location);
 
-                        Card.CardInfo cardInfo = propertyCase.Card.CardInformation;
-                        Console.WriteLine("cardInfo location : " + cardInfo.TextPropertyName);
+                        PropertyInfo cardInfo = propertyCase.Card.CardInformation;
 
-                        if (!property_list.Items.Cast<Card.CardInfo>().Any(x => x.TextPropertyName == cardInfo.TextPropertyName))
+                        if (!property_list.Items.Cast<PropertyInfo>().Any(x => x.Location == cardInfo.Location))
                         {
                             property_list.Items.Add(cardInfo);
                             Console.WriteLine("Carte ajouté");
@@ -116,7 +126,7 @@ namespace Monopoly.Model.UI
         {
             if (player.Pseudo != PlayerManager.CurrentPlayerName.Trim('0'))
             {
-                PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance);
+                PlayerInfoDisplay infoHud = new PlayerInfoDisplay(player.Pseudo, player.Balance, player.ColorCode);
                 PlayerPanel.Children.Add(infoHud);
             }
 
@@ -126,7 +136,7 @@ namespace Monopoly.Model.UI
         {
             if (property_list.SelectedItem != null)
             {
-                PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
+                PropertyCase property = Core.Tools.GetPropertyByName(((PropertyInfo)property_list.SelectedValue).Location);
                 try
                 {
 
@@ -157,7 +167,7 @@ namespace Monopoly.Model.UI
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PropertyCase property = Core.Tools.GetPropertyByName(((Card.CardInfo)property_list.SelectedValue).TextPropertyName);
+            PropertyCase property = Core.Tools.GetPropertyByName(((PropertyInfo)property_list.SelectedValue).Location);
             try
             {
 
@@ -178,6 +188,40 @@ namespace Monopoly.Model.UI
             catch (Exception E)
             {
                 MessageBox.Show(E.Message);
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Packet packet = new Packet();
+            packet.Type = "useFreeFromJailCard";
+            packet.Content = "freeFromJailChance";
+            packet.ChatMessage = "";
+            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+            Connection.SendMsg(packetToSend);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Packet packet = new Packet();
+            packet.Type = "useFreeFromJailCard";
+            packet.Content = "freeFromJailCommunity";
+            packet.ChatMessage = "";
+            string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+            Connection.SendMsg(packetToSend);
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            if (property_list.SelectedItem != null)
+            {
+                PropertyCase property = Core.Tools.GetPropertyByName(((PropertyInfo)property_list.SelectedValue).Location);
+                Packet packet = new Packet();
+                packet.Type = "mortGageProperty";
+                packet.Content = JsonConvert.SerializeObject(property.CaseInformation, Formatting.Indented);
+                packet.ChatMessage = "";
+                string packetToSend = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                Connection.SendMsg(packetToSend);
             }
         }
     }

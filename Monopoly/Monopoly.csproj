@@ -277,7 +277,9 @@
     <Resource Include="ressources\templates\default\monopoly-man.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\money.png" />
+    <Resource Include="ressources\templates\default\money.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\player_avatar_test.png" />
@@ -304,9 +306,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\house3.png">
+    <None Include="ressources\templates\default\house3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\house4.png">
@@ -320,39 +322,21 @@
     <Resource Include="ressources\templates\default\bubble.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\avatar\#06d694.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#089dd8.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#0ea02b.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#0f08d8.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#6408db.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#e50daf.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#e58612.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#ea0e0e.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#eaf213.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="ressources\templates\default\avatar\#ff865e.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="ressources\templates\default\sell_button.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\templates\default\sell_button.png" />
+    <Resource Include="ressources\templates\default\avatar\0ea02b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\templates\default\avatar\06d694.png" />
+    <Resource Include="ressources\templates\default\avatar\089dd8.png" />
+    <Resource Include="ressources\templates\default\avatar\0f08d8.png" />
+    <Resource Include="ressources\templates\default\avatar\6408db.png" />
+    <Resource Include="ressources\templates\default\avatar\e50daf.png" />
+    <Resource Include="ressources\templates\default\avatar\e58612.png" />
+    <Resource Include="ressources\templates\default\avatar\ea0e0e.png" />
+    <Resource Include="ressources\templates\default\avatar\eaf213.png" />
+    <Resource Include="ressources\templates\default\avatar\ff865e.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\templates\default\the-sceptic.gif">

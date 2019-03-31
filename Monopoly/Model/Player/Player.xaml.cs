@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-
+using System.Windows.Media;
 
 namespace Monopoly.Model
 {
@@ -18,17 +18,10 @@ namespace Monopoly.Model
     {
 
         #region Attributs
-#pragma warning disable CS0169 // Le champ 'Player._position' n'est jamais utilisé
-        private int _position;
-#pragma warning restore CS0169 // Le champ 'Player._position' n'est jamais utilisé
-#pragma warning disable CS0169 // Le champ 'Player._canMoove' n'est jamais utilisé
-        private bool _canMoove;
-#pragma warning restore CS0169 // Le champ 'Player._canMoove' n'est jamais utilisé
         public int grid;
         public PlayerInfoDisplay playerInfoDisplay;
         public event PropertyChangedEventHandler PropertyChanged;
         public PlayerInfo playerInfo;
-
         #endregion
 
         #region Accesseurs
@@ -45,7 +38,7 @@ namespace Monopoly.Model
         /// <param name="position">Position du Player sur le plateau</param>
         /// <param name="cards">Liste de cartes que le Player possède</param>
         /// <param name="image">Skin du Player</param>
-        public Player( string name, int balance, int position, List<PropertyInfo> estates, object image, string colorCode )
+        public Player( string name, int balance, int position, List<PropertyInfo> estates, string image, string colorCode )
         {
             InitializeComponent();
             playerInfo = new PlayerInfo();
@@ -53,8 +46,9 @@ namespace Monopoly.Model
             playerInfo.Image = image;
             playerInfo.Pseudo = name;
             playerInfo.Position = position;
-            playerInfo.Properties = estates;    
+            playerInfo.Properties = estates;
             playerInfo.ColorCode = colorCode;
+            DataContext = playerInfo;
 
         }
         /// <summary>
@@ -62,14 +56,11 @@ namespace Monopoly.Model
         /// </summary>
         /// <param name="idPlayer"> Id du Player </param>
         /// <param name="name"> Nom du Player </param>
-        public Player(string name)
+        public Player(PlayerInfo player)
         {
             InitializeComponent();
-            playerInfo.Pseudo = name;
-            playerInfo.Balance = 0;
-            playerInfo.Position = 0;
-            playerInfo.Properties = new List<PropertyInfo>();
-            playerInfo.Image = null;
+            playerInfo = player;
+            pion.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(playerInfo.ColorCode));
 
         }
         #endregion

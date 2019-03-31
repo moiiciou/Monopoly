@@ -1,5 +1,6 @@
-﻿using System.ComponentModel;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using server;
+using Monopoly.Model.Board;
 
 namespace Monopoly.Model.Card
 {
@@ -16,18 +17,10 @@ namespace Monopoly.Model.Card
         }
 
 
-        public class CardInfo
-        {
-            public string Label { get; set; }
-            public string Text { get; set; }
-            public string Effect { get; set; }
-
-        }
-
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ((Panel)this.Parent).Children.Remove(this);
-
+            ((Panel)this.Parent).Children.Remove(this);           
+            Board.Board.GetBoard.BoardLabel.Content = "";
         }
     }
 

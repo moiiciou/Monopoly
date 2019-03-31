@@ -7,6 +7,7 @@ using server;
 using server.Core;
 using server.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -75,8 +76,8 @@ namespace Monopoly.Controller
         public static void SendMsg(string message)
         {
             
-            byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
-            int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+            byte[] msg = System.Text.Encoding.UTF8.GetBytes(GetConnection.GetSequence()+PlayerManager.CurrentPlayerName + message);
+            int DtSent = GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
 
             if (DtSent == 0)
             {
@@ -135,7 +136,13 @@ namespace Monopoly.Controller
 
                                     }
 
-
+                                    if (p.ServerMessage == "drawCommunity" | p.ServerMessage == "drawChance")
+                                    {
+                                        Dictionary<string, server.CardInfo> data = JsonConvert.DeserializeObject<Dictionary<string, server.CardInfo>>(p.ServerContent);
+                                        string pseudoPlayer = data.Keys.FirstOrDefault();
+                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { Board.GetBoard.BoardLabel.Content = pseudoPlayer + "à pioché :"; }));
+                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { CardManager.DisplayCard(data.Values.FirstOrDefault()); }));
+                                    }
 
                                     if (p.Type == "updateGameData")
                                     {
@@ -149,7 +156,7 @@ namespace Monopoly.Controller
 
                                                 if (!GameManager.MonopolyGameData.PlayerList.Any(pl => pl.Pseudo == player.Pseudo))
                                                 {
-                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player.Pseudo, player.Balance, player.Position); }));
+                                                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { PlayerManager.CreatePlayer(Board.GetBoard, player); }));
                                                     PlayerInterface playerHudPanel = (PlayerInterface)GameManager.controls["playerHud"];
 
                                                     playerHudPanel.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.AddNewPlayerCallback(playerHudPanel.AddNewPlayer), player);
@@ -167,6 +174,7 @@ namespace Monopoly.Controller
                                                 PlayerInterface playerHudPanel2 = (PlayerInterface)GameManager.controls["playerHud"];
                                                 playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateBalanceByPlayerInfoCallback(playerHudPanel2.UpdateBalanceByPlayerInfo), player);
                                                 playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdatePropertyCallback(playerHudPanel2.UpdateProperty), player);
+                                                playerHudPanel2.PlayerPanel.Dispatcher.Invoke(new PlayerInterface.UpdateAvatarCallback(playerHudPanel2.UpdateAvatar), player);
 
 
                                                 //Update les propriétés sur le board
@@ -186,6 +194,7 @@ namespace Monopoly.Controller
                                                                     if (property.CaseInformation.Location == propertyInfo.Location)
                                                                     {
                                                                         property.CaseInformation = propertyInfo;
+                                                                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => { property.UpdateBackground(); }));
                                                                     }
 
                                                                 }
@@ -207,7 +216,6 @@ namespace Monopoly.Controller
                                             }
 
                                         }
-
 
                                         GameManager.MonopolyGameData = gameData;
 

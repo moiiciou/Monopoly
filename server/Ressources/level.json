@@ -161,10 +161,11 @@
     },
     {
       "position": [ 2, 10 ],
-      "type": "custom",
+      "type": "company",
       "caseAttributes": {
         "label": "Compagnie General d'electricite !",
         "income": 100,
+        "price": 150,
         "skin": ""
       }
     },
@@ -393,10 +394,11 @@
     },
     {
       "position": [ 10, 2 ],
-      "type": "custom",
+      "type": "company",
       "caseAttributes": {
         "label": "Compagnie  de distribution d'eau !",
         "income": 100,
+        "price": 150,
         "skin": ""
       }
     },
@@ -553,21 +555,52 @@
   ],
 
 
-"Chance":[
-{
-        "title": "un titre",
-        "text": "un texte",
-        "effect": "ma_function"
-}
-      
-],
-"Community":[
-{
-        "title":"un titre",
-        "text" : "un texte",
-        "effect": "ma_function"
-}
-]
+  "Chance": [
+    {
+      "title": "Go to jail !",
+      "text": "Pas de chance vous allez en prison!",
+      "effect": "moove;10"
+    },
+
+    {
+      "title": "C'est jour de paie !",
+      "text": "Erreur de la banque recevez de la tune! (50€)",
+      "effect": "paiement;50"
+    },
+    {
+      "title": "Libéré de prison",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
+      "effect": "freefromjail;50"
+    },
+    {
+      "title": "Réparation sur les propriétés",
+      "text": "Vos maisons sont moisies et ragoutante, 30€ par maison par propriétés et 40€ par hotel sont a payé pour tout réparer",
+      "effect": "reparation;30;40"
+    }
+  ],
+  "Community": [
+    {
+      "title": "Go to jail !",
+      "text": "Pas de chance vous allez en prison!",
+      "effect": "moove;10"
+    },
+
+    {
+      "title": "Frais de scolarité !",
+      "text": "Le CFAI vous remercie pour votre inscription (200€)",
+      "effect": "paiement;-200"
+    },
+    {
+      "title": "Libéré de prison community",
+      "text": "Utiliser cette carte quand vous êtes en prison !",
+      "effect": "freefromjail;50"
+    },
+    {
+      "title": "Réparation sur les propriétés",
+      "text": "Vos maisons sont cassées, les 2A sont passés par là ! 50€ par maison par propriétés et 70€ par hotel sont a payé pour tout réparer",
+      "effect": "reparation;50;70"
+    }
+  ]
   
 
 
