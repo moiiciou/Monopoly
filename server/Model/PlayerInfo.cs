@@ -10,7 +10,7 @@ namespace server
 {
     public class PlayerInfo
     {
-
+        public bool lost { get; set; }
         public string Pseudo { get; set; }
         public int Position { get; set; }
         public int Balance { get; set; }
@@ -32,6 +32,7 @@ namespace server
             Companies = new List<CompanyInfo>();
             hasChanceCardFree = false;
             hasCommunityCardFree = false;
+            lost = false;
         }
     }
     

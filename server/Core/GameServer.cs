@@ -117,6 +117,164 @@ namespace server
             base.sendMsg(msgDisconnected);
         }
 
+
+        #region utils pour auto vente
+        private void sell( PlayerInfo p,  StationInfo c)
+        {
+            PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
+
+            if (p.Pseudo == c.Owner)
+            {
+                p.Balance += c.Price;
+                tp.searchCaseStation(c.TextLabel).Owner = null;
+                if (c.isMortgaged)
+                {
+                    player.Balance += c.Price / 2;
+                    tp.searchCaseStation(c.TextLabel).isMortgaged = false;
+                }
+                else
+                {
+                    player.Balance += c.Price;
+                }
+
+                player.Stations.Remove(c);
+            }
+        }
+
+            private void sell( PlayerInfo p, PropertyInfo c)
+        {
+            PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
+
+            if (p.Pseudo == c.Owner)
+            {
+                p.Balance += c.Price;
+                tp.searchCaseProperty(c.TextLabel).Owner = null;
+                if (c.isMortgaged)
+                {
+                    player.Balance += c.Price / 2;
+                    tp.searchCaseProperty(c.TextLabel).isMortgaged = false;
+                }
+                else
+                {
+                    player.Balance += c.Price;
+                }
+                player.Properties.Remove(c);
+
+
+            }
+        }
+        private bool canSellHouse(PlayerInfo p, PropertyInfo prop)
+        {
+            PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
+
+            bool canSell = true;
+            List<PropertyInfo> listColor = tp.searchCasePropertyOfColor(prop.Color);
+            if (listColor.Count > 0)
+            {
+                if (prop.NumberOfHouse > 0)
+                {
+                    for (int it = 0; it < listColor.Count && canSell; it++)
+                    {
+                        PropertyInfo pi = listColor[it];
+                        if (pi.NumberOfHouse > prop.NumberOfHouse || pi.Owner != prop.Owner || pi.Owner == null)
+                        {
+                            canSell = false;
+                        }
+                    }
+                }
+                else
+                {
+                    canSell = false;
+                }
+            }
+            else
+            {
+                canSell = false;
+            }
+
+            return canSell;
+        }
+
+        private void sellHouseOfColor(PlayerInfo p, PropertyInfo cell)
+        {
+
+            PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
+
+            if (cell.Location != null || cell.Location != "") // je check si la propriété possède un nom
+            {
+                PropertyInfo propToSellHouse = tp.searchCaseProperty(cell.Location);
+                if (propToSellHouse.Owner == player.Pseudo)
+                {
+                    List<PropertyInfo> listColor = tp.searchCasePropertyOfColor(propToSellHouse.Color);
+                    if (listColor.Count > 0)
+                    {
+                        if (canSellHouse(player,propToSellHouse))
+                        {
+                            if (propToSellHouse.NumberOfHouse > 0 && !propToSellHouse.HasHostel) // je check si la propriété  possède une maison
+                            {
+                                propToSellHouse.NumberOfHouse--;
+                                player.Balance += propToSellHouse.HouseCost / 2;
+
+                            }
+                            else if (propToSellHouse.NumberOfHouse == 4 && !propToSellHouse.HasHostel) // je check si la propriété  possède  un hotel 
+                            {
+                                player.Balance += propToSellHouse.HostelCost / 2;
+                                propToSellHouse.HasHostel = false;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void sell( PlayerInfo p, CompanyInfo c)
+        {
+            PlayerInfo player = PlayerManager.GetPlayerByPseuso(p.Pseudo);
+            
+            if (p.Pseudo == c.Owner)
+            {
+                p.Balance += c.Price;
+                tp.searchCaseCompany(c.TextLabel).Owner = null;
+                if (c.isMortgaged)
+                {
+                    player.Balance += c.Price / 2;
+                    tp.searchCaseCompany(c.TextLabel).isMortgaged = false;
+                }
+                else
+                {
+                    player.Balance += c.Price;
+                }
+
+                player.Companies.Remove(c);
+
+            }
+
+        }
+
+        private void mortgage(ref PlayerInfo p, ref PropertyInfo prop)
+        {
+            if(p.Pseudo == prop.Owner && !prop.isMortgaged)
+            {
+                p.Balance += prop.Price / 2;
+            }
+        }
+        private void mortgage(ref PlayerInfo p, ref CompanyInfo prop)
+        {
+            if (p.Pseudo == prop.Owner && !prop.isMortgaged)
+            {
+                p.Balance += prop.Price / 2;
+            }
+        }
+        private void mortgage(ref PlayerInfo p, ref StationInfo prop)
+        {
+            if (p.Pseudo == prop.Owner && !prop.isMortgaged)
+            {
+                p.Balance += prop.Price / 2;
+            }
+        }
+        #endregion
+
         //Un peu moisie comme tricks, mais j'ai pas trouvé mieux :D puis ça permet de géré les déco/réco 
         private void updateClient()
         {
@@ -280,118 +438,281 @@ namespace server
 
                                             if (p.Type == "moove")
                                             {
-
+                                                
                                                 Random rnd = new Random();
                                                 int dice1 = rnd.Next(1, 7);
                                                 int dice2 = rnd.Next(1, 7);
                                                 response.Type = "message";
 
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
-                                                if (GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") // on check si le jeu à commencer
+                                                if (!player.lost)
                                                 {
-                                                    GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on init le premier joueur à bouger
-                                                }
-                                                if (GameData.GetGameData.CurrentPlayerTurn == player.Pseudo) // on check si c'est le tour du joueur qui a envoyé le packet.
-                                                {
-
-                                                    if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
+                                                    if (GameData.GetGameData.CurrentPlayerTurn == null || GameData.GetGameData.CurrentPlayerTurn == "") // on check si le jeu à commencer
                                                     {
-                                                        int nbCase = dice1 + dice2;
-                                                        response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", " + dice2;
-                                                        if (player.Position / 40 < (player.Position + nbCase) / 40)
-                                                            player.Balance += salaire;
-                                                        player.Position += nbCase;
+                                                        GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on init le premier joueur à bouger
                                                     }
-                                                    else // le joueur est en prison
+                                                    if (GameData.GetGameData.CurrentPlayerTurn == player.Pseudo) // on check si c'est le tour du joueur qui a envoyé le packet.
                                                     {
-                                                        if (dice1 == dice2)
-                                                        {
 
-                                                            response.ChatMessage = Nick.Trim('0') + " est libéré  et avance de " + dice1 + " + " + dice2;
-                                                            player.isInJail = false;
-                                                            player.Position += dice1 + dice2;
+                                                        if (!player.isInJail) // partie ou le joueur peut jouer son tour normalement
+                                                        {
+                                                            int nbCase = dice1 + dice2;
+                                                            response.ChatMessage = Nick.Trim('0') + " avance de " + dice1 + ", " + dice2;
+                                                            if (player.Position / 40 < (player.Position + nbCase) / 40)
+                                                                player.Balance += salaire;
+                                                            player.Position += nbCase;
                                                         }
-                                                        response.ChatMessage = Nick.Trim('0') + " est en prison et a fait le jet de dés : " + dice1 + ", " + dice2;
-
-                                                    }
-
-                                                    if (player.Position % 40 == tp.searchPosGoToJail()) // on check si le joueur atterri en prison ou non.
-                                                    {
-                                                        player.Position = tp.searchPositionJail();
-                                                        player.isInJail = true;
-                                                    }
-                                                    // si le joueur tombe sur une case chance ou caisse de communauté
-                                                    if(tp.posChance.Contains(player.Position % 40))
-                                                    {
-                                                        Console.WriteLine("pioche chance");
-
-                                                        CardInfo chance = tp.chanceCards.ElementAt(nextIndComm%tp.chanceCards.Count);
-                                                        nextIndChance++;
-                                                       // nextIndChance %= tp.chanceCards.Count;
-
-                                                        Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
-                                                        dicoChance.Add(Nick.Trim('0'), chance);
-                                                        response.ServerContent = JsonConvert.SerializeObject(dicoChance);
-                                                        response.ServerMessage = "drawChance";
-                                                        GameServerManager.useEffectCard(chance,ref player, tp, salaire);
-                                                    }else if (tp.posCommunity.Contains(player.Position % 40))
-                                                    {
-                                                        Console.WriteLine("pioche community");
-                                                        CardInfo comm = tp.communityCards.ElementAt(nextIndComm % tp.communityCards.Count);
-                                                        nextIndComm++;
-                                                        //nextIndComm %= tp.communityCards.Count;
-
-                                                        Dictionary<string, CardInfo> dicoComm = new Dictionary<string, CardInfo>();
-                                                        dicoComm.Add(Nick.Trim('0'), comm);
-                                                        response.ServerContent = JsonConvert.SerializeObject(dicoComm);
-
-                                                        GameServerManager.useEffectCard(comm, ref player, tp, salaire);
-
-                                                        response.ServerMessage = "drawCommunity";
-                                                    }
-
-
-                                                    PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
-                                                    CompanyInfo companyRent = tp.searchCaseCompanyAtPos(player.Position);
-                                                    StationInfo stationRent = tp.searchCaseStationAtPos(player.Position);
-
-                                                    if (propRent != null && player.Pseudo != propRent.Owner)
-                                                    {
-                                                        int rent = RentManager.computeRent(propRent, player, tp);
-                                                        if (rent > 0)
+                                                        else // le joueur est en prison
                                                         {
-                                                            player.Balance -= rent;
-                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
-                                                            PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                            if (dice1 == dice2)
+                                                            {
+
+                                                                response.ChatMessage = Nick.Trim('0') + " est libéré  et avance de " + dice1 + " + " + dice2;
+                                                                player.isInJail = false;
+                                                                player.Position += dice1 + dice2;
+                                                            }
+                                                            response.ChatMessage = Nick.Trim('0') + " est en prison et a fait le jet de dés : " + dice1 + ", " + dice2;
+
                                                         }
 
-                                                    }
-                                                    if(companyRent != null && player.Pseudo != companyRent.Owner)
-                                                    {
-                                                        int rent = RentManager.computeRent(propRent, player, tp);
-                                                        if (rent > 0)
+                                                        if (player.Position % 40 == tp.searchPosGoToJail()) // on check si le joueur atterri en prison ou non.
                                                         {
-                                                            player.Balance -= rent;
-                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
-                                                            PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                            player.Position = tp.searchPositionJail();
+                                                            player.isInJail = true;
                                                         }
-                                                    }
+                                                        // si le joueur tombe sur une case chance ou caisse de communauté
+                                                        if (tp.posChance.Contains(player.Position % 40))
+                                                        {
+                                                            Console.WriteLine("pioche chance");
 
-                                                    if (stationRent != null && player.Pseudo != stationRent.Owner)
-                                                    {
-                                                        int rent = RentManager.computeRent(stationRent, player, tp);
-                                                        if (rent > 0)
-                                                        {
-                                                            player.Balance -= rent;
-                                                            response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
-                                                            PlayerManager.GetPlayerByPseuso(stationRent.Owner).Balance += rent;
+                                                            CardInfo chance = tp.chanceCards.ElementAt(nextIndComm % tp.chanceCards.Count);
+                                                            nextIndChance++;
+                                                            // nextIndChance %= tp.chanceCards.Count;
+
+                                                            Dictionary<string, CardInfo> dicoChance = new Dictionary<string, CardInfo>();
+                                                            dicoChance.Add(Nick.Trim('0'), chance);
+                                                            response.ServerContent = JsonConvert.SerializeObject(dicoChance);
+                                                            response.ServerMessage = "drawChance";
+                                                            GameServerManager.useEffectCard(chance, ref player, tp, salaire);
                                                         }
+                                                        else if (tp.posCommunity.Contains(player.Position % 40))
+                                                        {
+                                                            Console.WriteLine("pioche community");
+                                                            CardInfo comm = tp.communityCards.ElementAt(nextIndComm % tp.communityCards.Count);
+                                                            nextIndComm++;
+                                                            //nextIndComm %= tp.communityCards.Count;
+
+                                                            Dictionary<string, CardInfo> dicoComm = new Dictionary<string, CardInfo>();
+                                                            dicoComm.Add(Nick.Trim('0'), comm);
+                                                            response.ServerContent = JsonConvert.SerializeObject(dicoComm);
+
+                                                            GameServerManager.useEffectCard(comm, ref player, tp, salaire);
+
+                                                            response.ServerMessage = "drawCommunity";
+                                                        }
+
+
+                                                        PropertyInfo propRent = tp.searchIndexPropertyAtPos(player.Position); // on calcule le loyer qu'il doit payer.
+                                                        CompanyInfo companyRent = tp.searchCaseCompanyAtPos(player.Position);
+                                                        StationInfo stationRent = tp.searchCaseStationAtPos(player.Position);
+
+                                                        if (propRent != null && player.Pseudo != propRent.Owner)
+                                                        {
+                                                            int rent = RentManager.computeRent(propRent, player, tp);
+                                                            if (rent > 0 && player.Balance > rent)
+                                                            {
+                                                                player.Balance -= rent;
+                                                                response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                            }
+                                                            else
+                                                            {
+                                                                #region autovente
+                                                                List<PropertyInfo> propertiesFreeWithHouse = PlayerManager.searchPropertyUnMortgageWithHouse(player);
+                                                                List<PropertyInfo> propertyFree = PlayerManager.searchPropertyUnMortgage(player);
+                                                                List<CompanyInfo> companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
+                                                                List<StationInfo> stationFree = PlayerManager.searchStationUnMortgage(player);
+
+                                                                List<PropertyInfo> propertyMortgage = PlayerManager.searchPropertyMortgage(player);
+                                                                List<CompanyInfo> companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
+                                                                List<StationInfo> stationMortgage = PlayerManager.searchStationMortgage(player);
+
+
+
+                                                                while (player.Balance < rent && (stationMortgage.Count > 0 || companiesMortgage.Count > 0 || propertyMortgage.Count > 0 || stationFree.Count > 0 || companiesFree.Count > 0 || propertyFree.Count > 0 || propertiesFreeWithHouse.Count > 0)) // tant que le joueur possède du patrimoine immobilier
+                                                                {
+
+                                                                    #region auto-hypothèque
+                                                                    if (companiesFree.Count > 0 && player.Balance < rent)
+                                                                    {
+                                                                        while (PlayerManager.searchCompaniesUnMortgage(player).Count > 0 && player.Balance < rent)
+                                                                        {
+                                                                            CompanyInfo c = PlayerManager.searchCompany(player, companiesFree[0].TextLabel);
+                                                                            if (c != null)
+                                                                                mortgage(ref player, ref c);
+                                                                            companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
+                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                        }
+
+                                                                    }
+                                                                    if (stationFree.Count > 0 && player.Balance < rent)
+                                                                    {
+                                                                        while (PlayerManager.searchStationUnMortgage(player).Count > 0 && player.Balance < rent)
+                                                                        {
+                                                                            StationInfo c = PlayerManager.searchStation(player, stationFree[0].TextLabel);
+                                                                            if (c != null)
+                                                                                mortgage(ref player, ref c);
+                                                                            stationFree = PlayerManager.searchStationUnMortgage(player);
+                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                        }
+
+                                                                    }
+                                                                    if (propertyFree.Count > 0 && player.Balance < rent)
+                                                                    {
+                                                                        while (PlayerManager.searchPropertyUnMortgage(player).Count > 0 && player.Balance < rent)
+                                                                        {
+                                                                            PropertyInfo c = PlayerManager.searchProperty(player, propertyFree[0].TextLabel);
+                                                                            if (c != null)
+                                                                                mortgage(ref player, ref c);
+                                                                            propertyFree = PlayerManager.searchPropertyUnMortgage(player);
+                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                        }
+
+                                                                    }
+                                                                    #endregion
+
+                                                                    #region auto vente terrain hypothéqué
+
+                                                                    if (player.Companies.Count > 0 && player.Balance < rent)
+                                                                    {
+                                                                        while (PlayerManager.searchCompaniesMortgage(player).Count > 0 && player.Balance < rent)
+                                                                        {
+                                                                            CompanyInfo c = PlayerManager.searchCompany(player, companiesMortgage[0].TextLabel);
+                                                                            if (c != null)
+                                                                                sell(player, c);
+                                                                            companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
+
+                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                        }
+
+                                                                    }
+                                                                    if (player.Companies.Count > 0 && player.Balance < rent)
+                                                                    {
+                                                                        while (PlayerManager.searchStationMortgage(player).Count > 0 && player.Balance < rent)
+                                                                        {
+                                                                            StationInfo c = PlayerManager.searchStation(player, stationMortgage[0].TextLabel);
+                                                                            if (c != null)
+                                                                                sell(player, c);
+                                                                            stationMortgage = PlayerManager.searchStationMortgage(player);
+                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                        }
+
+                                                                    }
+                                                                    if (propertyFree.Count > 0 && player.Balance < rent)
+                                                                    {
+                                                                        while (PlayerManager.searchPropertyMortgage(player).Count > 0 && player.Balance < rent)
+                                                                        {
+                                                                            PropertyInfo c = PlayerManager.searchProperty(player, propertyMortgage[0].TextLabel);
+                                                                            if (c != null)
+                                                                                sell(player, c);
+                                                                            propertyMortgage = PlayerManager.searchPropertyMortgage(player);
+                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                        }
+
+                                                                    }
+                                                                    #endregion
+
+                                                                    #region autovente maison sur un terrain de couleur
+                                                                    if (propertiesFreeWithHouse.Count > 0)
+                                                                    {
+                                                                        List<PropertyInfo> color = tp.searchCasePropertyOfColor(propertiesFreeWithHouse[0].Color);
+                                                                        int it = 0;
+                                                                        while (player.Balance < rent && propertiesFreeWithHouse.Contains(color[it]))
+                                                                        {
+                                                                            PropertyInfo current = color[it];
+                                                                            if (canSellHouse(player, current))
+                                                                            {
+
+                                                                                sellHouseOfColor(player, current);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                propertiesFreeWithHouse.Remove(current);
+                                                                            }
+                                                                            it++;
+                                                                            it %= color.Count;
+                                                                            player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                        }
+                                                                    }
+                                                                    #endregion
+
+
+                                                                    // on remet à jour toutes les listes
+                                                                    propertiesFreeWithHouse = PlayerManager.searchPropertyUnMortgageWithHouse(player);
+                                                                    propertyFree = PlayerManager.searchPropertyUnMortgage(player);
+                                                                    companiesFree = PlayerManager.searchCompaniesUnMortgage(player);
+                                                                    stationFree = PlayerManager.searchStationUnMortgage(player);
+
+                                                                    propertyMortgage = PlayerManager.searchPropertyMortgage(player);
+                                                                    companiesMortgage = PlayerManager.searchCompaniesMortgage(player);
+                                                                    stationMortgage = PlayerManager.searchStationMortgage(player);
+                                                                    player = PlayerManager.GetPlayerByPseuso(player.Pseudo);
+                                                                }
+                                                                #endregion
+                                                            }
+
+                                                            if (player.Balance < rent)
+                                                            {
+                                                                player.Balance -= rent;
+                                                                response.ChatMessage += " Le joueur  " + player.Pseudo + " a perdu. Il paie " + player.Balance + "€ à " + propRent.Owner;
+                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += player.Balance;
+
+                                                                player.lost = true;
+
+                                                                response.ServerMessage = "lost";
+                                                                response.Content = JsonConvert.SerializeObject(player);
+                                                            }
+
+
+
+                                                        }
+                                                        if (companyRent != null && player.Pseudo != companyRent.Owner)
+                                                        {
+                                                            int rent = RentManager.computeRent(propRent, player, tp);
+                                                            if (rent > 0)
+                                                            {
+                                                                player.Balance -= rent;
+                                                                response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                                PlayerManager.GetPlayerByPseuso(propRent.Owner).Balance += rent;
+                                                            }
+                                                        }
+
+                                                        if (stationRent != null && player.Pseudo != stationRent.Owner)
+                                                        {
+                                                            int rent = RentManager.computeRent(stationRent, player, tp);
+                                                            if (rent > 0)
+                                                            {
+                                                                player.Balance -= rent;
+                                                                response.ChatMessage += " Le joueur  " + player.Pseudo + " paie " + rent + "€ à " + propRent.Owner;
+                                                                PlayerManager.GetPlayerByPseuso(stationRent.Owner).Balance += rent;
+                                                            }
+                                                        }
+                                                        PlayerInfo playerSuivant = PlayerManager.GetPlayerByPseuso(GameData.GetGameData.CurrentPlayerTurn);
+                                                        do
+                                                        {
+                                                            GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au joueur suivant.
+                                                            playerSuivant = PlayerManager.GetPlayerByPseuso(GameData.GetGameData.CurrentPlayerTurn);
+
+                                                        } while (playerSuivant.lost);
                                                     }
-                                                    GameData.GetGameData.CurrentPlayerTurn = GetNextPlayer(); // on passe au joueur suivant.
+                                                    else
+                                                    {
+                                                        response.ChatMessage = "Ce n'est pas au tour de " + player.Pseudo;
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    response.ChatMessage = "Ce n'est pas au tour de " + player.Pseudo;
+                                                    response.ServerMessage = "Le joueur à perdu et ne peut plus jouer.";
                                                 }
                                             }
                                             if(p.Type == "mortGageProperty")
@@ -444,6 +765,65 @@ namespace server
                                                     response.ServerMessage = "Erreur : la propriété ne peut pas être hypothéquée";
                                                 }
                                             }
+                                            if(p.Type == "unMortGageProperty")
+                                            {
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                PropertyInfo cell = JsonConvert.DeserializeObject<PropertyInfo>(p.Content);
+
+                                                PropertyInfo stat = tp.searchCaseProperty(cell.Location);
+
+                                                if (stat.Owner == player.Pseudo && stat.isMortgaged && player.Balance > stat.Price / 2)
+                                                {
+                                                    player.Balance -= stat.Price / 2;
+                                                    stat.isMortgaged = false;
+                                                    response.ChatMessage = "Le joueur " + Nick.Trim('0') + "a déhypothéqué la propriété " + stat.TextLabel;
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = "La propriété " + stat.TextLabel + " n'a pas été déshypothéquée.";
+                                                }
+                                            }
+                                            if (p.Type == "unMortGageStation")
+                                            {
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                StationInfo cell = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+
+                                                StationInfo stat = tp.searchCaseStation(cell.TextLabel);
+
+                                                if(stat.Owner == player.Pseudo && stat.isMortgaged && player.Balance>stat.Price/2)
+                                                {
+                                                    player.Balance -= stat.Price / 2;
+                                                    stat.isMortgaged = false;
+                                                    response.ChatMessage = "Le joueur " + Nick.Trim('0') + "a déhypothéqué la station " + stat.TextLabel;
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = "La station "+stat.TextLabel+" n'a pas été déshypothéquée.";
+                                                }
+
+
+
+                                            }
+                                            if (p.Type == "unMortGageCompany")
+                                            {
+                                                PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
+                                                CompanyInfo cell = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
+
+                                                CompanyInfo stat = tp.searchCaseCompany(cell.TextLabel);
+
+                                                if (stat.Owner == player.Pseudo && stat.isMortgaged && player.Balance > stat.Price / 2)
+                                                {
+                                                    player.Balance -= stat.Price / 2;
+                                                    stat.isMortgaged = false;
+                                                    response.ChatMessage = "Le joueur " + Nick.Trim('0') + "a déhypothéqué la compagnie " + stat.TextLabel;
+                                                }
+                                                else
+                                                {
+                                                    response.ChatMessage = "La compagnie " + stat.TextLabel + " n'a pas été déshypothéquée.";
+                                                }
+
+                                            }
+
                                             if (p.Type == "buyStation")
                                             {
                                                 response.Type = "message";
@@ -546,7 +926,9 @@ namespace server
                                             {
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);
-                                                StationInfo station = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                StationInfo cell = JsonConvert.DeserializeObject<StationInfo>(p.Content);
+                                                StationInfo station = tp.searchCaseStation(cell.TextLabel);
+
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                 if(station != null && station.Owner == player.Pseudo)
                                                 {
@@ -563,7 +945,9 @@ namespace server
                                             {
                                                 response.Type = "message";
                                                 Console.WriteLine(p.Content);
-                                                CompanyInfo company = JsonConvert.DeserializeObject<CompanyInfo>(p.Content);
+                                                CustomInfo cell = JsonConvert.DeserializeObject<CustomInfo>(p.Content);
+
+                                                CompanyInfo company = tp.searchCaseCompany(cell.TextLabel);
                                                 PlayerInfo player = PlayerManager.GetPlayerByPseuso(Nick.Trim('0'));
                                                 if (company != null && company.Owner == player.Pseudo)
                                                 {
