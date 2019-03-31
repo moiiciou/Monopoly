@@ -138,6 +138,24 @@ namespace Monopoly.Controller
 
             }
 
+            if (BuyAndSellManager.CheckIfBuyable(b.CasesList[position]) & CurrentPlayerLastPosition != position & b.CasesList[position].GetType() == typeof(CompanyCase))
+            {
+                CompanyCase companyCase = (CompanyCase)b.CasesList[position];
+                BuyDialog buyDialog = new BuyDialog(companyCase.ComInfo.TextLabel, companyCase.ComInfo.Price.ToString()+"€");
+                b.Children.Remove(buyDialog);
+
+                if (CurrentPlayerName.Trim('0') != companyCase.ComInfo.Owner & pseudo == CurrentPlayerName.Trim('0'))
+                {
+                    Grid.SetColumn(buyDialog, 2);
+                    Grid.SetRow(buyDialog, 2);
+                    Grid.SetRowSpan(buyDialog, 8);
+                    Grid.SetColumnSpan(buyDialog, 8);
+
+                    b.Children.Add(buyDialog);
+                }
+
+            }
+
             if (b.CasesList[position].GetType() == typeof(ChanceCase))
             {
                 Packet packet = new Packet();

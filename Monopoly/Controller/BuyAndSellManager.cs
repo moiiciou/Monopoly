@@ -30,6 +30,13 @@ namespace Monopoly.Controller
                     return true;
 
             }
+            if (baseCase.GetType() == typeof(CompanyCase))
+            {
+                CompanyCase companyCase = (CompanyCase)baseCase;
+                if (companyCase.ComInfo.Owner == null)
+                    return true;
+
+            }
 
             return false;
         }
@@ -79,6 +86,34 @@ namespace Monopoly.Controller
 
                         packet.Content = JsonConvert.SerializeObject(stationCase.CaseInformation, Formatting.Indented);
 
+                        string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
+                        byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
+                        int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);
+                        Console.WriteLine(message);
+                        if (DtSent == 0)
+                        {
+                            MessageBox.Show("Aucune donnée n'a été envoyée");
+                        }
+
+                    }
+                    catch (Exception E)
+                    {
+                        MessageBox.Show(E.Message);
+                    }
+                }
+            }
+
+            if (baseCase.GetType() == typeof(CompanyCase))
+            {
+                CompanyCase companyCase = (CompanyCase)baseCase;
+                if (companyCase.ComInfo.Owner == null && PlayerManager.CurrentPlayerName.Trim('0') == p.playerInfo.Pseudo)
+                {
+                    try
+                    {
+
+                        Packet packet = new Packet();
+                        packet.Type = "buyCompany";
+                        packet.Content = JsonConvert.SerializeObject(companyCase.ComInfo, Formatting.Indented);
                         string message = JsonConvert.SerializeObject(packet, Formatting.Indented);
                         byte[] msg = Encoding.UTF8.GetBytes(Connection.GetConnection.GetSequence() + PlayerManager.CurrentPlayerName + message);
                         int DtSent = Connection.GetConnection.ClientSocket.Send(msg, msg.Length, SocketFlags.None);

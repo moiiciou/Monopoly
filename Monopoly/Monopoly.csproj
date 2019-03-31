@@ -92,6 +92,7 @@
     <Compile Include="Model\Case\CommunityCase.xaml.cs">
       <DependentUpon>CommunityCase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Case\CompanyCase.cs" />
     <Compile Include="Model\Case\CustomCase.xaml.cs">
       <DependentUpon>CustomCase.xaml</DependentUpon>
     </Compile>

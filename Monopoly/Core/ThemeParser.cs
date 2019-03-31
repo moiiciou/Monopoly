@@ -83,7 +83,7 @@ namespace Monopoly.Core
                             break;
 
                         case "company":
-                            CustomCase company = new CustomCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), "", item.position, angle);
+                            CompanyCase company = new CompanyCase(item.caseAttributes["label"].ToString(), Convert.ToInt16(item.caseAttributes["price"]), "", item.position, angle, Convert.ToInt16(item.caseAttributes["price"]));
                             CasesList.Add(company);
                             break;
 

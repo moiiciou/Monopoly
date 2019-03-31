@@ -161,7 +161,7 @@
     },
     {
       "position": [ 2, 10 ],
-      "type": "custom",
+      "type": "company",
       "caseAttributes": {
         "label": "Compagnie General d'electricite !",
         "income": 100,
@@ -393,7 +393,7 @@
     },
     {
       "position": [ 10, 2 ],
-      "type": "custom",
+      "type": "company",
       "caseAttributes": {
         "label": "Compagnie  de distribution d'eau !",
         "income": 100,
