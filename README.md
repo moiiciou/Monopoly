@@ -21,9 +21,10 @@ Nous avons choisi le C# pour créer un Monopoly.
 
 ### Comment jouer ?
 
-Il suffit de lancer deux dés de 6 pour déplacer son pion du résultat. C'est un jeu de gestion tour-par-tour.
-Chaque joueur possède le même montant d'argent, du moins au début. L'objectif est d'être le dernier joueur avec de l'argent sur le plateau.
-
+- Lancer le serveur (server.exe)
+- Lancer le(s) client(s) (Monopoly.exe)
+- Cliquer sur jouer
+- Quand tout les joueurs sont connectés, ils doivent cliquer sur "je suis prêt"
 ### Cases
 
 Le plateau de jeu est composé de 40 cases. Chacune de ces cases possède un "effet" :
